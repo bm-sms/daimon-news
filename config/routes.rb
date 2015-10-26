@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'welcome#index'
+
   resources :posts
   resources :sites
   # The priority is based upon order of creation: first created -> highest priority.
