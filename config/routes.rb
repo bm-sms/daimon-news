@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   resources :posts
   resources :sites do
-    resources :posts, only: %i(index), controller: :site_posts
+    resources :posts, only: %i(index show), controller: :site_posts
   end
 end
