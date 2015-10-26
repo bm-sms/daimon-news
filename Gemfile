@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
 
+gem 'active_decorator'
 gem 'jquery-rails'
 gem 'oj'
 gem 'pg'
