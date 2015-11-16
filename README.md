@@ -1,4 +1,4 @@
-# daimon-news-service
+# daimon-news-monolithic
 
 ## Setup
 
