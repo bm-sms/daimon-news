@@ -1,3 +1,6 @@
+<%# TODO bodyでなくheadでCSSを切り替えたい %>
+<link rel="stylesheet" type="text/css" href="/site<%= @site.id %>/site.css" media="all">
+
 <h1><%= @site.name %></h1>
 
 <%= render 'long_collection', posts: @posts %>
