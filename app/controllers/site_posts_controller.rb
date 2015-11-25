@@ -1,5 +1,6 @@
 class SitePostsController < ApplicationController
   before_action :setup_site
+  layout 'site_posts'
 
   def index
     @posts = @site.posts
