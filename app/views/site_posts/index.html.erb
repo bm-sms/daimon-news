@@ -1,6 +1,3 @@
-<%# TODO bodyでなくheadでCSSを切り替えたい %>
-<link rel="stylesheet" type="text/css" href="/site<%= @site.id %>/site.css" media="all">
-
 <h1><%= @site.name %></h1>
 
 <%= render 'long_collection', posts: @posts %>
@@ -14,5 +11,3 @@
 <%= render 'short_collection', posts: @posts %>
 
 <button type="button" onClick="greet()">greet</button>
-
-<script src="/site<%= @site.id %>/site.js"></script>

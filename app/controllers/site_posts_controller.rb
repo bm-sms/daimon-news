@@ -1,6 +1,5 @@
 class SitePostsController < ApplicationController
   before_action :setup_site
-  layout :layout_name
 
   def index
     @posts = @site.posts
@@ -13,9 +12,5 @@ class SitePostsController < ApplicationController
   private
   def setup_site
     @site = Site.find(params[:site_id])
-  end
-
-  def layout_name
-    "site#{@site.id}"
   end
 end
