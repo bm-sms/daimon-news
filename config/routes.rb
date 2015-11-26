@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :sites do
     resources :posts, only: %i(index show), controller: :site_posts
   end
+  match 'home', via: :get, controller: :site_posts, action: :index
 end

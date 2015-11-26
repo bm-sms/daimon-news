@@ -12,6 +12,17 @@ class SitePostsController < ApplicationController
 
   private
   def setup_site
-    @site = Site.find(params[:site_id])
+    @site = Site.find(site_id)
+  end
+
+  def site_id
+    case env['SERVER_NAME']
+    when /\Asite1\./
+      1
+    when /\Asite2\./
+      2
+    else
+      params[:site_id]
+    end
   end
 end
