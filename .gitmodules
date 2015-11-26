@@ -2,3 +2,7 @@
 	path = public/site1
 	url = git@github.com:bm-sms/daimon-news-monolithic.git
 	branch = site1
+[submodule "public/site2"]
+	path = public/site2
+	url = git@github.com:bm-sms/daimon-news-monolithic.git
+	branch = site2
