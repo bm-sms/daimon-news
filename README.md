@@ -1,4 +1,4 @@
-# daimon-news-monolithic
+# daimon-news-multi-tenant
 
 ## Setup
 

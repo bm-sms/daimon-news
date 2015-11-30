@@ -1,8 +1,8 @@
 [submodule "public/site1"]
 	path = public/site1
-	url = git@github.com:bm-sms/daimon-news-monolithic.git
+	url = git@github.com:bm-sms/daimon-news-multi-tenant.git
 	branch = site1
 [submodule "public/site2"]
 	path = public/site2
-	url = git@github.com:bm-sms/daimon-news-monolithic.git
+	url = git@github.com:bm-sms/daimon-news-multi-tenant.git
 	branch = site2
