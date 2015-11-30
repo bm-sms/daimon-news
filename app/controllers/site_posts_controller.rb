@@ -12,7 +12,7 @@ class SitePostsController < ApplicationController
 
   private
   def setup_site
-    @site = Site.find(site_id)
+    @site = DaimonNewsAdmin::Site.find(site_id)
   end
 
   def site_id
