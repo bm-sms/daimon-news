@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :site_id %><br>
-    <%= f.collection_select :site_id, sites, :id, :name %>
+    <%= f.collection_select :daimon_news_admin_site_id, DaimonNewsAdmin::Site.all, :id, :name %>
   </div>
   <div class="actions">
     <%= f.submit %>
