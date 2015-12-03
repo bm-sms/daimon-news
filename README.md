@@ -40,3 +40,15 @@ http://site1.lvh.me:3000/blog/
 1. Create the following files:
   * public/site#{id}/site.css
   * public/site#{id}/site.js
+
+### Confirming a site
+
+```sh
+$ bin/run-site SITE_ID
+```
+
+For example:
+
+```sh
+$ bin/run-site 1
+```
