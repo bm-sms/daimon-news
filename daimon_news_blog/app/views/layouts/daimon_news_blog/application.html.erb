@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DaimonNewsBlog</title>
+  <title><%= @site.name %></title>
   <%= stylesheet_link_tag    "daimon_news_blog/application", media: "all" %>
   <%= javascript_include_tag "daimon_news_blog/application" %>
+
+  <%# TODO: Use Asset Pipeline %>
+  <%# TODO: Set paths from initializer %>
+  <link rel="stylesheet" type="text/css" href="/site<%= @site.id %>/site.css" media="all">
+  <script src="/site<%= @site.id %>/site.js"></script>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
