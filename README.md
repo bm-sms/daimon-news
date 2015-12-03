@@ -34,3 +34,9 @@ http://site1.lvh.me:3000/blog/
   * http://localhost:3000/admin/posts
 3. You can show new service in Blog route:
   * http://localhost:3000/blog/sites/1/posts
+
+## Costomizing CSS/JavaScript
+
+1. Create the following files:
+  * public/site#{id}/site.css
+  * public/site#{id}/site.js
