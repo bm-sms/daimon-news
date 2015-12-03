@@ -10,6 +10,7 @@ gem 'rabl'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'daimon_news_admin', path: './daimon_news_admin'
+gem 'daimon_news_blog', path: './daimon_news_blog'
 
 group :development, :test do
   gem 'byebug'
