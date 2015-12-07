@@ -54,7 +54,7 @@ module DaimonNewsAdmin
 
       # Only allow a trusted parameter "white list" through.
       def site_params
-        params.require(:site).permit(:name)
+        params.require(:site).permit(:name, :js_url, :css_url)
       end
   end
 end

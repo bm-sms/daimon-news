@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202081745) do
+ActiveRecord::Schema.define(version: 20151207052919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,9 @@ ActiveRecord::Schema.define(version: 20151202081745) do
   add_index "daimon_news_admin_posts", ["daimon_news_admin_site_id"], name: "index_daimon_news_admin_posts_on_daimon_news_admin_site_id", using: :btree
 
   create_table "daimon_news_admin_sites", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       null: false
+    t.string   "js_url",     null: false
+    t.string   "css_url",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

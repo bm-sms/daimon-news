@@ -4,6 +4,14 @@
   <strong>Name:</strong>
   <%= @site.name %>
 </p>
+<p>
+  <strong>JS URL:</strong>
+  <%= @site.js_url %>
+</p>
+<p>
+  <strong>CSS URL:</strong>
+  <%= @site.css_url %>
+</p>
 
 <%= link_to 'Edit', edit_site_path(@site) %> |
 <%= link_to 'Back', sites_path %>
