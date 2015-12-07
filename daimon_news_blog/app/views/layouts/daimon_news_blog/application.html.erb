@@ -7,8 +7,8 @@
 
   <%# TODO: Use Asset Pipeline %>
   <%# TODO: Set paths from initializer %>
-  <link rel="stylesheet" type="text/css" href="/site<%= @site.id %>/site.css" media="all">
-  <script src="/site<%= @site.id %>/site.js"></script>
+  <%= stylesheet_link_tag @site.css_url %>
+  <%= javascript_include_tag @site.js_url %>
 
   <%= csrf_meta_tags %>
 </head>
