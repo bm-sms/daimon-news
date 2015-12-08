@@ -11,7 +11,6 @@ gem 'pg'
 gem 'rabl'
 gem 'sass-rails'
 gem 'uglifier'
-gem 'daimon_news_admin', path: './daimon_news_admin'
 
 group :development, :test do
   gem 'byebug'
