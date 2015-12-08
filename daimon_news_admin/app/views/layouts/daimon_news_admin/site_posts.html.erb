@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @site.name %></title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+
+  <%# TODO: Use Asset Pipeline %>
+  <link rel="stylesheet" type="text/css" href="/site<%= @site.id %>/site.css" media="all">
+  <script src="/site<%= @site.id %>/site.js"></script>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>
