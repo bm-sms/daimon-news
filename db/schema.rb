@@ -11,22 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151207052919) do
+ActiveRecord::Schema.define(version: 20151026011918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "daimon_news_admin_posts", force: :cascade do |t|
+  create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
-    t.integer  "daimon_news_admin_site_id", null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "site_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "daimon_news_admin_posts", ["daimon_news_admin_site_id"], name: "index_daimon_news_admin_posts_on_daimon_news_admin_site_id", using: :btree
+  add_index "posts", ["site_id"], name: "index_posts_on_site_id", using: :btree
 
-  create_table "daimon_news_admin_sites", force: :cascade do |t|
+  create_table "sites", force: :cascade do |t|
     t.string   "name",       null: false
     t.string   "js_url",     null: false
     t.string   "css_url",    null: false
@@ -34,5 +34,5 @@ ActiveRecord::Schema.define(version: 20151207052919) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "daimon_news_admin_posts", "daimon_news_admin_sites"
+  add_foreign_key "posts", "sites"
 end

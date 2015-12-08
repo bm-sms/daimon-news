@@ -1,15 +1,3 @@
-PATH
-  remote: ./daimon_news_admin
-  specs:
-    daimon_news_admin (0.0.1)
-      rails (~> 4.2.4)
-
-PATH
-  remote: ./daimon_news_blog
-  specs:
-    daimon_news_blog (0.0.1)
-      rails (~> 4.2.4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -142,8 +130,6 @@ PLATFORMS
 DEPENDENCIES
   active_decorator
   byebug
-  daimon_news_admin!
-  daimon_news_blog!
   jquery-rails
   launchy
   oj
