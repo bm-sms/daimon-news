@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'admin/sites#index'
+
   namespace :admin do
     root 'root#index'
 
