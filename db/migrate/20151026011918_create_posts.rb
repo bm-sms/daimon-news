@@ -3,7 +3,7 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       t.string :title
       t.text :body
-      t.references :site, null: false, index: true, foreign_key: {on_delete: :cascade}
+      t.references :site, index: true, foreign_key: true, null: false
 
       t.timestamps null: false
     end
