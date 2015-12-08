@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = DaimonNewsBlog::VERSION
   s.authors     = ["Masafumi Yokoyama"]
   s.email       = ["yokoyama@clear-code.com"]
-  s.homepage    = ""
-  s.summary     = ""
-  s.description = ""
+  s.homepage    = "TODO"
+  s.summary     = "TODO: Summary of DaimonNewsBlog."
+  s.description = "TODO: Description of DaimonNewsBlog."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
