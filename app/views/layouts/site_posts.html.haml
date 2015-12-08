@@ -1,0 +1,47 @@
+!!!
+%html
+  %head
+    %meta{charset: 'utf-8'}
+    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0, minimum-scale=1.0'}
+
+    %title= @site.name
+
+    = javascript_include_tag @site.js_url
+    = stylesheet_link_tag @site.css_url
+    = csrf_meta_tag
+
+  %body.root-container(data-layer='top')
+    %header.content-header
+      .content-header__main
+        %a.content-header__button.content-header__button--menu(data-sidebar='left') menu
+
+        %p.content-header__title
+          = link_to root_path, class: 'content-header__logo' do
+            = image_tag 'logo.png', alt: 'daimon', class: 'content-header__logo-image'
+
+  .content-header__sub
+    %p.content-header__tagline daimon
+
+    .content-body
+      %nav.sidebar.sidebar--left(data-state='off-canvas')
+        %ul.menu
+          %li.menu__item.menu__item--home.menu__section{data: {menu_item_state: 'current'}}
+            = link_to 'Home', root_path, class: 'menu__label'
+
+      .wrappable
+        .wrappable__content.wrappable__content--flex.main-pane
+          %main
+            = yield
+        %aside.wrappable__content.promotions
+          %section.promotion
+            %h1.promotion__title.subheading--aside daimon
+            %section
+              %h2.subheading.subheading--aside posts
+              %ul
+                %li post 1
+                %li post 2
+                %li post 3
+    %footer.content-footer
+      %p.content-footer__brand daimon
+      %p.content-footer__tagline daimon
+      %p.content-footer__copyright daimon
