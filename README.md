@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/bm-sms/daimon-news-multi-tenant.png?label=ready&title=Ready)](https://waffle.io/bm-sms/daimon-news-multi-tenant)
 # daimon-news-multi-tenant
 
 ## Setup
