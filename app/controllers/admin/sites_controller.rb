@@ -1,5 +1,6 @@
-class SitesController < ApplicationController
+class Admin::SitesController < ApplicationController
   before_action :set_site, only: [:show, :edit, :update, :destroy]
+  layout 'admin'
 
   # GET /sites
   def index
@@ -33,7 +34,7 @@ class SitesController < ApplicationController
   # PATCH/PUT /sites/1
   def update
     if @site.update(site_params)
-      redirect_to @site, notice: 'Site was successfully updated.'
+      redirect_to [:admin, @site], notice: 'Site was successfully updated.'
     else
       render :edit
     end
@@ -42,7 +43,7 @@ class SitesController < ApplicationController
   # DELETE /sites/1
   def destroy
     @site.destroy
-    redirect_to sites_url, notice: 'Site was successfully destroyed.'
+    redirect_to admin_sites_url, notice: 'Site was successfully destroyed.'
   end
 
   private
