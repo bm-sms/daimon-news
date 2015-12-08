@@ -1,6 +1,5 @@
-class Admin::SitesController < ApplicationController
+class Admin::SitesController < Admin::ApplicationController
   before_action :set_site, only: [:show, :edit, :update, :destroy]
-  layout 'admin'
 
   # GET /sites
   def index

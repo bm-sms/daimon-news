@@ -1,6 +1,5 @@
-class Admin::PostsController < ApplicationController
+class Admin::PostsController < Admin::ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  layout 'admin'
 
   # GET /posts
   def index
