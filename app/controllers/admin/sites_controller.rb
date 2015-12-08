@@ -25,7 +25,7 @@ class Admin::SitesController < ApplicationController
     @site = Site.new(site_params)
 
     if @site.save
-      redirect_to @site, notice: 'Site was successfully created.'
+      redirect_to [:admin, @site], notice: 'Site was successfully created.'
     else
       render :new
     end
