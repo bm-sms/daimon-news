@@ -9,7 +9,7 @@ class SitePostsController < ApplicationController
 
   def show
     @post = @site.posts.where(["id = :id AND published_at <= :now",
-                                { id: params[:id], now: DateTime.now }])
+                                { id: params[:id], now: DateTime.now }]).first!
   end
 
   private
