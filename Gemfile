@@ -11,6 +11,7 @@ gem 'pg'
 gem 'rabl'
 gem 'sass-rails'
 gem 'uglifier'
+gem 'redcarpet'
 
 group :development, :test do
   gem 'byebug'
