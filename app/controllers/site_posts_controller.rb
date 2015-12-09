@@ -16,7 +16,7 @@ class SitePostsController < ApplicationController
       # for test and debug
       @site = Site.find(params[:site_id])
     else
-      @site = Site.where(fqdn: request.server_name).first
+      @site = Site.find_by!(fqdn: request.server_name)
     end
   end
 end
