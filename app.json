@@ -2,12 +2,17 @@
   "name": "daimon-news-multi-tenant",
   "website": "https://daimon-news-multi-tenant.herokuapp.com",
   "repository": "https://github.com/bm-sms/daimon-news-multi-tenant",
+  "env":{
+    "HEROKU_APP_NAME": {
+      "required": true
+    }
+  },
   "addons": [
     "heroku-postgresql:hobby-dev",
     "papertrail:choklad",
     "newrelic:wayne"
   ],
   "scripts": {
-    "postdeploy": "bundle exec rake db:schema:load && bundle exec rake db:fixtures:load FIXTURES_PATH=daimon_news_admin/test/fixtures"
+    "postdeploy": "bundle exec rake db:schema:load && bundle exec rake db:fixtures:load"
   }
 }

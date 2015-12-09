@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'admin/root#index'
+  root 'posts#index'
 
   namespace :admin do
     root 'root#index'
@@ -9,8 +9,10 @@ Rails.application.routes.draw do
     resources :categories
   end
 
+  resources :posts, only: %i(index show)
+
+  # for debug
   resources :sites do
-    resources :posts, only: %i(index show), controller: :site_posts
+    resources :posts, only: %i(index show)
   end
-  match 'home', via: :get, controller: :site_posts, action: :index
 end

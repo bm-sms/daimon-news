@@ -1,4 +1,20 @@
 post1:
   title: Hello
-  body: This is site1
-  site_id: 1
+  body: |
+    # Hello
+    hi !
+
+    This is first post for site 1!
+  published_at: <%= Time.current %>
+  site: site1
+
+post2:
+  <% published_at = 3.minutes.from_now %>
+  title: This post appears at <%= published_at %>
+  body: |
+    # Hello
+    hi !
+
+    This is post will appear <%= published_at %>
+  published_at: <%= published_at %>
+  site: site1

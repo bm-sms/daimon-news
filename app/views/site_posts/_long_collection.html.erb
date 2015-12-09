@@ -1,8 +1,0 @@
-<ul>
-  <% posts.each do |post| %>
-    <li>
-      <%= link_to post.title, admin_post_path(post.id) %>
-      <p><%= post.body %></p>
-    </li>
-  <% end %>
-</ul>
