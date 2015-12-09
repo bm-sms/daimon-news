@@ -5,6 +5,7 @@ ruby '2.2.3'
 gem 'rails', '4.2.4'
 
 gem 'active_decorator'
+gem 'haml-rails'
 gem 'jquery-rails'
 gem 'oj'
 gem 'pg'
