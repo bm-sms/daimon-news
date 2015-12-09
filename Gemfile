@@ -15,12 +15,13 @@ gem 'uglifier'
 gem 'redcarpet'
 
 group :development, :test do
-  gem 'byebug'
+  gem 'pry-byebug'
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'launchy'
+  gem 'pry-rails'
 end
 
 group :production do
