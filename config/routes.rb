@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     resources :categories
   end
 
+  resources :posts, only: %i(index show), controller: :site_posts
+
+  # for debug
   resources :sites do
     resources :posts, only: %i(index show), controller: :site_posts
   end
