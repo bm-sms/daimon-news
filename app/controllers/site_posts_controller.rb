@@ -2,13 +2,11 @@ class SitePostsController < ApplicationController
   before_action :setup_site
 
   def index
-    @posts = @site.posts.where(["published_at <= :now ",
-                                 { now: DateTime.now }])
+    @posts = @site.posts.published
   end
 
   def show
-    @post = @site.posts.where(["id = :id AND published_at <= :now",
-                                { id: params[:id], now: DateTime.now }]).first!
+    @post = @site.posts.published.find(params[:id])
   end
 
   private
