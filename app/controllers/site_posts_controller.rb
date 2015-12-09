@@ -3,11 +3,13 @@ class SitePostsController < ApplicationController
   layout 'site_posts'
 
   def index
-    @posts = @site.posts
+    @posts = @site.posts.where(["published_at <= :now ",
+                                 { now: DateTime.now }])
   end
 
   def show
-    @post = @site.posts.find(params[:id])
+    @post = @site.posts.where(["id = :id AND published_at <= :now",
+                                { id: params[:id], now: DateTime.now }])
   end
 
   private
