@@ -8,7 +8,6 @@
       <th>Title</th>
       <th>Body</th>
       <th>Published at</th>
-      <th>Published</th>
       <th>Site</th>
       <th colspan="3"></th>
     </tr>
@@ -20,7 +19,6 @@
         <td><%= post.title %></td>
         <td><%= post.body %></td>
         <td><%= post.published_at %></td>
-        <td><%= post.published ? 'Done' : 'Not yet' %></td>
         <td><%= link_to post.site.name, [:admin, post.site] %></td>
         <td><%= link_to 'Show', [:admin, post] %></td>
         <td><%= link_to 'Edit', edit_admin_post_path(post) %></td>
