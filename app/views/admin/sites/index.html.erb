@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>FQDN</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
     <% @sites.each do |site| %>
       <tr>
         <td><%= site.name %></td>
+        <td><%= site.fqdn %></td>
         <td><%= link_to 'Show', [:admin, site] %></td>
         <td><%= link_to 'Edit', edit_admin_site_path(site) %></td>
         <td><%= link_to 'Destroy', [:admin, site], method: :delete, data: { confirm: 'Are you sure?' } %></td>
