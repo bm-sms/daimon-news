@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
     resources :sites
     resources :posts
+    resources :categories
   end
 
   resources :sites do
