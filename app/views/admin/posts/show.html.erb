@@ -12,8 +12,8 @@
 
 <p>
   <strong>Site:</strong>
-  <%= link_to @post.site.name, @post.site %>
+  <%= link_to @post.site.name, [:admin, @post.site] %>
 </p>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<%= link_to 'Edit', edit_admin_post_path(@post) %> |
+<%= link_to 'Back', admin_posts_path %>

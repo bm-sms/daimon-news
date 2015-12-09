@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sites</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sites.each do |site| %>
+      <tr>
+        <td><%= site.name %></td>
+        <td><%= link_to 'Show', [:admin, site] %></td>
+        <td><%= link_to 'Edit', edit_admin_site_path(site) %></td>
+        <td><%= link_to 'Destroy', [:admin, site], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Site', new_admin_site_path %> |
+<%= link_to 'Back', admin_root_path %>

@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  root 'welcome#index'
+  root 'admin/root#index'
 
-  resources :posts
+  namespace :admin do
+    root 'root#index'
+
+    resources :sites
+    resources :posts
+  end
+
   resources :sites do
     resources :posts, only: %i(index show), controller: :site_posts
   end
