@@ -11,24 +11,13 @@ class SitePostsController < ApplicationController
   end
 
   private
-  def setup_site
-    @site = Site.find(site_id)
-  end
 
-  def site_id
-    # NOTE: env['SERVER_NAME'] よりも、 request.domain や
-    #       request.subdomain のほうがいいかもしれない。
-    # 例: http://site1.lvh.me/ の場合
-    #   * env['SERVER_NAME']  #=> site1.lvh.me
-    #   * request.domain      #=> lvh.me
-    #   * request.subdomain   #=> site1
-    case env['SERVER_NAME']
-    when /\Asite1\./
-      1
-    when /\Asite2\./
-      2
+  def setup_site
+    if params[:site_id]
+      # for test and debug
+      @site = Site.find(params[:site_id])
     else
-      params[:site_id]
+      @site = Site.where(fqdn: request.server_name).first
     end
   end
 end
