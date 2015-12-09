@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'site_posts#index'
+  root 'posts#index'
 
   namespace :admin do
     root 'root#index'
@@ -9,10 +9,10 @@ Rails.application.routes.draw do
     resources :categories
   end
 
-  resources :posts, only: %i(index show), controller: :site_posts
+  resources :posts, only: %i(index show)
 
   # for debug
   resources :sites do
-    resources :posts, only: %i(index show), controller: :site_posts
+    resources :posts, only: %i(index show)
   end
 end

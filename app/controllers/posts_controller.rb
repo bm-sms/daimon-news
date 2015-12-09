@@ -1,4 +1,4 @@
-class SitePostsController < ApplicationController
+class PostsController < ApplicationController
   before_action :setup_site
 
   def index
