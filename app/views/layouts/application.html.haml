@@ -16,8 +16,7 @@
         %a.content-header__button.content-header__button--menu(data-sidebar='left') menu
 
         %p.content-header__title
-          = link_to root_path, class: 'content-header__logo' do
-            = image_tag 'logo.png', alt: 'daimon', class: 'content-header__logo-image'
+          = link_to @site.name, root_path, class: 'content-header__logo'
 
   .content-header__sub
     %p.content-header__tagline daimon
