@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   resources :sites, only: %i() do
     concerns :site
   end
+
+  resources :fixed_pages, only: :show, path: '/'
 end

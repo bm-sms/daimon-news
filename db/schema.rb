@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210021355) do
+ActiveRecord::Schema.define(version: 20151210063912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20151210021355) do
   end
 
   add_index "categories", ["slug", "site_id"], name: "index_categories_on_slug_and_site_id", unique: true, using: :btree
+
+  create_table "fixed_pages", force: :cascade do |t|
+    t.integer  "site_id",    null: false
+    t.string   "title"
+    t.text     "body"
+    t.string   "slug",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "fixed_pages", ["site_id", "slug"], name: "index_fixed_pages_on_site_id_and_slug", unique: true, using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -48,5 +59,6 @@ ActiveRecord::Schema.define(version: 20151210021355) do
     t.string   "fqdn",       default: "example.com", null: false
   end
 
+  add_foreign_key "fixed_pages", "sites"
   add_foreign_key "posts", "sites"
 end

@@ -1,0 +1,27 @@
+about:
+  slug: about
+  title: About Site 1
+  body: |
+    # About Site 1
+
+    Site 1 is:
+
+    - A
+    - B
+    - C
+  site: site1
+
+policy:
+  slug: policy
+  title: Privacy Policy
+  body: |
+    # Welcome to the Site 1 Policy
+
+    ## Privacy Policy
+
+    - A
+
+    ## Information
+
+    hi
+  site: site1
