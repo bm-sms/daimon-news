@@ -28,6 +28,12 @@
           %li.menu__item.menu__item--home.menu__section{data: {menu_item_state: 'current'}}
             = link_to 'Home', root_path, class: 'menu__label'
 
+            %ul.menu__items
+              - @site.categories.each do |category|
+                %li.menu__item{class: "menu__item--#{category.slug}"}
+                  %a.menu__label{href: "/category/#{category.slug}"}
+                    = category.name
+
       .wrappable
         .wrappable__content.wrappable__content--flex.main-pane
           %main
