@@ -7,6 +7,6 @@ crumb :category do |category|
 end
 
 crumb :post do |post|
-  link ''
+  link post.title, post_path(post)
   parent :category, post.category
 end
