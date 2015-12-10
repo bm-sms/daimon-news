@@ -5,12 +5,13 @@ ruby '2.2.3'
 gem 'rails', '4.2.4'
 
 gem 'active_decorator'
+gem 'activeadmin', '~> 1.0.0.pre2'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'pg'
+gem 'redcarpet'
 gem 'sass-rails'
 gem 'uglifier'
-gem 'redcarpet'
 
 group :development, :test do
   gem 'pry-byebug'
