@@ -41,11 +41,11 @@
           %section.promotion
             %h1.promotion__title.subheading--aside daimon
             %section
-              %h2.subheading.subheading--aside posts
+              %h2.subheading.subheading--aside Recently updated posts
               %ul
-                %li post 1
-                %li post 2
-                %li post 3
+                - @site.posts.published.order_by_recently.limit(5).each do |post|
+                  %li
+                    = link_to post.title, post_path(post)
     %footer.content-footer
       %p.content-footer__brand daimon
       %p.content-footer__tagline daimon
