@@ -3,7 +3,7 @@ class Admin::CategoriesController < Admin::ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.all
+    @categories = Category.order(:id)
   end
 
   # GET /categories/1
