@@ -9,10 +9,15 @@ Rails.application.routes.draw do
     resources :categories
   end
 
-  resources :posts, only: %i(index show)
+  concern :site do
+    resources :posts, only: %i(index show)
+    resources :categories, only: %i(show), path: 'category'
+  end
+
+  concerns :site
 
   # for debug
   resources :sites do
-    resources :posts, only: %i(index show)
+    concerns :site
   end
 end
