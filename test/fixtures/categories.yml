@@ -1,9 +1,11 @@
 category-1:
   name: category 1
   description: category 1
+  slug: site1
   site: site1
 
 category-2:
   name: category 2
   description: category 2
+  slug: site2
   site: site1
