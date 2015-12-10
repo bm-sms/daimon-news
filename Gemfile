@@ -4,6 +4,7 @@ ruby '2.2.3'
 
 gem 'rails', '4.2.4'
 
+gem 'activeadmin', '~> 1.0.0.pre2'
 gem 'active_decorator'
 gem 'haml-rails'
 gem 'jquery-rails'
