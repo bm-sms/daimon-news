@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20151210063912) do
     t.integer  "site_id",    null: false
     t.string   "title"
     t.text     "body"
-    t.string   "slug"
+    t.string   "slug",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
