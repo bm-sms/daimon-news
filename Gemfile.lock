@@ -184,6 +184,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    seedbank (0.3.0)
     sexp_processor (4.6.0)
     slop (3.6.0)
     sprockets (3.4.0)
@@ -222,6 +223,7 @@ DEPENDENCIES
   rails_12factor
   redcarpet
   sass-rails
+  seedbank
   uglifier
   web-console (~> 2.0)
 

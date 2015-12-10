@@ -11,6 +11,7 @@ gem 'jquery-rails'
 gem 'pg'
 gem 'redcarpet'
 gem 'sass-rails'
+gem 'seedbank'
 gem 'uglifier'
 
 group :development, :test do
