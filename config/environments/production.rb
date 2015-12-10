@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.middleware.use Rack::Auth::Digest::MD5, 'daimon', ENV['DIGEST_AUTH_SECRET_KEY'] do |username|
+    {ENV['DIGEST_AUTH_USERNAME'] => ENV['DIGEST_AUTH_PASSWORD']}[username]
+  end
 end
