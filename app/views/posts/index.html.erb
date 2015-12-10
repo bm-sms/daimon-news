@@ -1,11 +1,11 @@
 <h1><%= @site.name %></h1>
 
-<%= render 'long_collection', posts: @posts %>
+<%= render 'posts/long_collection', posts: @posts %>
 
 <%# TODO 新着かどうかというのは画面によって異なりそうなので、ここはコントローラでカスタマイズできるのがよさそう %>
 
 <h2>新着記事</h2>
-<%= render 'short_collection', posts: @posts %>
+<%= render 'posts/short_collection', posts: @posts %>
 
 <h2>人気記事</h2>
-<%= render 'short_collection', posts: @posts %>
+<%= render 'posts/short_collection', posts: @posts %>
