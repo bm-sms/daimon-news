@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20151209061323) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.datetime "published_at"
-    t.boolean  "published"
     t.integer  "category_id"
   end
 
