@@ -16,7 +16,7 @@ post2:
     # Hello
     hi !
 
-    This is post will appear <%= published_at %>
+    This post will appear <%= published_at %>
   published_at: <%= published_at %>
   site: site1
   category: category-2
