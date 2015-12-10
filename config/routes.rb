@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   concerns :site
 
   # for debug
-  resources :sites do
+  resources :sites, only: %i() do
     concerns :site
   end
 end
