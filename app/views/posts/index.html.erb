@@ -1,3 +1,7 @@
+<% if @category %>
+  <% breadcrumb :category, @category %>
+<% end %>
+
 <h1><%= @site.name %></h1>
 
 <%= render 'posts/long_collection', posts: @posts %>
