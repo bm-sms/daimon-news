@@ -3,8 +3,4 @@ class Category < ActiveRecord::Base
   has_many :posts
 
   validates :slug, format: /\A\w+\z/, uniqueness: {scope: :site_id}
-
-  def to_param
-    slug
-  end
 end

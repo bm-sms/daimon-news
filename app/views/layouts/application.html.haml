@@ -31,7 +31,7 @@
             %ul.menu__items
               - @site.categories.each do |category|
                 %li.menu__item{class: "menu__item--#{category.slug}"}
-                  = link_to category.name, category_path(category), class: 'menu__label'
+                  = link_to category.name, category_path(category.slug), class: 'menu__label'
 
       .wrappable
         .wrappable__content.wrappable__content--flex.main-pane
