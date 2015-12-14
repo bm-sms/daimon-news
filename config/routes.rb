@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root 'posts#index'
 
+  namespace :api do
+    resources :sites, only: :update
+  end
+
   concern :site do
     resources :posts, only: %i(show)
     resources :categories, only: %i(show), path: 'category'
