@@ -6,6 +6,7 @@ gem 'rails', '4.2.4'
 
 gem 'active_decorator'
 gem 'activeadmin', '~> 1.0.0.pre2'
+gem 'carrierwave'
 gem 'gretel'
 gem 'haml-rails'
 gem 'jquery-rails'
