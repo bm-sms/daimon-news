@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   concern :site do
-    resources :posts, only: %i(index show)
+    resources :posts, only: %i(show)
     resources :categories, only: %i(show), path: 'category'
   end
 
