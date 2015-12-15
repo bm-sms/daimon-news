@@ -18,9 +18,9 @@
         %p.content-header__title
           = link_to @site.name, root_path, class: 'content-header__logo'
 
-  .content-header__sub
-    - if @site.tagline.present?
-      %p.content-header__tagline= @site.tagline
+      .content-header__sub
+        - if @site.tagline.present?
+          %p.content-header__tagline= @site.tagline
 
     .content-body
       %nav.sidebar.sidebar--left(data-state='off-canvas')
