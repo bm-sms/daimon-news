@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217052636) do
+ActiveRecord::Schema.define(version: 20151217071045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 20151217052636) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "meta_tags", force: :cascade do |t|
+    t.string   "name"
+    t.string   "content"
+    t.integer  "site_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "meta_tags", ["site_id"], name: "index_meta_tags_on_site_id", using: :btree
+
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
@@ -89,6 +99,7 @@ ActiveRecord::Schema.define(version: 20151217052636) do
 
   add_foreign_key "comments", "topics"
   add_foreign_key "fixed_pages", "sites"
+  add_foreign_key "meta_tags", "sites"
   add_foreign_key "posts", "sites"
   add_foreign_key "topics", "sites"
 end
