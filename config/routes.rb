@@ -18,8 +18,8 @@ Rails.application.routes.draw do
     concerns :site
   end
 
-  resources :topics
-  resources :comments
+  resources :topics, only: %i(index new show)
+  resources :comments, only: :create
 
   resources :fixed_pages, only: :show, path: '/'
 end

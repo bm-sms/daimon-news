@@ -5,7 +5,6 @@
     %tr
       %th Title
       %th Body
-      %th Site
       %th
       %th
       %th
@@ -15,10 +14,7 @@
       %tr
         %td= topic.title
         %td= topic.body
-        %td= topic.site
         %td= link_to 'Show', topic
-        %td= link_to 'Edit', edit_topic_path(topic)
-        %td= link_to 'Destroy', topic, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   before_action :setup_site
-  before_action :set_topic, only: [:show, :edit, :update, :destroy]
+  before_action :set_topic, only: :show
 
   # GET /topics
   def index
@@ -17,10 +17,6 @@ class TopicsController < ApplicationController
     @topic = @site.topics.new
   end
 
-  # GET /topics/1/edit
-  def edit
-  end
-
   # POST /topics
   def create
     @topic = @site.topics.new(topic_params)
@@ -30,21 +26,6 @@ class TopicsController < ApplicationController
     else
       render :new
     end
-  end
-
-  # PATCH/PUT /topics/1
-  def update
-    if @topic.update(topic_params)
-      redirect_to @topic, notice: 'Topic was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  # DELETE /topics/1
-  def destroy
-    @topic.destroy
-    redirect_to topics_url, notice: 'Topic was successfully destroyed.'
   end
 
   private
