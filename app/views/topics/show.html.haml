@@ -6,9 +6,18 @@
 %p
   %b Body:
   = @topic.body
-%p
-  %b Site:
-  = @topic.site
+
+%ul
+  - @topic.comments.each do |comment|
+    %li
+      %p
+        %b Title:
+        = comment.title
+      %p
+        %b Body:
+        = comment.body
+
+= render partial: 'comments/form'
 
 = link_to 'Edit', edit_topic_path(@topic)
 \|

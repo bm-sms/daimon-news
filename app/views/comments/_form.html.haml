@@ -12,8 +12,6 @@
   .field
     = f.label :body
     = f.text_area :body
-  .field
-    = f.label :topic
-    = f.text_field :topic
+    = f.hidden_field :topic_id
   .actions
     = f.submit 'Save'

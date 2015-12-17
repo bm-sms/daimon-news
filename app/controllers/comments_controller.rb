@@ -24,9 +24,9 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
 
     if @comment.save
-      redirect_to @comment, notice: 'Comment was successfully created.'
+      redirect_to @comment.topic, notice: 'Comment was successfully created.'
     else
-      render :new
+      redirect_to @comment.topic
     end
   end
 

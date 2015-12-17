@@ -1,18 +1,20 @@
 class TopicsController < ApplicationController
+  before_action :setup_site
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
   # GET /topics
   def index
-    @topics = Topic.all
+    @topics = @site.topics
   end
 
   # GET /topics/1
   def show
+    @comment = Comment.new(topic: @topic)
   end
 
   # GET /topics/new
   def new
-    @topic = Topic.new
+    @topic = @site.topics.new
   end
 
   # GET /topics/1/edit
@@ -21,7 +23,7 @@ class TopicsController < ApplicationController
 
   # POST /topics
   def create
-    @topic = Topic.new(topic_params)
+    @topic = @site.topics.new(topic_params)
 
     if @topic.save
       redirect_to @topic, notice: 'Topic was successfully created.'
@@ -48,11 +50,11 @@ class TopicsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_topic
-      @topic = Topic.find(params[:id])
+      @topic = @site.topics.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def topic_params
-      params.require(:topic).permit(:title, :body, :site_id)
+      params.require(:topic).permit(:title, :body)
     end
 end
