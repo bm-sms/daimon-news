@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
       @site = Site.find_by!(fqdn: request.server_name)
     end
   end
+
+  def routing_error!
+    raise ActionController::RoutingError, %|(No route matches [GET] "#{request.path}")|
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217052636) do
+ActiveRecord::Schema.define(version: 20151217070027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,14 +67,15 @@ ActiveRecord::Schema.define(version: 20151217052636) do
   add_index "posts", ["site_id"], name: "index_posts_on_site_id", using: :btree
 
   create_table "sites", force: :cascade do |t|
-    t.string   "name",                               null: false
-    t.string   "js_url",                             null: false
-    t.string   "css_url",                            null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.string   "fqdn",       default: "example.com", null: false
+    t.string   "name",                                null: false
+    t.string   "js_url",                              null: false
+    t.string   "css_url",                             null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "fqdn",        default: "example.com", null: false
     t.string   "tagline"
     t.string   "copyright"
+    t.boolean  "bbs_enabled", default: false,         null: false
   end
 
   create_table "topics", force: :cascade do |t|

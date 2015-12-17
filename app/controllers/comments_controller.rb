@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :setup_site
+  before_action { routing_error! unless @site.bbs_enabled? }
 
   # POST /comments
   def create
