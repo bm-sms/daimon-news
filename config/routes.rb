@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   concern :site do
     resources :posts, only: %i(show)
     resources :categories, only: %i(show), path: 'category'
+
+    resources :topics, only: %i(index new show)
+    resources :comments, only: :create
   end
 
   concerns :site
@@ -17,9 +20,6 @@ Rails.application.routes.draw do
   resources :sites, only: %i() do
     concerns :site
   end
-
-  resources :topics, only: %i(index new show)
-  resources :comments, only: :create
 
   resources :fixed_pages, only: :show, path: '/'
 end
