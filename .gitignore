@@ -12,3 +12,4 @@
 !/log/.keep
 /tmp
 /public/uploads
+/public/sitemap.xml.gz
