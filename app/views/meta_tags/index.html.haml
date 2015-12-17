@@ -1,0 +1,25 @@
+%h1 Listing meta_tags
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Content
+      %th Site
+      %th
+      %th
+      %th
+
+  %tbody
+    - @meta_tags.each do |meta_tag|
+      %tr
+        %td= meta_tag.name
+        %td= meta_tag.content
+        %td= meta_tag.site
+        %td= link_to 'Show', meta_tag
+        %td= link_to 'Edit', edit_meta_tag_path(meta_tag)
+        %td= link_to 'Destroy', meta_tag, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Meta tag', new_meta_tag_path

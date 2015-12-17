@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :meta_tags
   ActiveAdmin.routes(self)
   root 'welcome#index'
 

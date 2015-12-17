@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @meta_tag.name
+%p
+  %b Content:
+  = @meta_tag.content
+%p
+  %b Site:
+  = @meta_tag.site
+
+= link_to 'Edit', edit_meta_tag_path(@meta_tag)
+\|
+= link_to 'Back', meta_tags_path
