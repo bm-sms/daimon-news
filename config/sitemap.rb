@@ -1,4 +1,4 @@
-site = Site.first # TODO Detect site in some way
+site = Site.find(ENV['SITEMAP_SITE_ID'])
 
 SitemapGenerator::Sitemap.default_host = "https://#{site.fqdn}"
 SitemapGenerator::Sitemap.create do
