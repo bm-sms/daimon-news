@@ -1,7 +1,9 @@
 class CommentsController < ApplicationController
+  before_action :setup_site
+
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @site.topics.find(comment_params[:topic_id]).comments.new(comment_params)
 
     if @comment.save
       redirect_to @comment.topic, notice: 'Comment was successfully created.'
