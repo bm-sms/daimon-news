@@ -1,4 +1,4 @@
-%h1= @site.name
+%h1= current_site.name
 
 %section
   %h1 Posts
@@ -6,7 +6,7 @@
     - @posts.each do |post|
       %li= link_to post.title, post
 
-- if @site.bbs_enabled?
+- if current_site.bbs_enabled?
   %section
     %h1 BBS
     = link_to 'New Topic', new_topic_path, class: 'button'

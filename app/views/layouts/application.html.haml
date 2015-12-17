@@ -4,10 +4,10 @@
     %meta{charset: 'utf-8'}
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0, minimum-scale=1.0'}
 
-    %title= @site.name
+    %title= current_site.name
 
-    = javascript_include_tag @site.js_url
-    = stylesheet_link_tag @site.css_url
+    = javascript_include_tag current_site.js_url
+    = stylesheet_link_tag current_site.css_url
     = csrf_meta_tag
 
   %body.root-container(data-layer='top')
@@ -16,11 +16,11 @@
         %a.content-header__button.content-header__button--menu(data-sidebar='left') menu
 
         %p.content-header__title
-          = link_to @site.name, root_path, class: 'content-header__logo'
+          = link_to current_site.name, root_path, class: 'content-header__logo'
 
       .content-header__sub
-        - if @site.tagline.present?
-          %p.content-header__tagline= @site.tagline
+        - if current_site.tagline.present?
+          %p.content-header__tagline= current_site.tagline
 
     .content-body
       %nav.sidebar.sidebar--left(data-state='off-canvas')
@@ -29,7 +29,7 @@
             = link_to 'Home', root_path, class: 'menu__label'
 
             %ul.menu__items
-              - @site.categories.each do |category|
+              - current_site.categories.each do |category|
                 %li.menu__item{class: "menu__item--#{category.slug}"}
                   = link_to category.name, category_path(category.slug), class: 'menu__label'
 
@@ -40,19 +40,19 @@
             = yield
         %aside.wrappable__content.promotions
           %section.promotion
-            %h1.promotion__title.subheading--aside= @site.name
+            %h1.promotion__title.subheading--aside= current_site.name
             %section
               %h2.subheading.subheading--aside Recently updated posts
               %ul
-                - @site.posts.published.order_by_recently.limit(5).each do |post|
+                - current_site.posts.published.order_by_recently.limit(5).each do |post|
                   %li
                     = link_to post.title, post_path(post)
     %footer.content-footer
       %ul.content-footer__links
-        - @site.fixed_pages.each do |page|
+        - current_site.fixed_pages.each do |page|
           %li.content-footer__link= link_to page.title, fixed_page_path(page.slug), class: 'content-footer__link-label'
-      %p.content-footer__brand= @site.name
-      - if @site.tagline.present?
-        %p.content-footer__tagline= @site.tagline
-      - if @site.copyright.present?
-        %p.content-footer__copyright= @site.copyright
+      %p.content-footer__brand= current_site.name
+      - if current_site.tagline.present?
+        %p.content-footer__tagline= current_site.tagline
+      - if current_site.copyright.present?
+        %p.content-footer__copyright= current_site.copyright
