@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
     resources :topics, only: %i(index new show create)
     resources :comments, only: :create
+
+    resources :fixed_pages, only: :show, path: '/'
   end
 
   concerns :site
@@ -20,6 +22,4 @@ Rails.application.routes.draw do
   resources :sites, only: %i() do
     concerns :site
   end
-
-  resources :fixed_pages, only: :show, path: '/'
 end
