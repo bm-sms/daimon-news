@@ -5,13 +5,14 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def setup_site
-    if params[:site_id]
-      # for test and debug
-      @site = Site.find(params[:site_id])
-    else
-      @site = Site.find_by!(fqdn: request.server_name)
-    end
+  def current_site
+    @site ||=
+      if params[:site_id]
+        # for test and debug
+        @site = Site.find(params[:site_id])
+      else
+        @site = Site.find_by!(fqdn: request.server_name)
+      end
   end
 
   def routing_error!

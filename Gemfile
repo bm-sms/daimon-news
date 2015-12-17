@@ -11,7 +11,7 @@ gem 'fog'
 gem 'gretel'
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'motorhead'
+gem 'motorhead', github: 'mtsmfm/motorhead', branch: 'camelize'
 gem 'pg'
 gem 'redcarpet'
 gem 'sass-rails'
@@ -31,3 +31,4 @@ end
 group :production do
   gem 'rails_12factor'
 end
+gem 'bbs', path: 'app/engines/bbs'

@@ -1,3 +1,16 @@
+GIT
+  remote: git://github.com/mtsmfm/motorhead.git
+  revision: a1c886b86951f95ce17167446cd39cab4dd813cc
+  branch: camelize
+  specs:
+    motorhead (0.3.3)
+
+PATH
+  remote: app/engines/bbs
+  specs:
+    bbs (0.0.1)
+      rails (~> 4.2.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -239,7 +252,6 @@ GEM
     mime-types (2.6.2)
     mini_portile (0.6.2)
     minitest (5.8.1)
-    motorhead (0.3.3)
     multi_json (1.11.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -336,13 +348,14 @@ PLATFORMS
 DEPENDENCIES
   active_decorator
   activeadmin (~> 1.0.0.pre2)
+  bbs!
   carrierwave
   fog
   gretel
   haml-rails
   jquery-rails
   launchy
-  motorhead
+  motorhead!
   pg
   pry-byebug
   pry-rails

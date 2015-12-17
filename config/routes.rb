@@ -9,9 +9,6 @@ Rails.application.routes.draw do
   concern :site do
     resources :posts, only: %i(show)
     resources :categories, only: %i(show), path: 'category'
-
-    resources :topics, only: %i(index new show create)
-    resources :comments, only: :create
   end
 
   concerns :site

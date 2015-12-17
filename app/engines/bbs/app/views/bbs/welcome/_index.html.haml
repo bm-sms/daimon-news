@@ -1,0 +1,6 @@
+%section
+  %h1 BBS
+  = link_to 'New Topic', bbs.new_topic_path, class: 'button'
+  %ul
+    - @topics.each do |topic|
+      %li= link_to topic.title, bbs.topic_path(topic)
