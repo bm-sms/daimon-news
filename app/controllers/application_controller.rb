@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_site
-    current_site ||=
+    @current_site ||=
       if params[:site_id]
         # for test and debug
         Site.find(params[:site_id])
