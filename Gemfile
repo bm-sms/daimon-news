@@ -15,6 +15,7 @@ gem 'pg'
 gem 'redcarpet'
 gem 'sass-rails'
 gem 'seedbank'
+gem 'sitemap_generator'
 gem 'uglifier'
 
 group :development, :test do
