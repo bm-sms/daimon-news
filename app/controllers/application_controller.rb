@@ -3,15 +3,18 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  helper_method :current_site
+
   private
 
-  def setup_site
-    if params[:site_id]
-      # for test and debug
-      @site = Site.find(params[:site_id])
-    else
-      @site = Site.find_by!(fqdn: request.server_name)
-    end
+  def current_site
+    current_site ||=
+      if params[:site_id]
+        # for test and debug
+        Site.find(params[:site_id])
+      else
+        Site.find_by!(fqdn: request.server_name)
+      end
   end
 
   def routing_error!

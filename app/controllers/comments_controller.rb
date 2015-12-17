@@ -1,10 +1,9 @@
 class CommentsController < ApplicationController
-  before_action :setup_site
-  before_action { routing_error! unless @site.bbs_enabled? }
+  before_action { routing_error! unless current_site.bbs_enabled? }
 
   # POST /comments
   def create
-    @comment = @site.topics.find(comment_params[:topic_id]).comments.new(comment_params)
+    @comment = current_site.topics.find(comment_params[:topic_id]).comments.new(comment_params)
 
     if @comment.save
       redirect_to @comment.topic, notice: 'Comment was successfully created.'

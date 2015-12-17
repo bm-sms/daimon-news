@@ -1,11 +1,10 @@
 class TopicsController < ApplicationController
-  before_action :setup_site
-  before_action { routing_error! unless @site.bbs_enabled? }
+  before_action { routing_error! unless current_site.bbs_enabled? }
   before_action :set_topic, only: :show
 
   # GET /topics
   def index
-    @topics = @site.topics
+    @topics = current_site.topics
   end
 
   # GET /topics/1
@@ -15,12 +14,12 @@ class TopicsController < ApplicationController
 
   # GET /topics/new
   def new
-    @topic = @site.topics.new
+    @topic = current_site.topics.new
   end
 
   # POST /topics
   def create
-    @topic = @site.topics.new(topic_params)
+    @topic = current_site.topics.new(topic_params)
 
     if @topic.save
       redirect_to @topic, notice: 'Topic was successfully created.'
@@ -32,7 +31,7 @@ class TopicsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_topic
-      @topic = @site.topics.find(params[:id])
+      @topic = current_site.topics.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
