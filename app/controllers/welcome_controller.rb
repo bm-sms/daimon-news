@@ -3,6 +3,6 @@ class WelcomeController < ApplicationController
 
   def index
     @posts  = @site.posts
-    @topics = @site.topics
+    @topics = @site.topics if @site.bbs_enabled?
   end
 end

@@ -6,9 +6,10 @@
     - @posts.each do |post|
       %li= link_to post.title, post
 
-%section
-  %h1 BBS
-  = link_to 'New Topic', new_topic_path, class: 'button'
-  %ul
-    - @topics.each do |topic|
-      %li= link_to topic.title, topic
+- if @site.bbs_enabled?
+  %section
+    %h1 BBS
+    = link_to 'New Topic', new_topic_path, class: 'button'
+    %ul
+      - @topics.each do |topic|
+        %li= link_to topic.title, topic

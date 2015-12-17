@@ -1,5 +1,6 @@
 class TopicsController < ApplicationController
   before_action :setup_site
+  before_action { routing_error! unless @site.bbs_enabled? }
   before_action :set_topic, only: :show
 
   # GET /topics
