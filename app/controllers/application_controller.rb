@@ -12,5 +12,6 @@ class ApplicationController < ActionController::Base
     else
       @site = Site.find_by!(fqdn: request.server_name)
     end
+    @meta_tags = MetaTag.where(site: @site)
   end
 end
