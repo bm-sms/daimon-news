@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214045955) do
+ActiveRecord::Schema.define(version: 20151217052636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20151214045955) do
   end
 
   add_index "categories", ["slug", "site_id"], name: "index_categories_on_slug_and_site_id", unique: true, using: :btree
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "topic_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["topic_id"], name: "index_comments_on_topic_id", using: :btree
 
   create_table "fixed_pages", force: :cascade do |t|
     t.integer  "site_id",    null: false
@@ -67,6 +77,18 @@ ActiveRecord::Schema.define(version: 20151214045955) do
     t.string   "copyright"
   end
 
+  create_table "topics", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "site_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "topics", ["site_id"], name: "index_topics_on_site_id", using: :btree
+
+  add_foreign_key "comments", "topics"
   add_foreign_key "fixed_pages", "sites"
   add_foreign_key "posts", "sites"
+  add_foreign_key "topics", "sites"
 end

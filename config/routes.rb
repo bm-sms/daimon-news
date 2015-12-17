@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :topics
+  resources :comments
   ActiveAdmin.routes(self)
   root 'posts#index'
 
