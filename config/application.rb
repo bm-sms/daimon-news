@@ -26,6 +26,7 @@ module NewsService
     config.app_generators do |g|
       g.helper false
       g.assets false
+      g.scaffold_controller = :scaffold_controller
     end
   end
 end
