@@ -3,10 +3,10 @@ crumb :root do
 end
 
 crumb :category do |category|
-  link category.name, category_path(category.slug)
+  link category.name, main_app.category_path(category.slug)
 end
 
 crumb :post do |post|
-  link post.title, post_path(post)
+  link post.title, main_app.post_path(post)
   parent :category, post.category
 end
