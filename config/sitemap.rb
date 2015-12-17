@@ -1,6 +1,23 @@
 site = Site.find(ENV['SITEMAP_SITE_ID'])
 
 SitemapGenerator::Sitemap.default_host = "https://#{site.fqdn}"
+SitemapGenerator::Sitemap.public_path = "tmp/sitemap/#{site.id}"
+
+# XXX Prefer using `ENV` to `CarrierWave`?
+carrierwave = CarrierWave::Uploader::Base
+if carrierwave.fog_directory
+  SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(
+    fog_provider: 'AWS',
+    aws_access_key_id: carrierwave.fog_credentials[:aws_access_key_id],
+    aws_secret_access_key: carrierwave.fog_credentials[:aws_secret_access_key],
+    fog_directory: carrierwave.fog_directory,
+    fog_region: carrierwave.fog_credentials[:region]
+  )
+
+  SitemapGenerator::Sitemap.sitemaps_host = "https://#{carrierwave.fog_directory}.s3.amazonaws.com/"
+  SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/#{site.id}/"
+end
+
 SitemapGenerator::Sitemap.create do
   site.posts.find_each do |post|
     add post_path(post), changefreq: 'weekly', priority: 0.8
