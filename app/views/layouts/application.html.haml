@@ -19,7 +19,7 @@
           = link_to current_site.name, root_path, class: 'content-header__logo'
 
         - if current_user
-          %p.content-header__sing_out
+          %p.content-header__sign_out
             = link_to 'Sign out', destroy_user_session_path, method: :delete
 
       .content-header__sub
