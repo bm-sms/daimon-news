@@ -10,7 +10,7 @@ module ActiveAdmin
     def show?
       case record.name
       when "Dashboard"
-        true
+        !@user.user?
       else
         @user.admin?
       end
