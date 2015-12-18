@@ -17,6 +17,7 @@ gem 'sass-rails'
 gem 'seedbank'
 gem 'sitemap_generator'
 gem 'uglifier'
+gem 'devise'
 
 gem 'mysql2', require: false
 
