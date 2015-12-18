@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MetaTagTest < ActiveSupport::TestCase
+class PageMetaInformationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
