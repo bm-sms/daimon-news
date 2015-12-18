@@ -4,12 +4,12 @@
     %meta{charset: 'utf-8'}
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0, minimum-scale=1.0'}
 
-    - if @meta_tag
-      - if @meta_tag.description.present?
-        %meta{name: 'description', content: @meta_tag.description}
-      - if @meta_tag.keywords.present?
-        %meta{name: 'keywords', content: @meta_tag.keywords}
-      - if @meta_tag.noindex
+    - if @page_meta_information
+      - if @page_meta_information.description.present?
+        %meta{name: 'description', content: @page_meta_information.description}
+      - if @page_meta_information.keywords.present?
+        %meta{name: 'keywords', content: @page_meta_information.keywords}
+      - if @page_meta_information.noindex
         %meta{name: 'robots', content: 'noindex'}
 
     %title= current_site.name
