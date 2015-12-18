@@ -7,7 +7,8 @@ after 'development:sites' do
   )
   site1.page_meta_informations.create!(
     path:        '/policy',
-    description: 'privacy policy',
+    title:       'Privacy Policy',
+    description: 'This is the privacy policy page.',
     noindex:     true
   )
 end

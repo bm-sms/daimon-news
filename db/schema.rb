@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20151218023953) do
 
   create_table "page_meta_informations", force: :cascade do |t|
     t.string   "path",        null: false
+    t.string   "title"
     t.string   "description"
     t.boolean  "noindex"
     t.string   "keywords"
