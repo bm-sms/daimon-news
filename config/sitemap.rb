@@ -21,7 +21,7 @@ SitemapGenerator::Sitemap.create do
     add post_path(post), changefreq: 'weekly', priority: 0.8
   end
 
-  site.categories do |category|
+  site.categories.find_each do |category|
     add category_path(category.slug), changefreq: 'daily', priority: 0.6
   end
 
