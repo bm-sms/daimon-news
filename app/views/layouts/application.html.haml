@@ -12,7 +12,10 @@
       - if @page_meta_information.noindex
         %meta{name: 'robots', content: 'noindex'}
 
-    %title= current_site.name
+    - if @page_meta_information.try(:title)
+      %title= "#{@page_meta_information.title} | #{current_site.name}"
+    - else
+      %title= current_site.name
 
     = javascript_include_tag current_site.js_url
     = stylesheet_link_tag current_site.css_url
