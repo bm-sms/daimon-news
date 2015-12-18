@@ -63,6 +63,19 @@ ActiveRecord::Schema.define(version: 20151218023953) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "page_meta_informations", force: :cascade do |t|
+    t.string   "path",        null: false
+    t.string   "title"
+    t.string   "description"
+    t.boolean  "noindex"
+    t.string   "keywords"
+    t.integer  "site_id",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "page_meta_informations", ["site_id"], name: "index_page_meta_informations_on_site_id", using: :btree
+
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
@@ -101,6 +114,7 @@ ActiveRecord::Schema.define(version: 20151218023953) do
   add_foreign_key "comments", "topics"
   add_foreign_key "fixed_pages", "sites"
   add_foreign_key "hooks", "sites"
+  add_foreign_key "page_meta_informations", "sites"
   add_foreign_key "posts", "sites"
   add_foreign_key "topics", "sites"
 end

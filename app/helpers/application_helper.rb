@@ -3,4 +3,18 @@ module ApplicationHelper
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
     markdown.render(markdown_text)
   end
+
+  def page_title
+    title = current_site.name
+    if @page_meta_information.try(:title)
+      title = "#{@page_meta_information.title} | #{title}"
+    end
+    if @category.try(:name)
+      title = "#{@category.name} | #{title}"
+    end
+    if @post.try(:title)
+      title = "#{@post.title} | #{title}"
+    end
+    title
+  end
 end

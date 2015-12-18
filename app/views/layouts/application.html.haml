@@ -4,7 +4,15 @@
     %meta{charset: 'utf-8'}
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0, minimum-scale=1.0'}
 
-    %title= current_site.name
+    - if @page_meta_information
+      - if @page_meta_information.description.present?
+        %meta{name: 'description', content: @page_meta_information.description}
+      - if @page_meta_information.keywords.present?
+        %meta{name: 'keywords', content: @page_meta_information.keywords}
+      - if @page_meta_information.noindex
+        %meta{name: 'robots', content: 'noindex'}
+
+    %title= page_title
 
     = javascript_include_tag current_site.js_url
     = stylesheet_link_tag current_site.css_url
