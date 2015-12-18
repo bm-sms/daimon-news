@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_site
 
-  before_action :setup_meta_tag
+  before_action :setup_page_meta_information
 
   private
 
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
       end
   end
 
-  def setup_meta_tag
+  def setup_page_meta_information
     @page_meta_information = PageMetaInformation.find_by(site: current_site, path: request.path) || PageMetaInformation.find_by(site: current_site, path: '/')
   end
 
