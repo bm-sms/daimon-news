@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_site
 
+  before_action :setup_meta_tag
+
   private
 
   def current_site
@@ -15,6 +17,10 @@ class ApplicationController < ActionController::Base
       else
         Site.find_by!(fqdn: request.server_name)
       end
+  end
+
+  def setup_meta_tag
+    @meta_tag = MetaTag.find_by(site: current_site, path: request.path) || MetaTag.find_by(site: current_site, path: '/')
   end
 
   def routing_error!
