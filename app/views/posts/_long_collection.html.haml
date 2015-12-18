@@ -1,0 +1,11 @@
+%ul
+  - posts.each do |post|
+    %li.article-summary.article-summary--with-thumbnail
+      = link_to post, class: 'article-summary__url' do
+        = image_tag post.thumbnail_url, class: 'article-summary__thumbnail'
+        .article-summary__body
+          %p.article-summary__title
+            = post.title
+          %p.article-summary__data
+            %time.article-summary__data-item
+              = post.created_at

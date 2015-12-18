@@ -2,9 +2,7 @@
 
 %section
   %h1 Posts
-  %ul
-    - @posts.each do |post|
-      %li= link_to post.title, post
+  = render 'posts/long_collection', posts: @posts
 
 - if current_site.bbs_enabled?
   %section
