@@ -9,6 +9,9 @@ module ApplicationHelper
     if @page_meta_information.try(:title)
       title = "#{@page_meta_information.title} | #{title}"
     end
+    if @post.try(:title)
+      title = "#{@post.title} | #{title}"
+    end
     title
   end
 end
