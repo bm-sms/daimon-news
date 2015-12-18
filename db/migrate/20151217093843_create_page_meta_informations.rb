@@ -1,6 +1,6 @@
-class CreateMetaTags < ActiveRecord::Migration
+class CreatePageMetaInformations < ActiveRecord::Migration
   def change
-    create_table :meta_tags do |t|
+    create_table :page_meta_informations do |t|
       t.string :path, null: false
       t.string :description
       t.boolean :noindex

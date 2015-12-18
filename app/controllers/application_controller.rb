@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def setup_meta_tag
-    @meta_tag = MetaTag.find_by(site: current_site, path: request.path) || MetaTag.find_by(site: current_site, path: '/')
+    @meta_tag = PageMetaInformation.find_by(site: current_site, path: request.path) || PageMetaInformation.find_by(site: current_site, path: '/')
   end
 
   def routing_error!

@@ -4,5 +4,5 @@ class Site < ActiveRecord::Base
   has_many :fixed_pages, dependent: :destroy
   has_many :topics, dependent: :destroy
   has_many :hooks, dependent: :destroy
-  has_many :meta_tags, dependent: :destroy
+  has_many :page_meta_informations, dependent: :destroy
 end
