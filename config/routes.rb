@@ -16,6 +16,12 @@ Rails.application.routes.draw do
     resource :sitemaps, only: %i(show), path: 'sitemap'
 
     resources :fixed_pages, only: :show, path: '/'
+
+    resources :hooks, only: [], param: :token do
+      member do
+        post :trigger, path: '/'
+      end
+    end
   end
 
   concerns :site
