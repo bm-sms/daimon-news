@@ -18,6 +18,8 @@ gem 'seedbank'
 gem 'sitemap_generator'
 gem 'uglifier'
 
+gem 'mysql2', '~> 0.3.20'
+
 group :development, :test do
   gem 'pry-byebug'
 end
