@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(version: 20151221174319) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.datetime "published_at"
-    t.boolean  "published"
     t.integer  "category_id"
     t.string   "source_url"
     t.integer  "original_id"
