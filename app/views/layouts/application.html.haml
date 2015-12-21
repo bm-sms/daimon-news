@@ -43,10 +43,7 @@
             %h1.promotion__title.subheading--aside= current_site.name
             %section
               %h2.subheading.subheading--aside Recently updated posts
-              %ul
-                - current_site.posts.published.order_by_recently.limit(5).each do |post|
-                  %li
-                    = link_to post.title, post_path(post)
+              = render 'posts/long_collection', posts: current_site.posts.published.order_by_recently.limit(5)
     %footer.content-footer
       %ul.content-footer__links
         - current_site.fixed_pages.each do |page|
