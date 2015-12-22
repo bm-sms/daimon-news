@@ -4,6 +4,7 @@
   %h1= @category.name
   %p= @category.description
 
+  = render partial: 'banner', locals: {position: :press_articles_top}
   = render 'posts/long_collection', posts: @posts
 
   - if @posts.total_pages > 1
