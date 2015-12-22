@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.2.3'
+ruby '2.2.4'
 
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 
 gem 'active_decorator'
 gem 'activeadmin', '~> 1.0.0.pre2'
@@ -18,8 +18,7 @@ gem 'seedbank'
 gem 'sitemap_generator'
 gem 'uglifier'
 
-# XXX 0.4 だと establish_connection がエラーになる
-gem 'mysql2', '~> 0.3.20', require: false
+gem 'mysql2'
 
 group :development, :test do
   gem 'pry-byebug'
