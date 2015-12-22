@@ -6,4 +6,8 @@ class Post < ActiveRecord::Base
   scope :order_by_recently, -> { order(:published_at => :desc) }
 
   paginates_per 20
+
+  def pages
+    @pages ||= Page.pages_for(body)
+  end
 end
