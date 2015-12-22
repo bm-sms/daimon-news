@@ -6,3 +6,5 @@
   - if @pages.total_pages > 1
     %nav.pagination
       = paginate @pages, theme: :post
+
+  = render partial: 'banner', locals: {position: :press_article_bottom}
