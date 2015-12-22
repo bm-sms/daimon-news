@@ -6,5 +6,7 @@ ActiveAdmin.register Site do
                 :tagline,
                 :copyright,
                 :bbs_enabled,
-                :logo_url)
+                :logo_url,
+                :favicon_url,
+                :mobile_favicon_url)
 end
