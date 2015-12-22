@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -15,6 +16,11 @@ class ApplicationController < ActionController::Base
       else
         Site.find_by!(fqdn: request.server_name)
       end
+  end
+
+  def access_denied(exception)
+    # FIXME Should we render 404 error page?
+    redirect_to root_path
   end
 
   def routing_error!
