@@ -16,7 +16,8 @@
         %a.content-header__button.content-header__button--menu(data-sidebar='left') menu
 
         %p.content-header__title
-          = link_to current_site.name, root_path, class: 'content-header__logo'
+          = link_to root_path, class: 'content-header__logo' do
+            = image_tag current_site.logo_url, alt: current_site.name
 
         - if current_user
           %p.content-header__sign_out
