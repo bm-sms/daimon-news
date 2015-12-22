@@ -4,8 +4,4 @@ class Post < ActiveRecord::Base
 
   scope :published, -> { where('published_at <= ?', Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc) }
-
-  def thumbnail_url
-    body.try!(:match, /!\[.*\]\((.*)\)/).try!(:captures).try!(:first)
-  end
 end
