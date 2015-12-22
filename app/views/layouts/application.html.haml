@@ -17,7 +17,7 @@
 
         %p.content-header__title
           = link_to root_path, class: 'content-header__logo' do
-            = image_tag current_site.logo_url, alt: current_site.name
+            = image_tag current_site.logo_url, alt: current_site.name, class: 'content-header__logo-image'
 
         - if current_user
           %p.content-header__sign_out
