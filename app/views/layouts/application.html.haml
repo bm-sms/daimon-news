@@ -23,10 +23,6 @@
           = link_to root_path, class: 'content-header__logo' do
             = image_tag current_site.logo_url, alt: current_site.name, class: 'content-header__logo-image'
 
-        - if current_user
-          %p.content-header__sign_out
-            = link_to 'Sign out', destroy_user_session_path, method: :delete
-
       .content-header__sub
         - if current_site.tagline.present?
           %p.content-header__tagline= current_site.tagline
