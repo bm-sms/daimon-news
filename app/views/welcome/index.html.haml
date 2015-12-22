@@ -1,8 +1,10 @@
-%h1= current_site.name
-
 %section
-  %h1 Posts
   = render 'posts/long_collection', posts: @posts
+
+  - if @posts.total_pages > 1
+    %nav.pagination
+      = paginate @posts
+      %p.pagination__entries= page_entries_info @posts
 
 - if current_site.bbs_enabled?
   %section

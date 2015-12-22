@@ -1,0 +1,1 @@
+%p.pagination__item= link_to_unless current_page.last?, raw(t 'views.pagination.last'), url, remote: remote, class: 'pagination__link pagination__link--last', data: defined?(data) ? data : nil

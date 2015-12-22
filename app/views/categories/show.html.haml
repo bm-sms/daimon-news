@@ -1,0 +1,12 @@
+- breadcrumb :category, @category
+
+%section
+  %h1= @category.name
+  %p= @category.description
+
+  = render 'posts/long_collection', posts: @posts
+
+  - if @posts.total_pages > 1
+    %nav.pagination
+      = paginate @posts
+      %p.pagination__entries= page_entries_info @posts

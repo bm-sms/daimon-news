@@ -4,4 +4,6 @@ class Post < ActiveRecord::Base
 
   scope :published, -> { where('published_at <= ?', Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc) }
+
+  paginates_per 20
 end
