@@ -18,7 +18,8 @@ gem 'seedbank'
 gem 'sitemap_generator'
 gem 'uglifier'
 
-gem 'mysql2', '~> 0.3.20'
+# XXX 0.4 だと establish_connection がエラーになる
+gem 'mysql2', '~> 0.3.20', require: false
 
 group :development, :test do
   gem 'pry-byebug'
