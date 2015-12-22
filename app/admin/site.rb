@@ -9,7 +9,10 @@ ActiveAdmin.register Site do
                 :logo_url,
                 :favicon_url,
                 :mobile_favicon_url,
-                :gtm_id)
+                :gtm_id,
+                :content_header_url,
+                :promotion_url
+               )
 
   form do |f|
     f.semantic_errors
@@ -23,7 +26,11 @@ ActiveAdmin.register Site do
              :logo_url,
              :favicon_url,
              :mobile_favicon_url,
-             :gtm_id)
+             :gtm_id,
+             :content_header_url,
+             :promotion_url
+            )
+
     f.actions
   end
 end
