@@ -13,6 +13,8 @@
     = favicon_link_tag current_site.mobile_favicon_url, rel: 'apple-touch-icon-precomposed', type: 'image/png'
 
   %body.root-container(data-layer='top')
+    = google_tag_manager(current_site.gtm_id)
+
     %header.content-header
       .content-header__main
         %a.content-header__button.content-header__button--menu(data-sidebar='left') menu
