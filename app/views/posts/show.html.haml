@@ -1,0 +1,8 @@
+- breadcrumb :post, @post
+
+%article
+  =raw render_markdown(@pages.first.body)
+
+  - if @pages.total_pages > 1
+    %nav.pagination
+      = paginate @pages, theme: :post

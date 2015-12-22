@@ -1,0 +1,20 @@
+ja:
+  time:
+    formats:
+      short: "%Y/%m/%d %H:%M"
+      time_of_day: "%H:%M"
+  views:
+    pagination:
+      first: 最初
+      last: 最後
+      previous: 前へ
+      next: 次へ
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: ""
+          one: ""
+          other: ""
+      more_pages:
+        display_entries: '<span class="pagination__current-entries">%{first}～%{last}</span>/%{total}件'
