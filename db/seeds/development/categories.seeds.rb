@@ -4,11 +4,13 @@ after 'development:sites' do
   site1.categories.create!(
     name:        'category 1',
     description: 'category 1',
-    slug:        'category1'
+    slug:        'category1',
+    order:       1
   )
   site1.categories.create!(
     name:        'category 2',
     description: 'category 2',
-    slug:        'category2'
+    slug:        'category2',
+    order:       2
   )
 end
