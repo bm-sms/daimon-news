@@ -6,7 +6,6 @@ ActiveAdmin.register Site do
     :fqdn,
     :tagline,
     :description,
-    :copyright,
     :logo_url,
     :favicon_url,
     :mobile_favicon_url,
