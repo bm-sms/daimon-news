@@ -1,14 +1,21 @@
 module PostDecorator
-  include ActionView::Helpers::TagHelper
+  def to_og_params
+    {
+      locale: 'ja_JP',
+      type: 'article',
+      title: title,
+      description: body,
+      url: post_url(self, all: true),
+      site_name: site.name,
+      modified_time: updated_at.to_datetime.to_s,
+      image: thumbnail_url
+    }
+  end
 
-  def as_html
-    content_tag 'article' do
-      html_title = content_tag 'h2' do
-        title
-      end
-      html_body = simple_format body
-
-      [html_title, html_body].join.html_safe
-    end
+  def to_article_params
+    {
+      section: category.name,
+      published_time: published_at.to_datetime.to_s
+    }
   end
 end

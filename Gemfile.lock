@@ -244,6 +244,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    meta-tags (2.1.0)
+      actionpack (>= 3.0.0)
     method_source (0.8.2)
     mime-types (2.99)
     mini_portile2 (2.0.0)
@@ -364,6 +366,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   launchy
+  meta-tags
   mysql2
   pg
   pry-byebug
