@@ -1,5 +1,6 @@
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
 - breadcrumb :category, @category
+- set_meta_tags title: @category.name
 
 %section
   %h1= @category.name
