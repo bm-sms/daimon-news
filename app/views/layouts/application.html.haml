@@ -4,7 +4,7 @@
     %meta{charset: 'utf-8'}
     %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0, minimum-scale=1.0'}
 
-    %title= current_site.name
+    = display_meta_tags default_meta_tags
 
     = javascript_include_tag 'application'
     = javascript_include_tag current_site.js_url

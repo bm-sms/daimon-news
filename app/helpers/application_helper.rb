@@ -9,4 +9,11 @@ module ApplicationHelper
       render partial: 'google_tag_manager', locals: { gtm_id: gtm_id }
     end
   end
+
+  def default_meta_tags
+    {
+      site: current_site.name,
+      reverse: true,
+    }
+  end
 end
