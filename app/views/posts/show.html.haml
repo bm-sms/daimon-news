@@ -1,10 +1,14 @@
-- content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@pages) }
+- if @pages.respond_to?(:total_pages)
+  - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@pages) }
+  - content_for(:canonical_tag) do
+    %link{rel: :canonical, href: url_for(all: true)}
 - breadcrumb :post, @post
 
 %article
-  = raw render_markdown(@pages.first.body)
+  %h1= @post.title
+  = raw render_markdown(@pages.map(&:body).join)
 
-  - if @pages.total_pages > 1
+  - if @pages.respond_to?(:total_pages) && @pages.total_pages > 1
     %nav.pagination
       = paginate @pages, theme: :post
 
