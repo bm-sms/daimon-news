@@ -34,6 +34,6 @@ class Post < ActiveRecord::Base
   private
 
   def around_posts_candidates
-    site.posts.published.order_by_recently.where(category: category)
+    site.posts.published.order_by_recently
   end
 end
