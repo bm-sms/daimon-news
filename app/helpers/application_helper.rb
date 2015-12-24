@@ -14,6 +14,7 @@ module ApplicationHelper
     {
       site: current_site.name,
       reverse: true,
+      description: current_site.tagline,
     }
   end
 end
