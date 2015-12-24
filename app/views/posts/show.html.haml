@@ -5,6 +5,7 @@
 - breadcrumb :post, @post
 
 %article
+  %h1= @post.title
   = raw render_markdown(@pages.map(&:body).join)
 
   - if @pages.respond_to?(:total_pages) && @pages.total_pages > 1
