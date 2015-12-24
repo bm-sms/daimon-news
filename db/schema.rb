@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(version: 20151224120323) do
     t.string   "promotion_url"
     t.string   "sns_share_caption"
     t.string   "twitter_account"
+    t.string   "menu_url"
+    t.string   "home_url"
     t.string   "ad_client"
     t.string   "ad_slot"
     t.string   "description"
