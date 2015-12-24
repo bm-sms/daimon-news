@@ -17,4 +17,4 @@
   %aside
     = render partial: 'sns_share', locals: {title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
 
-    -# TODO ここに関連記事を表示する
+    = render partial: 'short_collection', locals: {posts: @post.related_posts}
