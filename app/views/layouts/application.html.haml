@@ -44,7 +44,7 @@
           - if current_site.menu_url.present?
             .external-component{data: {external_src: current_site.menu_url}}
           %li.menu__item.menu__item--home.menu__section{data: {menu_item_state: 'current'}}
-            = link_to 'Home', root_path, class: 'menu__label'
+            = link_to 'Press', root_path, class: 'menu__label'
 
             %ul.menu__items
               - current_site.categories.ordered.each do |category|
