@@ -57,7 +57,7 @@
           %section.promotion
             %h1.promotion__title.subheading--aside= current_site.name
             %section
-              %h2.subheading.subheading--aside Recently updated posts
+              %h2.subheading.subheading--aside 新着記事
               = render 'posts/long_collection', posts: current_site.posts.published.order_by_recently.limit(5)
 
           - if current_site.promotion_url.present?
