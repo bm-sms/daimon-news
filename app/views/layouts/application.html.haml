@@ -63,7 +63,9 @@
 
           %section.promotion
             %h2.subheading.subheading--aside.subheading--press-articles 新着記事
-            = render 'posts/long_collection', posts: current_site.posts.published.order_by_recently.limit(5)
+            %ul
+              - current_site.posts.published.order_by_recently.limit(5).each do |post|
+                = render partial: 'posts/summary', locals: {post: post}
 
             %h2.subheading.subheading--aside カテゴリ
             %ul
