@@ -19,3 +19,8 @@
     = render partial: 'sns_share', locals: {title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
 
     = render partial: 'short_collection', locals: {posts: @post.related_posts}
+
+    - if @post.next_post.present?
+      = link_to @post.next_post
+    - if @post.previous_post.present?
+      = link_to @post.previous_post
