@@ -1,10 +1,15 @@
 - breadcrumb :post, @post
 
 %article
-  =raw render_markdown(@pages.first.body)
+  = raw render_markdown(@pages.first.body)
 
   - if @pages.total_pages > 1
     %nav.pagination
       = paginate @pages, theme: :post
 
   = render partial: 'banner', locals: {position: :press_article_bottom}
+
+  %aside
+    = render partial: 'sns_share', locals: {title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
+
+    -# TODO ここに関連記事を表示する

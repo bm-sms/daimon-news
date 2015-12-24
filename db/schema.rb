@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224005840) do
+ActiveRecord::Schema.define(version: 20151224021737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 20151224005840) do
     t.string   "gtm_id"
     t.string   "content_header_url"
     t.string   "promotion_url"
+    t.string   "sns_share_caption"
+    t.string   "twitter_account"
   end
 
   create_table "topics", force: :cascade do |t|

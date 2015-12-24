@@ -1,0 +1,15 @@
+.sns-share
+  .sns-share__caption= caption
+
+  .sns-share__buttons.button-set
+    %a.button.button--facebook.button-set__button{href: "http://www.facebook.com/sharer.php?u=#{url}&amp;t=#{Rack::Utils.escape(title)}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"}
+      いいね
+
+    %a.button.button--twitter.button-set__button{href: "http://twitter.com/share?text=#{Rack::Utils.escape(title)}&amp;url=#{Rack::Utils.escape(url)}&amp;via=#{twitter_account}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"}
+      ツイート
+
+    %a.button.button--line.button-set__button{href: "http://line.me/R/msg/text/?#{Rack::Utils.escape(title)}%0D%0A#{Rack::Utils.escape(url)}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"}
+      LINE
+
+    %a.button.button--hatebu.button-set__button{href: "http://b.hatena.ne.jp/add?mode=confirm&amp;url=#{url}&amp;title=#{Rack::Utils::escape(title)}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"}
+      はてブ

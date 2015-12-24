@@ -11,7 +11,9 @@ ActiveAdmin.register Site do
                 :mobile_favicon_url,
                 :gtm_id,
                 :content_header_url,
-                :promotion_url
+                :promotion_url,
+                :sns_share_caption,
+                :twitter_account
                )
 
   form do |f|
@@ -28,7 +30,9 @@ ActiveAdmin.register Site do
              :mobile_favicon_url,
              :gtm_id,
              :content_header_url,
-             :promotion_url
+             :promotion_url,
+             :sns_share_caption,
+             :twitter_account
             )
 
     f.actions
