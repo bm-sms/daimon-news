@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def show
-    @post = current_site.posts.published.find(params[:id])
+    @post = current_site.posts.published.find_by!(original_id: params[:original_id])
 
     @pages =
       if params[:all]
