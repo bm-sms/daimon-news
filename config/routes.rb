@@ -11,9 +11,6 @@ Rails.application.routes.draw do
     resources :posts, only: %i(show), param: :original_id, constraints: {original_id: /\d+/}, path: '/'
     resources :categories, only: %i(show), path: 'category'
 
-    resources :topics, only: %i(index new show create)
-    resources :comments, only: :create
-
     resource :feed, only: %i(show), path: 'feed', controller: 'feed'
 
     resource :sitemaps, only: %i(show), path: 'sitemap'
