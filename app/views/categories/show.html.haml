@@ -1,4 +1,6 @@
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
+- content_for(:canonical_tag) do
+  %link{rel: :canonical, href: category_url(@category.slug)}
 - breadcrumb :category, @category
 - set_meta_tags title: @category.name
 
