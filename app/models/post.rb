@@ -18,15 +18,17 @@ class Post < ActiveRecord::Base
   end
 
   def next_post
-    @next_post ||= Post.from(
-      "(#{around_posts_candidates.select('posts.*, lag(id, 1, NULL) OVER(ORDER BY published_at DESC, original_id ASC) AS previous_post_id').to_sql}) AS posts"
-    ).find_by(previous_post_id: id)
+    @next_post ||= around_posts_candidates
+      .order(:original_id => :desc)
+      .where('original_id > ?', original_id)
+      .first
   end
 
   def previous_post
-    @previous_post ||= Post.from(
-      "(#{around_posts_candidates.select('posts.*, lead(id, 1, NULL) OVER(ORDER BY published_at DESC, original_id ASC) AS next_post_id').to_sql}) AS posts"
-    ).find_by(next_post_id: id)
+    @previous_post ||= around_posts_candidates
+      .order(:original_id)
+      .where('original_id < ?', original_id)
+      .first
   end
 
   private

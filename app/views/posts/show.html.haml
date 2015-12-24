@@ -22,7 +22,7 @@
 
     - if @post.next_post.present?
       次の記事
-      = link_to @post.next_post.title, @post.next_post
+      = link_to @post.next_post.title, post_path(@post.next_post.original_id)
     - if @post.previous_post.present?
       前の記事
-      = link_to @post.previous_post.title, @post.previous_post
+      = link_to @post.previous_post.title, post_path(@post.previous_post.original_id)
