@@ -5,7 +5,10 @@
 
 %section
   = render partial: 'banner', locals: {position: :press_articles_top}
-  = render 'posts/long_collection', posts: @posts
+  %ul
+    - @posts.each do |post|
+      = render partial: 'posts/summary', locals: {post: post}
+    = render partial: 'native_ad', locals: {position: :press_articles_bottom}
 
   - if @posts.total_pages > 1
     %nav.pagination
