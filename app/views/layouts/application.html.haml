@@ -6,6 +6,7 @@
 
     %title= current_site.name
 
+    = javascript_include_tag 'application'
     = javascript_include_tag current_site.js_url
     = stylesheet_link_tag current_site.css_url
     = csrf_meta_tag
@@ -22,6 +23,9 @@
         %p.content-header__title
           = link_to root_path, class: 'content-header__logo' do
             = image_tag current_site.logo_url, alt: current_site.name, class: 'content-header__logo-image'
+
+        - if current_site.content_header_url.present?
+          .external-component{data: {external_src: current_site.content_header_url}}
 
       .content-header__sub
         - if current_site.tagline.present?
@@ -49,6 +53,9 @@
             %section
               %h2.subheading.subheading--aside Recently updated posts
               = render 'posts/long_collection', posts: current_site.posts.published.order_by_recently.limit(5)
+
+          - if current_site.promotion_url.present?
+            .external-component{data: {external_src: current_site.promotion_url}}
     %footer.content-footer
       %ul.content-footer__links
         - current_site.fixed_pages.each do |page|
