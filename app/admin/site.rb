@@ -18,6 +18,7 @@ ActiveAdmin.register Site do
     :ad_client,
     :ad_slot,
     :menu_url,
-    :home_url
+    :home_url,
+    :footer_url
   )
 end
