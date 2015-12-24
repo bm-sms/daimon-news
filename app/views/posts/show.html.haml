@@ -21,6 +21,8 @@
     = render partial: 'short_collection', locals: {posts: @post.related_posts}
 
     - if @post.next_post.present?
-      = link_to @post.next_post
+      次の記事
+      = link_to @post.next_post.title, @post.next_post
     - if @post.previous_post.present?
-      = link_to @post.previous_post
+      前の記事
+      = link_to @post.previous_post.title, @post.previous_post

@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   belongs_to :category
 
   scope :published, -> { where('published_at <= ?', Time.current) }
-  scope :order_by_recently, -> { order(:published_at => :desc) }
+  scope :order_by_recently, -> { order(:published_at => :desc, :original_id => :asc) }
 
   paginates_per 20
 
@@ -18,12 +18,20 @@ class Post < ActiveRecord::Base
   end
 
   def next_post
-    Post.published.where(Post.arel_table[:published_at].gt(published_at))
-      .order(published_at: :asc).limit(1)
+    @next_post ||= Post.from(
+      "(#{around_posts_candidates.select('posts.*, lead(id, 1, NULL) OVER(ORDER BY published_at DESC, original_id ASC) AS next_post_id').to_sql}) AS posts"
+    ).find_by(next_post_id: id)
   end
 
   def previous_post
-    Post.published.where(Post.arel_table[:published_at].lt(published_at))
-      .order(published_at: :desc).limit(1)
+    @previous_post ||= Post.from(
+      "(#{around_posts_candidates.select('posts.*, lag(id, 1, NULL) OVER(ORDER BY published_at DESC, original_id ASC) AS previous_post_id').to_sql}) AS posts"
+    ).find_by(previous_post_id: id)
+  end
+
+  private
+
+  def around_posts_candidates
+    site.posts.published.order_by_recently.where(category: category)
   end
 end
