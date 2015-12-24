@@ -24,8 +24,4 @@ SitemapGenerator::Sitemap.create do
   site.categories.find_each do |category|
     add category_path(category.slug), changefreq: 'daily', priority: 0.6
   end
-
-  site.fixed_pages.find_each do |fixed_page|
-    add fixed_page_path(fixed_page.slug), changefreq: 'weekly', priority: 0.5
-  end
 end
