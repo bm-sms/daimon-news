@@ -10,10 +10,6 @@
   = render partial: 'banner', locals: {position: :press_article_bottom}
 
   %aside
-    = render partial: 'share_buttons', locals: {title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption_html: current_site.share_button_caption_html}
-
-    %div(style='padding:0px 0px;')
-      .smanone(style='padding-top:10px;')
-        .textwidget
+    = render partial: 'sns_share', locals: {title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
 
     -# TODO ここに関連記事を表示する
