@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224095700) do
+ActiveRecord::Schema.define(version: 20151224120135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,17 +63,6 @@ ActiveRecord::Schema.define(version: 20151224095700) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "links", force: :cascade do |t|
-    t.string   "text"
-    t.string   "url"
-    t.integer  "order",      null: false
-    t.integer  "site_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "links", ["site_id"], name: "index_links_on_site_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -148,7 +137,6 @@ ActiveRecord::Schema.define(version: 20151224095700) do
   add_foreign_key "comments", "topics"
   add_foreign_key "fixed_pages", "sites"
   add_foreign_key "hooks", "sites"
-  add_foreign_key "links", "sites"
   add_foreign_key "posts", "sites"
   add_foreign_key "topics", "sites"
 end
