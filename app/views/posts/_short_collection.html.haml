@@ -1,0 +1,10 @@
+%h3 関連記事
+
+- posts.each do |post|
+  %dl
+    %dt
+      = link_to post do
+        = image_tag post.thumbnail_url, class: 'attachment-thumb150 wp-post-image', size: '150x150'
+    %dd
+      %h5
+        = link_to post.title, post

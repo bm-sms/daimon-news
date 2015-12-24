@@ -10,4 +10,8 @@ class Post < ActiveRecord::Base
   def pages
     @pages ||= Page.pages_for(body)
   end
+
+  def related_posts
+    Post.limit(9) # XXX 同じカテゴリの中から適当に返す
+  end
 end
