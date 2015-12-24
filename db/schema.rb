@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20151224093434) do
     t.datetime "published_at"
     t.integer  "category_id"
     t.string   "source_url"
-    t.integer  "original_id"
+    t.integer  "original_id",   null: false
     t.string   "thumbnail_url"
   end
 
