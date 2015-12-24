@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   concern :site do
-    resources :posts, only: %i(show)
+    resources :posts, only: %i(show), param: :original_id
     resources :categories, only: %i(show), path: 'category'
 
     resources :topics, only: %i(index new show create)
