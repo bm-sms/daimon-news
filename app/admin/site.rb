@@ -6,7 +6,6 @@ ActiveAdmin.register Site do
     :fqdn,
     :tagline,
     :description,
-    :copyright,
     :logo_url,
     :favicon_url,
     :mobile_favicon_url,
@@ -18,6 +17,7 @@ ActiveAdmin.register Site do
     :ad_client,
     :ad_slot,
     :menu_url,
-    :home_url
+    :home_url,
+    :footer_url
   )
 end

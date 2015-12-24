@@ -74,12 +74,6 @@
           - if current_site.promotion_url.present?
             .external-component{data: {external_src: current_site.promotion_url}}
 
-    %footer.content-footer
-      %ul.content-footer__links
-        -# TODO Show footer from API
 
-      %p.content-footer__brand= current_site.name
-      - if current_site.tagline.present?
-        %p.content-footer__tagline= current_site.tagline
-      - if current_site.copyright.present?
-        %p.content-footer__copyright= current_site.copyright
+    - if current_site.footer_url.present?
+      .external-component{data: {external_src: current_site.footer_url}}

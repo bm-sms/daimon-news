@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224122903) do
+ActiveRecord::Schema.define(version: 20151224124718) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 20151224122903) do
     t.datetime "updated_at",                                 null: false
     t.string   "fqdn",               default: "example.com", null: false
     t.string   "tagline"
-    t.string   "copyright"
     t.string   "logo_url"
     t.string   "favicon_url"
     t.string   "mobile_favicon_url"
@@ -82,6 +81,7 @@ ActiveRecord::Schema.define(version: 20151224122903) do
     t.string   "ad_client"
     t.string   "ad_slot"
     t.string   "description"
+    t.string   "footer_url"
   end
 
   create_table "users", force: :cascade do |t|
