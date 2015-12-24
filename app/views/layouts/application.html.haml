@@ -12,6 +12,8 @@
     = csrf_meta_tag
     = favicon_link_tag current_site.favicon_url
     = favicon_link_tag current_site.mobile_favicon_url, rel: 'apple-touch-icon-precomposed', type: 'image/png'
+    - if content_for? :rel_next_prev_link_tags
+      = content_for :rel_next_prev_link_tags
 
   %body.root-container(data-layer='top')
     = google_tag_manager(current_site.gtm_id)

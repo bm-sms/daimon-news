@@ -1,3 +1,5 @@
+- content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
+
 %section
   = render partial: 'banner', locals: {position: :press_articles_top}
   = render 'posts/long_collection', posts: @posts
