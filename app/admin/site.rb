@@ -14,7 +14,9 @@ ActiveAdmin.register Site do
     :content_header_url,
     :promotion_url,
     :sns_share_caption,
-    :twitter_account
+    :twitter_account,
+    :ad_client,
+    :ad_slot
   )
 
   form do |f|
@@ -34,7 +36,9 @@ ActiveAdmin.register Site do
       :content_header_url,
       :promotion_url,
       :sns_share_caption,
-      :twitter_account
+      :twitter_account,
+      :ad_client,
+      :ad_slot
     )
 
     f.actions

@@ -54,6 +54,10 @@
             = breadcrumbs
             = yield
         %aside.wrappable__content.promotions
+          - if current_site.ad_client.present? && current_site.ad_slot.present?
+            %section.promotion
+              = render 'adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
+
           %section.promotion
             %h2.subheading.subheading--aside 新着記事
             = render 'posts/long_collection', posts: current_site.posts.published.order_by_recently.limit(5)
@@ -66,6 +70,7 @@
 
           - if current_site.promotion_url.present?
             .external-component{data: {external_src: current_site.promotion_url}}
+
     %footer.content-footer
       %ul.content-footer__links
         - current_site.fixed_pages.each do |page|
