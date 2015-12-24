@@ -7,7 +7,6 @@ ActiveAdmin.register Site do
     :tagline,
     :description,
     :copyright,
-    :bbs_enabled,
     :logo_url,
     :favicon_url,
     :mobile_favicon_url,

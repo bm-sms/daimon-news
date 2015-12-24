@@ -14,11 +14,3 @@
 
   %aside
     = render partial: 'sns_share', locals: {title: "#{current_site.name} #{current_site.tagline}", url: root_url, twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
-
-- if current_site.bbs_enabled?
-  %section
-    %h1 BBS
-    = link_to 'New Topic', new_topic_path, class: 'button'
-    %ul
-      - @topics.each do |topic|
-        %li= link_to topic.title, topic
