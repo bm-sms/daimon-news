@@ -7,6 +7,9 @@
       = paginate @posts
       %p.pagination__entries= page_entries_info @posts
 
+  %aside
+    = render partial: 'share_buttons', locals: {title: "#{current_site.name} #{current_site.tagline}", url: root_url, twitter_account: current_site.twitter_account, caption_html: current_site.share_button_caption_html}
+
 - if current_site.bbs_enabled?
   %section
     %h1 BBS
