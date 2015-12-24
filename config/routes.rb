@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :topics, only: %i(index new show create)
     resources :comments, only: :create
 
+    resource :feed, only: %i(show), path: 'feed', controller: 'feed'
+
     resource :sitemaps, only: %i(show), path: 'sitemap'
 
     resources :fixed_pages, only: :show, path: '/'
