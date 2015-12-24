@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20151224095700) do
     t.string   "thumbnail_url"
   end
 
-  add_index "posts", ["published_at"], name: "index_posts_on_published_at", using: :btree
+  add_index "posts", ["published_at", "original_id"], name: "index_posts_on_published_at_and_original_id", using: :btree
   add_index "posts", ["site_id", "original_id"], name: "index_posts_on_site_id_and_original_id", unique: true, using: :btree
   add_index "posts", ["site_id"], name: "index_posts_on_site_id", using: :btree
 
