@@ -4,4 +4,6 @@ class Link < ActiveRecord::Base
   validates :text,  presence: true
   validates :url,   presence: true
   validates :order, presence: true
+
+  scope :ordered, -> { order(:order) }
 end
