@@ -10,6 +10,7 @@
     = javascript_include_tag current_site.js_url
     = stylesheet_link_tag current_site.css_url
     = csrf_meta_tag
+    = auto_discovery_link_tag :rss, feed_url
     - if current_site.favicon_url.present?
       = favicon_link_tag current_site.favicon_url
     - if current_site.mobile_favicon_url.present?
