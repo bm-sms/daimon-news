@@ -16,7 +16,7 @@
   = render partial: 'banner', locals: {position: :press_article_bottom}
 
   %aside
-    = render partial: 'sns_share', locals: {title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
+    = render partial: 'sns_share', locals: {title: @post.title, url: post_url(@post.original_id), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
 
     = render partial: 'short_collection', locals: {posts: @post.related_posts}
 
