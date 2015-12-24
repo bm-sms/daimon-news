@@ -60,7 +60,7 @@
               = render 'adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
 
           %section.promotion
-            %h2.subheading.subheading--aside 新着記事
+            %h2.subheading.subheading--aside.subheading--press-articles 新着記事
             = render 'posts/long_collection', posts: current_site.posts.published.order_by_recently.limit(5)
 
             %h2.subheading.subheading--aside カテゴリ
