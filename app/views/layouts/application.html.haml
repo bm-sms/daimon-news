@@ -45,7 +45,7 @@
             = link_to 'Home', root_path, class: 'menu__label'
 
             %ul.menu__items
-              - current_site.categories.each do |category|
+              - current_site.categories.ordered.each do |category|
                 %li.menu__item{class: "menu__item--#{category.slug}"}
                   = link_to category.name, category_path(category.slug), class: 'menu__label'
 
@@ -65,7 +65,7 @@
 
             %h2.subheading.subheading--aside カテゴリ
             %ul
-              - current_site.categories.each do |category|
+              - current_site.categories.ordered.each do |category|
                 %li
                   = link_to category.name, category_path(category.slug)
 

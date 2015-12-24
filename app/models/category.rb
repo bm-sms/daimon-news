@@ -3,4 +3,6 @@ class Category < ActiveRecord::Base
   has_many :posts
 
   validates :slug, format: /\A\w+\z/, uniqueness: {scope: :site_id}
+
+  scope :ordered, -> { order(:order) }
 end
