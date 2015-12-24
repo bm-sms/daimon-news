@@ -16,4 +16,14 @@ class Post < ActiveRecord::Base
 
     Post.published.where(category: category).order("(id - #{id} + #{maximum_id} - 1) % #{maximum_id}").limit(9) # XXX 同じカテゴリの中から適当に返している
   end
+
+  def next_post
+    Post.published.where(Post.arel_table[:published_at].gt(published_at))
+      .order(published_at: :asc).limit(1)
+  end
+
+  def previous_post
+    Post.published.where(Post.arel_table[:published_at].lt(published_at))
+      .order(published_at: :desc).limit(1)
+  end
 end
