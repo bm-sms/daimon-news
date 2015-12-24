@@ -55,10 +55,14 @@
             = yield
         %aside.wrappable__content.promotions
           %section.promotion
-            %h1.promotion__title.subheading--aside= current_site.name
-            %section
-              %h2.subheading.subheading--aside 新着記事
-              = render 'posts/long_collection', posts: current_site.posts.published.order_by_recently.limit(5)
+            %h2.subheading.subheading--aside 新着記事
+            = render 'posts/long_collection', posts: current_site.posts.published.order_by_recently.limit(5)
+
+            %h2.subheading.subheading--aside カテゴリ
+            %ul
+              - current_site.categories.each do |category|
+                %li
+                  = link_to category.name, category
 
           - if current_site.promotion_url.present?
             .external-component{data: {external_src: current_site.promotion_url}}
