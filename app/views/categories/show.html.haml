@@ -2,7 +2,7 @@
 - content_for(:canonical_tag) do
   %link{rel: :canonical, href: category_url(@category.slug)}
 - breadcrumb :category, @category
-- set_meta_tags title: @category.name
+- set_meta_tags title: @category.name, og: @category.to_og_params
 
 %section
   %h1= @category.name
