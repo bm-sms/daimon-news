@@ -9,4 +9,10 @@ class PostsController < ApplicationController
         Kaminari.paginate_array(@post.pages).page(params[:page]).per(1)
       end
   end
+
+  private
+
+  def current_category
+    @post.category
+  end
 end
