@@ -28,7 +28,7 @@
         %a.content-header__button.content-header__button--menu(data-sidebar='left') menu
 
         %p.content-header__title
-          = link_to root_path, class: 'content-header__logo' do
+          = link_to current_site.home_url.presence || root_path, class: 'content-header__logo' do
             = image_tag current_site.logo_url, alt: current_site.name, class: 'content-header__logo-image'
 
         - if current_site.content_header_url.present?
@@ -41,6 +41,8 @@
     .content-body
       %nav.sidebar.sidebar--left(data-state='off-canvas')
         %ul.menu
+          - if current_site.menu_url.present?
+            .external-component{data: {external_src: current_site.menu_url}}
           %li.menu__item.menu__item--home.menu__section{data: {menu_item_state: 'current'}}
             = link_to 'Home', root_path, class: 'menu__label'
 
