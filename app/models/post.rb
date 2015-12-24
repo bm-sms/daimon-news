@@ -12,6 +12,8 @@ class Post < ActiveRecord::Base
   end
 
   def related_posts
-    Post.limit(9) # XXX 同じカテゴリの中から適当に返す
+    maximum_id = Post.published.maximum(:id)
+
+    Post.published.where(category: category).order("(id - #{id} + #{maximum_id} - 1) % #{maximum_id}").limit(9) # XXX 同じカテゴリの中から適当に返している
   end
 end
