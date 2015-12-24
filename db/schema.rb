@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224095700) do
+ActiveRecord::Schema.define(version: 20151224120323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,17 +38,6 @@ ActiveRecord::Schema.define(version: 20151224095700) do
 
   add_index "comments", ["topic_id"], name: "index_comments_on_topic_id", using: :btree
 
-  create_table "fixed_pages", force: :cascade do |t|
-    t.integer  "site_id",    null: false
-    t.string   "title"
-    t.text     "body"
-    t.string   "slug",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "fixed_pages", ["site_id", "slug"], name: "index_fixed_pages_on_site_id_and_slug", unique: true, using: :btree
-
   create_table "hooks", force: :cascade do |t|
     t.integer  "site_id",    null: false
     t.string   "token",      null: false
@@ -63,17 +52,6 @@ ActiveRecord::Schema.define(version: 20151224095700) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "links", force: :cascade do |t|
-    t.string   "text"
-    t.string   "url"
-    t.integer  "order",      null: false
-    t.integer  "site_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "links", ["site_id"], name: "index_links_on_site_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -146,9 +124,7 @@ ActiveRecord::Schema.define(version: 20151224095700) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "comments", "topics"
-  add_foreign_key "fixed_pages", "sites"
   add_foreign_key "hooks", "sites"
-  add_foreign_key "links", "sites"
   add_foreign_key "posts", "sites"
   add_foreign_key "topics", "sites"
 end

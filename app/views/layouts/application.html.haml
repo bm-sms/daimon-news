@@ -74,8 +74,8 @@
 
     %footer.content-footer
       %ul.content-footer__links
-        - current_site.links.ordered.each do |link|
-          %li.content-footer__link= link_to link.text, link.url, class: 'content-footer__link-label'
+        -# TODO Show footer from API
+
       %p.content-footer__brand= current_site.name
       - if current_site.tagline.present?
         %p.content-footer__tagline= current_site.tagline
