@@ -43,7 +43,7 @@
         %ul.menu
           - if current_site.menu_url.present?
             .external-component{data: {external_src: current_site.menu_url}}
-          %li.menu__item.menu__item--home.menu__section{data: {menu_item_state: current_category.nil? ? 'current' : nil}}
+          %li.menu__item.menu__item--press.menu__section{data: {menu_item_state: current_category.nil? ? 'current' : nil}}
             = link_to 'Press', root_path, class: 'menu__label'
 
             %ul.menu__items
