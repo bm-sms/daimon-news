@@ -89,12 +89,13 @@ target.find_each.with_index do |wp_post, i|
       c.order       = site.categories.maximum(:order) + 1
     end
 
-    site.posts.create!(
+    post = site.posts.find_or_initialize_by(original_id: wp_post.id)
+
+    post.update!(
       title:         wp_post.post_title,
       published_at:  wp_post.post_date,
       body:          wp_post.post_content,
       category:      category,
-      original_id:   wp_post.id,
       thumbnail_url: wp_post.thumbnail_url
     )
   end
