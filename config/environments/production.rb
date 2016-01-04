@@ -86,24 +86,4 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  class DigestAuthUnless < Rack::Auth::Digest::MD5
-    def initialize(app, realm=nil, opaque=nil, custom_condition=nil, &authenticator)
-      @custom_condition = custom_condition
-
-      super(app, realm, opaque, &authenticator)
-    end
-
-    def call(env)
-      unless @custom_condition.try!(:call, env)
-        super
-      else
-        @app.call(env)
-      end
-    end
-  end
-
-  config.middleware.use DigestAuthUnless, 'daimon', ENV['DIGEST_AUTH_SECRET_KEY'], (-> (env) { env['PATH_INFO'] =~ %r{\A/hooks/} }) do |username|
-    {ENV['DIGEST_AUTH_USERNAME'] => ENV['DIGEST_AUTH_PASSWORD']}[username]
-  end
 end
