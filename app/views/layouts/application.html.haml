@@ -54,7 +54,7 @@
       .wrappable
         .wrappable__content.wrappable__content--flex.main-pane
           %main
-            = breadcrumbs
+            = render 'breadcrumbs'
             = yield
         %aside.wrappable__content.promotions
           - if current_site.ad_client.present? && current_site.ad_slot.present?
