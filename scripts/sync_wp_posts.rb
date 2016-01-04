@@ -79,8 +79,7 @@ if latest_updated_at
   target = target.where('post_modified > ?', latest_updated_at)
 end
 
-target_count = target.count
-puts "target : #{target_count}"
+puts "target : #{target.count}"
 
 target.find_each.with_index do |wp_post, i|
   puts i
