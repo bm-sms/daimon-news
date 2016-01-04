@@ -21,7 +21,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_decorator (0.5.3)
+    active_decorator (0.6.0)
     activeadmin (1.0.0.pre2)
       arbre (~> 1.0, >= 1.0.2)
       bourbon
@@ -90,7 +90,7 @@ GEM
     execjs (2.6.0)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.36.0)
+    fog (1.37.0)
       fog-aliyun (>= 0.1.0)
       fog-atmos
       fog-aws (>= 0.6.0)
@@ -112,10 +112,10 @@ GEM
       fog-terremark
       fog-vmfusion
       fog-voxel
+      fog-vsphere (>= 0.4.0)
       fog-xenserver
       fog-xml (~> 0.1.1)
       ipaddress (~> 0.5)
-      nokogiri (~> 1.5, >= 1.5.11)
     fog-aliyun (0.1.0)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
@@ -169,7 +169,7 @@ GEM
       fog-core
       fog-json
       fog-xml
-    fog-sakuracloud (1.7.3)
+    fog-sakuracloud (1.7.5)
       fog-core
       fog-json
     fog-serverlove (0.1.2)
@@ -190,6 +190,9 @@ GEM
     fog-voxel (0.1.0)
       fog-core
       fog-xml
+    fog-vsphere (0.4.0)
+      fog-core
+      rbvmomi (~> 1.8)
     fog-xenserver (0.2.2)
       fog-core
       fog-xml
@@ -293,7 +296,7 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails-i18n (4.0.7)
+    rails-i18n (4.0.8)
       i18n (~> 0.7)
       railties (~> 4.0)
     rails_12factor (0.0.3)
@@ -313,7 +316,11 @@ GEM
       activesupport (>= 3.0)
       i18n
       polyamorous (~> 1.2)
-    redcarpet (3.3.3)
+    rbvmomi (1.8.2)
+      builder
+      nokogiri (>= 1.4.1)
+      trollop
+    redcarpet (3.3.4)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
     ruby_parser (3.7.2)
@@ -340,6 +347,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
+    trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
