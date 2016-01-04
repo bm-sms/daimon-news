@@ -72,9 +72,14 @@ end
 
 site = Site.find_by!(fqdn: FQDN)
 
-target = WpPost.where('post_status = "publish" OR post_status = "future"').where('id > ?', site.posts.maximum(:original_id).to_i).order(:id)
-target_count = target.count
-puts "target : #{target_count}"
+target = WpPost.where('post_status = "publish" OR post_status = "future"').order(:id)
+
+latest_updated_at = site.posts.maximum(:updated_at)
+if latest_updated_at
+  target = target.where('post_modified > ?', latest_updated_at)
+end
+
+puts "target : #{target.count}"
 
 target.find_each.with_index do |wp_post, i|
   puts i
@@ -89,13 +94,15 @@ target.find_each.with_index do |wp_post, i|
       c.order       = site.categories.maximum(:order) + 1
     end
 
-    site.posts.create!(
+    post = site.posts.find_or_initialize_by(original_id: wp_post.id)
+
+    post.update!(
       title:         wp_post.post_title,
       published_at:  wp_post.post_date,
       body:          wp_post.post_content,
       category:      category,
-      original_id:   wp_post.id,
-      thumbnail_url: wp_post.thumbnail_url
+      thumbnail_url: wp_post.thumbnail_url,
+      updated_at:    wp_post.post_modified
     )
   end
 end
