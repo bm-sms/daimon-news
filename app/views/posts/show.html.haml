@@ -5,9 +5,12 @@
 - breadcrumb :post, @post
 - set_meta_tags title: @post.title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
 
-%article
-  %h1= @post.title
-  = raw render_markdown(@pages.map(&:body).join)
+%article.post
+  %h1.post__title= @post.title
+  %p.post__data
+    %time.post__data-item.post__data-item--published-at= l @post.published_at.to_date
+  .post__body
+    = raw render_markdown(@pages.map(&:body).join)
 
   - if @pages.respond_to?(:total_pages) && @pages.total_pages > 1
     %nav.pagination
