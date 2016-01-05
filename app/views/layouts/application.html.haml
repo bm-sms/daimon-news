@@ -68,9 +68,9 @@
                 = render partial: 'posts/summary', locals: {post: post}
 
             %h2.subheading.subheading--aside カテゴリ
-            %ul
+            %ul.category-list
               - current_site.categories.ordered.each do |category|
-                %li
+                %li.category-list__item
                   = link_to category.name, category_path(category.slug)
 
           - if current_site.promotion_url.present?

@@ -25,10 +25,10 @@
 
     %ul
       - if @post.next_post.present?
-        %li
-          次の記事へ
-          = link_to @post.next_post.title, post_path(@post.next_post.original_id)
+        %li.page-navi
+          .page-navi__label 次の記事へ
+          = link_to @post.next_post.title, post_path(@post.next_post.original_id), class: 'page-navi__link'
       - if @post.previous_post.present?
-        %li
-          前の記事へ
-          = link_to @post.previous_post.title, post_path(@post.previous_post.original_id)
+        %li.page-navi
+          .page-navi__label 前の記事へ
+          = link_to @post.previous_post.title, post_path(@post.previous_post.original_id), class: 'page-navi__link'
