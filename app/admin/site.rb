@@ -20,4 +20,6 @@ ActiveAdmin.register Site do
     :home_url,
     :footer_url
   )
+
+  actions :all, except: :destroy
 end
