@@ -3,10 +3,6 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root 'welcome#index'
 
-  namespace :api do
-    resources :sites, only: :update
-  end
-
   concern :site do
     resources :posts, only: %i(show), param: :original_id, constraints: {original_id: /\d+/}, path: '/'
     get '/:original_id/:page' => redirect('/%{original_id}?page=%{page}'), constraints: {original_id: /\d+/, page: /\d+/} # To compatible with old URL
