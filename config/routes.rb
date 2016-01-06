@@ -28,5 +28,5 @@ Rails.application.routes.draw do
   # for debug
   resources :sites, only: %i() do
     concerns :site
-  end
+  end if Rails.env.development?
 end
