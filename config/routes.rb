@@ -15,12 +15,6 @@ Rails.application.routes.draw do
     resource :feed, only: %i(show), path: 'feed', controller: 'feed'
 
     resource :sitemaps, only: %i(show), path: 'sitemap'
-
-    resources :hooks, only: [], param: :token do
-      member do
-        post :trigger, path: '/'
-      end
-    end
   end
 
   concerns :site
