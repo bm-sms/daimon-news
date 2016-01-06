@@ -105,7 +105,7 @@ Rails.application.configure do
 
   config.middleware.use DigestAuthUnless, 'daimon', ENV['DIGEST_AUTH_SECRET_KEY'], (-> (env) { env['PATH_INFO'] =~ %r{\A/hooks/} }) do |username|
     {ENV['DIGEST_AUTH_USERNAME'] => ENV['DIGEST_AUTH_PASSWORD']}[username]
-  end
+  end if ENV['DIGEST_AUTH_SECRET_KEY']
 
   allowd_ips = ENV['ADMIN_IP_ADDRESSES'].split(',')
   config.middleware.use Rack::Access, '/admin' => allowd_ips, '/users' => allowd_ips
