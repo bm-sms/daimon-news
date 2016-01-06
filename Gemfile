@@ -37,6 +37,7 @@ group :development do
 end
 
 group :production do
+  gem 'rack-contrib', require: 'rack/contrib'
   gem 'rack-timeout'
   gem 'rails_12factor'
 end
