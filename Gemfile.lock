@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     CFPropertyList (2.3.2)
     actionmailer (4.2.5)
@@ -194,6 +195,8 @@ GEM
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
+    font-awesome-sass (4.5.0)
+      sass (>= 3.2)
     formatador (0.2.5)
     formtastic (3.1.3)
       actionpack (>= 3.2.13)
@@ -286,6 +289,7 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.2.5)
       sprockets-rails
+    rails-assets-normalize-scss (3.0.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -366,8 +370,10 @@ PLATFORMS
 DEPENDENCIES
   active_decorator
   activeadmin (~> 1.0.0.pre2)
+  bourbon
   devise
   fog
+  font-awesome-sass
   gretel
   haml-rails
   jquery-rails
@@ -383,6 +389,7 @@ DEPENDENCIES
   rack-contrib
   rack-timeout
   rails (= 4.2.5)
+  rails-assets-normalize-scss!
   rails-i18n
   rails_12factor
   redcarpet
