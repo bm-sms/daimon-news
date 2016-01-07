@@ -98,11 +98,11 @@ target.find_each.with_index do |wp_post, i|
 
     post.update!(
       title:         wp_post.post_title,
-      published_at:  wp_post.post_date,
+      published_at:  wp_post.post_date_gmt,
       body:          wp_post.post_content,
       category:      category,
       thumbnail_url: wp_post.thumbnail_url,
-      updated_at:    wp_post.post_modified
+      updated_at:    wp_post.post_modified_gmt
     )
   end
 end
