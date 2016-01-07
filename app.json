@@ -14,6 +14,9 @@
     },
     "DIGEST_AUTH_PASSWORD": {
       "required": true
+    },
+    "ADMIN_IP_ADDRESSES": {
+      "required": true
     }
   },
   "addons": [

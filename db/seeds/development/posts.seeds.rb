@@ -12,6 +12,7 @@ after 'development:sites', 'development:categories' do
     category: site1.categories.find_by!(slug: 'category1'),
     original_id: 1
   )
+
   published_at = 3.minutes.from_now
 
   site1.posts.create!(
@@ -26,4 +27,26 @@ after 'development:sites', 'development:categories' do
     category: site1.categories.find_by!(slug: 'category2'),
     original_id: 2
   )
+
+  100.times do |i|
+    i += 100
+
+    site1.posts.create!(
+      title: "Post #{i}",
+      body: <<~EOS,
+        page 1
+
+        <!--nextpage-->
+
+        page 2
+
+        <!--nextpage-->
+
+        page 3
+      EOS
+      published_at: Time.current,
+      category: site1.categories.find_by!(slug: 'category1'),
+      original_id: i
+    )
+  end
 end
