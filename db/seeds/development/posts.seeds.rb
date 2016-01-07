@@ -33,7 +33,7 @@ after 'development:sites', 'development:categories' do
 
     site1.posts.create!(
       title: "Post #{i}",
-      body: <<-EOS.strip_heredoc,
+      body: <<~EOS,
         page 1
 
         <!--nextpage-->
