@@ -27,11 +27,11 @@ class PostBodyHeaderTest < ActionDispatch::IntegrationTest
   end
 
   test "body shouldn't have <br>" do
-    get '/1'
+    visit '/1'
 
-    assert_select '.post__body' do
-      assert_select 'h1', 'hi'
-      assert_select 'br', false
+    within '.post__body' do
+      assert page.has_selector?('h1', text: 'hi')
+      assert_not page.has_selector?('br')
     end
   end
 end
@@ -50,16 +50,16 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
   end
 
   test 'body should have <br>' do
-    get '/1'
+    visit '/1'
 
-    assert_select '.post__body' do
-      assert_select 'p' do |elem|
-        assert_equal 3, elem.children.count
+    within '.post__body' do
+      elem = find('p').native
 
-        assert_equal 'following line should be breaked:', elem.children[0].text
-        assert_equal 'br', elem.children[1].name
-        assert_equal "\n hi", elem.children[2].text
-      end
+      assert_equal 3, elem.children.count
+
+      assert_equal 'following line should be breaked:', elem.children[0].text
+      assert_equal 'br', elem.children[1].name
+      assert_equal "\n hi", elem.children[2].text
     end
   end
 end
