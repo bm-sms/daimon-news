@@ -3,6 +3,7 @@
 //= require ace-builds/src/mode-markdown
 //= require ace-builds/src/ext-language_tools
 //= require bootstrap-markdown-editor
+//= require marked
 
 
 $(document).ready(function() {
@@ -10,9 +11,12 @@ $(document).ready(function() {
     $('#post_body').hide();
     $('#post_body').after('<div id="editor"></div>');
     $('div#editor').markdownEditor({
-        preview: false,
+        preview: true,
         imageUpload: false,
-        width: '80%'
+        width: '80%',
+        onPreview: function(content, callback) {
+            callback(marked(content));
+        }
     });
     $('div#editor').markdownEditor('setContent', content);
     $('form#edit_post').submit(function(event) {
