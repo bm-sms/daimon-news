@@ -19,4 +19,10 @@
 //
 //   .status_tag { background: #6090DB; }
 
-#editor { display: inline-block; }
+#active_admin_content {
+    #editor {
+        display: inline-block;
+        padding: 8px 10px 7px 10px;
+    }
+    label { color: #5E6469; }
+}
