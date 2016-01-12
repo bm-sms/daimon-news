@@ -19,6 +19,7 @@ ActiveAdmin.register Site do
     menu_url
     home_url
     footer_url
+    opened
   )
 
   permit_params(*attrs)
