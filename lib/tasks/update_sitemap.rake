@@ -1,14 +1,13 @@
 namespace :daimon do
   desc 'Update sitemap.xml for all sites'
   task 'update_all_sitemap' => :environment do
-    Site.pluck(:id).each do |id|
+    Site.where(opened: true).pluck(:id).each do |id|
       task = 'daimon:create_sitemap'
 
       Rake::Task[task].invoke(id.to_s)
       Rake::Task[task].reenable
 
-      # TODO Enable later
-      # SitemapGenerator::Sitemap.ping_search_engines
+      SitemapGenerator::Sitemap.ping_search_engines
     end
   end
 
