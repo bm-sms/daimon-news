@@ -27,6 +27,7 @@ gem 'uglifier'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-normalize-scss'
+  gem 'rails-assets-bootstrap-markdown-editor'
 end
 
 gem 'mysql2', require: false
