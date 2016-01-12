@@ -10,7 +10,7 @@
   %p.post__data
     %time.post__data-item.post__data-item--published-at= l @post.published_at.to_date
   .post__body
-    = raw render_markdown(@pages.map(&:body).join)
+    = raw render_markdown(@pages.map(&:markdown_body).join)
 
   - if @pages.respond_to?(:total_pages) && @pages.total_pages > 1
     %nav.pagination

@@ -19,6 +19,7 @@ gem 'pg'
 gem 'puma'
 gem 'rails-i18n'
 gem 'redcarpet'
+gem 'reverse_markdown'
 gem 'sass-rails'
 gem 'seedbank'
 gem 'sitemap_generator'
@@ -38,6 +39,10 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'launchy'
   gem 'pry-rails'
+end
+
+group :test do
+  gem 'test-unit-rails', require: false
 end
 
 group :production do
