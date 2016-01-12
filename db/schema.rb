@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20160112070338) do
 
   add_index "categories", ["slug", "site_id"], name: "index_categories_on_slug_and_site_id", unique: true, using: :btree
 
+  create_table "fixed_pages", force: :cascade do |t|
+    t.integer  "site_id",    null: false
+    t.string   "title"
+    t.text     "body"
+    t.string   "slug",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "fixed_pages", ["site_id", "slug"], name: "index_fixed_pages_on_site_id_and_slug", unique: true, using: :btree
+
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
@@ -90,5 +101,6 @@ ActiveRecord::Schema.define(version: 20160112070338) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "fixed_pages", "sites"
   add_foreign_key "posts", "sites"
 end
