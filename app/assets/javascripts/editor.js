@@ -13,12 +13,13 @@ $(document).ready(function() {
     $('div#editor').markdownEditor({
         preview: true,
         imageUpload: false,
-        width: '80%',
+        width: 'calc(80% - 22px)',
         onPreview: function(content, callback) {
             callback(marked(content));
         }
     });
     $('div#editor').markdownEditor('setContent', content);
+    $('div#editor .md-editor').width('auto');
     $('form#edit_post').submit(function(event) {
         var content = $('div#editor').markdownEditor('content');
         $('#post_body').val(content);
