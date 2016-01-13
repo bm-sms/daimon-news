@@ -5,7 +5,6 @@
 //= require bootstrap-markdown-editor
 //= require marked
 
-
 $(document).ready(function() {
   var content = $('#post_body').val();
   $('#post_body').hide();
