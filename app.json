@@ -22,7 +22,8 @@
   "addons": [
     "heroku-postgresql:hobby-dev",
     "papertrail:choklad",
-    "newrelic:wayne"
+    "newrelic:wayne",
+    "airbrake:free_heroku"
   ],
   "scripts": {
     "postdeploy": "bundle exec rake db:schema:load && bundle exec rake db:seed:development"
