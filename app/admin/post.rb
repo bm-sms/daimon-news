@@ -6,7 +6,9 @@ ActiveAdmin.register Post do
     f.semantic_errors
     f.inputs except: [:source_url, :thumbnail_url]
     f.has_many :images, allow_destroy: true, heading: false, new_record: true do |image_form|
-      image_form.input :image, as: :file, hint: image_form.template.image_tag(image_form.object.image)
+      image_form.input(:image,
+                       as: :file,
+                       hint: (image_form.template.image_tag(image_form.object.image) if image_form.object.image?))
     end
     f.actions
   end
