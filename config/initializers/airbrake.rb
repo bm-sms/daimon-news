@@ -39,7 +39,7 @@ Airbrake.configure do |c|
   # environments.
   # https://github.com/airbrake/airbrake-ruby#ignore_environments
   c.ignore_environments = %w(test)
-end
+end if defined?(Airbrake)
 
 # If Airbrake doesn't send any expected exceptions, we suggest to uncomment the
 # line below. It might simplify debugging of background Airbrake workers, which
