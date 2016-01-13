@@ -76,7 +76,7 @@ target = WpPost.where('post_status = "publish" OR post_status = "future"').order
 
 latest_updated_at = site.posts.maximum(:updated_at)
 if latest_updated_at
-  target = target.where('post_modified > ?', latest_updated_at)
+  target = target.where('post_modified_gmt > ?', latest_updated_at)
 end
 
 puts "target : #{target.count}"
