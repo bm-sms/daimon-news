@@ -11,7 +11,26 @@
 @import "active_admin/mixins";
 @import "active_admin/base";
 
+@import "bootstrap";
+@import "bootstrap-markdown-editor";
+
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+#active_admin_content {
+  #editor {
+    display: inline-block;
+    padding: 8px 10px 7px 10px;
+    .md-editor {
+      width: auto !important;
+    }
+  }
+  label {
+    color: #5E6469;
+  }
+  legend.label {
+    border-style: none;
+  }
+}
