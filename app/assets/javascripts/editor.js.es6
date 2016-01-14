@@ -7,6 +7,11 @@
 
 $(function() {
   let $postBody = $('#post_body');
+
+  if ($postBody.length === 0) {
+    return
+  }
+
   let content = $postBody.val();
 
   $postBody.hide();
