@@ -1,3 +1,5 @@
+//= require jquery
+
 (($) => {
   $(() => {
     $('.external-component').each((e) => {
