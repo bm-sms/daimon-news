@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114055418) do
+ActiveRecord::Schema.define(version: 20160114063055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,12 +76,12 @@ ActiveRecord::Schema.define(version: 20160114055418) do
   add_index "posts", ["updated_at"], name: "index_posts_on_updated_at", using: :btree
 
   create_table "sites", force: :cascade do |t|
-    t.string   "name",                                       null: false
-    t.string   "js_url",                                     null: false
-    t.string   "css_url",                                    null: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
-    t.string   "fqdn",               default: "example.com", null: false
+    t.string   "name",                                         null: false
+    t.string   "js_url",                                       null: false
+    t.string   "css_url",                                      null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.string   "fqdn",                 default: "example.com", null: false
     t.string   "tagline"
     t.string   "logo_url"
     t.string   "favicon_url"
@@ -97,7 +97,10 @@ ActiveRecord::Schema.define(version: 20160114055418) do
     t.string   "ad_slot"
     t.string   "description"
     t.string   "footer_url"
-    t.boolean  "opened",             default: false,         null: false
+    t.boolean  "opened",               default: false,         null: false
+    t.string   "logo_image"
+    t.string   "favicon_image"
+    t.string   "mobile_favicon_image"
   end
 
   create_table "users", force: :cascade do |t|
