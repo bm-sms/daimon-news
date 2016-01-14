@@ -6,11 +6,19 @@
 //= require marked
 
 $(function() {
-  let content = $('#post_body').val();
+  let $postBody = $('#post_body');
 
-  $('#post_body').hide();
-  $('#post_body').after('<div id="editor"></div>');
-  $('div#editor').markdownEditor({
+  if ($postBody.length === 0) {
+    return
+  }
+
+  let content = $postBody.val();
+  let $editor = $('<div id="editor"></div>');
+
+  $postBody.hide();
+  $postBody.after($editor);
+
+  $editor.markdownEditor({
     preview: true,
     imageUpload: false,
     width: 'calc(80% - 22px)',
@@ -18,10 +26,10 @@ $(function() {
       callback(marked(content));
     }
   });
-  $('div#editor').markdownEditor('setContent', content);
+  $editor.markdownEditor('setContent', content);
   $('form#edit_post').submit((event) => {
-    let content = $('div#editor').markdownEditor('content');
+    let content = $editor.markdownEditor('content');
 
-    $('#post_body').val(content);
+    $postBody.val(content);
   });
 });
