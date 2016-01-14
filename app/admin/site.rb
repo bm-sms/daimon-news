@@ -6,8 +6,11 @@ ActiveAdmin.register Site do
     fqdn
     tagline
     description
+    logo_image
     logo_url
+    favicon_image
     favicon_url
+    mobile_favicon_image
     mobile_favicon_url
     gtm_id
     content_header_url
