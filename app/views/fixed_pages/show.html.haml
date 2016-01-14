@@ -1,0 +1,6 @@
+- set_meta_tags title: @fixed_page.title, noindex: true
+
+%article.post
+  %h1.post__title= @fixed_page.title
+  .post__body
+    = raw render_markdown(@fixed_page.body)
