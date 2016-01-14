@@ -23,7 +23,7 @@ class FixedPageTest < ActionDispatch::IntegrationTest
     EOS
     fill_in 'Slug', with: 'about'
 
-    click_on 'Create Fixed page'
+    click_on 'Fixed pageを作成'
   end
 
   test 'body is converted to html' do
