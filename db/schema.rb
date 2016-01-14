@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20160114055418) do
     t.integer  "post_id",    null: false
   end
 
+  create_table "links", force: :cascade do |t|
+    t.string   "text"
+    t.string   "url"
+    t.integer  "order",      null: false
+    t.integer  "site_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "links", ["site_id"], name: "index_links_on_site_id", using: :btree
+
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
@@ -110,5 +121,6 @@ ActiveRecord::Schema.define(version: 20160114055418) do
 
   add_foreign_key "fixed_pages", "sites"
   add_foreign_key "images", "posts"
+  add_foreign_key "links", "sites"
   add_foreign_key "posts", "sites"
 end
