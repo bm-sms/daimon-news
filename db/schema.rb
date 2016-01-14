@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20160114055418) do
   end
 
   create_table "links", force: :cascade do |t|
-    t.string   "text"
-    t.string   "url"
+    t.string   "text",       null: false
+    t.string   "url",        null: false
     t.integer  "order",      null: false
     t.integer  "site_id",    null: false
     t.datetime "created_at", null: false
