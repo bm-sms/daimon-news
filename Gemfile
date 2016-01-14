@@ -23,6 +23,7 @@ gem 'reverse_markdown'
 gem 'sass-rails'
 gem 'seedbank'
 gem 'sitemap_generator'
+gem 'sprockets-es6'
 gem 'uglifier'
 
 source 'https://rails-assets.org' do
