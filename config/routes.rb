@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resource :feed, only: %i(show), path: 'feed', controller: 'feed'
 
     resource :sitemaps, only: %i(show), path: 'sitemap'
+    resource :custom_css, only: %i(show), path: 'custom_css', controller: 'custom_css'
 
     resources :fixed_pages, param: :slug, path: '/', only: :show
   end
