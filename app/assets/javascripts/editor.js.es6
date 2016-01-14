@@ -6,10 +6,12 @@
 //= require marked
 
 $(function() {
-  let content = $('#post_body').val();
+  let $postBody = $('#post_body');
+  let content = $postBody.val();
 
-  $('#post_body').hide();
-  $('#post_body').after('<div id="editor"></div>');
+  $postBody.hide();
+  $postBody.after('<div id="editor"></div>');
+
   $('div#editor').markdownEditor({
     preview: true,
     imageUpload: false,
@@ -22,6 +24,6 @@ $(function() {
   $('form#edit_post').submit((event) => {
     let content = $('div#editor').markdownEditor('content');
 
-    $('#post_body').val(content);
+    $postBody.val(content);
   });
 });
