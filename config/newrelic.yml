@@ -22,6 +22,8 @@ common: &default_settings
   # Logging level for log/newrelic_agent.log
   log_level: info
 
+  # XXX newrelic の at_exit hook が有効だと airbrake が通知しないことがある
+  # https://github.com/airbrake/airbrake-ruby/issues/27
   send_data_on_exit: false
 
 # Environment-specific settings are in this section.
