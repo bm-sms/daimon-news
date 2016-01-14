@@ -20,6 +20,7 @@ ActiveAdmin.register Site do
     home_url
     footer_url
     opened
+    base_color
   )
 
   permit_params(*attrs)

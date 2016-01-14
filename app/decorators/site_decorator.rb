@@ -10,4 +10,17 @@ module SiteDecorator
       image: logo_url
     }
   end
+
+  def js_path
+    return js_url if js_url.present?
+
+    'themes/default/application'
+  end
+
+  def css_path
+    return css_url if css_url.present?
+    return custom_css_url if base_color.present?
+
+    'themes/default/application'
+  end
 end

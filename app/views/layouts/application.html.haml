@@ -7,8 +7,8 @@
     = display_meta_tags default_meta_tags
 
     = javascript_include_tag 'application'
-    = javascript_include_tag current_site.js_url
-    = stylesheet_link_tag current_site.css_url
+    = javascript_include_tag current_site.js_path
+    = stylesheet_link_tag current_site.css_path
     = csrf_meta_tag
     = auto_discovery_link_tag :rss, feed_url
     - if current_site.favicon_url.present?
