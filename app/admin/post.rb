@@ -8,7 +8,7 @@ ActiveAdmin.register Post do
     f.has_many :images, allow_destroy: true, heading: false, new_record: true do |image_form|
       hint_proc = lambda do
         if image_form.object.image?
-          image_form.template.image_tag(image_form.object.image) +
+          image_form.template.image_tag(image_form.object.image, size: "64x64") +
             image_form.template.text_field_tag(nil, image_form.object.image_url)
         end
       end
