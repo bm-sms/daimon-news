@@ -13,11 +13,12 @@ $(function() {
   }
 
   let content = $postBody.val();
+  let $editor = $('<div id="editor"></div>');
 
   $postBody.hide();
-  $postBody.after('<div id="editor"></div>');
+  $postBody.after($editor);
 
-  $('div#editor').markdownEditor({
+  $editor.markdownEditor({
     preview: true,
     imageUpload: false,
     width: 'calc(80% - 22px)',
@@ -25,9 +26,9 @@ $(function() {
       callback(marked(content));
     }
   });
-  $('div#editor').markdownEditor('setContent', content);
+  $editor.markdownEditor('setContent', content);
   $('form#edit_post').submit((event) => {
-    let content = $('div#editor').markdownEditor('content');
+    let content = $editor.markdownEditor('content');
 
     $postBody.val(content);
   });
