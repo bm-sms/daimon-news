@@ -2,12 +2,12 @@ require 'test_helper'
 
 class SiteTest < ActiveSupport::TestCase
   setup do
-    @site = Site.create(name: "name",
-                        js_url: "http://example.com/application.js",
-                        css_url: "http://example.com/application.css")
-    @post = @site.posts.create(title: "title", body: "body", original_id: 1)
+    @site = Site.create!(name: "name",
+                         js_url: "http://example.com/application.js",
+                         css_url: "http://example.com/application.css")
+    @post = @site.posts.create!(title: "title", body: "body", original_id: 1)
     Tempfile.open do |file|
-      @post.images.create(image: file)
+      @post.images.create!(image: file)
     end
   end
 
