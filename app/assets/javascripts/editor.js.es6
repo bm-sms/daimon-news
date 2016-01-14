@@ -5,21 +5,23 @@
 //= require bootstrap-markdown-editor
 //= require marked
 
-$(document).ready(function() {
-  var content = $('#post_body').val();
+$(function() {
+  let content = $('#post_body').val();
+
   $('#post_body').hide();
   $('#post_body').after('<div id="editor"></div>');
   $('div#editor').markdownEditor({
     preview: true,
     imageUpload: false,
     width: 'calc(80% - 22px)',
-    onPreview: function(content, callback) {
+    onPreview(content, callback) {
       callback(marked(content));
     }
   });
   $('div#editor').markdownEditor('setContent', content);
-  $('form#edit_post').submit(function(event) {
-    var content = $('div#editor').markdownEditor('content');
+  $('form#edit_post').submit((event) => {
+    let content = $('div#editor').markdownEditor('content');
+
     $('#post_body').val(content);
   });
 });
