@@ -5,6 +5,8 @@ class Post < ActiveRecord::Base
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true
 
+  mount_uploader :thumbnail_image, ThumbnailImageUploader
+
   scope :published, -> { where('published_at <= ?', Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
 
