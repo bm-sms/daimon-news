@@ -16,7 +16,7 @@ class PostBodyHeaderTest < ActionDispatch::IntegrationTest
   include PostHelper
 
   setup do
-    create_published_post(
+    @post = create_published_post(
       body: <<~EOS.encode(crlf_newline: true),
         <h1> hi </h1>
         contents
@@ -25,7 +25,7 @@ class PostBodyHeaderTest < ActionDispatch::IntegrationTest
   end
 
   test "body shouldn't have <br>" do
-    visit '/1'
+    visit post_url(@post)
 
     within '.post__body' do
       assert page.has_selector?('h1', text: 'hi')
@@ -38,7 +38,7 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
   include PostHelper
 
   setup do
-    create_published_post(
+    @post = create_published_post(
       body: <<~EOS.encode(crlf_newline: true),
         following line should be breaked:
         hi
@@ -47,7 +47,7 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
   end
 
   test 'body should have <br>' do
-    visit '/1'
+    visit post_url(@post)
 
     within '.post__body' do
       elem = find('p').native
@@ -56,7 +56,7 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
 
       assert_equal 'following line should be breaked:', elem.children[0].text
       assert_equal 'br', elem.children[1].name
-      assert_equal "\n hi", elem.children[2].text
+      assert_equal "\nhi", elem.children[2].text
     end
   end
 end
