@@ -11,10 +11,8 @@
     = stylesheet_link_tag current_site.css_url
     = csrf_meta_tag
     = auto_discovery_link_tag :rss, feed_url
-    - if current_site.favicon_url.present?
-      = favicon_link_tag current_site.favicon_url
-    - if current_site.mobile_favicon_url.present?
-      = favicon_link_tag current_site.mobile_favicon_url, rel: 'apple-touch-icon-precomposed', type: 'image/png'
+    = favicon_tag current_site
+    = mobile_favicon_tag current_site
     - if content_for? :rel_next_prev_link_tags
       = content_for :rel_next_prev_link_tags
     - if content_for? :canonical_tag
@@ -29,7 +27,7 @@
 
         %p.content-header__title
           = link_to current_site.home_url.presence || root_path, class: 'content-header__logo' do
-            = image_tag current_site.logo_url, alt: current_site.name, class: 'content-header__logo-image'
+            = image_tag current_site.logo_image_url || current_site.logo_url, alt: current_site.name, class: 'content-header__logo-image'
 
         - if current_site.content_header_url.present?
           .external-component{data: {external_src: current_site.content_header_url}}
