@@ -10,7 +10,6 @@ after 'development:sites', 'development:categories' do
     EOS
     published_at: Time.current,
     category: site1.categories.find_by!(slug: 'category1'),
-    original_id: 1
   )
 
   published_at = 3.minutes.from_now
@@ -25,7 +24,6 @@ after 'development:sites', 'development:categories' do
     EOS
     published_at: published_at,
     category: site1.categories.find_by!(slug: 'category2'),
-    original_id: 2
   )
 
   100.times do |i|
@@ -46,7 +44,6 @@ after 'development:sites', 'development:categories' do
       EOS
       published_at: Time.current,
       category: site1.categories.find_by!(slug: 'category1'),
-      original_id: i
     )
   end
 end
