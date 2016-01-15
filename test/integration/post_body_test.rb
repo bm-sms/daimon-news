@@ -1,12 +1,11 @@
 require 'test_helper'
 
 module PostHelper
-  def create_published_post(body:, original_id:)
+  def create_published_post(body:)
     site = Site.create!(name: 'test', fqdn: 'www.example.com', js_url: '', css_url: '')
     category = site.categories.create!(name: 'category1', slug: 'cate1', order: 1)
     site.posts.create!(
       body:         body,
-      original_id:  original_id,
       published_at: Time.current,
       category:     category
     )
@@ -22,7 +21,6 @@ class PostBodyHeaderTest < ActionDispatch::IntegrationTest
         <h1> hi </h1>
         contents
       EOS
-      original_id: 1
     )
   end
 
@@ -45,7 +43,6 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
         following line should be breaked:
         hi
       EOS
-      original_id: 1
     )
   end
 
