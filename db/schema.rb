@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115052739) do
+ActiveRecord::Schema.define(version: 20160115054020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 20160115052739) do
     t.string   "thumbnail_url"
   end
 
+  add_index "posts", ["published_at", "id"], name: "index_posts_on_published_at_and_id", using: :btree
+  add_index "posts", ["site_id", "id"], name: "index_posts_on_site_id_and_id", unique: true, using: :btree
   add_index "posts", ["site_id"], name: "index_posts_on_site_id", using: :btree
   add_index "posts", ["updated_at"], name: "index_posts_on_updated_at", using: :btree
 
