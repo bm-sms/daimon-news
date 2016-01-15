@@ -2,6 +2,8 @@ require 'test_helper'
 
 class SiteTest < ActiveSupport::TestCase
   setup do
+    @default_locale = I18n.locale
+    I18n.locale = :en
     @site = Site.create!(name: "name",
                          js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
@@ -9,6 +11,10 @@ class SiteTest < ActiveSupport::TestCase
     Tempfile.open do |file|
       @post.images.create!(image: file)
     end
+  end
+
+  teardown do
+    I18n.locale = @default_locale
   end
 
   test 'destroy site' do
@@ -23,18 +29,18 @@ class SiteTest < ActiveSupport::TestCase
 
   sub_test_case 'name' do
     test 'null' do
-      assert_raise ActiveRecord::RecordInvalid do
-        Site.create!(js_url: "http://example.com/application.js",
-                     css_url: "http://example.com/application.css")
-      end
+      site = Site.create(js_url: "http://example.com/application.js",
+                         css_url: "http://example.com/application.css")
+      assert_false(site.valid?)
+      assert_equal("can't be blank", site.errors[:name][0])
     end
 
     test 'blank' do
-      assert_raise ActiveRecord::RecordInvalid do
-        Site.create!(name: "",
-                     js_url: "http://example.com/application.js",
-                     css_url: "http://example.com/application.css")
-      end
+      site = Site.create(name: "",
+                         js_url: "http://example.com/application.js",
+                         css_url: "http://example.com/application.css")
+      assert_false(site.valid?)
+      assert_equal("can't be blank", site.errors[:name][0])
     end
   end
 end
