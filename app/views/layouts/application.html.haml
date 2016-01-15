@@ -11,8 +11,8 @@
     = stylesheet_link_tag current_site.css_url
     = csrf_meta_tag
     = auto_discovery_link_tag :rss, feed_url
-    = current_site.favicon_tag
-    = current_site.mobile_favicon_tag
+    = favicon_tag current_site
+    = mobile_favicon_tag current_site
     - if content_for? :rel_next_prev_link_tags
       = content_for :rel_next_prev_link_tags
     - if content_for? :canonical_tag
