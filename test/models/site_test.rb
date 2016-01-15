@@ -20,4 +20,21 @@ class SiteTest < ActiveSupport::TestCase
     assert_equal(0, Post.count)
     assert_equal(0, Image.count)
   end
+
+  sub_test_case 'name' do
+    test 'null' do
+      assert_raise ActiveRecord::RecordInvalid do
+        Site.create!(js_url: "http://example.com/application.js",
+                     css_url: "http://example.com/application.css")
+      end
+    end
+
+    test 'blank' do
+      assert_raise ActiveRecord::RecordInvalid do
+        Site.create!(name: "",
+                     js_url: "http://example.com/application.js",
+                     css_url: "http://example.com/application.css")
+      end
+    end
+  end
 end
