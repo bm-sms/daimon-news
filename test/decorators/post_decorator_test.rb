@@ -1,11 +1,8 @@
 require 'test_helper'
 
-class PostDecoratorTest < ActiveSupport::TestCase
+class PostDecoratorTest < ActiveDecorator::TestCase
 
   def setup
-    controller = Class.new(ApplicationController).new
-    controller.request = ActionController::TestRequest.new
-    ActiveDecorator::ViewContext.push(controller.view_context)
     @post = ActiveDecorator::Decorator.instance.decorate(Post.new)
   end
 
