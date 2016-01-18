@@ -14,5 +14,11 @@ class PostDecoratorTest < ActiveSupport::TestCase
       assert_equal(%q(<img src="/dummy.png" alt="Dummy" />),
                    @post.thumbnail_image_tag)
     end
+
+    test "w/ thumbnail_url" do
+      @post.thumbnail_url = "http://example.com/thumbnail.png"
+      assert_equal(%q(<img src="http://example.com/thumbnail.png" alt="Thumbnail" />),
+                   @post.thumbnail_image_tag)
+    end
   end
 end
