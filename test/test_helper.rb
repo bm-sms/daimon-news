@@ -8,3 +8,14 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+module ActiveDecorator
+  class TestCase < ActiveSupport::TestCase
+    setup(before: :prepend)
+    def setup_context
+      controller = Class.new(ApplicationController).new
+      controller.request = ActionController::TestRequest.new
+      ActiveDecorator::ViewContext.push(controller.view_context)
+    end
+  end
+end

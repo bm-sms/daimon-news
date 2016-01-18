@@ -1,10 +1,16 @@
 ActiveAdmin.register Post do
-  permit_params(:site_id, :category_id, :title, :body, :published_at,
+  permit_params(:site_id,
+                :category_id,
+                :title,
+                :body,
+                :thumbnail_image,
+                :thumbnail_url,
+                :published_at,
                 images_attributes: [:id, :image, :_destroy])
 
   form do |f|
     f.semantic_errors
-    f.inputs except: [:source_url, :thumbnail_url]
+    f.inputs except: [:source_url]
     f.has_many :images, allow_destroy: true, heading: false, new_record: true do |image_form|
       hint_proc = lambda do
         if image_form.object.image?

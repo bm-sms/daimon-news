@@ -12,7 +12,7 @@ module PostDecorator
       url: post_url(id, all: true),
       site_name: site.name,
       modified_time: updated_at.to_datetime.to_s,
-      image: thumbnail_url
+      image: thumbnail_image_url || thumbnail_url
     }
   end
 
@@ -21,6 +21,17 @@ module PostDecorator
       section: category.name,
       published_time: published_at.to_datetime.to_s
     }
+  end
+
+  def thumbnail_image_tag(options={})
+    case
+    when thumbnail_image?
+      image_tag thumbnail_image_url(:thumb), options
+    when thumbnail_url.present?
+      image_tag thumbnail_url, options
+    else
+      image_tag "/dummy.png", options
+    end
   end
 
   private
