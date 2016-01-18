@@ -12,7 +12,7 @@ module PostDecorator
       url: post_url(id, all: true),
       site_name: site.name,
       modified_time: updated_at.to_datetime.to_s,
-      image: thumbnail_url
+      image: thumbnail_image_url || thumbnail_url
     }
   end
 
