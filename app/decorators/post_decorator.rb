@@ -23,6 +23,17 @@ module PostDecorator
     }
   end
 
+  def thumbnail_image_tag(options={})
+    case
+    when thumbnail_image?
+      image_tag thumbnail_image_url(:thumb), options
+    when thumbnail_url.present?
+      image_tag thumbnail_url, options
+    else
+      image_tag "/dummy.png", options
+    end
+  end
+
   private
 
   def plain_text_body
