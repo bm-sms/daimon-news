@@ -5,6 +5,7 @@ class Site < ActiveRecord::Base
   has_many :links, dependent: :destroy
 
   validates :name, presence: true
+  validates :fqdn, presence: true
 
   mount_uploader :logo_image, ImageUploader
   mount_uploader :favicon_image, ImageUploader

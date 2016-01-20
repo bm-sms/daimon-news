@@ -43,4 +43,15 @@ class SiteTest < ActiveSupport::TestCase
       assert_equal("can't be blank", site.errors[:name][0])
     end
   end
+
+  sub_test_case 'fqdn' do
+    test 'blank' do
+      site = Site.create(name: "site1",
+                         fqdn: "",
+                         js_url: "http://example.com/application.js",
+                         css_url: "http://example.com/application.css")
+      assert_false(site.valid?)
+      assert_equal("can't be blank", site.errors[:fqdn][0])
+    end
+  end
 end
