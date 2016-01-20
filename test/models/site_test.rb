@@ -53,5 +53,19 @@ class SiteTest < ActiveSupport::TestCase
       assert_false(site.valid?)
       assert_equal("can't be blank", site.errors[:fqdn][0])
     end
+
+    test 'unique' do
+      fqdn = "exapmle.com"
+      Site.create(name: "site1",
+                  fqdn: fqdn,
+                  js_url: "http://example.com/application.js",
+                  css_url: "http://example.com/application.css")
+      site = Site.create(name: "site2",
+                         fqdn: fqdn,
+                         js_url: "http://example.com/application.js",
+                         css_url: "http://example.com/application.css")
+      assert_false(site.valid?)
+      assert_equal(["has already been taken"], site.errors[:fqdn])
+    end
   end
 end
