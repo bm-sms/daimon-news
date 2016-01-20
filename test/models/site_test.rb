@@ -32,7 +32,7 @@ class SiteTest < ActiveSupport::TestCase
       site = Site.create(js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
       assert_false(site.valid?)
-      assert_equal("can't be blank", site.errors[:name][0])
+      assert_equal(["can't be blank"], site.errors[:name])
     end
 
     test 'blank' do
@@ -40,7 +40,7 @@ class SiteTest < ActiveSupport::TestCase
                          js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
       assert_false(site.valid?)
-      assert_equal("can't be blank", site.errors[:name][0])
+      assert_equal(["can't be blank"], site.errors[:name])
     end
   end
 
@@ -51,7 +51,7 @@ class SiteTest < ActiveSupport::TestCase
                          js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
       assert_false(site.valid?)
-      assert_equal("can't be blank", site.errors[:fqdn][0])
+      assert_equal(["can't be blank"], site.errors[:fqdn])
     end
 
     test 'unique' do
