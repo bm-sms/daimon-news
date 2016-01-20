@@ -3,7 +3,7 @@ require 'test_helper'
 class SiteTest < ActiveSupport::TestCase
   setup do
     @default_locale = I18n.locale
-    I18n.locale = :en
+    I18n.locale = :ja
     @site = Site.create!(name: "name",
                          js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
@@ -32,7 +32,7 @@ class SiteTest < ActiveSupport::TestCase
       site = Site.create(js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
       assert_false(site.valid?)
-      assert_equal(["can't be blank"], site.errors[:name])
+      assert_equal(["を入力してください"], site.errors[:name])
     end
 
     test 'blank' do
@@ -40,7 +40,7 @@ class SiteTest < ActiveSupport::TestCase
                          js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
       assert_false(site.valid?)
-      assert_equal(["can't be blank"], site.errors[:name])
+      assert_equal(["を入力してください"], site.errors[:name])
     end
   end
 
@@ -51,7 +51,7 @@ class SiteTest < ActiveSupport::TestCase
                          js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
       assert_false(site.valid?)
-      assert_equal(["can't be blank"], site.errors[:fqdn])
+      assert_equal(["を入力してください"], site.errors[:fqdn])
     end
 
     test 'unique' do
@@ -65,7 +65,7 @@ class SiteTest < ActiveSupport::TestCase
                          js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
       assert_false(site.valid?)
-      assert_equal(["has already been taken"], site.errors[:fqdn])
+      assert_equal(["はすでに存在します"], site.errors[:fqdn])
     end
   end
 end
