@@ -4,12 +4,6 @@ class ExceptionsApp < Rambulance::ExceptionsApp
   helper ApplicationHelper
   helper CurrentResouceHelper
 
-  def bad_request
-  end
-
-  def forbidden
-  end
-
   def not_found
   end
 
