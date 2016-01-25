@@ -1,0 +1,19 @@
+%head
+  %meta{charset: 'utf-8'}
+  %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0, minimum-scale=1.0'}
+
+  = display_meta_tags default_meta_tags
+
+  = javascript_include_tag 'application'
+  = javascript_include_tag current_site.js_url
+  = stylesheet_link_tag current_site.css_url
+  = csrf_meta_tag
+  = auto_discovery_link_tag :rss, feed_url
+  - if current_site.favicon_url.present?
+    = favicon_link_tag current_site.favicon_url
+  - if current_site.mobile_favicon_url.present?
+    = favicon_link_tag current_site.mobile_favicon_url, rel: 'apple-touch-icon-precomposed', type: 'image/png'
+  - if content_for? :rel_next_prev_link_tags
+    = content_for :rel_next_prev_link_tags
+  - if content_for? :canonical_tag
+    = content_for :canonical_tag

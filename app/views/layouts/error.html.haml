@@ -1,0 +1,17 @@
+!!!
+%html
+  = render 'application/head'
+
+  %body.root-container(data-layer='top')
+    = google_tag_manager(current_site.gtm_id)
+    = render 'application/content_header'
+
+    .content-body
+      .wrappable
+        .wrappable__content.wrappable__content--flex.main-pane
+          %main
+            = render 'application/breadcrumbs'
+            = yield
+            %p= link_to t('.link_to_top', site_name: current_site.name), current_site.home_url.presence || root_path
+
+    = render 'application/footer'

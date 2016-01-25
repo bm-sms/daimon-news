@@ -1,0 +1,14 @@
+%header.content-header
+  .content-header__main
+    %a.content-header__button.content-header__button--menu(data-sidebar='left') menu
+
+    %p.content-header__title
+      = link_to current_site.home_url.presence || root_path, class: 'content-header__logo' do
+        = image_tag current_site.logo_url, alt: current_site.name, class: 'content-header__logo-image'
+
+    - if current_site.content_header_url.present?
+      .external-component{data: {external_src: current_site.content_header_url}}
+
+  .content-header__sub
+    - if current_site.tagline.present?
+      %p.content-header__tagline= current_site.tagline

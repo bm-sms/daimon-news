@@ -9,6 +9,27 @@ ja:
       last: 最後
       previous: 前へ
       next: 次へ
+  layouts:
+    error:
+      link_to_top: "%{site_name}トップへ"
+  errors:
+    unprocessable_entity:
+      title: ページが表示できません
+      body: |
+        お探しのページは一時的にアクセスできない状況にあるか、移動もしくは削除された可能性があります。
+    internal_server_error:
+      title: サーバーエラー
+      body: |
+        ご不便をおかけし申し訳ございません。ただいま障害が発生しております。
+        復旧作業中ですのでしばらくお待ち下さい。
+    not_found:
+      title: Hello! my name is 404
+      confirm_url: URLをもう一度確認して下さい
+      reasons:
+        header: もしかして……
+        mistyped: お探しのページが見つからない可能性はいくつか考えられますが、アドレスの入力ミスから見つからない場合もあります。
+        confirm_url: アドレスバーに記載されているURLをもう一度確認してみてください。
+        mispasted: スペースが入っている、貼り付けミス、最後まで正しく入力されていないなどの可能性があります。
   helpers:
     page_entries_info:
       one_page:
