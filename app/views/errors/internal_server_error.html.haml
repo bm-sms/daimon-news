@@ -1,7 +1,4 @@
-- set_meta_tags title: 'サーバーエラー', noindex: true
+- set_meta_tags title: t('.title'), noindex: true
 
-%h1 サーバーエラー
-
-%p
-  ご不便をおかけし申し訳ございません。ただいま障害が発生しております。
-  復旧作業中ですのでしばらくお待ち下さい。
+%h1= t('.title')
+%p= t('.body')

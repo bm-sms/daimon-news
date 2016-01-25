@@ -1,13 +1,9 @@
-- set_meta_tags title: 'Hello! my name is 404', noindex: true
+- set_meta_tags title: t('.title'), noindex: true
 
-%h1 Hello! my name is 404
+%h1= t('.title')
+%p= t('.confirm_url')
 
-%p
-  URLをもう一度確認して下さい
-
-%h2 もしかして……
-%p
-  お探しのページが見つからない可能性はいくつか考えられますが、アドレスの入力ミスから見つからない場合もあります。
-  アドレスバーに記載されているURLをもう一度確認してみてください。
-%p
-  スペースが入っている、貼り付けミス、最後まで正しく入力されていないなどの可能性があります。
+%h2= t('.reasons.header')
+%p= t('.reasons.mistyped')
+%p= t('.reasons.confirm_url')
+%p= t('.reasons.mispasted')

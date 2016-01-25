@@ -12,6 +12,6 @@
           %main
             = render 'application/breadcrumbs'
             = yield
-            %p= link_to "#{current_site.name}トップへ", current_site.home_url.presence || root_path
+            %p= link_to t('.link_to_top', site_name: current_site.name), current_site.home_url.presence || root_path
 
     = render 'application/footer'

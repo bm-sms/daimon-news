@@ -9,4 +9,7 @@ class ExceptionsApp < Rambulance::ExceptionsApp
 
   def internal_server_error
   end
+
+  def unprocessable_entity
+  end
 end
