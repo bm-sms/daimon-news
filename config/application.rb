@@ -28,5 +28,7 @@ module NewsService
       g.assets false
       g.scaffold_controller = :scaffold_controller
     end
+
+    config.exceptions_app = ActionDispatch::PublicExceptions.new(Rails.root.join('public/errors'))
   end
 end
