@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   concern :site do
-    resources :posts, only: %i(show)
+    resources :posts, only: %i(show), constraints: {id: /\d+/}, path: '/'
     resources :categories, only: %i(show), path: 'category'
 
     resource :feed, only: %i(show), path: 'feed', controller: 'feed'
