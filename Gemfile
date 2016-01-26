@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.0'
 
-gem 'rails', '4.2.5'
+gem 'rails', '~> 4.2.5'
 
 gem 'active_decorator'
 gem 'activeadmin', '~> 1.0.0.pre2'
