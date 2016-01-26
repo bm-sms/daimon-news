@@ -1,40 +1,10 @@
 !!!
 %html
-  %head
-    %meta{charset: 'utf-8'}
-    %meta{name: 'viewport', content: 'width=device-width, initial-scale=1.0, minimum-scale=1.0'}
-
-    = display_meta_tags default_meta_tags
-
-    = javascript_include_tag 'application'
-    = javascript_include_tag current_site.js_url.presence || 'themes/default/application'
-    = stylesheet_link_tag current_site.css_url.presence || 'themes/default/application'
-    = csrf_meta_tag
-    = auto_discovery_link_tag :rss, feed_url
-    = favicon_tag current_site
-    = mobile_favicon_tag current_site
-    - if content_for? :rel_next_prev_link_tags
-      = content_for :rel_next_prev_link_tags
-    - if content_for? :canonical_tag
-      = content_for :canonical_tag
+  = render 'head'
 
   %body.root-container(data-layer='top')
     = google_tag_manager(current_site.gtm_id)
-
-    %header.content-header
-      .content-header__main
-        %a.content-header__button.content-header__button--menu(data-sidebar='left') menu
-
-        %p.content-header__title
-          = link_to current_site.home_url.presence || root_path, class: 'content-header__logo' do
-            = image_tag current_site.logo_image_url || current_site.logo_url, alt: current_site.name, class: 'content-header__logo-image'
-
-        - if current_site.content_header_url.present?
-          .external-component{data: {external_src: current_site.content_header_url}}
-
-      .content-header__sub
-        - if current_site.tagline.present?
-          %p.content-header__tagline= current_site.tagline
+    = render 'content_header'
 
     .content-body
       %nav.sidebar.sidebar--left(data-state='off-canvas')
@@ -54,31 +24,5 @@
           %main
             = render 'breadcrumbs'
             = yield
-        %aside.wrappable__content.promotions
-          - if current_site.ad_client.present? && current_site.ad_slot.present?
-            %section.promotion
-              = render 'adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
 
-          %section.promotion
-            %h2.subheading.subheading--aside.subheading--press-articles 新着記事
-            %ul
-              - current_site.posts.published.order_by_recently.limit(5).each do |post|
-                = render partial: 'posts/summary', locals: {post: post}
-
-            %h2.subheading.subheading--aside カテゴリ
-            %ul.category-list
-              - current_site.categories.ordered.each do |category|
-                %li.category-list__item
-                  = link_to category.name, category_path(category.slug)
-
-          - if current_site.promotion_url.present?
-            .external-component{data: {external_src: current_site.promotion_url}}
-
-
-    - if current_site.footer_url.present?
-      .external-component{data: {external_src: current_site.footer_url}}
-    - else
-      %footer.content-footer
-        %ul.content-footer__links
-          - current_site.links.ordered.each do |link|
-            %li.content-footer__link= link_to link.text, link.url, class: 'content-footer__link-label'
+    = render 'footer'

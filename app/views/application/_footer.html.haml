@@ -1,0 +1,7 @@
+- if current_site.footer_url.present?
+  .external-component{data: {external_src: current_site.footer_url}}
+- else
+  %footer.content-footer
+    %ul.content-footer__links
+      - current_site.links.ordered.each do |link|
+        %li.content-footer__link= link_to link.text, link.url, class: 'content-footer__link-label'
