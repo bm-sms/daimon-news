@@ -24,5 +24,21 @@
           %main
             = render 'breadcrumbs'
             = yield
+        %aside.wrappable__content.promotions
+          - if current_site.ad_client.present? && current_site.ad_slot.present?
+            %section.promotion
+              = render 'adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
+          %section.promotion
+            %h2.subheading.subheading--aside.subheading--press-articles 新着記事
+            %ul
+              - current_site.posts.published.order_by_recently.limit(5).each do |post|
+                = render partial: 'posts/summary', locals: {post: post}
+            %h2.subheading.subheading--aside カテゴリ
+            %ul.category-list
+              - current_site.categories.ordered.each do |category|
+                %li.category-list__item
+                  = link_to category.name, category_path(category.slug)
+          - if current_site.promotion_url.present?
+            .external-component{data: {external_src: current_site.promotion_url}}
 
     = render 'footer'
