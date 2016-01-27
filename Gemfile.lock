@@ -93,7 +93,7 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
-    devise (3.5.3)
+    devise (3.5.5)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -435,7 +435,7 @@ DEPENDENCIES
   airbrake
   bourbon
   carrierwave
-  devise
+  devise (>= 3.5.4)
   fog
   font-awesome-sass
   gretel
