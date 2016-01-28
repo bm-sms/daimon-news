@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
 
+  namespace :admin do
+    root 'welcome#index'
+  end
+
   concern :site do
     resources :posts, only: %i(show), constraints: {id: /\d+/}, path: '/'
     resources :categories, only: %i(show), path: 'category'
