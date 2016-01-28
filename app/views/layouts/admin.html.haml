@@ -10,8 +10,11 @@
     .container
       = render 'admin_navigation'
 
-      %p
-        = notice
+      - if notice
+        .alert.alert-success(role='alert')= notice
+
+      - if alert
+        .alert.alert-warning(role='alert')= alert
 
       %main
         = yield
