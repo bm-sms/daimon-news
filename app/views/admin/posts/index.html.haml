@@ -16,7 +16,7 @@
       %tr
         %td= post.title
         %td= post.body
-        %td= post.category_id
+        %td= post.category&.name
         %td= post.thumbnail_url
         %td= link_to 'Show', [:admin, post]
         %td= link_to 'Edit', edit_admin_post_path(post)

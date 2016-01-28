@@ -1,6 +1,6 @@
 class Admin::PostsController < Admin::ApplicationController
   def index
-    @posts = posts
+    @posts = posts.preload(:category)
   end
 
   def show
