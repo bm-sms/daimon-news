@@ -1,6 +1,6 @@
 %h1 Listing links
 
-%table
+%table.table
   %thead
     %tr
       %th Text
@@ -20,6 +20,4 @@
         %td= link_to 'Edit', edit_admin_link_path(link)
         %td= link_to 'Destroy', [:admin, link], method: :delete, data: { confirm: 'Are you sure?' }
 
-%br
-
-= link_to 'New Link', new_admin_link_path
+= link_to 'New Link', new_admin_link_path, class: 'btn btn-default'
