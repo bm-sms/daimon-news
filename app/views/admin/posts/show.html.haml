@@ -1,0 +1,16 @@
+%p
+  %b Title:
+  = @post.title
+%p
+  %b Body:
+  = @post.body
+%p
+  %b Category:
+  = @post.category&.name
+%p
+  %b Thumbnail url:
+  = @post.thumbnail_url
+
+= link_to 'Edit', edit_admin_post_path(@post)
+\|
+= link_to 'Back', admin_posts_path

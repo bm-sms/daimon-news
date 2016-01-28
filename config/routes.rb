@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     resource  :site, only: %i(edit update)
     resources :categories
+    resources :posts
   end
 
   concern :site do
