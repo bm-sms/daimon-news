@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     root 'welcome#index'
 
     resource  :site, only: %i(edit update)
+    resources :categories
   end
 
   concern :site do

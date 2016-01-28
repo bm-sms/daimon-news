@@ -1,0 +1,17 @@
+%table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th Slug
+      %th Order
+
+  %tbody
+    %tr
+      %td= @category.name
+      %td= @category.description
+      %td= @category.slug
+      %td= @category.order
+
+= link_to 'Edit', edit_admin_category_path(@category)
+= link_to 'Destroy', [:admin, @category], method: :delete, data: { confirm: 'Are you sure?' }

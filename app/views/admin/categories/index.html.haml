@@ -1,0 +1,27 @@
+%h1 Listing categories
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th Slug
+      %th Order
+      %th
+      %th
+      %th
+
+  %tbody
+    - @categories.each do |category|
+      %tr
+        %td= category.name
+        %td= category.description
+        %td= category.slug
+        %td= category.order
+        %td= link_to 'Show', [:admin, category]
+        %td= link_to 'Edit', edit_admin_category_path(category)
+        %td= link_to 'Destroy', [:admin, category], method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Category', new_admin_category_path
