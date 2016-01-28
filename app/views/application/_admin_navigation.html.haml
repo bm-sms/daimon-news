@@ -1,0 +1,11 @@
+.page-header
+  %nav.navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        .navbar-brand
+          = link_to admin_root_path do
+            Admin for <b>#{current_site.name}</b>
+
+      %ul.nav.navbar-nav.navbar-right
+        %li(role='presentation')
+          = link_to 'サイト情報', edit_admin_site_url
