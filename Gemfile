@@ -5,6 +5,7 @@ ruby '2.3.0'
 gem 'rails', '~> 4.2.5'
 
 gem 'active_decorator'
+gem 'bootstrap_form'
 gem 'bourbon'
 gem 'carrierwave'
 gem 'devise', '>= 3.5.4'
