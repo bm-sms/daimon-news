@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root 'welcome#index'
+
+    resource  :site, only: %i(edit update)
   end
 
   concern :site do
