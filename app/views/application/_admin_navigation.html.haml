@@ -4,7 +4,17 @@
       .navbar-header
         .navbar-brand
           = link_to admin_root_path do
-            Admin for <b>#{current_site.name}</b>
+            = image_tag current_site.logo_image_url.presence || current_site.logo_url, height: 24
+            Admin for
+          %span.dropdown
+            %a#change-site.dropdown-toggle(href='#' role="button" data-toggle='dropdown' aria-expanded='false')
+              %b= current_site.name
+              %span.caret
+
+            %ul.dropdown-menu(aria-labelledby='change-site')
+              -# TODO Use `current_user.sites`
+              - Site.all.each do |site|
+                %li= link_to site.name, admin_root_url(host: site.fqdn)
 
       %ul.nav.navbar-nav.navbar-right
         = active_link_to 'サイト情報', edit_admin_site_url, wrap_tag: 'li'
