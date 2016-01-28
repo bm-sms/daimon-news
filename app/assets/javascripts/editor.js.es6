@@ -28,7 +28,7 @@ $(function() {
     }
   });
   $editor.markdownEditor('setContent', content);
-  $('form#edit_post').submit((event) => {
+  $('form').submit((event) => {
     let content = $editor.markdownEditor('content');
 
     $postBody.val(content);
