@@ -3,6 +3,7 @@
   = f.text_area :body
   = f.collection_select :category_id, current_site.categories, :id, :name
   = f.text_field :thumbnail_url
+  = f.datetime_local_field :published_at
 
   = f.form_group do
     = f.submit 'Save'
