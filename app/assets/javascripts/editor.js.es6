@@ -22,7 +22,6 @@ $(function() {
     preview: true,
     imageUpload: true,
     uploadPath: '/admin/images',
-    width: 'calc(80% - 22px)',
     onPreview(content, callback) {
       callback(marked(content));
     }
