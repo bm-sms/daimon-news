@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20160202025140) do
     t.string   "image",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "post_id",    null: false
+    t.integer  "site_id",    null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -110,6 +110,6 @@ ActiveRecord::Schema.define(version: 20160202025140) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "fixed_pages", "sites"
-  add_foreign_key "images", "posts"
+  add_foreign_key "images", "sites"
   add_foreign_key "posts", "sites"
 end
