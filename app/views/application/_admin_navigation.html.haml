@@ -7,17 +7,8 @@
             Admin for <b>#{current_site.name}</b>
 
       %ul.nav.navbar-nav.navbar-right
-        %li(role='presentation')
-          = link_to 'サイト情報', edit_admin_site_url
-
-        %li(role='presentation')
-          = link_to 'カテゴリ', admin_categories_url
-
-        %li(role='presentation')
-          = link_to '記事', admin_posts_url
-
-        %li(role='presentation')
-          = link_to '固定ページ', admin_fixed_pages_url
-
-        %li(role='presentation')
-          = link_to 'リンク', admin_links_url
+        = active_link_to 'サイト情報', edit_admin_site_url, wrap_tag: 'li'
+        = active_link_to 'カテゴリ', admin_categories_url, wrap_tag: 'li'
+        = active_link_to '記事', admin_posts_url, wrap_tag: 'li'
+        = active_link_to '固定ページ', admin_fixed_pages_url, wrap_tag: 'li'
+        = active_link_to 'リンク', admin_links_url, wrap_tag: 'li'
