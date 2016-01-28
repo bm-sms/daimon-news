@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :posts
     resources :fixed_pages
     resources :links
+    resources :images, only: %i(create)
   end
 
   concern :site do

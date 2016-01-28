@@ -20,7 +20,8 @@ $(function() {
 
   $editor.markdownEditor({
     preview: true,
-    imageUpload: false,
+    imageUpload: true,
+    uploadPath: '/admin/images',
     width: 'calc(80% - 22px)',
     onPreview(content, callback) {
       callback(marked(content));
