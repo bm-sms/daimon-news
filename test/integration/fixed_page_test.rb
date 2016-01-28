@@ -11,10 +11,11 @@ class FixedPageTest < ActionDispatch::IntegrationTest
     fill_in 'Password', with: 'password'
     click_on 'Log in'
 
-    click_on 'Fixed Pages'
-    click_on 'Fixed Page を作成する'
+    within '.navbar-nav' do
+      click_on '固定ページ'
+    end
+    click_on 'New Fixed page'
 
-    select 'daimon-news', from: 'Site'
     fill_in 'Title', with: 'About daimon-news'
     fill_in 'Body',  with: <<~EOS
       ## What is daimon-news
@@ -23,7 +24,7 @@ class FixedPageTest < ActionDispatch::IntegrationTest
     EOS
     fill_in 'Slug', with: 'about'
 
-    click_on 'Fixed pageを作成'
+    click_on '登録する'
   end
 
   test 'body is converted to html' do
