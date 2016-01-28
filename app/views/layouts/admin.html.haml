@@ -3,12 +3,13 @@
   %meta{charset: 'utf-8'}
   %title Daimon Admin
   = javascript_include_tag 'admin'
-  = javascript_include_tag 'admin'
+  = stylesheet_link_tag 'admin', media: 'all'
   = csrf_meta_tag
 
   %body
+    .container
+      %p
+        = notice
 
-    %p
-      = notice
-
-    = yield
+      %main
+        = yield

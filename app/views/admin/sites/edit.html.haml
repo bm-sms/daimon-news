@@ -1,6 +1,7 @@
-= form_for [:admin, @site] do |f|
+= bootstrap_form_for [:admin, @site], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :name
 
   -# TODO Add more fields
 
-  = f.submit
+  = f.form_group do
+    = f.submit
