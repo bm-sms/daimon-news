@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
   devise_for :users
-  ActiveAdmin.routes(self)
+
   root 'welcome#index'
+
+  namespace :admin do
+    root 'welcome#index'
+
+    resource  :site, only: %i(edit update)
+    resources :categories
+    resources :posts
+    resources :fixed_pages
+    resources :links
+    resources :images, only: %i(create)
+  end
 
   concern :site do
     resources :posts, only: %i(show), constraints: {id: /\d+/}, path: '/'

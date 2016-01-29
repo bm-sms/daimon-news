@@ -1,0 +1,23 @@
+%h1 Listing links
+
+%table.table
+  %thead
+    %tr
+      %th Text
+      %th Url
+      %th Order
+      %th
+      %th
+      %th
+
+  %tbody
+    - @links.each do |link|
+      %tr
+        %td= link.text
+        %td= link.url
+        %td= link.order
+        %td= link_to 'Show', [:admin, link]
+        %td= link_to 'Edit', edit_admin_link_path(link)
+        %td= link_to 'Destroy', [:admin, link], method: :delete, data: { confirm: 'Are you sure?' }
+
+= link_to 'New Link', new_admin_link_path, class: 'btn btn-default'

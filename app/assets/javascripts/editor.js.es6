@@ -20,14 +20,14 @@ $(function() {
 
   $editor.markdownEditor({
     preview: true,
-    imageUpload: false,
-    width: 'calc(80% - 22px)',
+    imageUpload: true,
+    uploadPath: '/admin/images',
     onPreview(content, callback) {
       callback(marked(content));
     }
   });
   $editor.markdownEditor('setContent', content);
-  $('form#edit_post').submit((event) => {
+  $('form').submit((event) => {
     let content = $editor.markdownEditor('content');
 
     $postBody.val(content);

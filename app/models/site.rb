@@ -3,6 +3,7 @@ class Site < ActiveRecord::Base
   has_many :posts, dependent: :destroy
   has_many :fixed_pages, dependent: :destroy
   has_many :links, dependent: :destroy
+  has_many :images, dependent: :destroy
 
   validates :name, presence: true
   validates :fqdn, presence: true, uniqueness: true

@@ -5,7 +5,9 @@ ruby '2.3.0'
 gem 'rails', '~> 4.2.5'
 
 gem 'active_decorator'
-gem 'activeadmin', '~> 1.0.0.pre2'
+gem 'active_link_to'
+gem 'bootstrap-sass'
+gem 'bootstrap_form'
 gem 'bourbon'
 gem 'carrierwave'
 gem 'devise', '>= 3.5.4'
@@ -47,6 +49,8 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
+  gem 'poltergeist'
   gem 'test-unit-rails', require: false
 end
 

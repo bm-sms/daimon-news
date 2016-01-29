@@ -16,10 +16,11 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
     fill_in 'Password', with: 'password'
     click_on 'Log in'
 
-    click_on 'Categories'
-    click_on 'Category を作成する'
+    within '.navbar-nav' do
+      click_on 'カテゴリ'
+    end
+    click_on 'New Category'
 
-    select 'daimon-news', from: 'Site'
     fill_in 'Name', with: 'Ruby'
     fill_in 'Description',  with: <<~EOS
       Ruby is a programming language.
@@ -27,24 +28,21 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
     fill_in 'Slug', with: 'ruby'
     fill_in 'Order', with: '1'
 
-    click_on 'Categoryを作成'
+    click_on '登録する'
 
-    click_on 'Posts'
-    click_on 'Post を作成する'
+    within '.navbar-nav' do
+      click_on '記事'
+    end
+    click_on 'New Post'
 
-    select 'daimon-news', from: 'Site'
     select 'Ruby', from: 'Category'
     fill_in 'Title', with: 'Ruby x.x.x Released'
     fill_in 'Body', with: <<~EOS
       Ruby x.x.x released just now!
     EOS
-    select '2000', from: '年'
-    select '1月', from: '月'
-    select '1', from: '日'
-    select '00', from: '時'
-    select '00', from: '分'
+    fill_in 'Published at', with: '2000/01/01 00:00'
 
-    click_on 'Postを作成'
+    click_on '登録する'
   end
 
   teardown do

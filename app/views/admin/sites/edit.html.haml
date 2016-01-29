@@ -1,0 +1,37 @@
+= bootstrap_form_for [:admin, @site], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+  = f.text_field :name
+  = f.text_area :description
+  = f.url_field :js_url
+  = f.url_field :css_url
+  = f.text_field :fqdn
+  = f.text_field :tagline
+  = f.url_field :logo_url
+  = f.url_field :favicon_url
+  = f.url_field :mobile_favicon_url
+  = f.text_field :gtm_id
+  = f.url_field :content_header_url
+  = f.url_field :promotion_url
+  = f.text_field :sns_share_caption
+  = f.text_field :twitter_account
+  = f.url_field :menu_url
+  = f.url_field :home_url
+  = f.url_field :footer_url
+  = f.text_field :ad_client
+  = f.text_field :ad_slot
+  = f.form_group do
+    = f.check_box :opened
+  = f.file_field :logo_image
+  - if @site.logo_image.present?
+    = f.form_group do
+      = image_tag @site.logo_image_url, height: 80
+  = f.file_field :favicon_image
+  - if @site.favicon_image.present?
+    = f.form_group do
+      = image_tag @site.favicon_image_url
+  = f.file_field :mobile_favicon_image
+  - if @site.mobile_favicon_image.present?
+    = f.form_group do
+      = image_tag @site.mobile_favicon_image_url
+
+  = f.form_group do
+    = f.submit

@@ -23,19 +23,8 @@ GEM
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
     active_decorator (0.7.0)
-    activeadmin (1.0.0.pre2)
-      arbre (~> 1.0, >= 1.0.2)
-      bourbon
-      coffee-rails
-      formtastic (~> 3.1)
-      formtastic_i18n
-      inherited_resources (~> 1.6)
-      jquery-rails
-      jquery-ui-rails
-      kaminari (~> 0.15)
-      rails (>= 3.2, < 5.0)
-      ransack (~> 1.3)
-      sass-rails
+    active_link_to (1.0.3)
+      actionpack
     activejob (4.2.5.1)
       activesupport (= 4.2.5.1)
       globalid (>= 0.3.0)
@@ -56,9 +45,10 @@ GEM
     airbrake (5.0.3)
       airbrake-ruby (~> 1.0)
     airbrake-ruby (1.0.3)
-    arbre (1.0.3)
-      activesupport (>= 3.0.0)
     arel (6.0.3)
+    autoprefixer-rails (6.3.1)
+      execjs
+      json
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
       babel-source (>= 4.0, < 6)
@@ -66,6 +56,10 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.3.6)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
+    bootstrap_form (2.3.0)
     bourbon (4.2.6)
       sass (~> 3.4)
       thor (~> 0.19)
@@ -83,15 +77,10 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    cliver (0.3.2)
     coderay (1.1.0)
-    coffee-rails (4.1.1)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.1.x)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.10.0)
     concurrent-ruby (1.0.0)
+    database_cleaner (1.5.1)
     debug_inspector (0.0.2)
     devise (3.5.5)
       bcrypt (~> 3.0)
@@ -217,9 +206,6 @@ GEM
     font-awesome-sass (4.5.0)
       sass (>= 3.2)
     formatador (0.2.5)
-    formtastic (3.1.3)
-      actionpack (>= 3.2.13)
-    formtastic_i18n (0.5.0)
     git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -233,9 +219,6 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
-    has_scope (0.6.0)
-      actionpack (>= 3.2, < 5)
-      activesupport (>= 3.2, < 5)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -243,18 +226,11 @@ GEM
       ruby_parser (~> 3.5)
     i18n (0.7.0)
     inflecto (0.0.2)
-    inherited_resources (1.6.0)
-      actionpack (>= 3.2, < 5)
-      has_scope (~> 0.6.0.rc)
-      railties (>= 3.2, < 5)
-      responders
     ipaddress (0.8.2)
     jquery-rails (4.1.0)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-ui-rails (5.0.5)
-      railties (>= 3.2.16)
     json (1.8.3)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
@@ -278,8 +254,11 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
     pg (0.18.4)
-    polyamorous (1.3.0)
-      activerecord (>= 3.0)
+    poltergeist (1.8.1)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     power_assert (0.2.7)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -344,12 +323,6 @@ GEM
       actionpack
       activesupport
       railties
-    ransack (1.7.0)
-      actionpack (>= 3.0)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      i18n
-      polyamorous (~> 1.2)
     rbvmomi (1.8.2)
       builder
       nokogiri (>= 1.4.1)
@@ -422,6 +395,9 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    websocket-driver (0.6.3)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -431,10 +407,13 @@ PLATFORMS
 
 DEPENDENCIES
   active_decorator
-  activeadmin (~> 1.0.0.pre2)
+  active_link_to
   airbrake
+  bootstrap-sass
+  bootstrap_form
   bourbon
   carrierwave
+  database_cleaner
   devise (>= 3.5.4)
   fog
   font-awesome-sass
@@ -447,6 +426,7 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   pg
+  poltergeist
   pry-byebug
   pry-rails
   puma
