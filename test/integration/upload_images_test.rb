@@ -13,10 +13,26 @@ module AdminTestHelper
   end
 end
 
+module MarkdownEditorUploadImageHelper
+  def upload_images(*files)
+    # XXX bootstrap-markdown-editor's upload button can't click by poltergeist because of its style.
+    # The input tag is computed as big square but visible (clickable) area is very small
+    # and poltergeist doesn't detect where can be clicked.
+    before_position = evaluate_script("$('.md-input-upload').css('position')")
+
+    execute_script("$('.md-input-upload').css('position', 'initial')")
+
+    find('.md-input-upload', visible: false).set(files)
+
+    execute_script("$('.md-input-upload').css('position', '#{before_position}')")
+  end
+end
+
 class UploadImagesTest < ActionDispatch::IntegrationTest
   self.use_transactional_fixtures = false
 
   include AdminTestHelper
+  include MarkdownEditorUploadImageHelper
 
   setup do |&test|
     DatabaseCleaner.strategy = :truncation
@@ -36,16 +52,7 @@ class UploadImagesTest < ActionDispatch::IntegrationTest
 
     click_on 'New Post'
 
-    before_position = evaluate_script("$('.md-input-upload').css('position')")
-
-    execute_script("$('.md-input-upload').css('position', 'initial')")
-
-    find('.md-input-upload', visible: false).set([
-      File.join(fixture_path, 'images/daimon.png'),
-      File.join(fixture_path, 'images/daimon2.png')
-    ])
-
-    execute_script("$('.md-input-upload').css('position', '#{before_position}')")
+    upload_images(File.join(fixture_path, 'images/daimon.png'), File.join(fixture_path, 'images/daimon2.png'))
 
     assert_equal '![](/uploads/image/image/1/daimon.png) ![](/uploads/image/image/2/daimon2.png)', find('.ace_content').text
   end
