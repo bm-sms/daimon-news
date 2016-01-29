@@ -49,6 +49,8 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
+  gem 'poltergeist'
   gem 'test-unit-rails', require: false
 end
 

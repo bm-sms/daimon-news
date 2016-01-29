@@ -1,0 +1,52 @@
+require 'test_helper'
+
+module AdminTestHelper
+  def login_as_admin
+    Site.create!(name: 'daimon-news', fqdn: '127.0.0.1', js_url: '', css_url: '')
+    User.create!(email: 'admin@example.com', password: 'password')
+
+    visit '/admin'
+
+    fill_in 'Email', with: 'admin@example.com'
+    fill_in 'Password', with: 'password'
+    click_on 'Log in'
+  end
+end
+
+class UploadImagesTest < ActionDispatch::IntegrationTest
+  self.use_transactional_fixtures = false
+
+  include AdminTestHelper
+
+  setup do |&test|
+    DatabaseCleaner.strategy = :truncation
+
+    DatabaseCleaner.cleaning do
+      login_as_admin
+
+      test.call
+    end
+
+    DatabaseCleaner.strategy = DatabaseCleaner.default_strategy
+  end
+
+  attribute :js, true
+  test 'Upload images' do
+    click_on '記事'
+
+    click_on 'New Post'
+
+    before_position = evaluate_script("$('.md-input-upload').css('position')")
+
+    execute_script("$('.md-input-upload').css('position', 'initial')")
+
+    find('.md-input-upload', visible: false).set([
+      File.join(fixture_path, 'images/daimon.png'),
+      File.join(fixture_path, 'images/daimon2.png')
+    ])
+
+    execute_script("$('.md-input-upload').css('position', '#{before_position}')")
+
+    assert_equal '![](/uploads/image/image/1/daimon.png) ![](/uploads/image/image/2/daimon2.png)', find('.ace_content').text
+  end
+end
