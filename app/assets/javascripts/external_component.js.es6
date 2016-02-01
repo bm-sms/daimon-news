@@ -2,8 +2,8 @@
 
 (($) => {
   $(() => {
-    $('.external-component').each((e) => {
-      let $el = $(e.target);
+    $('.external-component').each((_, e) => {
+      let $el = $(e);
 
       $.ajax({
         type: 'GET',
