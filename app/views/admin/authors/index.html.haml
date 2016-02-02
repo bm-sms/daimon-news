@@ -1,0 +1,29 @@
+%h1 Listing authors
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Responsibility
+      %th Title
+      %th Affiliation
+      %th Photo
+      %th
+      %th
+      %th
+
+  %tbody
+    - @authors.each do |author|
+      %tr
+        %td= author.name
+        %td= author.responsibility
+        %td= author.title
+        %td= author.affiliation
+        %td= image_tag author.photo_url, height: 80 if author.photo_image?
+        %td= link_to 'Show', [:admin, author]
+        %td= link_to 'Edit', edit_admin_author_path(author)
+        %td= link_to 'Destroy', [:admin, author], method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Author', new_admin_author_path, class: 'btn btn-default'
