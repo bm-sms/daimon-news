@@ -97,12 +97,12 @@ target.find_each.with_index do |wp_post, i|
     post = site.posts.find_or_initialize_by(original_id: wp_post.id)
 
     post.update!(
-      title:         wp_post.post_title,
-      published_at:  wp_post.post_date_gmt,
-      body:          wp_post.post_content,
-      category:      category,
-      thumbnail_url: wp_post.thumbnail_url,
-      updated_at:    wp_post.post_modified_gmt
+      title:                wp_post.post_title,
+      published_at:         wp_post.post_date_gmt,
+      body:                 wp_post.post_content,
+      category:             category,
+      remote_thumbnail_url: wp_post.thumbnail_url,
+      updated_at:           wp_post.post_modified_gmt
     )
   end
 end

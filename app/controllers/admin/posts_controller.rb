@@ -54,7 +54,7 @@ class Admin::PostsController < Admin::ApplicationController
       :title,
       :body,
       :category_id,
-      :thumbnail_url,
+      :thumbnail,
       :published_at
     )
   end
