@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202025140) do
+ActiveRecord::Schema.define(version: 20160202052041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authors", force: :cascade do |t|
+    t.string   "name",           null: false
+    t.string   "responsibility", null: false
+    t.string   "title"
+    t.string   "affiliation"
+    t.string   "photo"
+    t.integer  "site_id",        null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "authors", ["site_id"], name: "index_authors_on_site_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -68,6 +81,7 @@ ActiveRecord::Schema.define(version: 20160202025140) do
     t.string   "source_url"
     t.string   "thumbnail_url"
     t.string   "thumbnail"
+    t.integer  "author_id"
   end
 
   add_index "posts", ["published_at", "id"], name: "index_posts_on_published_at_and_id", using: :btree
@@ -122,6 +136,7 @@ ActiveRecord::Schema.define(version: 20160202025140) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "authors", "sites"
   add_foreign_key "fixed_pages", "sites"
   add_foreign_key "images", "sites"
   add_foreign_key "links", "sites"
