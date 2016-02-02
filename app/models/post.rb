@@ -10,6 +10,8 @@ class Post < ActiveRecord::Base
 
   paginates_per 20
 
+  mount_uploader :thumbnail, ImageUploader
+
   def pages
     @pages ||= Page.pages_for(body)
   end
