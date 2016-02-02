@@ -64,6 +64,10 @@ class WpPost < WpApplicationRecord
 
     self.post_content = doc.search('body')[0].inner_html
   end
+
+  def markdown_body
+    ReverseMarkdown.convert(post_content).gsub("\r", "\n")
+  end
 end
 
 class WpPostmetum < WpApplicationRecord
@@ -125,7 +129,7 @@ target.find_each.with_index do |wp_post, i|
     post.update!(
       title:                wp_post.post_title,
       published_at:         wp_post.post_date_gmt,
-      body:                 wp_post.post_content,
+      body:                 wp_post.markdown_body,
       category:             category,
       remote_thumbnail_url: wp_post.thumbnail_url,
       updated_at:           wp_post.post_modified_gmt
