@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114055418) do
+ActiveRecord::Schema.define(version: 20160202025140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20160114055418) do
     t.string   "image",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "post_id",    null: false
+    t.integer  "site_id",    null: false
   end
 
   create_table "posts", force: :cascade do |t|
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20160114055418) do
     t.string   "source_url"
     t.integer  "original_id"
     t.string   "thumbnail_url"
+    t.string   "thumbnail"
   end
 
   add_index "posts", ["published_at", "original_id"], name: "index_posts_on_published_at_and_original_id", using: :btree
@@ -109,6 +110,6 @@ ActiveRecord::Schema.define(version: 20160114055418) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "fixed_pages", "sites"
-  add_foreign_key "images", "posts"
+  add_foreign_key "images", "sites"
   add_foreign_key "posts", "sites"
 end

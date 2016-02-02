@@ -43,6 +43,27 @@ class WpPost < WpApplicationRecord
 
     [ASSET_DIR, URI(thumbnail.guid).path.split('/').last(3)].join('/')
   end
+
+  def convert_image_url
+    doc = Nokogiri::HTML(post_content)
+
+    links = {}
+
+    doc.search('img').each do |element|
+      original_src = element['src']
+      new_src = yield(original_src)
+      links[original_src] = new_src
+      element['src'] = new_src
+    end
+
+    links.each do |original_src, new_src|
+      doc.search("a[href='#{original_src}']").each do |element|
+        element['href'] = new_src
+      end
+    end
+
+    self.post_content = doc.search('body')[0].inner_html
+  end
 end
 
 class WpPostmetum < WpApplicationRecord
@@ -94,15 +115,20 @@ target.find_each.with_index do |wp_post, i|
       c.order       = site.categories.maximum(:order) + 1
     end
 
+    wp_post.convert_image_url do |url|
+      image = site.images.create!(remote_image_url: url)
+      image.image_url
+    end
+
     post = site.posts.find_or_initialize_by(original_id: wp_post.id)
 
     post.update!(
-      title:         wp_post.post_title,
-      published_at:  wp_post.post_date_gmt,
-      body:          wp_post.post_content,
-      category:      category,
-      thumbnail_url: wp_post.thumbnail_url,
-      updated_at:    wp_post.post_modified_gmt
+      title:                wp_post.post_title,
+      published_at:         wp_post.post_date_gmt,
+      body:                 wp_post.post_content,
+      category:             category,
+      remote_thumbnail_url: wp_post.thumbnail_url,
+      updated_at:           wp_post.post_modified_gmt
     )
   end
 end
