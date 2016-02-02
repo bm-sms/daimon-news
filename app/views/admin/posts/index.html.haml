@@ -6,6 +6,7 @@
       %th Title
       %th Body
       %th Category
+      %th Author
       %th Thumbnail
       %th
       %th
@@ -17,6 +18,7 @@
         %td= post.title
         %td= post.body
         %td= post.category&.name
+        %td= post.author&.name
         %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
         %td= link_to 'Show', [:admin, post]
         %td= link_to 'Edit', edit_admin_post_path(post)
