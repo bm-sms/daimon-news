@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   concern :site do
-    resources :posts, only: %i(show), param: :original_id, constraints: {original_id: /\d+/}, path: '/'
-    get '/:original_id/:page' => redirect('/%{original_id}?page=%{page}'), constraints: {original_id: /\d+/, page: /\d+/} # To compatible with old URL
+    resources :posts, only: %i(show), constraints: {id: /\d+/}, path: '/'
+    get '/:id/:page' => redirect('/%{id}?page=%{page}'), constraints: {id: /\d+/, page: /\d+/} # To compatible with old URL
     resources :categories, only: %i(show), path: 'category'
 
     resource :feed, only: %i(show), path: 'feed', controller: 'feed'

@@ -19,7 +19,7 @@
   = render partial: 'banner', locals: {position: :press_article_bottom}
 
   %aside
-    = render partial: 'sns_share', locals: {title: @post.title, url: post_url(@post.original_id), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
+    = render partial: 'sns_share', locals: {title: @post.title, url: post_url(@post.id), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
 
     = render partial: 'short_collection', locals: {posts: @post.related_posts}
 
@@ -27,8 +27,8 @@
       - if @post.next_post.present?
         %li.page-navi
           .page-navi__label 次の記事へ
-          = link_to @post.next_post.title, post_path(@post.next_post.original_id), class: 'page-navi__link'
+          = link_to @post.next_post.title, post_path(@post.next_post.id), class: 'page-navi__link'
       - if @post.previous_post.present?
         %li.page-navi
           .page-navi__label 前の記事へ
-          = link_to @post.previous_post.title, post_path(@post.previous_post.original_id), class: 'page-navi__link'
+          = link_to @post.previous_post.title, post_path(@post.previous_post.id), class: 'page-navi__link'
