@@ -19,7 +19,7 @@
         %td= author.responsibility
         %td= author.title
         %td= author.affiliation
-        %td= image_tag author.photo_url, height: 80 if author.photo_image?
+        %td= image_tag author.photo_url, height: 80 if author.photo.present?
         %td= link_to 'Show', [:admin, author]
         %td= link_to 'Edit', edit_admin_author_path(author)
         %td= link_to 'Destroy', [:admin, author], method: :delete, data: { confirm: 'Are you sure?' }
