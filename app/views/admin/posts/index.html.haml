@@ -6,7 +6,7 @@
       %th Title
       %th Body
       %th Category
-      %th Thumbnail url
+      %th Thumbnail
       %th
       %th
       %th
@@ -17,7 +17,7 @@
         %td= post.title
         %td= post.body
         %td= post.category&.name
-        %td= post.thumbnail_url
+        %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
         %td= link_to 'Show', [:admin, post]
         %td= link_to 'Edit', edit_admin_post_path(post)
         %td= link_to 'Destroy', [:admin, post], method: :delete, data: { confirm: 'Are you sure?' }

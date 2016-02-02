@@ -2,7 +2,10 @@
   = f.text_field :title
   = f.text_area :body
   = f.collection_select :category_id, current_site.categories, :id, :name
-  = f.text_field :thumbnail_url
+  = f.file_field :thumbnail
+  - if @post.thumbnail.present?
+    = f.form_group do
+      = image_tag @post.thumbnail_url, height: 80
   = f.datetime_local_field :published_at
 
   = f.form_group do

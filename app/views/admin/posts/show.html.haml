@@ -9,7 +9,7 @@
   = @post.category&.name
 %p
   %b Thumbnail url:
-  = @post.thumbnail_url
+  = image_tag @post.thumbnail_url, height: 80 if @post.thumbnail.present?
 
 = link_to 'Edit', edit_admin_post_path(@post)
 \|
