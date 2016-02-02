@@ -5,6 +5,9 @@ class ExceptionsApp < Rambulance::ExceptionsApp
   helper CurrentResouceHelper
 
   def not_found
+    respond_to do |format|
+      format.any { render(formats: :html, content_type: 'text/html', layout: 'error') }
+    end
   end
 
   def internal_server_error
