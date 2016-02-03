@@ -116,7 +116,7 @@ target.find_each.with_index do |wp_post, i|
     category = site.categories.find_or_create_by!(name: wp_term.name) do |c|
       c.description = wp_post.category_taxonomy.description
       c.slug        = wp_term.slug
-      c.order       = site.categories.maximum(:order) + 1
+      c.order       = (site.categories.maximum(:order) || 0) + 1
     end
 
     wp_post.convert_image_url do |url|
