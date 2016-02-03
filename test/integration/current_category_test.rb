@@ -45,9 +45,6 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
     select '00', from: '分'
 
     click_on 'Postを作成'
-
-    # XXX original_id is imported from wordpress
-    Post.first.update!(original_id: 1)
   end
 
   teardown do

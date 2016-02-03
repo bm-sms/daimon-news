@@ -2,13 +2,12 @@ class Post < ActiveRecord::Base
   belongs_to :site
   belongs_to :category
 
-  has_many :images, dependent: :destroy
-  accepts_nested_attributes_for :images, allow_destroy: true
-
   scope :published, -> { where('published_at <= ?', Time.current) }
-  scope :order_by_recently, -> { order(:published_at => :desc, :original_id => :asc) }
+  scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
 
   paginates_per 20
+
+  mount_uploader :thumbnail, ImageUploader
 
   def pages
     @pages ||= Page.pages_for(body)
@@ -22,15 +21,15 @@ class Post < ActiveRecord::Base
 
   def next_post
     @next_post ||= around_posts_candidates
-      .order(:original_id => :desc)
-      .where('original_id > ?', original_id)
+      .order(:id => :desc)
+      .where('id > ?', id)
       .first
   end
 
   def previous_post
     @previous_post ||= around_posts_candidates
-      .order(:original_id)
-      .where('original_id < ?', original_id)
+      .order(:id)
+      .where('id < ?', id)
       .first
   end
 
