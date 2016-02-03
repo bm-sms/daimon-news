@@ -2,13 +2,12 @@ class Post < ActiveRecord::Base
   belongs_to :site
   belongs_to :category
 
-  has_many :images, dependent: :destroy
-  accepts_nested_attributes_for :images, allow_destroy: true
-
   scope :published, -> { where('published_at <= ?', Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc, :original_id => :asc) }
 
   paginates_per 20
+
+  mount_uploader :thumbnail, ImageUploader
 
   def pages
     @pages ||= Page.pages_for(body)

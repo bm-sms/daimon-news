@@ -59,7 +59,7 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
 
       assert_equal 'following line should be breaked:', elem.children[0].text
       assert_equal 'br', elem.children[1].name
-      assert_equal "\n hi", elem.children[2].text
+      assert_equal "\nhi", elem.children[2].text
     end
   end
 end
