@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   belongs_to :category
 
   scope :published, -> { where('published_at <= ?', Time.current) }
-  scope :order_by_recently, -> { order(:published_at => :desc, :original_id => :asc) }
+  scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
 
   paginates_per 20
 
@@ -21,15 +21,15 @@ class Post < ActiveRecord::Base
 
   def next_post
     @next_post ||= around_posts_candidates
-      .order(:original_id => :desc)
-      .where('original_id > ?', original_id)
+      .order(:id => :desc)
+      .where('id > ?', id)
       .first
   end
 
   def previous_post
     @previous_post ||= around_posts_candidates
-      .order(:original_id)
-      .where('original_id < ?', original_id)
+      .order(:id)
+      .where('id < ?', id)
       .first
   end
 

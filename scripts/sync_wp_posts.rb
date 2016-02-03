@@ -124,7 +124,7 @@ target.find_each.with_index do |wp_post, i|
       image.image_url
     end
 
-    post = site.posts.find_or_initialize_by(original_id: wp_post.id)
+    post = site.posts.find_or_initialize_by(id: wp_post.id)
 
     post.update!(
       title:                wp_post.post_title,

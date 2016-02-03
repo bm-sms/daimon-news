@@ -9,7 +9,7 @@ module PostDecorator
       type: 'article',
       title: title,
       description: body,
-      url: post_url(original_id, all: true),
+      url: post_url(id, all: true),
       site_name: site.name,
       modified_time: updated_at.to_datetime.to_s,
       image: thumbnail_url
