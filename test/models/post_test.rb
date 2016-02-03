@@ -30,4 +30,24 @@ class PostTest < ActiveSupport::TestCase
       assert_equal(["は数値で入力してください"], category.errors[:order])
     end
   end
+
+  sub_test_case "relation" do
+    setup do
+      @author = @site.authors.create!(name: "name",
+                                      responsibility: "responsibility",
+                                      title: "title",
+                                      affiliation: "affiliation")
+      @post = @site.posts.create!(title: "title", body: "body")
+      @post.author = @author
+      @post.save!
+    end
+
+    def test_destroy
+      assert_equal(Author.count, 1)
+      assert_equal(Post.count, 1)
+      @author.destroy
+      assert_equal(Author.count, 0)
+      assert_equal(Post.count, 1)
+    end
+  end
 end
