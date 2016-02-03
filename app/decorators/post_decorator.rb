@@ -8,7 +8,7 @@ module PostDecorator
       locale: 'ja_JP',
       type: 'article',
       title: title,
-      description: body,
+      description: render_markdown(body),
       url: post_url(id, all: true),
       site_name: site.name,
       modified_time: updated_at.to_datetime.to_s,
