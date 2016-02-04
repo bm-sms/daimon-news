@@ -5,6 +5,7 @@ class Site < ActiveRecord::Base
   has_many :links, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :authors, dependent: :destroy
+  has_many :memberships, dependent: :destroy
 
   validates :name, presence: true
   validates :fqdn, presence: true, uniqueness: true

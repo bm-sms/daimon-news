@@ -1,4 +1,31 @@
 class Admin::SitesController < Admin::ApplicationController
+  def index
+    @sites = Site.all
+  end
+
+  def new
+    @site = Site.new
+  end
+
+  def show
+    @site = Site.find(params[:id])
+  end
+
+  def create
+    @site = Site.new(site_params)
+
+    if @site.valid?
+      @site.transaction do
+        @site.save!
+        @site.memberships.create!(user: current_user)
+      end
+
+      redirect_to root_url(host: @site.fqdn)
+    else
+      render :new
+    end
+  end
+
   def edit
     @site = current_site
   end
@@ -7,7 +34,7 @@ class Admin::SitesController < Admin::ApplicationController
     @site = current_site
 
     if @site.update(site_params)
-      redirect_to [:admin, :root], notice: 'サイト情報が更新されました。'
+      redirect_to [:admin, @site], notice: 'サイト情報が更新されました。'
     else
       render :edit
     end
@@ -41,5 +68,11 @@ class Admin::SitesController < Admin::ApplicationController
       :favicon_image,
       :mobile_favicon_image
     )
+  end
+
+  def current_site
+    return nil unless params.key?(:id)
+
+    @current_site ||= Site.find(params[:id])
   end
 end

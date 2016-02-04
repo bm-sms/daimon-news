@@ -1,4 +1,4 @@
-class Admin::CategoriesController < Admin::ApplicationController
+class Editor::CategoriesController < Editor::ApplicationController
   def index
     @categories = categories
   end
@@ -15,7 +15,7 @@ class Admin::CategoriesController < Admin::ApplicationController
     @category = categories.build(category_params)
 
     if @category.save
-      redirect_to [:admin, @category], notice: 'カテゴリが作成されました'
+      redirect_to [:editor, @category], notice: 'カテゴリが作成されました'
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Admin::CategoriesController < Admin::ApplicationController
     @category = categories.find(params[:id])
 
     if @category.update(category_params)
-      redirect_to [:admin, @category], notice: 'カテゴリが更新されました'
+      redirect_to [:editor, @category], notice: 'カテゴリが更新されました'
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Admin::CategoriesController < Admin::ApplicationController
 
     @category.destroy
 
-    redirect_to admin_categories_path, notice: 'カテゴリが削除されました'
+    redirect_to editor_categories_path, notice: 'カテゴリが削除されました'
   end
 
   private

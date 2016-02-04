@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', [:admin, @link]
+= link_to 'Show', [:admin, current_site, @link]
 \|
-= link_to 'Back', admin_links_path
+= link_to 'Back', admin_site_links_path

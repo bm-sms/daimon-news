@@ -15,7 +15,7 @@ class Admin::FixedPagesController < Admin::ApplicationController
     @fixed_page = fixed_pages.build(fixed_page_params)
 
     if @fixed_page.save
-      redirect_to [:admin, @fixed_page], notice: '固定ページが作成されました'
+      redirect_to [:admin, current_site, @fixed_page], notice: '固定ページが作成されました'
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Admin::FixedPagesController < Admin::ApplicationController
     @fixed_page = fixed_pages.find(params[:id])
 
     if @fixed_page.update(fixed_page_params)
-      redirect_to [:admin, @fixed_page], notice: '固定ページが更新されました'
+      redirect_to [:admin, current_site, @fixed_page], notice: '固定ページが更新されました'
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Admin::FixedPagesController < Admin::ApplicationController
 
     @fixed_page.destroy
 
-    redirect_to admin_fixed_pages_url, notice: '固定ページが削除されました'
+    redirect_to admin_site_fixed_pages_url, notice: '固定ページが削除されました'
   end
 
   private
@@ -54,5 +54,9 @@ class Admin::FixedPagesController < Admin::ApplicationController
       :body,
       :slug
     )
+  end
+
+  def current_site
+    @current_site ||= Site.find(params[:site_id])
   end
 end

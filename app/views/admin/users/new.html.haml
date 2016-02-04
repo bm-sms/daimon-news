@@ -1,0 +1,9 @@
+= bootstrap_form_for [:admin, @user], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+  = f.email_field :email
+  = f.form_group do
+    = f.check_box :admin
+  = f.password_field :password
+  = f.password_field :password_confirmation, label: 'Confirm Password'
+
+  = f.form_group do
+    = f.submit

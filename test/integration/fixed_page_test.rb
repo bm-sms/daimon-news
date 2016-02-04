@@ -2,8 +2,8 @@ require 'test_helper'
 
 class FixedPageTest < ActionDispatch::IntegrationTest
   setup do
-    Site.create!(name: 'daimon-news', fqdn: 'www.example.com', js_url: '', css_url: '')
-    User.create!(email: 'admin@example.com', password: 'password')
+    Site.create!(name: 'daimon-news', fqdn: 'www.example.com')
+    User.create!(email: 'admin@example.com', password: 'password', admin: true)
 
     visit '/admin'
 
@@ -11,6 +11,10 @@ class FixedPageTest < ActionDispatch::IntegrationTest
     fill_in 'Password', with: 'password'
     click_on 'Log in'
 
+    click_on 'サイト情報'
+    within :xpath, '//tr[./td[contains(text(), "daimon-news")]]' do
+      click_on 'Show'
+    end
     within '.navbar-nav' do
       click_on '固定ページ'
     end

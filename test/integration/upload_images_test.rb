@@ -2,12 +2,13 @@ require 'test_helper'
 
 module AdminTestHelper
   def login_as_admin
-    Site.create!(name: 'daimon-news', fqdn: '127.0.0.1', js_url: '', css_url: '')
-    User.create!(email: 'admin@example.com', password: 'password')
+    site = Site.create!(name: 'daimon-news', fqdn: '127.0.0.1')
+    editor = User.create!(email: 'editor@example.com', password: 'password')
+    site.memberships.create!(user: editor)
 
-    visit '/admin'
+    visit '/editor'
 
-    fill_in 'Email', with: 'admin@example.com'
+    fill_in 'Email',    with: 'editor@example.com'
     fill_in 'Password', with: 'password'
     click_on 'Log in'
   end

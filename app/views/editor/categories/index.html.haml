@@ -18,10 +18,10 @@
         %td= category.description
         %td= category.slug
         %td= category.order
-        %td= link_to 'Show', [:admin, category]
-        %td= link_to 'Edit', edit_admin_category_path(category)
-        %td= link_to 'Destroy', [:admin, category], method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', editor_category_path(category)
+        %td= link_to 'Edit', edit_editor_category_path(category)
+        %td= link_to 'Destroy', editor_category_path(category), method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Category', new_admin_category_path, class: 'btn btn-default'
+= link_to 'New Category', new_editor_category_path, class: 'btn btn-default'

@@ -1,4 +1,4 @@
-class Admin::ImagesController < Admin::ApplicationController
+class Editor::ImagesController < Editor::ApplicationController
   def create
     # NOTE bootstrap-markdown-editor がファイルごとにユニークなキーで画像を送信してくる
     images = params.select {|key, _| key =~ /\Afile\d+\z/ }.map do |_, image|

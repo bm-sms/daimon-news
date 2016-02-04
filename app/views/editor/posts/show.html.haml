@@ -16,6 +16,6 @@
   %b Thumbnail url:
   = image_tag @post.thumbnail_url, height: 80 if @post.thumbnail.present?
 
-= link_to 'Edit', edit_admin_post_path(@post)
+= link_to 'Edit', edit_editor_post_path
 \|
-= link_to 'Back', admin_posts_path
+= link_to 'Back', editor_posts_path

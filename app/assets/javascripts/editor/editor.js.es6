@@ -21,7 +21,7 @@ $(function() {
   $editor.markdownEditor({
     preview: true,
     imageUpload: true,
-    uploadPath: '/admin/images',
+    uploadPath:  $postBody.data('upload-path'),
     onPreview(content, callback) {
       callback(marked(content));
     }
