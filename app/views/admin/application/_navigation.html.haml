@@ -8,9 +8,6 @@
       %ul.nav.navbar-nav.navbar-right
         = active_link_to 'サイト情報', admin_sites_url, wrap_tag: 'li'
         = active_link_to 'ユーザ',     admin_users_url, wrap_tag: 'li'
-        - if current_site
-          = active_link_to '固定ページ', admin_site_fixed_pages_url(site_id: current_site), wrap_tag: 'li'
-          = active_link_to 'リンク', admin_site_links_url(site_id: current_site), wrap_tag: 'li'
 
         %li
           = link_to 'ログアウト', destroy_user_session_url, method: :delete

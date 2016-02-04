@@ -6,11 +6,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'welcome#index'
 
-    resources :sites, except: :destroy do
-      resources :fixed_pages
-      resources :links
-    end
-
+    resources :sites, except: :destroy
     resources :users, except: :show
     resources :authors
   end
@@ -18,6 +14,8 @@ Rails.application.routes.draw do
   namespace :editor do
     root 'welcome#index'
 
+    resources :fixed_pages
+    resources :links
     resources :categories
     resources :posts
     resources :images, only: :create

@@ -1,4 +1,4 @@
-class Admin::LinksController < Admin::ApplicationController
+class Editor::LinksController < Editor::ApplicationController
   def index
     @links = links
   end
@@ -15,7 +15,7 @@ class Admin::LinksController < Admin::ApplicationController
     @link = links.build(link_params)
 
     if @link.save
-      redirect_to [:admin, current_site, @link], notice: 'リンクが作成されました'
+      redirect_to [:editor, @link], notice: 'リンクが作成されました'
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Admin::LinksController < Admin::ApplicationController
     @link = links.find(params[:id])
 
     if @link.update(link_params)
-      redirect_to [:admin, current_site, @link], notice: 'リンクが更新されました'
+      redirect_to [:editor, @link], notice: 'リンクが更新されました'
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Admin::LinksController < Admin::ApplicationController
 
     @link.destroy
 
-    redirect_to admin_site_links_url, notice: 'リンクが削除されました'
+    redirect_to editor_links_url, notice: 'リンクが削除されました'
   end
 
   private
@@ -55,9 +55,5 @@ class Admin::LinksController < Admin::ApplicationController
       :url,
       :order
     )
-  end
-
-  def current_site
-    @current_site ||= Site.find(params[:site_id])
   end
 end
