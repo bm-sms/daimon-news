@@ -1,6 +1,6 @@
 module ApplicationHelper
   def render_markdown(markdown_text)
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true))
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
     markdown.render(markdown_text)
   end
 
