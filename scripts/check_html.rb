@@ -2,6 +2,8 @@ def render_md(text)
   Kramdown::Document.new(text.to_s, input: 'GFM', syntax_highlighter: 'rouge', hard_wrap: true).to_html
 end
 
+has_diff_count = 0
+
 Post.all.each.with_index(1) {|post, index|
   p "#{index}: #{post.id}"
 
@@ -19,13 +21,21 @@ Post.all.each.with_index(1) {|post, index|
     end
   end
 
+  has_diff = false
+
   previous_doc.diff(current_doc) do |change, node|
     next if change == ' '
     next if node.text.blank?
     next if node.is_a?(Nokogiri::XML::Attr)
 
+    has_diff = true
+
     puts change
     p node
     # puts "#{change} #{node.to_html}".ljust(30) + node.parent.path
   end
+
+  has_diff_count += 1 if has_diff
 }
+
+p "* #{has_diff_count}/#{Post.count} posts has diff."
