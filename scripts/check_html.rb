@@ -10,7 +10,7 @@ Post.all.each.with_index(1) {|post, index|
   md = Kramdown::Document.new(post.original_html, input: 'html', hard_wrap: true).to_kramdown
 
   previous_html = post.original_html
-  current_html = render_md(md)
+  current_html = md.split(Page::SEPARATOR).map {|page| render_md(page) }.join(Page::SEPARATOR)
 
   previous_doc = Nokogiri::HTML(previous_html)
   current_doc  = Nokogiri::HTML(current_html)
