@@ -28,7 +28,7 @@ class Admin::PostsController < Admin::ApplicationController
   def update
     @post = posts.find(params[:id])
 
-    if @post.update(post_params)
+    if @post.update_columns(post_params)
       redirect_to [:admin, @post], notice: '記事が更新されました。'
     else
       render :edit
