@@ -10,8 +10,6 @@ class AdminTest < ActionDispatch::IntegrationTest
     fill_in 'Email',    with: 'admin@example.com'
     fill_in 'Password', with: 'password'
     click_on 'Log in'
-
-    visit '/admin'
   end
 
   test 'Site' do
@@ -52,8 +50,6 @@ class AdminTest < ActionDispatch::IntegrationTest
     assert page.has_css?('td', text: 'alice@example.com')
 
     try_login_as_admin email: 'alice@example.com', password: 'password' do
-      visit '/admin'
-
       assert_equal '/', current_path
     end
 
@@ -68,8 +64,6 @@ class AdminTest < ActionDispatch::IntegrationTest
     click_on '更新する'
 
     try_login_as_admin email: 'alice@example.com', password: 'password' do
-      visit '/admin'
-
       assert_equal '/admin', current_path
     end
 

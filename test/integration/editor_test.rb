@@ -11,8 +11,6 @@ class EditorTest < ActionDispatch::IntegrationTest
     fill_in 'Email',    with:'editor@example.com'
     fill_in 'Password', with:'password'
     click_on 'Log in'
-
-    visit '/editor'
   end
 
   test 'Category' do
