@@ -1,7 +1,10 @@
 module ApplicationHelper
   def render_markdown(markdown_text)
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
-    markdown.render(markdown_text)
+    document = Kramdown::Document.new(markdown_text,
+                                      input: "GFM",
+                                      syntax_highlighter: "rouge",
+                                      hard_wrap: true)
+    document.to_html
   end
 
   def google_tag_manager(gtm_id)
