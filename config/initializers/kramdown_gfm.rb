@@ -3,8 +3,7 @@ require "kramdown"
 module Kramdown
   module Parser
     class Kramdown
-      AUTOLINK_RAW_START_STR = "((mailto|https?|ftps?):.+?|[-.#{ACHARS}]+@[-#{ACHARS}]+(?:\.[-#{ACHARS}]+)*\.[a-z]+)"
-      AUTOLINK_RAW_START = /\A#{AUTOLINK_RAW_START_STR}\z/u
+      AUTOLINK_RAW_START = /(?:((mailto|https?|ftps?):[^ \n]+|[-.#{ACHARS}]+@[-#{ACHARS}]+(?:\.[-#{ACHARS}]+)*\.[a-z]+))/
 
       define_parser(:autolink_raw, AUTOLINK_RAW_START, nil, "parse_autolink")
     end
