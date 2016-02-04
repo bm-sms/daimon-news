@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20160204080445) do
     t.string   "thumbnail"
     t.integer  "author_id"
     t.datetime "original_updated_at"
+    t.text     "original_html"
   end
 
   add_index "posts", ["published_at", "id"], name: "index_posts_on_published_at_and_id", using: :btree
