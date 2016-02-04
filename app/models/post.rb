@@ -36,8 +36,18 @@ class Post < ActiveRecord::Base
 
   MD = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
 
-  def original_html
-    body.split(Page::SEPARATOR).map {|page| MD.render(page) }.join(Page::SEPARATOR)
+  def previous_html
+    body.to_s.split(Page::SEPARATOR).map {|page| MD.render(page) }.join(Page::SEPARATOR)
+  end
+
+  def current_body
+    Kramdown::Document.new(previous_html, input: 'html', hard_wrap: true).to_kramdown
+  end
+
+  def current_html
+    current_body.split(Page::SEPARATOR).map {|page|
+      Kramdown::Document.new(page, input: 'GFM', syntax_highlighter: 'rouge', hard_wrap: true).to_html
+    }.join(Page::SEPARATOR)
   end
 
   private

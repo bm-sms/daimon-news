@@ -1,19 +1,10 @@
-def render_md(text)
-  Kramdown::Document.new(text.to_s, input: 'GFM', syntax_highlighter: 'rouge', hard_wrap: true).to_html
-end
-
 has_diff_count = 0
 
 Post.all.each.with_index(1) {|post, index|
   p "#{index}: #{post.id}"
 
-  md = Kramdown::Document.new(post.original_html, input: 'html', hard_wrap: true).to_kramdown
-
-  previous_html = post.original_html
-  current_html = md.split(Page::SEPARATOR).map {|page| render_md(page) }.join(Page::SEPARATOR)
-
-  previous_doc = Nokogiri::HTML(previous_html)
-  current_doc  = Nokogiri::HTML(current_html)
+  previous_doc = Nokogiri::HTML(post.previous_html)
+  current_doc  = Nokogiri::HTML(post.current_html)
 
   [previous_doc, current_doc].each do |doc|
     doc.search('*').each do |node|
