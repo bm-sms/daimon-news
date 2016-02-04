@@ -34,6 +34,12 @@ class Post < ActiveRecord::Base
       .first
   end
 
+  MD = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
+
+  def original_html
+    body.split(Page::SEPARATOR).map {|page| MD.render(page) }.join(Page::SEPARATOR)
+  end
+
   private
 
   def around_posts_candidates
