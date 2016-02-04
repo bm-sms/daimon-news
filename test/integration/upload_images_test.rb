@@ -54,6 +54,6 @@ class UploadImagesTest < ActionDispatch::IntegrationTest
 
     upload_images(File.join(fixture_path, 'images/daimon.png'), File.join(fixture_path, 'images/daimon2.png'))
 
-    assert_equal '![](/uploads/image/image/1/daimon.png) ![](/uploads/image/image/2/daimon2.png)', find('.ace_content').text
+    assert find('.ace_content').has_content?('![](/uploads/image/image/1/daimon.png) ![](/uploads/image/image/2/daimon2.png)')
   end
 end
