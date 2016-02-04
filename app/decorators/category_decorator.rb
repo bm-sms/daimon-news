@@ -4,7 +4,7 @@ module CategoryDecorator
       locale: 'ja_JP',
       type: 'object',
       title: [name, site.tagline, site.name].select(&:present?).join(' | '),
-      description: description,
+      description: description&.gsub("\n", ''),
       url: category_url(slug),
       site_name: site.name,
       image: site.logo_url
