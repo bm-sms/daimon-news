@@ -99,7 +99,7 @@ site = Site.find_by!(fqdn: FQDN)
 
 target = WpPost.where('post_status = "publish" OR post_status = "future"').order(:id)
 
-latest_updated_at = site.posts.maximum(:updated_at)
+latest_updated_at = site.posts.maximum(:original_updated_at)
 if latest_updated_at
   target = target.where('post_modified_gmt > ?', latest_updated_at)
 end
@@ -132,6 +132,7 @@ target.find_each.with_index do |wp_post, i|
       body:                 wp_post.markdown_body,
       category:             category,
       remote_thumbnail_url: wp_post.thumbnail_url,
+      original_updated_at:  wp_post.post_modified_gmt,
       updated_at:           wp_post.post_modified_gmt
     )
   end
