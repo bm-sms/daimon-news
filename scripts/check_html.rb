@@ -31,11 +31,11 @@ Post.all.each.with_index(1) {|post, index|
     has_diff = true
 
     puts change
-    p node
+    p node.to_html
     # puts "#{change} #{node.to_html}".ljust(30) + node.parent.path
   end
 
   has_diff_count += 1 if has_diff
 }
 
-p "* #{has_diff_count}/#{Post.count} posts has diff."
+puts "* #{has_diff_count}/#{Post.count} posts has diff."
