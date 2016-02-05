@@ -50,6 +50,16 @@ class Post < ActiveRecord::Base
     }.join(Page::SEPARATOR)
   end
 
+  def markdown_text
+    extension = ""
+    PandocRuby.convert(original_html.gsub(Page::SEPARATOR, "{{nextpage}}"),
+                       {
+                         from: "html",
+                         to: "markdown_github#{extension}",
+                       },
+                       "atx-header").gsub("{{nextpage}}", Page::SEPARATOR)
+  end
+
   private
 
   def around_posts_candidates
