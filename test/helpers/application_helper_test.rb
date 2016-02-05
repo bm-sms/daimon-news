@@ -49,6 +49,18 @@ class ApplicationHelperTest < ActionView::TestCase
         assert_equal(expected_html, html)
       end
 
+      # This is same behavior with github.com
+      def test_with_escaped_underbar
+        markdown = <<~'MARKDOWN'
+        http://www.example.com/foo\_bar\_baz text
+        MARKDOWN
+        expected_html = <<~'HTML'
+        <p><a href="http://www.example.com/foo\_bar\_baz">http://www.example.com/foo\_bar\_baz</a> text</p>
+        HTML
+        html = render_markdown(markdown)
+        assert_equal(expected_html, html)
+      end
+
       def test_multiple_links
         markdown = <<~MARKDOWN
         http://www.example.com
