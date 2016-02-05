@@ -8,7 +8,7 @@ module PostDecorator
       locale: 'ja_JP',
       type: 'article',
       title: title,
-      description: render_markdown(body)&.gsub("\n", ''),
+      description: MetaTags::TextNormalizer.normalize_description(render_markdown(body)),
       url: post_url(id, all: true),
       site_name: site.name,
       modified_time: updated_at.to_datetime.to_s,
