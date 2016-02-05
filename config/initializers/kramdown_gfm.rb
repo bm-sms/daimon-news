@@ -13,7 +13,7 @@ end
 module AutolinkRaw
   def initialize(source, options)
     super
-    @span_parsers.push(:autolink_raw)
+    @span_parsers.push(:autolink_raw) if options[:autolink_raw]
   end
 end
 

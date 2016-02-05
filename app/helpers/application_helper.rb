@@ -3,7 +3,8 @@ module ApplicationHelper
     document = Kramdown::Document.new(markdown_text,
                                       input: "GFM",
                                       syntax_highlighter: "rouge",
-                                      hard_wrap: true)
+                                      hard_wrap: true,
+                                      autolink_raw: true)
     document.to_html
   end
 
