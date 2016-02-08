@@ -60,6 +60,14 @@ class Post < ActiveRecord::Base
                        "atx-header").gsub("{{nextpage}}", Page::SEPARATOR)
   end
 
+  def reverse_markdown_text
+    ReverseMarkdown.convert(original_html).gsub("\r", "\n")
+  end
+
+  def kramdown_text
+    Kramdown::Document.new(original_html, input: "html").to_kramdown
+  end
+
   private
 
   def around_posts_candidates
