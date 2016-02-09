@@ -48,7 +48,7 @@ class Post < ActiveRecord::Base
 
       renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
       renderer.render(page)
-    }.join(Page::SEPARATOR)
+    }.join(Page::SEPARATOR + "\n")
   end
 
   def validate_markdown!
