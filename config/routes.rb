@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
     resource :sitemaps, only: %i(show), path: 'sitemap'
 
+    resource :robots, only: %i(show), path: 'robots'
+
     resources :fixed_pages, param: :slug, path: '/', only: :show
   end
 
