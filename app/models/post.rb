@@ -40,6 +40,7 @@ class Post < ActiveRecord::Base
     original_html.split(Page::SEPARATOR).map {|page|
       PandocRuby.convert(page, from: :html, to: 'markdown_github')
     }.join(Page::SEPARATOR + "\n")
+    .gsub('****', '<br>') # XXX Workaround for compatibility
   end
 
   def current_html
@@ -79,6 +80,8 @@ class Post < ActiveRecord::Base
       puts diff.join("\n")
       puts
     end
+
+    !diff.empty?
   end
 
   private
