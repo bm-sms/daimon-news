@@ -39,6 +39,7 @@ class Post < ActiveRecord::Base
   def markdown_from_original_html
     html = Nokogiri::HTML(original_html).tap {|doc|
       _convert_u_to_strong(doc)
+      _strip_img_attribtues(doc)
     }.search('body')[0].inner_html
 
     html.split(Page::SEPARATOR).map {|page|
@@ -110,6 +111,15 @@ class Post < ActiveRecord::Base
   def _convert_u_to_strong(doc)
     doc.search('u').each do |node|
       node.name = 'strong'
+    end
+  end
+
+  def _strip_img_attribtues(doc)
+    doc.search('img').each do |node|
+      white_list_attributes = %w(src title)
+      (node.attributes.keys - white_list_attributes).each do |attr|
+        node.remove_attribute(attr)
+      end
     end
   end
 
