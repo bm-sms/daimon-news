@@ -36,16 +36,23 @@ class Post < ActiveRecord::Base
       .first
   end
 
-  def validate_markdown!
-    # NOTE `autolink_bare_uris` option is only used to compare HTML structure. It should be removed later.
-
-    markdown = original_html.split(Page::SEPARATOR).map {|page|
+  def markdown_from_original_html
+    original_html.split(Page::SEPARATOR).map {|page|
       PandocRuby.convert(page, from: :html, to: 'markdown_github')
     }.join(Page::SEPARATOR + "\n")
+  end
 
-    current_html = markdown.split(Page::SEPARATOR).map {|page|
-      PandocRuby.convert(page, from: 'markdown_github-autolink_bare_uris', to: 'html')
+  def current_html
+    markdown_from_original_html.split(Page::SEPARATOR).map {|page|
+      # PandocRuby.convert(page, from: 'markdown_github-autolink_bare_uris', to: 'html')
+
+      renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
+      renderer.render(page)
     }.join(Page::SEPARATOR)
+  end
+
+  def validate_markdown!
+    # NOTE `autolink_bare_uris` option is only used to compare HTML structure. It should be removed later.
 
     original_doc = Nokogiri::HTML(_normalize_html(original_html))
     current_doc = Nokogiri::HTML(_normalize_html(current_html))
