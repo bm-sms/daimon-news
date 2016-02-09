@@ -8,7 +8,7 @@
         = active_link_to 'カテゴリ', editor_categories_path, wrap_tag: 'li'
         = active_link_to '記事',     editor_posts_path,      wrap_tag: 'li'
         = active_link_to '固定ページ', editor_fixed_pages_url, wrap_tag: 'li'
-        = active_link_to 'リンク', editor_links_url(site_id: current_site), wrap_tag: 'li'
+        = active_link_to 'リンク', editor_links_url, wrap_tag: 'li'
 
         %li
           = link_to 'ログアウト', destroy_user_session_path, method: :delete
