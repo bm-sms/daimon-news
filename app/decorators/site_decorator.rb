@@ -4,7 +4,7 @@ module SiteDecorator
       locale: 'ja_JP',
       type: 'website',
       title: [name, tagline].select(&:present?).join(' | '),
-      description: description,
+      description: MetaTags::TextNormalizer.normalize_description(description),
       url: root_url,
       site_name: name,
       image: logo_url
