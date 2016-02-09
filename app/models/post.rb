@@ -37,19 +37,13 @@ class Post < ActiveRecord::Base
   end
 
   def validate_markdown!
-    # XXX Dup with `ApplicationHelper#render_markdown`.
+    markdown = original_html.split(Page::SEPARATOR).map {|page|
+      PandocRuby.convert(page, from: :html, to: :markdown_github)
+    }.join(Page::SEPARATOR + "\n")
 
-    # ReverseMarkdown.convert(original_html).gsub("\r", "\n")
-    # markdown = ReverseMarkdown.convert(_normalize_text(original_html), unknown_tags: :raise, github_flavored: true)
-    # pages = Page.pages_for(markdown)
-    # renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: false), tables: true)
-
-    # current_html = renderer.render(pages.map(&:body).join)
-    markdown = PandocRuby.convert(original_html, from: :html, to: :markdown_github)
-    pages = Page.pages_for(markdown)
-
-    # current_html = PandocRuby.convert(pages.map(&:body).join, from: :markdown_github, to: :html)
-    current_html = PandocRuby.convert(pages.map(&:body).join(Page::SEPARATOR), from: :markdown_github, to: :html)
+    current_html = markdown.split(Page::SEPARATOR).map {|page|
+      PandocRuby.convert(page, from: :markdown_github, to: :html)
+    }.join(Page::SEPARATOR)
 
     # TODO Compare `html` with `original_html`.
     original_doc = Nokogiri::HTML(_normalize_html(original_html))
@@ -57,7 +51,6 @@ class Post < ActiveRecord::Base
 
     current_doc.search('p').each do |node|
       node.replace(node.inner_html) # Strip `<p>`
-
     end
 
     # Strip whitespace in text node
