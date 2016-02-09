@@ -51,9 +51,8 @@ class Post < ActiveRecord::Base
     original_doc = Nokogiri::HTML(_normalize_html(original_html))
     current_doc = Nokogiri::HTML(_normalize_html(current_html))
 
-    current_doc.search('p').each do |node|
-      node.replace(node.inner_html) # Strip `<p>`
-    end
+    _normalize_wrapped_paragraph(original_doc)
+    _normalize_wrapped_paragraph(current_doc)
 
     _notmalize_text_content(original_doc)
     _notmalize_text_content(current_doc)
@@ -78,6 +77,12 @@ class Post < ActiveRecord::Base
       .gsub(/ +/, ' ')
       .gsub(/\r\n/, "\n")
       .gsub(/\n+/, "")
+  end
+
+  def _normalize_wrapped_paragraph(doc)
+    doc.search('p').each do |node|
+      node.replace(node.inner_html) # Strip `<p>`
+    end
   end
 
   def _notmalize_text_content(doc)
