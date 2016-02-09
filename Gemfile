@@ -20,6 +20,7 @@ gem 'kaminari'
 gem 'kramdown'
 gem 'meta-tags', require: 'meta_tags'
 gem 'nokogiri-diff'
+gem 'pandoc-ruby'
 gem 'pg'
 gem 'puma'
 gem 'rails-i18n'
@@ -49,7 +50,6 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'launchy'
   gem 'pry-rails'
-  gem 'pandoc-ruby'
 end
 
 group :test do
