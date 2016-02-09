@@ -1,0 +1,75 @@
+%h1= @site.name
+
+%p
+  %b Opened:
+  = @site.opened
+%p
+  %b Description:
+  = @site.description
+%p
+  %b JS url:
+  = @site.js_url
+%p
+  %b CSS url:
+  = @site.css_url
+%p
+  %b FQDN:
+  = @site.fqdn
+%p
+  %b Tagline:
+  = @site.tagline
+%p
+  %b Logo URL:
+  = @site.logo_url
+%p
+  %b Logo image:
+  - if @site.logo_image.present?
+    = image_tag @site.logo_image_url
+%p
+  %b Favicon URL:
+  = @site.favicon_url
+%p
+  %b Favicon image:
+  - if @site.favicon_image.present?
+    = image_tag @site.favicon_image_url
+%p
+  %b Mobile Favicon URL:
+  = @site.mobile_favicon_url
+%p
+  %b Mobile favicon image:
+  - if @site.mobile_favicon_image.present?
+    = image_tag @site.mobile_favicon_image_url
+%p
+  %b GTM ID:
+  = @site.gtm_id
+%p
+  %b Content Header URL:
+  = @site.content_header_url
+%p
+  %b Promotion URL:
+  = @site.promotion_url
+%p
+  %b SNS share caption:
+  = @site.sns_share_caption
+%p
+  %b Twitter account:
+  = @site.twitter_account
+%p
+  %b Menu URL:
+  = @site.menu_url
+%p
+  %b Home URL:
+  = @site.home_url
+%p
+  %b Footer URL:
+  = @site.footer_url
+%p
+  %b AD client:
+  = @site.ad_client
+%p
+  %b AD slot:
+  = @site.ad_slot
+
+= link_to 'Edit', edit_admin_site_path
+\|
+= link_to 'Back', admin_sites_path

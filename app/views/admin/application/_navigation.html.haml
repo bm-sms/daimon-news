@@ -1,0 +1,13 @@
+.page-header
+  %nav.navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        .navbar-brand
+          Admin for "#{current_site&.name || 'daimon-news-multi-tenant'}"
+
+      %ul.nav.navbar-nav.navbar-right
+        = active_link_to 'サイト情報', admin_sites_url, wrap_tag: 'li'
+        = active_link_to 'ユーザ',     admin_users_url, wrap_tag: 'li'
+
+        %li
+          = link_to 'ログアウト', destroy_user_session_url, method: :delete

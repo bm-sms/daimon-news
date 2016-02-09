@@ -6,13 +6,19 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'welcome#index'
 
-    resource  :site, only: %i(edit update)
-    resources :categories
-    resources :posts
+    resources :sites, except: :destroy
+    resources :users, except: :show
+    resources :authors
+  end
+
+  namespace :editor do
+    root 'welcome#index'
+
     resources :fixed_pages
     resources :links
-    resources :images, only: %i(create)
-    resources :authors
+    resources :categories
+    resources :posts
+    resources :images, only: :create
   end
 
   concern :site do

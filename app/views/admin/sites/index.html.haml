@@ -1,0 +1,19 @@
+%h1 Listing sites
+
+%table.table
+  %thead
+    %tr
+      %th name
+      %th fqdn
+      %th
+      %th
+
+  %tbody
+    - @sites.each do |site|
+      %tr
+        %td= site.name
+        %td= site.fqdn
+        %td= link_to 'Show', admin_site_path(site)
+        %td= link_to 'Edit', edit_admin_site_path(site)
+
+= link_to 'New site', new_admin_site_path, class: 'btn btn-default'

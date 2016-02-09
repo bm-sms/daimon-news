@@ -1,0 +1,13 @@
+%p
+  %b Text:
+  = @link.text
+%p
+  %b Url:
+  = @link.url
+%p
+  %b Order:
+  = @link.order
+
+= link_to 'Edit', edit_editor_link_path
+\|
+= link_to 'Back', editor_links_path

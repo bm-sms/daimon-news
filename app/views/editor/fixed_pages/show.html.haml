@@ -1,0 +1,13 @@
+%p
+  %b Title:
+  = @fixed_page.title
+%p
+  %b Body:
+  = @fixed_page.body
+%p
+  %b Slug:
+  = @fixed_page.slug
+
+= link_to 'Edit', edit_editor_fixed_page_path
+\|
+= link_to 'Back', editor_fixed_pages_path

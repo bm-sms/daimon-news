@@ -7,12 +7,13 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
   setup do
     travel_to Time.zone.parse('2000-01-01 00:00:00')
 
-    Site.create!(name: 'daimon-news', fqdn: 'www.example.com', js_url: '', css_url: '')
-    User.create!(email: 'admin@example.com', password: 'password')
+    site = Site.create!(name: 'daimon-news', fqdn: 'www.example.com')
+    editor = User.create!(email: 'editor@example.com', password: 'password')
+    site.memberships.create!(user: editor)
 
-    visit '/admin'
+    visit '/editor'
 
-    fill_in 'Email', with: 'admin@example.com'
+    fill_in 'Email',    with: 'editor@example.com'
     fill_in 'Password', with: 'password'
     click_on 'Log in'
 

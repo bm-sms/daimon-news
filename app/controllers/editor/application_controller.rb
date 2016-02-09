@@ -1,0 +1,10 @@
+class Editor::ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+
+  layout 'editor'
+
+  before_action :authenticate_user!
+  before_action -> { redirect_to root_path unless current_user.editor_of?(current_site)  }
+
+  include CurrentResouceHelper
+end
