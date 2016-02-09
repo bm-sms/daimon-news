@@ -2,6 +2,8 @@ class CategoryRouteTest < ActionDispatch::IntegrationTest
   def setup
     @site = create(:site)
     @category = create(:category, site: @site)
+    https!
+    host! @site.fqdn
   end
 
   def teardown
