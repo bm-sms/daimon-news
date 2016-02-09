@@ -28,6 +28,8 @@ class WpPost < WpApplicationRecord
 
   has_many :wp_postmeta, foreign_key: :post_id
 
+  attr_accessor :post_content_with_updated_image_url
+
   def category_taxonomy
     @category_taxonomy ||= wp_term_taxonomies.find_by(taxonomy: 'category')
   end
@@ -62,11 +64,11 @@ class WpPost < WpApplicationRecord
       end
     end
 
-    self.post_content = doc.search('body')[0].inner_html
+    self.post_content_with_updated_image_url = doc.search('body')[0].inner_html
   end
 
   def markdown_body
-    ReverseMarkdown.convert(post_content).gsub("\r", "\n")
+    ReverseMarkdown.convert(post_content_with_updated_image_url).gsub("\r", "\n")
   end
 end
 
@@ -133,6 +135,7 @@ target.find_each.with_index do |wp_post, i|
       category:             category,
       remote_thumbnail_url: wp_post.thumbnail_url,
       original_updated_at:  wp_post.post_modified_gmt,
+      original_html:        wp_post.post_content,
       updated_at:           wp_post.post_modified_gmt
     )
   end
