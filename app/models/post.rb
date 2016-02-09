@@ -40,7 +40,7 @@ class Post < ActiveRecord::Base
     # NOTE `autolink_bare_uris` option is only used to compare HTML structure. It should be removed later.
 
     markdown = original_html.split(Page::SEPARATOR).map {|page|
-      PandocRuby.convert(page, from: :html, to: 'markdown_github-autolink_bare_uris')
+      PandocRuby.convert(page, from: :html, to: 'markdown_github')
     }.join(Page::SEPARATOR + "\n")
 
     current_html = markdown.split(Page::SEPARATOR).map {|page|
