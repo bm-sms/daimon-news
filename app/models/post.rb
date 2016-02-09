@@ -37,7 +37,11 @@ class Post < ActiveRecord::Base
   end
 
   def markdown_from_original_html
-    original_html.split(Page::SEPARATOR).map {|page|
+    html = Nokogiri::HTML(original_html).tap {|doc|
+      _convert_u_to_strong(doc)
+    }.search('body')[0].inner_html
+
+    html.split(Page::SEPARATOR).map {|page|
       PandocRuby.convert(page, from: :html, to: 'markdown_github')
     }.join(Page::SEPARATOR + "\n")
     .gsub('****', '<br>') # XXX Workaround for compatibility
@@ -57,6 +61,8 @@ class Post < ActiveRecord::Base
 
     original_doc = Nokogiri::HTML(_normalize_html(original_html))
     current_doc = Nokogiri::HTML(_normalize_html(current_html))
+
+    _convert_u_to_strong(original_doc)
 
     _normalize_wrapped_paragraph(original_doc)
     _normalize_wrapped_paragraph(current_doc)
@@ -92,6 +98,12 @@ class Post < ActiveRecord::Base
       .gsub(/ +/, ' ')
       .gsub(/\r\n/, "\n")
       .gsub(/\n+/, "")
+  end
+
+  def _convert_u_to_strong(doc)
+    doc.search('u').each do |node|
+      node.name = 'strong'
+    end
   end
 
   def _normalize_wrapped_paragraph(doc)
