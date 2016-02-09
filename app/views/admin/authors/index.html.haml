@@ -21,9 +21,9 @@
         %td= author.affiliation
         %td= image_tag author.photo_url, height: 80 if author.photo.present?
         %td= link_to 'Show', [:admin, author]
-        %td= link_to 'Edit', edit_admin_author_path(author)
+        %td= link_to 'Edit', edit_admin_author_url(author)
         %td= link_to 'Destroy', [:admin, author], method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Author', new_admin_author_path, class: 'btn btn-default'
+= link_to 'New Author', new_admin_author_url, class: 'btn btn-default'

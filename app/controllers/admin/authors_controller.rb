@@ -40,7 +40,7 @@ class Admin::AuthorsController < Admin::ApplicationController
 
     @author.destroy
 
-    redirect_to admin_authors_path, notice: '著者情報が削除されました'
+    redirect_to admin_authors_url, notice: '著者情報が削除されました'
   end
 
   private

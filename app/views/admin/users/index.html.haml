@@ -11,7 +11,7 @@
     - @users.each do |user|
       %tr
         %td= user.email
-        %td= link_to 'Edit', edit_admin_user_path(user)
+        %td= link_to 'Edit', edit_admin_user_url(user)
         %td= link_to 'Destroy', [:admin, user], method: :delete, data: { confirm: 'Are you sure?' }
 
-= link_to 'New user', new_admin_user_path, class: 'btn btn-default'
+= link_to 'New user', new_admin_user_url, class: 'btn btn-default'
