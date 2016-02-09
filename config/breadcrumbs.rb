@@ -16,6 +16,11 @@ crumb :post do |post|
   parent :category, post.category
 end
 
+crumb :post_page do |post|
+  link params[:page]
+  parent :post, post
+end
+
 crumb :welcome do |welcome|
   link params[:page]
   parent :root
