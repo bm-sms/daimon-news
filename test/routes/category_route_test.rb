@@ -6,10 +6,6 @@ class CategoryRouteTest < ActionDispatch::IntegrationTest
     host! @site.fqdn
   end
 
-  def teardown
-    @site.destroy
-  end
-
   def test_first_page
     get "/category/category1"
     assert_response(:success)
