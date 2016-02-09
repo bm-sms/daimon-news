@@ -55,7 +55,7 @@ class Post < ActiveRecord::Base
 
     # Strip whitespace in text node
     current_doc.search('body').children.each do |node|
-      node.replace(node.text.gsub(/ +/, '')) if node.text?
+      node.replace(node.text.strip.gsub(/ +/, '')) if node.text?
     end
 
     # TODO If doc has some diff, the error should be raised.
