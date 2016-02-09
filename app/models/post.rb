@@ -36,6 +36,14 @@ class Post < ActiveRecord::Base
       .first
   end
 
+  def validate_markdown!
+    # XXX Dup with `ApplicationHelper#render_markdown`.
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
+    html = markdown.render(pages.map(&:body).join)
+    
+    # TODO Compare `html` with `original_html`.
+  end
+
   private
 
   def around_posts_candidates

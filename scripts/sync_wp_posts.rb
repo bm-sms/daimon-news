@@ -45,7 +45,7 @@ target.find_each.with_index do |wp_post, i|
 
     post = site.posts.find_or_initialize_by(id: wp_post.id)
 
-    post.update!(
+    post.assign_attributes(
       title:                wp_post.post_title,
       published_at:         wp_post.post_date_gmt,
       body:                 wp_post.markdown_body,
@@ -55,5 +55,9 @@ target.find_each.with_index do |wp_post, i|
       original_html:        wp_post.post_content,
       updated_at:           wp_post.post_modified_gmt
     )
+
+    post.validate_markdown!
+
+    post.save!
   end
 end
