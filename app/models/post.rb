@@ -47,7 +47,6 @@ class Post < ActiveRecord::Base
       PandocRuby.convert(page, from: 'markdown_github-autolink_bare_uris', to: 'html')
     }.join(Page::SEPARATOR)
 
-    # TODO Compare `html` with `original_html`.
     original_doc = Nokogiri::HTML(_normalize_html(original_html))
     current_doc = Nokogiri::HTML(_normalize_html(current_html))
 
