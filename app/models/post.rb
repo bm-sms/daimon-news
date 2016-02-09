@@ -37,12 +37,14 @@ class Post < ActiveRecord::Base
   end
 
   def validate_markdown!
+    # NOTE `autolink_bare_uris` option is only used to compare HTML structure. It should be removed later.
+
     markdown = original_html.split(Page::SEPARATOR).map {|page|
-      PandocRuby.convert(page, from: :html, to: :markdown_github)
+      PandocRuby.convert(page, from: :html, to: 'markdown_github-autolink_bare_uris')
     }.join(Page::SEPARATOR + "\n")
 
     current_html = markdown.split(Page::SEPARATOR).map {|page|
-      PandocRuby.convert(page, from: :markdown_github, to: :html)
+      PandocRuby.convert(page, from: 'markdown_github-autolink_bare_uris', to: 'html')
     }.join(Page::SEPARATOR)
 
     # TODO Compare `html` with `original_html`.
