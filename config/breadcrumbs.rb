@@ -10,3 +10,8 @@ crumb :post do |post|
   link post.title, post_url(post)
   parent :category, post.category
 end
+
+crumb :welcome do |welcome|
+  link params[:page]
+  parent :root
+end

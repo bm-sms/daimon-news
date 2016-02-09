@@ -1,6 +1,7 @@
 - content_for(:canonical_tag) do
   %link{rel: :canonical, href: root_url}
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
+- breadcrumb :welcome
 - set_meta_tags title: current_site.tagline, reverse: false, description: current_site.description, og: current_site.to_og_params
 
 %section
