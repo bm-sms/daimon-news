@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     resources :categories, only: %i(show), path: 'category'
 
     # compatibility for old URL
-    get ':id/page/:page' => redirect('%{id}?page=%{page}'), constraints: {original_id: /\d+/, page: /\d+/}
+    get ':id/:page' => redirect('%{id}?page=%{page}'), constraints: {original_id: /\d+/, page: /\d+/}
     get 'category/:slug/page/:page' => redirect('category/%{slug}?page=%{page}')
 
     resource :feed, only: %i(show), path: 'feed', controller: 'feed'

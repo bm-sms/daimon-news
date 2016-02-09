@@ -13,7 +13,7 @@ class PostRouteTest < ActionDispatch::IntegrationTest
   end
 
   def test_redirect_to_2nd_page
-    get "/#{@post.id}/page/2"
+    get "/#{@post.id}/2"
     assert_response(:moved_permanently)
     assert_redirected_to("/#{@post.id}?page=2")
   end
