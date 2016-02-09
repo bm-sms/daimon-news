@@ -63,6 +63,7 @@ class Post < ActiveRecord::Base
     current_doc = Nokogiri::HTML(_normalize_html(current_html))
 
     _convert_u_to_strong(original_doc)
+    _strip_unnecessary_tag(original_doc)
 
     _normalize_wrapped_paragraph(original_doc)
     _normalize_wrapped_paragraph(current_doc)
@@ -98,6 +99,12 @@ class Post < ActiveRecord::Base
       .gsub(/ +/, ' ')
       .gsub(/\r\n/, "\n")
       .gsub(/\n+/, "")
+  end
+
+  def _strip_unnecessary_tag(doc)
+    doc.search('div[dir="ltr"]').each do |node|
+      node.replace(node.text)
+    end
   end
 
   def _convert_u_to_strong(doc)
