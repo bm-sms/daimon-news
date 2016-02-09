@@ -1,7 +1,7 @@
 class CategoryRouteTest < ActionDispatch::IntegrationTest
   def setup
     @site = create(:site)
-    @category = create(:category, site_id: @site.id)
+    @category = create(:category, site: @site)
   end
 
   def teardown
