@@ -70,10 +70,6 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def _normalize_text(text)
-    text.gsub("\r\n", "\n")
-  end
-
   def _normalize_html(html)
     # XXX Workaround to suppress unexpected diff
     html
