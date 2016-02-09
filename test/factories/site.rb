@@ -1,6 +1,8 @@
 FactoryGirl.define do
   factory :site do
-    name "daimon-news"
-    fqdn "www.example.com"
+    sequence :name do |n|
+      "daimon-news#{n}"
+    end
+    fqdn { "#{name}.example.com" }
   end
 end
