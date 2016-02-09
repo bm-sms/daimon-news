@@ -40,6 +40,7 @@ gem 'mysql2', require: false
 
 group :development, :test do
   gem 'pry-byebug'
+  gem 'factory_girl'
 end
 
 group :development do
