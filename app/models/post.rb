@@ -40,18 +40,29 @@ class Post < ActiveRecord::Base
     # XXX Dup with `ApplicationHelper#render_markdown`.
 
     # ReverseMarkdown.convert(original_html).gsub("\r", "\n")
-    markdown = ReverseMarkdown.convert(_normalize_text(original_html), unknown_tags: :raise, github_flavored: true)
-    pages = Page.pages_for(markdown)
-    renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: false), tables: true)
+    # markdown = ReverseMarkdown.convert(_normalize_text(original_html), unknown_tags: :raise, github_flavored: true)
+    # pages = Page.pages_for(markdown)
+    # renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: false), tables: true)
 
-    current_html = renderer.render(pages.map(&:body).join)
+    # current_html = renderer.render(pages.map(&:body).join)
+    markdown = PandocRuby.convert(original_html, from: :html, to: :markdown_github)
+    pages = Page.pages_for(markdown)
+
+    # current_html = PandocRuby.convert(pages.map(&:body).join, from: :markdown_github, to: :html)
+    current_html = PandocRuby.convert(pages.map(&:body).join(Page::SEPARATOR), from: :markdown_github, to: :html)
 
     # TODO Compare `html` with `original_html`.
     original_doc = Nokogiri::HTML(_normalize_html(original_html))
     current_doc = Nokogiri::HTML(_normalize_html(current_html))
 
     current_doc.search('p').each do |node|
-      node.replace(node.inner_html.gsub(/ /, '')) # Strip `<p>`
+      node.replace(node.inner_html) # Strip `<p>`
+
+    end
+
+    # Strip whitespace in text node
+    current_doc.search('body').children.each do |node|
+      node.replace(node.text.gsub(/ +/, '')) if node.text?
     end
 
     # TODO If doc has some diff, the error should be raised.
