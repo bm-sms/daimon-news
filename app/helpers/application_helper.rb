@@ -7,6 +7,44 @@ module ApplicationHelper
     document.to_html
   end
 
+  #
+  # format: <parser>:<formatter>
+  #   <parser>: r -> reverse_markdown
+  #             k -> kramdown
+  #             p -> pandoc
+  #   <formatter>: k -> kramdown
+  #                r -> redcarpet
+  #                p -> pandoc
+  def render_markdown_text(post, format: "r:k")
+    parser, formatter = format.split(":")
+    parser_map = {
+      "r" => post.reverse_markdown_text,
+      "k" => post.kramdown_text,
+      "p" => post.markdown_text
+    }
+    text = parser_map[parser]
+    case formatter
+    when "k"
+      document = Kramdown::Document.new(text,
+                                        input: "GFM",
+                                        syntax_highlighter: "rouge",
+                                        hard_wrap: true)
+      document.to_html
+    when "r"
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
+      markdown.render(text)
+    when "p"
+      # not tested
+      extension = ""
+      PandocRuby.convert(text.gsub(Page::SEPARATOR, "{{nextpage}}"),
+                         {
+                           from: "markdown_github#{extension}",
+                           to: "html",
+                         },
+                         "atx-header").gsub("{{nextpage}}", Page::SEPARATOR)
+    end
+  end
+
   def google_tag_manager(gtm_id)
     if gtm_id.present?
       render partial: 'application/google_tag_manager', locals: { gtm_id: gtm_id }
