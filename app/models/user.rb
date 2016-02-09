@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :rememberable, :trackable, :validatable
 
   has_many :memberships, dependent: :destroy
+  has_many :sites, through: :memberships
 
   def editor_of?(site)
     site.memberships.exists?(user: self)

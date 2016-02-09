@@ -2,7 +2,18 @@
   %nav.navbar.navbar-default
     .container-fluid
       .navbar-header
-        .navbar-brand "#{current_site.name}"
+        .navbar-brand
+          = link_to editor_root_path do
+            = image_tag current_site.logo_image_url.presence || current_site.logo_url, height: 24
+            Editor for
+          %span.dropdown
+            %a#change-site.dropdown-toggle(href='#' role="button" data-toggle='dropdown' aria-expanded='false')
+              %b= current_site.name
+              %span.caret
+
+            %ul.dropdown-menu(aria-labelledby='change-site')
+              - current_user.sites.each do |site|
+                %li= link_to site.name, editor_root_url(host: site.fqdn)
 
       %ul.nav.navbar-nav.navbar-right
         = active_link_to 'カテゴリ', editor_categories_path, wrap_tag: 'li'
