@@ -38,10 +38,44 @@ class Post < ActiveRecord::Base
 
   def validate_markdown!
     # XXX Dup with `ApplicationHelper#render_markdown`.
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
-    html = markdown.render(pages.map(&:body).join)
-    
+
+    # ReverseMarkdown.convert(original_html).gsub("\r", "\n")
+    markdown = ReverseMarkdown.convert(_normalize_text(original_html), unknown_tags: :raise, github_flavored: true)
+    pages = Page.pages_for(markdown)
+    renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: false), tables: true)
+
+    current_html = renderer.render(pages.map(&:body).join)
+
     # TODO Compare `html` with `original_html`.
+    original_doc = Nokogiri::HTML(_normalize_html(original_html))
+    current_doc = Nokogiri::HTML(_normalize_html(current_html))
+
+    current_doc.search('p').each do |node|
+      node.replace(node.inner_html.gsub(/ /, '')) # Strip `<p>`
+    end
+
+    # TODO If doc has some diff, the error should be raised.
+
+    original_doc.diff(current_doc) do |change, node|
+      next if change == ' '
+      next if node.text.blank?
+      next if node.is_a?(Nokogiri::XML::Attr)
+
+      puts change
+      p node.to_html
+    end
+  end
+
+  def _normalize_text(text)
+    text.gsub("\r\n", "\n")
+  end
+
+  def _normalize_html(html)
+    # XXX Workaround to suppress unexpected diff
+    html
+      .gsub(/ +/, ' ')
+      .gsub(/\r\n/, "\n")
+      .gsub(/\n+/, "")
   end
 
   private
