@@ -55,12 +55,8 @@ class Post < ActiveRecord::Base
       node.replace(node.inner_html) # Strip `<p>`
     end
 
-    # Strip whitespace in text node
-    current_doc.search('body').children.each do |node|
-      node.replace(node.text.strip.gsub(/ +/, '')) if node.text?
-    end
-
-    # TODO If doc has some diff, the error should be raised.
+    _notmalize_text_content(original_doc)
+    _notmalize_text_content(current_doc)
 
     original_doc.diff(current_doc) do |change, node|
       next if change == ' '
@@ -70,6 +66,8 @@ class Post < ActiveRecord::Base
       puts change
       p node.to_html
     end
+
+    # TODO If doc has some diff, the error should be raised.
   end
 
   def _normalize_html(html)
@@ -78,6 +76,13 @@ class Post < ActiveRecord::Base
       .gsub(/ +/, ' ')
       .gsub(/\r\n/, "\n")
       .gsub(/\n+/, "")
+  end
+
+  def _notmalize_text_content(doc)
+    # XXX Workaround to suppress unexpected diff
+    doc.search('body').children.each do |node|
+      node.replace(node.text.strip.gsub(/ +/, '')) if node.text?
+    end
   end
 
   private
