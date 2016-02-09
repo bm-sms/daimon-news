@@ -1,8 +1,13 @@
 FactoryGirl.define do
   factory :category do
-    name "category1"
-    description "category1 description\n"
-    slug "category1"
-    order 1
+    sequence :name do |n|
+      "category#{n}"
+    end
+    description { "#{name} description\n" }
+
+    slug { name }
+    sequence :order do |n|
+      n
+    end
   end
 end
