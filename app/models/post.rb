@@ -57,16 +57,22 @@ class Post < ActiveRecord::Base
     _notmalize_text_content(original_doc)
     _notmalize_text_content(current_doc)
 
+    diff = []
+
     original_doc.diff(current_doc) do |change, node|
       next if change == ' '
       next if node.text.blank?
       next if node.is_a?(Nokogiri::XML::Attr)
 
-      puts change
-      p node.to_html
+      diff << "#{change} #{node.to_html}"
     end
 
     # TODO If doc has some diff, the error should be raised.
+    unless diff.empty?
+      puts "Post#id: #{id}"
+      puts diff.join("\n")
+      puts
+    end
   end
 
   private
