@@ -70,6 +70,8 @@ class Post < ActiveRecord::Base
     # TODO If doc has some diff, the error should be raised.
   end
 
+  private
+
   def _normalize_html(html)
     # XXX Workaround to suppress unexpected diff
     html
@@ -80,12 +82,10 @@ class Post < ActiveRecord::Base
 
   def _notmalize_text_content(doc)
     # XXX Workaround to suppress unexpected diff
-    doc.search('body').children.each do |node|
-      node.replace(node.text.strip.gsub(/ +/, '')) if node.text?
+    doc.search('text()').each do |node|
+      node.replace(node.text.strip.gsub(' ', ''))
     end
   end
-
-  private
 
   def around_posts_candidates
     site.posts.published.order_by_recently
