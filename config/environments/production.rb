@@ -108,5 +108,5 @@ Rails.application.configure do
   end if ENV['DIGEST_AUTH_SECRET_KEY']
 
   allowd_ips = ENV['ADMIN_IP_ADDRESSES'].split(',')
-  config.middleware.use Rack::Access, '/admin' => allowd_ips, '/users' => allowd_ips
+  config.middleware.use Rack::Access, '/admin' => allowd_ips, '/users' => allowd_ips, '/editor' => allowd_ips
 end
