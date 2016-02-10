@@ -92,6 +92,8 @@ GEM
     erubis (2.7.0)
     excon (0.45.4)
     execjs (2.6.0)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
     fog (1.37.0)
@@ -415,6 +417,7 @@ DEPENDENCIES
   carrierwave
   database_cleaner
   devise (>= 3.5.4)
+  factory_girl
   fog
   font-awesome-sass
   gretel

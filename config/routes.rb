@@ -25,6 +25,10 @@ Rails.application.routes.draw do
     resources :posts, only: %i(show), constraints: {id: /\d+/}, path: '/'
     resources :categories, only: %i(show), path: 'category'
 
+    # compatibility for old URL
+    get ':id/:page' => redirect('%{id}?page=%{page}'), constraints: {id: /\d+/, page: /\d+/}
+    get 'category/:slug/page/:page' => redirect('category/%{slug}?page=%{page}')
+
     resource :feed, only: %i(show), path: 'feed', controller: 'feed'
 
     resource :sitemaps, only: %i(show), path: 'sitemap'
