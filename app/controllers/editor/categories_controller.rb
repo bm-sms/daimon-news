@@ -40,7 +40,7 @@ class Editor::CategoriesController < Editor::ApplicationController
 
     @category.destroy
 
-    redirect_to editor_categories_path, notice: 'カテゴリが削除されました'
+    redirect_to editor_categories_url, notice: 'カテゴリが削除されました'
   end
 
   private

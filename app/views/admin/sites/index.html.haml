@@ -13,7 +13,7 @@
       %tr
         %td= site.name
         %td= site.fqdn
-        %td= link_to 'Show', admin_site_path(site)
-        %td= link_to 'Edit', edit_admin_site_path(site)
+        %td= link_to 'Show', admin_site_url(site)
+        %td= link_to 'Edit', edit_admin_site_url(site)
 
-= link_to 'New site', new_admin_site_path, class: 'btn btn-default'
+= link_to 'New site', new_admin_site_url, class: 'btn btn-default'

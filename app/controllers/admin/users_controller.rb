@@ -11,7 +11,7 @@ class Admin::UsersController < Admin::ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to admin_users_path, notice: 'ユーザが作成されました。'
+      redirect_to admin_users_url, notice: 'ユーザが作成されました。'
     else
       render :new
     end
@@ -25,7 +25,7 @@ class Admin::UsersController < Admin::ApplicationController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
-      redirect_to admin_users_path, notice: 'ユーザが更新されました。'
+      redirect_to admin_users_url, notice: 'ユーザが更新されました。'
     else
       render :edit
     end
@@ -36,7 +36,7 @@ class Admin::UsersController < Admin::ApplicationController
 
     @user.destroy!
 
-    redirect_to admin_users_path, notice: 'ユーザが削除されました。'
+    redirect_to admin_users_url, notice: 'ユーザが削除されました。'
   end
 
   private

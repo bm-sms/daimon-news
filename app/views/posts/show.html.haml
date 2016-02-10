@@ -27,8 +27,8 @@
       - if @post.next_post.present?
         %li.page-navi
           .page-navi__label 次の記事へ
-          = link_to @post.next_post.title, post_path(@post.next_post), class: 'page-navi__link'
+          = link_to @post.next_post.title, post_url(@post.next_post), class: 'page-navi__link'
       - if @post.previous_post.present?
         %li.page-navi
           .page-navi__label 前の記事へ
-          = link_to @post.previous_post.title, post_path(@post.previous_post), class: 'page-navi__link'
+          = link_to @post.previous_post.title, post_url(@post.previous_post), class: 'page-navi__link'

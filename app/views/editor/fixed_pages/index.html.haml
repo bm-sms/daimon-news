@@ -17,7 +17,7 @@
         %td= fixed_page.body
         %td= fixed_page.slug
         %td= link_to 'Show', [:editor, fixed_page]
-        %td= link_to 'Edit', edit_editor_fixed_page_path(id: fixed_page)
+        %td= link_to 'Edit', edit_editor_fixed_page_url(id: fixed_page)
         %td= link_to 'Destroy', [:editor, fixed_page], method: :delete, data: { confirm: 'Are you sure?' }
 
-= link_to 'New Fixed page', new_editor_fixed_page_path, class: 'btn btn-default'
+= link_to 'New Fixed page', new_editor_fixed_page_url, class: 'btn btn-default'

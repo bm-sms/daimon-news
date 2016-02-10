@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def access_denied(exception)
     # FIXME Should we render 404 error page?
-    redirect_to root_path
+    redirect_to root_url
   end
 
   def routing_error!

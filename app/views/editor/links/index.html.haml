@@ -16,8 +16,8 @@
         %td= link.text
         %td= link.url
         %td= link.order
-        %td= link_to 'Show', editor_link_path(id: link)
-        %td= link_to 'Edit', edit_editor_link_path(id: link)
-        %td= link_to 'Destroy', editor_link_path(id: link), method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', editor_link_url(id: link)
+        %td= link_to 'Edit', edit_editor_link_url(id: link)
+        %td= link_to 'Destroy', editor_link_url(id: link), method: :delete, data: { confirm: 'Are you sure?' }
 
-= link_to 'New Link', new_editor_link_path, class: 'btn btn-default'
+= link_to 'New Link', new_editor_link_url, class: 'btn btn-default'
