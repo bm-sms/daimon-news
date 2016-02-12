@@ -66,16 +66,21 @@ site.transaction do
       post.save!
     end
   else
+    puts "Target records: #{site.posts.count}"
+    n_errors = 0
     site.posts.each do |_post|
-      validate!(_post, stop_on_error)
-      unless dry_run
-        _post.body = post.markdown_body do |url|
-          image = site.images.create!(remote_image_url: url)
-          image.image_url
-      _post.validate!(stop_on_error)
+      if _post.validate!(stop_on_error)
+        unless dry_run
+          _post.body = post.markdown_body do |url|
+            image = site.images.create!(remote_image_url: url)
+            image.image_url
+          end
+          _post.save!
         end
-        _post.save!
+      else
+        n_errors += 1
       end
     end
+    puts "Errors: #{n_errors}"
   end
 end
