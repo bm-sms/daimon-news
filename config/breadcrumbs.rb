@@ -11,11 +11,6 @@ crumb :post do |post|
   parent :category, post.category
 end
 
-crumb :post_page do |post|
-  link params[:page]
-  parent :post, post
-end
-
 crumb :page_num do |page_num, category|
   link "#{page_num}ページ目"
 

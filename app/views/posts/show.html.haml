@@ -3,7 +3,6 @@
   - content_for(:canonical_tag) do
     %link{rel: :canonical, href: url_for(all: true, only_path: false)}
 - breadcrumb :post, @post
-- breadcrumb :post_page, @post if params[:page]
 - set_meta_tags title: @post.title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
 
 %article.post
