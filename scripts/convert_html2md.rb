@@ -57,13 +57,18 @@ site = Site.find_by(fqdn: fqdn)
 site.transaction do
   if id
     post = site.posts.where(id: id).first
-    post.validate!(stop_on_error)
+    if post.validate!(stop_on_error)
     unless dry_run
       post.body = post.markdown_body do |url|
         image = site.images.create!(remote_image_url: url)
         image.image_url
       end
       post.save!
+    end
+    else
+      puts post.original_html
+      puts "-" * 10
+      puts post.current_html
     end
   else
     puts "Target records: #{site.posts.count}"
