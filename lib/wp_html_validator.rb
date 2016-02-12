@@ -65,7 +65,12 @@ class WpHTMLValidator
     }.search('body')[0].inner_html
 
     html.split(Page::SEPARATOR).map {|page|
-      PandocRuby.convert(page, from: :html, to: 'markdown_github')
+      PandocRuby.convert(page,
+                         {
+                           from: :html,
+                           to: 'markdown_github'
+                         },
+                         "atx-header")
     }.join(Page::SEPARATOR + "\n")
       .gsub('****', '<br>') # XXX Workaround for compatibility
   end
