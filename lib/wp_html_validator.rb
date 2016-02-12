@@ -59,27 +59,12 @@ class WpHTMLValidator
     end
   end
 
-  def markdown_text
-    return @markdown_text if @markdown_text
-
-    html = Nokogiri::HTML(original_html).tap {|doc|
-      convert_u_to_strong(doc)
-      strip_img_attribtues(doc)
-    }.search('body')[0].inner_html
-
-    @markdown_text = html.split(Page::SEPARATOR).map {|page|
-      PandocRuby.convert(page,
-                         {
-                           from: :html,
-                           to: 'markdown_github'
-                         },
-                         "atx-header")
-    }.join(Page::SEPARATOR + "\n")
-      .gsub('****', '<br>') # XXX Workaround for compatibility
+  def markdown_body(&block)
+    super(original_html, &block)
   end
 
   def current_html
-    markdown_text.split(Page::SEPARATOR).map {|page|
+    markdown_body.split(Page::SEPARATOR).map {|page|
       # PandocRuby.convert(page, from: 'markdown_github-autolink_bare_uris', to: 'html')
 
       renderer = Redcarpet::Markdown.new(Daimon::Render::HTML.new(hard_wrap: true), tables: true)
