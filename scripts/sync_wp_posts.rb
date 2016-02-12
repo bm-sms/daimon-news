@@ -56,7 +56,8 @@ target.find_each.with_index do |wp_post, i|
       updated_at:           wp_post.post_modified_gmt
     )
 
-    post.validate_markdown!
+    validator = WpHTMLValidator.new(post.id, post.original_html)
+    validator.validate!
 
     post.save!
   end
