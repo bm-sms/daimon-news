@@ -7,13 +7,13 @@ class CategoryRouteTest < ActionDispatch::IntegrationTest
   end
 
   def test_first_page
-    get "/category/category1"
+    get "/category/#{@category.slug}"
     assert_response(:success)
   end
 
   def test_redirect_to_2nd_page
-    get "/category/category1/page/2"
+    get "/category/#{@category.slug}/page/2"
     assert_response(:moved_permanently)
-    assert_redirected_to("/category/category1?page=2")
+    assert_redirected_to("/category/#{@category.slug}?page=2")
   end
 end
