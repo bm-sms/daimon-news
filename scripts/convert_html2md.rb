@@ -29,26 +29,22 @@ rescue OptionParser::ParseError => ex
   exit(false)
 end
 
-module Converter
-  refine Post do
-    include WpHTMLUtil
+Post.class_eval do
+  include WpHTMLUtil
 
-    def markdown_body(&block)
-      super(original_html, &block)
-    end
+  def markdown_body(&block)
+    super(original_html, &block)
+  end
 
-    def validate!(stop_on_error)
-      validator = WpHTMLValidator.new(id, original_html)
-      if stop_on_error
-        validator.validate!
-      else
-        validator.validate(display_error: true)
-      end
+  def validate!(stop_on_error)
+    validator = WpHTMLValidator.new(id, original_html)
+    if stop_on_error
+      validator.validate!
+    else
+      validator.validate(display_error: true)
     end
   end
 end
-
-using Converter
 
 fqdn, id = argv
 
@@ -66,8 +62,9 @@ site.transaction do
         post.save!
       end
     else
+      puts "--- original_html ---"
       puts post.original_html
-      puts "-" * 10
+      puts "--- current_html ---"
       puts post.current_html
     end
   else
