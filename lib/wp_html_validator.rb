@@ -66,7 +66,7 @@ class WpHTMLValidator
       strip_img_attribtues(doc)
     }.search('body')[0].inner_html
 
-    html.split(Page::SEPARATOR).map {|page|
+    @markdown_text = html.split(Page::SEPARATOR).map {|page|
       PandocRuby.convert(page,
                          {
                            from: :html,
