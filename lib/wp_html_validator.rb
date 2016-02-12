@@ -1,7 +1,6 @@
 require "pandoc-ruby"
 require "nokogiri"
 require "wp_html_util"
-require "daimon/render/html"
 
 class WpHTMLValidator
   include WpHTMLUtil
@@ -61,14 +60,5 @@ class WpHTMLValidator
 
   def markdown_body(&block)
     super(original_html, &block)
-  end
-
-  def current_html
-    markdown_body.split(Page::SEPARATOR).map {|page|
-      # PandocRuby.convert(page, from: 'markdown_github-autolink_bare_uris', to: 'html')
-
-      renderer = Redcarpet::Markdown.new(Daimon::Render::HTML.new(hard_wrap: true), tables: true)
-      renderer.render(page)
-    }.join(Page::SEPARATOR + "\n")
   end
 end
