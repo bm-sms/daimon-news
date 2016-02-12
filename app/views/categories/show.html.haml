@@ -1,5 +1,8 @@
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
-- breadcrumb :category, @category
+- if @posts.current_page > 1
+  - breadcrumb :page_num, @posts.current_page, @category
+- else
+  - breadcrumb :category, @category
 - set_meta_tags title: @category.name, og: @category.to_og_params
 
 %section

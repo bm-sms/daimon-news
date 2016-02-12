@@ -10,3 +10,13 @@ crumb :post do |post|
   link post.title, post_url(post)
   parent :category, post.category
 end
+
+crumb :page_num do |page_num, category|
+  link "#{page_num}ページ目"
+
+  if category
+    parent :category, category
+  else
+    parent :root
+  end
+end
