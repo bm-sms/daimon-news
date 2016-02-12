@@ -9,6 +9,8 @@ class CanonicalTest < ActionDispatch::IntegrationTest
         this is daimon
       EOS
     )
+
+    switch_domain(@post.site.fqdn)
   end
 
   test 'Canonical must be absolute path' do

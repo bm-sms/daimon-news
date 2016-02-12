@@ -4,12 +4,7 @@ class FixedPageTest < ActionDispatch::IntegrationTest
   setup do
     site = create(:site)
     editor = create(:user, sites: [site])
-
-    visit '/editor'
-
-    fill_in 'Email',    with: 'editor@example.com'
-    fill_in 'Password', with: 'password'
-    click_on 'Log in'
+    login_as_editor(site: site, editor: editor)
 
     within '.navbar-nav' do
       click_on '固定ページ'

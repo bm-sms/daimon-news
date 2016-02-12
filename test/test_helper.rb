@@ -2,6 +2,8 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'test/unit/rails/test_help'
 
+Dir[Rails.root.join('test/support/**/*.rb')].each {|f| require f }
+
 require 'factory_girl'
 FactoryGirl.find_definitions
 
@@ -15,10 +17,3 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   include FactoryGirl::Syntax::Methods
 end
-
-def DatabaseCleaner.default_strategy
-  :transaction
-end
-
-DatabaseCleaner.strategy = DatabaseCleaner.default_strategy
-DatabaseCleaner.clean_with :truncation

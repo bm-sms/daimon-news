@@ -5,11 +5,7 @@ class AdminTest < ActionDispatch::IntegrationTest
     site = create(:site)
     admin = create(:user, :admin)
 
-    visit '/admin'
-
-    fill_in 'Email',    with: 'admin@example.com'
-    fill_in 'Password', with: 'password'
-    click_on 'Log in'
+    login_as_admin(site: site, admin: admin)
   end
 
   test 'Site' do
@@ -27,7 +23,7 @@ class AdminTest < ActionDispatch::IntegrationTest
 
     click_on 'サイト情報'
 
-    within :xpath, '//tr[./td[contains(text(), "daimon")]]' do
+    within :row, 'daimon' do
       click_on 'Edit'
     end
 
@@ -55,7 +51,7 @@ class AdminTest < ActionDispatch::IntegrationTest
 
     click_on 'ユーザ'
 
-    within :xpath, '//tr[./td[contains(text(), "alice@example.com")]]' do
+    within :row, 'alice@example.com' do
       click_on 'Edit'
     end
 
@@ -67,7 +63,7 @@ class AdminTest < ActionDispatch::IntegrationTest
       assert_equal '/admin', current_path
     end
 
-    within :xpath, '//tr[./td[contains(text(), "alice@example.com")]]' do
+    within :row, 'alice@example.com' do
       click_on 'Destroy'
     end
 

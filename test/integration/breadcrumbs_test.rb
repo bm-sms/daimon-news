@@ -6,7 +6,9 @@ class BreadcrumbsTest < ActionDispatch::IntegrationTest
     @category = create(:category, site: @site)
     create_list(:post, 21, category: @category, site: @site)
 
-    visit "http://#{@site.fqdn}"
+    switch_domain(@site.fqdn)
+
+    visit '/'
   end
 
   test 'Top page has breadcrumbs except first page' do

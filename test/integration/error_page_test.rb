@@ -2,28 +2,40 @@ require 'test_helper'
 
 class ErrorPageTest < ActionDispatch::IntegrationTest
   setup do
-    Site.create!(name: 'daimon-news', fqdn: 'www.example.com', js_url: '', css_url: '')
-
-    Rails.application.env_config['action_dispatch.show_detailed_exceptions'] = false
-    Rails.application.env_config['action_dispatch.show_exceptions'] = true
+    @site = create(:site)
+    switch_domain(@site.fqdn)
   end
 
-  teardown do
-    Rails.application.env_config['action_dispatch.show_detailed_exceptions'] = true
-    Rails.application.env_config['action_dispatch.show_exceptions'] = false
-  end
-
-  test 'render 404' do
-    any_instance_of(ApplicationController) do |klass|
-      stub(klass).current_site { raise ActiveRecord::RecordNotFound }
+  sub_test_case 'render 404' do
+    setup do
+      any_instance_of(ApplicationController) do |klass|
+        stub(klass).current_site { raise ActiveRecord::RecordNotFound }
+      end
     end
 
-    visit '/'
+    attribute :allow_rescue, true
+    test 'no extension' do
+      visit '/foo'
+      assert_equal 404, page.status_code
+      assert_equal "Hello! my name is 404 | #{@site.name}", page.title
+    end
 
-    assert_equal 404, page.status_code
-    assert_equal 'Hello! my name is 404 | daimon-news', page.title
+    attribute :allow_rescue, true
+    test 'html' do
+      visit '/foo.html'
+      assert_equal 404, page.status_code
+      assert_equal "Hello! my name is 404 | #{@site.name}", page.title
+    end
+
+    attribute :allow_rescue, true
+    test 'json' do
+      visit '/foo.json'
+      assert_equal 404, page.status_code
+      assert_equal "Hello! my name is 404 | #{@site.name}", page.title
+    end
   end
 
+  attribute :allow_rescue, true
   test 'render 422' do
     any_instance_of(ApplicationController) do |klass|
       stub(klass).current_site { raise ActiveRecord::RecordNotSaved, 'not saved' }
@@ -32,9 +44,10 @@ class ErrorPageTest < ActionDispatch::IntegrationTest
     visit '/'
 
     assert_equal 422, page.status_code
-    assert_equal 'ページが表示できません | daimon-news', page.title
+    assert_equal "ページが表示できません | #{@site.name}", page.title
   end
 
+  attribute :allow_rescue, true
   test 'render 500' do
     any_instance_of(ApplicationController) do |klass|
       stub(klass).current_site { raise }
@@ -43,6 +56,6 @@ class ErrorPageTest < ActionDispatch::IntegrationTest
     visit '/'
 
     assert_equal 500, page.status_code
-    assert_equal 'サーバーエラー | daimon-news', page.title
+    assert_equal "サーバーエラー | #{@site.name}", page.title
   end
 end

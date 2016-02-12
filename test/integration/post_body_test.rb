@@ -6,6 +6,8 @@ class PostBodyHeaderTest < ActionDispatch::IntegrationTest
       <h1> hi </h1>
       contents
     EOS
+
+    switch_domain(@post.site.fqdn)
   end
 
   test "body shouldn't have <br>" do
@@ -24,6 +26,8 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
       following line should be breaked:
       hi
     EOS
+
+    switch_domain(@post.site.fqdn)
   end
 
   test 'body should have <br>' do
