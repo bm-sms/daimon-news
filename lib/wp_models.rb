@@ -1,3 +1,5 @@
+require "wp_html_util"
+
 class WpApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
@@ -22,6 +24,8 @@ class WpPost < WpApplicationRecord
 
   attr_accessor :post_content_with_updated_image_url
 
+  include WpHTMLUtil
+
   def category_taxonomy
     @category_taxonomy ||= wp_term_taxonomies.find_by(taxonomy: 'category')
   end
@@ -38,9 +42,7 @@ class WpPost < WpApplicationRecord
     [asset_dir, URI(thumbnail.guid).path.split('/').last(3)].join('/')
   end
 
-  def convert_image_url
-    doc = Nokogiri::HTML(post_content)
-
+  def convert_image_url(doc)
     links = {}
 
     doc.search('img').each do |element|
@@ -60,7 +62,22 @@ class WpPost < WpApplicationRecord
   end
 
   def markdown_body
-    ReverseMarkdown.convert(post_content_with_updated_image_url).gsub("\r", "\n")
+    return @markdown_text if @markdown_text
+
+    html = Nokogiri::HTML(post_content).tap {|doc|
+      convert_image_url(doc)
+      convert_u_to_strong(doc)
+    }.search('body')[0].inner_html
+
+    @markdown_text = html.split(Page::SEPARATOR).map {|page|
+      PandocRuby.convert(page,
+                         {
+                           from: :html,
+                           to: 'markdown_github'
+                         },
+                         "atx-header")
+    }.join(Page::SEPARATOR + "\n")
+      .gsub('****', '<br>') # XXX Workaround for compatibility
   end
 end
 
