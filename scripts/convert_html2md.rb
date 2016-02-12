@@ -48,6 +48,8 @@ def validate!(post, stop_on_error)
   end
 end
 
+using Converter
+
 fqdn, id = argv
 
 site = Site.find_by(fqdn: fqdn)
