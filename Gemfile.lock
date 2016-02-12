@@ -237,6 +237,7 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kramdown (1.9.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     loofah (2.0.3)
@@ -329,11 +330,11 @@ GEM
       builder
       nokogiri (>= 1.4.1)
       trollop
-    redcarpet (3.3.4)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
     reverse_markdown (1.0.1)
       nokogiri
+    rouge (1.10.1)
     rr (1.1.2)
     ruby_parser (3.7.3)
       sexp_processor (~> 4.1)
@@ -424,6 +425,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   kaminari
+  kramdown
   launchy
   meta-tags
   mysql2
@@ -442,8 +444,8 @@ DEPENDENCIES
   rails-i18n
   rails_12factor
   rambulance
-  redcarpet
   reverse_markdown
+  rouge
   sass-rails
   seedbank
   sitemap_generator
