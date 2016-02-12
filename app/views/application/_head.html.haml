@@ -15,3 +15,5 @@
     = content_for :rel_next_prev_link_tags
   - if content_for? :canonical_tag
     = content_for :canonical_tag
+  - if current_site.head_tag.present?
+    = raw current_site.head_tag

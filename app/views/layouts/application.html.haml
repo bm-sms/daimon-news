@@ -28,6 +28,9 @@
           - if current_site.ad_client.present? && current_site.ad_slot.present?
             %section.promotion
               = render 'adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
+          - elsif current_site.promotion_tag.present?
+            %section.promotion
+              = raw current_site.promotion_tag
           %section.promotion
             %h2.subheading.subheading--aside.subheading--press-articles 新着記事
             %ul
