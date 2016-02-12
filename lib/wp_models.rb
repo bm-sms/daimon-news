@@ -22,8 +22,6 @@ class WpPost < WpApplicationRecord
 
   has_many :wp_postmeta, foreign_key: :post_id
 
-  attr_accessor :post_content_with_updated_image_url
-
   include WpHTMLUtil
 
   def category_taxonomy
@@ -57,8 +55,6 @@ class WpPost < WpApplicationRecord
         element['href'] = new_src
       end
     end
-
-    self.post_content_with_updated_image_url = doc.search('body')[0].inner_html
   end
 
   def markdown_body
