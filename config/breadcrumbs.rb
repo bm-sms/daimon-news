@@ -6,11 +6,6 @@ crumb :category do |category|
   link category.name, category_url(category.slug)
 end
 
-crumb :category_page do |category|
-  link params[:page]
-  parent :category, category
-end
-
 crumb :post do |post|
   link post.title, post_url(post)
   parent :category, post.category
@@ -21,7 +16,12 @@ crumb :post_page do |post|
   parent :post, post
 end
 
-crumb :welcome do |welcome|
-  link params[:page]
-  parent :root
+crumb :page_num do |page_num, category|
+  link "#{page_num}ページ目"
+
+  if category
+    parent :category, category
+  else
+    parent :root
+  end
 end
