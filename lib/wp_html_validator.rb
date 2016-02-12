@@ -17,17 +17,17 @@ class WpHTMLValidator
   def validate(display_error: false)
     # NOTE `autolink_bare_uris` option is only used to compare HTML structure. It should be removed later.
 
-    original_doc = Nokogiri::HTML(_normalize_html(original_html))
-    current_doc = Nokogiri::HTML(_normalize_html(current_html))
+    original_doc = Nokogiri::HTML(normalize_html(original_html))
+    current_doc = Nokogiri::HTML(normalize_html(current_html))
 
-    _convert_u_to_strong(original_doc)
-    _strip_unnecessary_tag(original_doc)
+    convert_u_to_strong(original_doc)
+    strip_unnecessary_tag(original_doc)
 
-    _normalize_wrapped_paragraph(original_doc)
-    _normalize_wrapped_paragraph(current_doc)
+    normalize_wrapped_paragraph(original_doc)
+    normalize_wrapped_paragraph(current_doc)
 
-    _notmalize_text_content(original_doc)
-    _notmalize_text_content(current_doc)
+    notmalize_text_content(original_doc)
+    notmalize_text_content(current_doc)
 
     diff = []
 
@@ -60,8 +60,8 @@ class WpHTMLValidator
     return @markdown_text if @markdown_text
 
     html = Nokogiri::HTML(original_html).tap {|doc|
-      _convert_u_to_strong(doc)
-      _strip_img_attribtues(doc)
+      convert_u_to_strong(doc)
+      strip_img_attribtues(doc)
     }.search('body')[0].inner_html
 
     html.split(Page::SEPARATOR).map {|page|
@@ -81,7 +81,7 @@ class WpHTMLValidator
 
   private
 
-  def _normalize_html(html)
+  def normalize_html(html)
     # XXX Workaround to suppress unexpected diff
     html
       .gsub(/ +/, ' ')
@@ -89,19 +89,19 @@ class WpHTMLValidator
       .gsub(/\n+/, "")
   end
 
-  def _strip_unnecessary_tag(doc)
+  def strip_unnecessary_tag(doc)
     doc.search('div[dir="ltr"]').each do |node|
       node.replace(node.text)
     end
   end
 
-  def _convert_u_to_strong(doc)
+  def convert_u_to_strong(doc)
     doc.search('u').each do |node|
       node.name = 'strong'
     end
   end
 
-  def _strip_img_attribtues(doc)
+  def strip_img_attribtues(doc)
     doc.search('img').each do |node|
       white_list_attributes = %w(src title)
       (node.attributes.keys - white_list_attributes).each do |attr|
@@ -110,13 +110,13 @@ class WpHTMLValidator
     end
   end
 
-  def _normalize_wrapped_paragraph(doc)
+  def normalize_wrapped_paragraph(doc)
     doc.search('p').each do |node|
       node.replace(node.inner_html) # Strip `<p>`
     end
   end
 
-  def _notmalize_text_content(doc)
+  def notmalize_text_content(doc)
     # XXX Workaround to suppress unexpected diff
     doc.search('text()').each do |node|
       node.replace(node.text.strip.gsub(' ', ''))
