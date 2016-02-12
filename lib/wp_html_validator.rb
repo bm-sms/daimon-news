@@ -1,6 +1,5 @@
 require "pandoc-ruby"
 require "nokogiri"
-require "nokogiri-diff"
 
 class WpHTMLValidator
 
