@@ -14,7 +14,7 @@ class WpHTMLValidator
     @markdown_text = nil
   end
 
-  def validate
+  def validate(display_error: false)
     # NOTE `autolink_bare_uris` option is only used to compare HTML structure. It should be removed later.
 
     original_doc = Nokogiri::HTML(_normalize_html(original_html))
@@ -40,16 +40,18 @@ class WpHTMLValidator
     end
 
     unless diff.empty?
-      puts "Post#id: #{id}"
-      puts diff.join("\n")
-      puts
+      if display_error
+        $stderr.puts "Post#id: #{id}"
+        $stderr.puts diff.join("\n")
+        $stderr.puts
+      end
     end
 
     diff.empty?
   end
 
   def validate!
-    unless validate
+    unless validate(display_error: true)
       raise Error, "#{id} has some difference."
     end
   end
