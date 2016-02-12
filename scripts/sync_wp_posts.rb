@@ -11,6 +11,7 @@ FQDN      = ARGV[1]
 ASSET_DIR = ARGV[2]
 
 load Rails.root.join('lib/wp_models.rb')
+load Rails.root.join('lib/wp_html_validator.rb')
 
 WpApplicationRecord.connect_to(WP_DB_URI)
 
@@ -38,7 +39,7 @@ target.find_each.with_index do |wp_post, i|
       c.order       = (site.categories.maximum(:order) || 0) + 1
     end
 
-    wp_post.convert_image_url do |url|
+    wp_post.markdown_body do |url|
       image = site.images.create!(remote_image_url: url)
       image.image_url
     end
