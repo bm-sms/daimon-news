@@ -2,15 +2,9 @@ require 'test_helper'
 
 class EditorTest < ActionDispatch::IntegrationTest
   setup do
-    site = Site.create!(name: 'daimon', fqdn: 'www.example.com')
-    editor = User.create!(email: 'editor@example.com', password: 'password')
-    site.memberships.create!(user: editor)
-
-    visit '/editor'
-
-    fill_in 'Email',    with:'editor@example.com'
-    fill_in 'Password', with:'password'
-    click_on 'Log in'
+    site = create(:site)
+    editor = create(:user, sites: [site])
+    login_as_editor(site: site, editor: editor)
   end
 
   test 'Category' do
@@ -28,7 +22,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on 'Back'
 
-    within :xpath, '//tr[./td[contains(text(), "Ruby")]]' do
+    within :row, 'Ruby' do
       click_on 'Edit'
     end
 
@@ -40,7 +34,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on 'Back'
 
-    within :xpath, '//tr[./td[contains(text(), "Ruby lang")]]' do
+    within :row, 'Ruby lang' do
       click_on 'Destroy'
     end
 
@@ -62,7 +56,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on 'Back'
 
-    within :xpath, '//tr[./td[contains(text(), "Ruby")]]' do
+    within :row, 'Ruby' do
       click_on 'Edit'
     end
 
@@ -74,7 +68,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on 'Back'
 
-    within :xpath, '//tr[./td[contains(text(), "Ruby lang")]]' do
+    within :row, 'Ruby lang' do
       click_on 'Destroy'
     end
 
@@ -96,7 +90,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on 'Back'
 
-    within :xpath, '//tr[./td[contains(text(), "Ruby")]]' do
+    within :row, 'Ruby' do
       click_on 'Edit'
     end
 
@@ -108,7 +102,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on 'Back'
 
-    within :xpath, '//tr[./td[contains(text(), "Ruby lang")]]' do
+    within :row, 'Ruby lang' do
       click_on 'Destroy'
     end
 
