@@ -66,7 +66,9 @@ class Admin::SitesController < Admin::ApplicationController
       :opened,
       :logo_image,
       :favicon_image,
-      :mobile_favicon_image
+      :mobile_favicon_image,
+      :head_tag,
+      :promotion_tag
     )
   end
 
