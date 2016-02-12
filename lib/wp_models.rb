@@ -58,7 +58,7 @@ class WpPost < WpApplicationRecord
   end
 
   def markdown_body
-    return @markdown_text if @markdown_text
+    return @markdown_body if @markdown_body
 
     html = Nokogiri::HTML(post_content).tap {|doc|
       convert_image_url(doc) do |original_src|
@@ -68,7 +68,7 @@ class WpPost < WpApplicationRecord
       convert_u_to_strong(doc)
     }.search('body')[0].inner_html
 
-    @markdown_text = html.split(Page::SEPARATOR).map {|page|
+    @markdown_body = html.split(Page::SEPARATOR).map {|page|
       PandocRuby.convert(page,
                          {
                            from: :html,
@@ -76,7 +76,7 @@ class WpPost < WpApplicationRecord
                          },
                          "atx-header")
     }.join(Page::SEPARATOR + "\n")
-      .gsub('****', '<br>') # XXX Workaround for compatibility
+    @markdown_body = @markdown_body.gsub('****', '<br>')
   end
 end
 
