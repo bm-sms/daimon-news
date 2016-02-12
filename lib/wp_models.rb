@@ -57,14 +57,11 @@ class WpPost < WpApplicationRecord
     end
   end
 
-  def markdown_body
+  def markdown_body(&block)
     return @markdown_body if @markdown_body
 
     html = Nokogiri::HTML(post_content).tap {|doc|
-      convert_image_url(doc) do |original_src|
-        # TODO replace original_src with new_src
-        original_src
-      end
+      convert_image_url(doc, &block)
       convert_u_to_strong(doc)
     }.search('body')[0].inner_html
 
