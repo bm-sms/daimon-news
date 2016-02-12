@@ -58,13 +58,13 @@ site.transaction do
   if id
     post = site.posts.where(id: id).first
     if post.validate!(stop_on_error)
-    unless dry_run
-      post.body = post.markdown_body do |url|
-        image = site.images.create!(remote_image_url: url)
-        image.image_url
+      unless dry_run
+        post.body = post.markdown_body do |url|
+          image = site.images.create!(remote_image_url: url)
+          image.image_url
+        end
+        post.save!
       end
-      post.save!
-    end
     else
       puts post.original_html
       puts "-" * 10
