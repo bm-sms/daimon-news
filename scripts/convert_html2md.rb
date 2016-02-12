@@ -36,15 +36,15 @@ module Converter
     def markdown_body(&block)
       super(original_html, &block)
     end
-  end
-end
 
-def validate!(post, stop_on_error)
-  validator = WpHTMLValidator.new(post.id, post.original_html)
-  if stop_on_error
-    validator.validate!
-  else
-    validator.validate(display_error: true)
+    def validate!(stop_on_error)
+      validator = WpHTMLValidator.new(id, original_html)
+      if stop_on_error
+        validator.validate!
+      else
+        validator.validate(display_error: true)
+      end
+    end
   end
 end
 
@@ -57,7 +57,7 @@ site = Site.find_by(fqdn: fqdn)
 site.transaction do
   if id
     post = site.posts.where(id: id).first
-    validate!(post, stop_on_error)
+    post.validate!(stop_on_error)
     unless dry_run
       post.body = post.markdown_body do |url|
         image = site.images.create!(remote_image_url: url)
@@ -72,6 +72,7 @@ site.transaction do
         _post.body = post.markdown_body do |url|
           image = site.images.create!(remote_image_url: url)
           image.image_url
+      _post.validate!(stop_on_error)
         end
         _post.save!
       end
