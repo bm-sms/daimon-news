@@ -45,7 +45,7 @@ class WpHTMLValidator
       puts
     end
 
-    !diff.empty?
+    diff.empty?
   end
 
   def validate!
