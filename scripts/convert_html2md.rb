@@ -66,6 +66,8 @@ site.transaction do
       puts post.original_html
       puts "--- current_html ---"
       puts post.current_html
+      puts "--- markdown_body ---"
+      puts post.markdown_body
     end
   else
     puts "Target records: #{site.posts.count}"
