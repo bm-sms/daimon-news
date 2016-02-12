@@ -40,4 +40,45 @@ module WpHTMLUtil
       node.replace(node.text.strip.gsub(' ', ''))
     end
   end
+
+  def convert_image_url(doc)
+    return "" unless block_given?
+
+    links = {}
+
+    doc.search('img').each do |element|
+      original_src = element['src']
+      new_src = yield(original_src)
+      links[original_src] = new_src
+      element['src'] = new_src
+    end
+
+    links.each do |original_src, new_src|
+      doc.search("a[href='#{original_src}']").each do |element|
+        element['href'] = new_src
+      end
+    end
+  end
+
+  def markdown_body(original_html, &block)
+    return @markdown_body if @markdown_body
+
+    html = Nokogiri::HTML(original_html).tap {|doc|
+      convert_image_url(doc, &block)
+      convert_u_to_strong(doc)
+    }.search('body')[0].inner_html
+
+    @markdown_body = html.split(Page::SEPARATOR).map {|page|
+      PandocRuby.convert(page,
+                         {
+                           from: :html,
+                           to: 'markdown_github'
+                         },
+                         "atx-header")
+    }.join(Page::SEPARATOR + "\n")
+    # XXX Workaround for compatibility
+    # <strong><br/></strong> -(pandoc)-> "****" -(here)-> "<br>"
+    # "****" is converted to <hr />(pandoc) or <hr>(redcarpet)
+    @markdown_body = @markdown_body.gsub('****', '<br>')
+  end
 end
