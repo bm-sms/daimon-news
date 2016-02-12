@@ -76,6 +76,9 @@ class WpPost < WpApplicationRecord
                          },
                          "atx-header")
     }.join(Page::SEPARATOR + "\n")
+    # XXX Workaround for compatibility
+    # <strong><br/></strong> -(pandoc)-> "****" -(here)-> "<br>"
+    # "****" is converted to <hr />(pandoc) or <hr>(redcarpet)
     @markdown_body = @markdown_body.gsub('****', '<br>')
   end
 end
