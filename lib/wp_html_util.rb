@@ -1,3 +1,5 @@
+require "daimon/render/html"
+
 module WpHTMLUtil
   def normalize_html(html)
     # XXX Workaround to suppress unexpected diff
@@ -80,5 +82,14 @@ module WpHTMLUtil
     # <strong><br/></strong> -(pandoc)-> "****" -(here)-> "<br>"
     # "****" is converted to <hr />(pandoc) or <hr>(redcarpet)
     @markdown_body = @markdown_body.gsub('****', '<br>')
+  end
+
+  def current_html
+    markdown_body.split(Page::SEPARATOR).map {|page|
+      # PandocRuby.convert(page, from: 'markdown_github-autolink_bare_uris', to: 'html')
+
+      renderer = Redcarpet::Markdown.new(Daimon::Render::HTML.new(hard_wrap: true), tables: true)
+      renderer.render(page)
+    }.join(Page::SEPARATOR + "\n")
   end
 end
