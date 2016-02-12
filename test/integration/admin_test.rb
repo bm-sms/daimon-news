@@ -2,8 +2,8 @@ require 'test_helper'
 
 class AdminTest < ActionDispatch::IntegrationTest
   setup do
-    Site.create!(name: 'admin', fqdn: 'www.example.com')
-    User.create!(email: 'admin@example.com', password: 'password', admin: true)
+    site = create(:site)
+    admin = create(:user, :admin)
 
     visit '/admin'
 

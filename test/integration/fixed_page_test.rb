@@ -2,9 +2,8 @@ require 'test_helper'
 
 class FixedPageTest < ActionDispatch::IntegrationTest
   setup do
-    site = Site.create!(name: 'daimon-news', fqdn: 'www.example.com')
-    editor = User.create!(email: 'editor@example.com', password: 'password')
-    site.memberships.create!(user: editor)
+    site = create(:site)
+    editor = create(:user, sites: [site])
 
     visit '/editor'
 

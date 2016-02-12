@@ -1,27 +1,11 @@
 require 'test_helper'
 
-module PostHelper
-  def create_published_post(body:)
-    site = Site.create!(name: 'test', fqdn: 'www.example.com', js_url: '', css_url: '')
-    category = site.categories.create!(name: 'category1', slug: 'cate1', order: 1)
-    site.posts.create!(
-      body:         body,
-      published_at: Time.current,
-      category:     category
-    )
-  end
-end
-
 class PostBodyHeaderTest < ActionDispatch::IntegrationTest
-  include PostHelper
-
   setup do
-    @post = create_published_post(
-      body: <<~EOS.encode(crlf_newline: true),
-        <h1> hi </h1>
-        contents
-      EOS
-    )
+    @post = create(:post, body: <<~EOS.encode(crlf_newline: true))
+      <h1> hi </h1>
+      contents
+    EOS
   end
 
   test "body shouldn't have <br>" do
@@ -35,15 +19,11 @@ class PostBodyHeaderTest < ActionDispatch::IntegrationTest
 end
 
 class PostBodyNewLineTest < ActionDispatch::IntegrationTest
-  include PostHelper
-
   setup do
-    @post = create_published_post(
-      body: <<~EOS.encode(crlf_newline: true),
-        following line should be breaked:
-        hi
-      EOS
-    )
+    @post = create(:post, body: <<~EOS.encode(crlf_newline: true))
+      following line should be breaked:
+      hi
+    EOS
   end
 
   test 'body should have <br>' do
