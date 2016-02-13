@@ -237,6 +237,7 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kramdown (1.9.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     loofah (2.0.3)
@@ -254,7 +255,11 @@ GEM
     newrelic_rpm (3.14.3.313)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    nokogiri-diff (0.2.0)
+      nokogiri (~> 1.5)
+      tdiff (~> 0.3, >= 0.3.2)
     orm_adapter (0.5.0)
+    pandoc-ruby (1.0.0)
     pg (0.18.4)
     poltergeist (1.9.0)
       capybara (~> 2.1)
@@ -334,6 +339,7 @@ GEM
       railties (>= 4.2.0, < 5.1)
     reverse_markdown (1.0.1)
       nokogiri
+    rouge (1.10.1)
     rr (1.1.2)
     ruby_parser (3.7.3)
       sexp_processor (~> 4.1)
@@ -360,6 +366,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    tdiff (0.3.3)
     test-unit (3.1.7)
       power_assert
     test-unit-activesupport (1.0.4)
@@ -424,10 +431,13 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   kaminari
+  kramdown
   launchy
   meta-tags
   mysql2
   newrelic_rpm
+  nokogiri-diff
+  pandoc-ruby
   pg
   poltergeist
   pry-byebug
@@ -444,6 +454,7 @@ DEPENDENCIES
   rambulance
   redcarpet
   reverse_markdown
+  rouge
   sass-rails
   seedbank
   sitemap_generator

@@ -36,6 +36,40 @@ class Post < ActiveRecord::Base
       .first
   end
 
+  MD = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), tables: true)
+
+  def previous_html
+    body.to_s.split(Page::SEPARATOR).map {|page| MD.render(page) }.join(Page::SEPARATOR)
+  end
+
+  def current_body
+    Kramdown::Document.new(previous_html, input: 'html', hard_wrap: true).to_kramdown
+  end
+
+  def current_html
+    current_body.split(Page::SEPARATOR).map {|page|
+      Kramdown::Document.new(page, input: 'GFM', syntax_highlighter: 'rouge', hard_wrap: true).to_html
+    }.join(Page::SEPARATOR)
+  end
+
+  def markdown_text
+    extension = ""
+    PandocRuby.convert(original_html.gsub(Page::SEPARATOR, "{{nextpage}}"),
+                       {
+                         from: "html",
+                         to: "markdown_github#{extension}",
+                       },
+                       "atx-header").gsub("{{nextpage}}", Page::SEPARATOR)
+  end
+
+  def reverse_markdown_text
+    ReverseMarkdown.convert(original_html).gsub("\r", "\n")
+  end
+
+  def kramdown_text
+    Kramdown::Document.new(original_html, input: "html").to_kramdown
+  end
+
   private
 
   def around_posts_candidates
