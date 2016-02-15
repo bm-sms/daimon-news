@@ -19,7 +19,6 @@
       "required": true
     }
   },
-  "image": "heroku/ruby",
   "addons": [
     "heroku-postgresql:hobby-dev",
     "papertrail:choklad",
@@ -29,6 +28,9 @@
   "buildpacks": [
     {
       "url": "https://github.com/ddollar/heroku-buildpack-apt"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-ruby"
     }
   ],
   "scripts": {
