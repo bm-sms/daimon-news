@@ -31,7 +31,7 @@
       "url": "https://github.com/ddollar/heroku-buildpack-apt"
     }
   ],
-    "scripts": {
+  "scripts": {
     "postdeploy": "bundle exec rake db:schema:load && bundle exec rake db:seed:development"
   }
 }
