@@ -1,4 +1,4 @@
-require_dependency Rails.root.join('lib/daimon/render/html')
+require_dependency 'daimon/render/html'
 
 module ApplicationHelper
   def render_markdown(markdown_text)
