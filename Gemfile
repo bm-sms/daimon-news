@@ -18,8 +18,8 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'meta-tags', require: 'meta_tags'
-gem 'nokogiri-diff'
-gem 'pandoc-ruby'
+gem 'nokogiri-diff', require: false
+gem 'pandoc-ruby', require: false
 gem 'pg'
 gem 'puma'
 gem 'rails-i18n'
