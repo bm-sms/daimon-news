@@ -9,6 +9,7 @@ BANNER
 
 dry_run = false
 stop_on_error = false
+validate_body = false
 verbose = false
 
 parser.on("--dry-run", "Dry run") do
@@ -17,6 +18,10 @@ end
 
 parser.on("--stop-on-error", "Stop on error") do
   stop_on_error = true
+end
+
+parser.on("--validate-body", "Validate Post#body") do
+  validate_body = true
 end
 
 parser.on("--verbose", "Verbose output") do
@@ -45,8 +50,12 @@ Post.class_eval do
     super(original_html, &block)
   end
 
-  def validate!(stop_on_error)
-    validator = WpHTMLValidator.new(id, original_html)
+  def validate!(stop_on_error, validate_body)
+    validator = if validate_body
+                  WpHTMLValidator.new(id, original_html, body)
+                else
+                  WpHTMLValidator.new(id, original_html)
+                end
     if stop_on_error
       validator.validate!
     else
@@ -62,7 +71,7 @@ site = Site.find_by(fqdn: fqdn)
 site.transaction do
   if id
     post = site.posts.where(id: id).first
-    if post.validate!(stop_on_error)
+    if post.validate!(stop_on_error, validate_body)
       unless dry_run
         post.body = post.markdown_body do |url|
           image = site.images.create!(remote_image_url: url)
@@ -84,8 +93,8 @@ site.transaction do
     puts "Target records: #{site.posts.count}"
     n_errors = 0
     site.posts.each do |_post|
-      if _post.validate!(stop_on_error)
-        unless dry_run
+      if _post.validate!(stop_on_error, validate_body)
+        if !validate_body && !dry_run
           _post.body = _post.markdown_body do |url|
             image = site.images.create!(remote_image_url: url)
             image.image_url
