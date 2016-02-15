@@ -9,6 +9,7 @@ BANNER
 
 dry_run = false
 stop_on_error = false
+verbose = false
 
 parser.on("--dry-run", "Dry run") do
   dry_run = true
@@ -16,6 +17,10 @@ end
 
 parser.on("--stop-on-error", "Stop on error") do
   stop_on_error = true
+end
+
+parser.on("--verbose", "Verbose output") do
+  verbose = true
 end
 
 parser.on("-e", "--environment=NAME", "Rails environment. This option is handled by `bin/rails r`") do |name|
@@ -66,12 +71,14 @@ site.transaction do
         post.save!
       end
     else
-      puts "--- original_html ---"
-      puts post.original_html
-      puts "--- target_html ---"
-      puts post.target_html
-      puts "--- markdown_body ---"
-      puts post.markdown_body
+      if verbose
+        puts "--- original_html ---"
+        puts post.original_html
+        puts "--- target_html ---"
+        puts post.target_html
+        puts "--- markdown_body ---"
+        puts post.markdown_body
+      end
     end
   else
     puts "Target records: #{site.posts.count}"
