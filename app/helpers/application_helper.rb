@@ -1,3 +1,5 @@
+require_dependency Rails.root.join('lib/daimon/render/html')
+
 module ApplicationHelper
   def render_markdown(markdown_text)
     markdown = Redcarpet::Markdown.new(Daimon::Render::HTML.new(hard_wrap: true), tables: true)
