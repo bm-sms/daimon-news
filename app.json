@@ -25,6 +25,14 @@
     "newrelic:wayne",
     "airbrake:free_heroku"
   ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/ddollar/heroku-buildpack-apt"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-ruby"
+    }
+  ],
   "scripts": {
     "postdeploy": "bundle exec rake db:schema:load && bundle exec rake db:seed:development"
   }

@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20160212051043) do
     t.string   "source_url"
     t.string   "thumbnail"
     t.integer  "author_id"
+    t.text     "original_html"
     t.datetime "original_updated_at"
   end
 
