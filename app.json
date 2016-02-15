@@ -19,11 +19,17 @@
       "required": true
     }
   },
+  "image": "heroku/ruby",
   "addons": [
     "heroku-postgresql:hobby-dev",
     "papertrail:choklad",
     "newrelic:wayne",
     "airbrake:free_heroku"
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/ddollar/heroku-buildpack-apt"
+    }
   ],
   "scripts": {
     "postdeploy": "bundle exec rake db:schema:load && bundle exec rake db:seed:development"
