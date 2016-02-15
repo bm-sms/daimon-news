@@ -68,8 +68,8 @@ site.transaction do
     else
       puts "--- original_html ---"
       puts post.original_html
-      puts "--- current_html ---"
-      puts post.current_html
+      puts "--- target_html ---"
+      puts post.target_html
       puts "--- markdown_body ---"
       puts post.markdown_body
     end

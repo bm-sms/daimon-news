@@ -84,7 +84,7 @@ module WpHTMLUtil
     @markdown_body = @markdown_body.gsub('****', '<br>')
   end
 
-  def current_html
+  def target_html
     markdown_body.split(Page::SEPARATOR).map {|page|
       # PandocRuby.convert(page, from: 'markdown_github-autolink_bare_uris', to: 'html')
 
