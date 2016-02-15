@@ -29,8 +29,8 @@ class WpHTMLValidator
     normalize_wrapped_paragraph(original_doc)
     normalize_wrapped_paragraph(target_doc)
 
-    notmalize_text_content(original_doc)
-    notmalize_text_content(target_doc)
+    normalize_text_content(original_doc)
+    normalize_text_content(target_doc)
 
     diff = []
 

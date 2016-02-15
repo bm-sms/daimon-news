@@ -36,7 +36,7 @@ module WpHTMLUtil
     end
   end
 
-  def notmalize_text_content(doc)
+  def normalize_text_content(doc)
     # XXX Workaround to suppress unexpected diff
     doc.search('text()').each do |node|
       node.replace(node.text.strip.gsub(' ', ''))
