@@ -18,8 +18,12 @@ parser.on("--stop-on-error", "Stop on error") do
   stop_on_error = true
 end
 
+parser.on("-e", "--environment=NAME", "Rails environment. This option is handled by `bin/rails r`") do |name|
+  # NOP
+end
+
 argv = ARGV.dup
-argv.shift
+argv.delete("--")
 
 begin
   parser.parse!(argv)
