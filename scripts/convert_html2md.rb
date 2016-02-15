@@ -86,7 +86,7 @@ site.transaction do
     site.posts.each do |_post|
       if _post.validate!(stop_on_error)
         unless dry_run
-          _post.body = post.markdown_body do |url|
+          _post.body = _post.markdown_body do |url|
             image = site.images.create!(remote_image_url: url)
             image.image_url
           end
