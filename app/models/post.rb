@@ -49,6 +49,6 @@ class Post < ActiveRecord::Base
   end
 
   def assign_public_id
-    self.public_id = (self.class.maximum(:public_id) || 0) + 1
+    self.public_id ||= (self.class.maximum(:public_id) || 0) + 1
   end
 end
