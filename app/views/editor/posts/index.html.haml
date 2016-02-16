@@ -21,7 +21,7 @@
         %td= post.author&.name
         %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
         %td= link_to 'Show', editor_post_url(post)
-        %td= link_to 'Preview', preview_editor_post_url(post)
+        %td= link_to 'Preview', preview_editor_post_url(post), target: '_blank'
         %td= link_to 'Edit', edit_editor_post_url(post)
         %td= link_to 'Destroy', editor_post_url(post), method: :delete, data: { confirm: 'Are you sure?' }
 
