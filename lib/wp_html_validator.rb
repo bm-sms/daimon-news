@@ -9,10 +9,10 @@ class WpHTMLValidator
   class Error < StandardError
   end
 
-  attr_reader :id, :original_html
+  attr_reader :public_id, :original_html
 
-  def initialize(id, original_html, markdown_text = nil)
-    @id = id
+  def initialize(public_id, original_html, markdown_text = nil)
+    @public_id = public_id
     @original_html = original_html
     @markdown_text = markdown_text
   end
@@ -44,7 +44,7 @@ class WpHTMLValidator
 
     unless diff.empty?
       if display_error
-        $stderr.puts "Post#id: #{id}"
+        $stderr.puts "Post#public_id: #{public_id}"
         $stderr.puts diff.join("\n")
         $stderr.puts
       end
@@ -55,7 +55,7 @@ class WpHTMLValidator
 
   def validate!
     unless validate(display_error: true)
-      raise Error, "#{id} has some difference."
+      raise Error, "Post#public_id:`#{public_id}` has some difference."
     end
   end
 
