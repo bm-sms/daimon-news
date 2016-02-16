@@ -43,6 +43,19 @@ class Editor::PostsController < Editor::ApplicationController
     redirect_to editor_posts_url, notice: '記事が削除されました。'
   end
 
+  def preview
+    @post = posts.find(params[:id])
+
+    @pages =
+      if params[:all]
+        @post.pages
+      else
+        Kaminari.paginate_array(@post.pages).page(params[:page]).per(1)
+      end
+
+    render 'posts/show', layout: 'application'
+  end
+
   private
 
   def posts
