@@ -17,7 +17,7 @@ after 'development:sites' do
     name: 'name21',
     description: "description21"
   )
-  site1.authors.create!(
+  site2.authors.create!(
     name: 'name22',
     description: "description22"
   )
