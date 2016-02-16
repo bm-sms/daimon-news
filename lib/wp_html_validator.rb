@@ -14,7 +14,7 @@ class WpHTMLValidator
   def initialize(id, original_html, markdown_text = nil)
     @id = id
     @original_html = original_html
-    @markdown_text = nil
+    @markdown_text = markdown_text
   end
 
   def validate(display_error: false)
