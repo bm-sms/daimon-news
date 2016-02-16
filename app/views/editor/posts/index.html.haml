@@ -4,7 +4,6 @@
   %thead
     %tr
       %th Title
-      %th Body
       %th Category
       %th Author
       %th Thumbnail
@@ -16,7 +15,6 @@
     - @posts.each do |post|
       %tr
         %td= post.title
-        %td= post.body
         %td= post.category&.name
         %td= post.author&.name
         %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
