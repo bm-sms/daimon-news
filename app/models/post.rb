@@ -5,6 +5,8 @@ class Post < ActiveRecord::Base
 
   validates :body, presence: true
 
+  before_save :assign_public_id
+
   scope :published, -> { where('published_at <= ?', Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
 
@@ -40,5 +42,9 @@ class Post < ActiveRecord::Base
 
   def around_posts_candidates
     site.posts.published.order_by_recently
+  end
+
+  def assign_public_id
+    self.public_id = (self.class.maximum(:public_id) || 0) + 1
   end
 end
