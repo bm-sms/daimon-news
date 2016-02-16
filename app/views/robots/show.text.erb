@@ -1,1 +1,6 @@
+<% if current_site.opened? %>
 Sitemap: <%= sitemaps_url(format: :xml) %>
+<% else %>
+User-Agent: *
+Disallow: /
+<% end %>

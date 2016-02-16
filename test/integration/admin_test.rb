@@ -15,6 +15,8 @@ class AdminTest < ActionDispatch::IntegrationTest
     fill_in 'Name', with: 'daimon'
     fill_in 'Fqdn', with: 'daimon.lvh.me'
 
+    check 'Opened'
+
     click_on '登録する'
 
     assert_equal 'http://daimon.lvh.me/', current_url
