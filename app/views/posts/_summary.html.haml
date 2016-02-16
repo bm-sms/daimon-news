@@ -6,4 +6,4 @@
         = post.title
       %p.article-summary__data
         %time.article-summary__data-item
-          = l post.published_at.to_date
+          = l post.published_at.to_date if post.published_at?

@@ -8,7 +8,8 @@
 %article.post
   %h1.post__title= @post.title
   %p.post__data
-    %time.post__data-item.post__data-item--published-at= l @post.published_at.to_date
+    %time.post__data-item.post__data-item--published-at
+      = l @post.published_at.to_date if @post.published_at?
   .post__body
     = raw render_markdown(@pages.map(&:body).join)
 
