@@ -2,9 +2,9 @@ require 'test_helper'
 
 class EditorTest < ActionDispatch::IntegrationTest
   setup do
-    site = create(:site)
-    editor = create(:user, sites: [site])
-    login_as_editor(site: site, editor: editor)
+    @site = create(:site)
+    editor = create(:user, sites: [@site])
+    login_as_editor(site: @site, editor: editor)
   end
 
   test 'Category' do
@@ -107,5 +107,13 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     assert_not page.has_css?('td', text: 'Ruby lang')
+  end
+
+  test 'preview post' do
+    @post = create(:post, site: @site, body: '# title')
+    visit "/editor/posts/#{@post.id}/preview"
+    within '.post__body' do
+      assert_equal 'title', find('h1').text
+    end
   end
 end

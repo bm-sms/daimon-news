@@ -1,7 +1,7 @@
 %h3 関連記事
 
 %ul
-  = render partial: 'native_ad', locals: {position: :related_articles}
+  = render partial: 'application/native_ad', locals: {position: :related_articles}
 
   - posts.each do |post|
     = render partial: 'posts/summary', locals: {post: post}

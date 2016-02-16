@@ -16,7 +16,11 @@ Rails.application.routes.draw do
     resources :fixed_pages
     resources :links
     resources :categories
-    resources :posts
+    resources :posts do
+      member do
+        get :preview
+      end
+    end
     resources :images, only: :create
     resources :authors
   end
