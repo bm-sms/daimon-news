@@ -66,6 +66,12 @@ end
 
 fqdn, id = argv
 
+if validate_body
+  puts "Validate Post#body"
+else
+  puts "Validate Post#original_html"
+end
+
 site = Site.find_by(fqdn: fqdn)
 
 site.transaction do
