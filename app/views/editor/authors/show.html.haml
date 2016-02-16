@@ -8,6 +8,6 @@
   %b Photo:
   = image_tag @author.photo_url if @author.photo.present?
 
-= link_to 'Edit', edit_admin_author_url(@author)
+= link_to 'Edit', edit_editor_author_url(@author)
 \|
-= link_to 'Back', admin_authors_url
+= link_to 'Back', editor_authors_url
