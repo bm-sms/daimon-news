@@ -1,10 +1,10 @@
 !!!
 %html
-  = render 'head'
+  = render 'application/head'
 
   %body.root-container(data-layer='top')
     = google_tag_manager(current_site.gtm_id)
-    = render 'content_header'
+    = render 'application/content_header'
 
     .content-body
       %nav.sidebar.sidebar--left(data-state='off-canvas')
@@ -22,12 +22,12 @@
       .wrappable
         .wrappable__content.wrappable__content--flex.main-pane
           %main
-            = render 'breadcrumbs'
+            = render 'application/breadcrumbs'
             = yield
         %aside.wrappable__content.promotions
           - if current_site.ad_client.present? && current_site.ad_slot.present?
             %section.promotion
-              = render 'adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
+              = render 'application/adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
           - elsif current_site.promotion_tag.present?
             %section.promotion
               = raw current_site.promotion_tag
@@ -44,4 +44,4 @@
           - if current_site.promotion_url.present?
             .external-component{data: {external_src: current_site.promotion_url}}
 
-    = render 'footer'
+    = render 'application/footer'
