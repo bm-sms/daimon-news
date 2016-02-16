@@ -4,5 +4,6 @@ FactoryGirl.define do
       "daimon-news#{n}"
     end
     fqdn { "#{name}.example.com" }
+    opened true
   end
 end
