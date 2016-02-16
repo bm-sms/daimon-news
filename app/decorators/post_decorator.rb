@@ -19,7 +19,7 @@ module PostDecorator
   def to_article_params
     {
       section: category.name,
-      published_time: published_at.to_datetime.to_s
+      published_time: published_at&.to_datetime&.to_s
     }
   end
 
