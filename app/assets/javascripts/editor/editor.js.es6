@@ -9,7 +9,7 @@ $(function() {
   let $postBody = $('#post_body');
 
   if ($postBody.length === 0) {
-    return
+    return;
   }
 
   let content = $postBody.val();
