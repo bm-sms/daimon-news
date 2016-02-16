@@ -1,4 +1,4 @@
-class Admin::AuthorsController < Admin::ApplicationController
+class Editor::AuthorsController < Editor::ApplicationController
   def index
     @authors = authors
   end
@@ -52,9 +52,7 @@ class Admin::AuthorsController < Admin::ApplicationController
   def author_params
     params.require(:author).permit(
       :name,
-      :responsibility,
-      :title,
-      :affiliation,
+      :description,
       :photo
     )
   end
