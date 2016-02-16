@@ -11,10 +11,10 @@ class WpHTMLValidator
 
   attr_reader :id, :original_html
 
-  def initialize(id, original_html)
+  def initialize(id, original_html, markdown_text = nil)
     @id = id
     @original_html = original_html
-    @markdown_text = nil
+    @markdown_text = markdown_text
   end
 
   def validate(display_error: false)
@@ -60,6 +60,7 @@ class WpHTMLValidator
   end
 
   def markdown_body(&block)
+    return @markdown_text if @markdown_text
     super(original_html, &block)
   end
 end
