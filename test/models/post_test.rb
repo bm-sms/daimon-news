@@ -34,9 +34,7 @@ class PostTest < ActiveSupport::TestCase
   sub_test_case "relation" do
     setup do
       @author = @site.authors.create!(name: "name",
-                                      responsibility: "responsibility",
-                                      title: "title",
-                                      affiliation: "affiliation")
+                                      description: "description")
       @post = @site.posts.create!(title: "title", body: "body")
       @post.author = @author
       @post.save!
