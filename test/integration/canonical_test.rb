@@ -20,6 +20,6 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       click_on 'Hi'
     end
 
-    assert_equal "http://#{@post.site.fqdn}/#{@post.id}?all=true", find('link[rel=canonical]', visible: false)[:href]
+    assert_equal "http://#{@post.site.fqdn}/#{@post.public_id}?all=true", find('link[rel=canonical]', visible: false)[:href]
   end
 end

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   helper_method :current_category
 
   def show
-    @post = current_site.posts.published.find_by!(id: params[:id])
+    @post = current_site.posts.published.find_by!(public_id: params[:id])
 
     @pages =
       if params[:all]

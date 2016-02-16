@@ -38,6 +38,10 @@ class Post < ActiveRecord::Base
       .first
   end
 
+  def to_param
+    public_id.to_s
+  end
+
   private
 
   def around_posts_candidates
