@@ -1,4 +1,4 @@
-class Admin::AuthorsController < Admin::ApplicationController
+class Editor::AuthorsController < Editor::ApplicationController
   def index
     @authors = authors
   end
@@ -15,7 +15,7 @@ class Admin::AuthorsController < Admin::ApplicationController
     @author = authors.build(author_params)
 
     if @author.save
-      redirect_to [:admin, @author], notice: '著者情報が作成されました'
+      redirect_to [:editor, @author], notice: '著者情報が作成されました'
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Admin::AuthorsController < Admin::ApplicationController
     @author = authors.find(params[:id])
 
     if @author.update(author_params)
-      redirect_to [:admin, @author], notice: '著者情報が更新されました'
+      redirect_to [:editor, @author], notice: '著者情報が更新されました'
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Admin::AuthorsController < Admin::ApplicationController
 
     @author.destroy
 
-    redirect_to admin_authors_url, notice: '著者情報が削除されました'
+    redirect_to editor_authors_url, notice: '著者情報が削除されました'
   end
 
   private
@@ -52,9 +52,7 @@ class Admin::AuthorsController < Admin::ApplicationController
   def author_params
     params.require(:author).permit(
       :name,
-      :responsibility,
-      :title,
-      :affiliation,
+      :description,
       :photo
     )
   end

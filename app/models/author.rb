@@ -4,7 +4,6 @@ class Author < ActiveRecord::Base
   has_many :posts, dependent: :nullify
 
   validates :name, presence: true
-  validates :responsibility, presence: true
 
   mount_uploader :photo, ImageUploader
 end

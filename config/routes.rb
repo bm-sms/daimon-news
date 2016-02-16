@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 
     resources :sites, except: :destroy
     resources :users, except: :show
-    resources :authors
   end
 
   namespace :editor do
@@ -19,6 +18,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :posts
     resources :images, only: :create
+    resources :authors
   end
 
   concern :site do

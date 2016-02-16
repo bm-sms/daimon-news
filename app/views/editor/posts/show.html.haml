@@ -10,8 +10,7 @@
 %p
   %b Author:
   = @post.author&.name
-  = @post.author&.title
-  = @post.author&.affiliation
+  = @post.author&.description
 %p
   %b Thumbnail url:
   = image_tag @post.thumbnail_url, height: 80 if @post.thumbnail.present?
