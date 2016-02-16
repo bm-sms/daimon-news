@@ -4,9 +4,7 @@
   %thead
     %tr
       %th Name
-      %th Responsibility
-      %th Title
-      %th Affiliation
+      %th Description
       %th Photo
       %th
       %th
@@ -16,9 +14,7 @@
     - @authors.each do |author|
       %tr
         %td= author.name
-        %td= author.responsibility
-        %td= author.title
-        %td= author.affiliation
+        %td= raw render_markdown(author.description)
         %td= image_tag author.photo_url, height: 80 if author.photo.present?
         %td= link_to 'Show', [:admin, author]
         %td= link_to 'Edit', edit_admin_author_url(author)

@@ -2,14 +2,8 @@
   %b Name:
   = @author.name
 %p
-  %b Responsibility:
-  = @author.responsibility
-%p
-  %b Title:
-  = @author.title
-%p
-  %b Affiliation:
-  = @author.affiliation
+  %b Description:
+  = raw render_markdown(@author.description)
 %p
   %b Photo:
   = image_tag @author.photo_url if @author.photo.present?
