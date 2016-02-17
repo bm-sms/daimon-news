@@ -4,7 +4,7 @@ parser = OptionParser.new
 
 parser.banner = <<BANNER
 Usage
-  $ bin/rails r scripts/convert_html2md.rb [options] <fqdn> [public_id]
+  $ bin/rails r scripts/convert_html2md.rb [runner options] -- [options] <fqdn> [public_id]
 BANNER
 
 dry_run = false
