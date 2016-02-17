@@ -5,4 +5,8 @@ FactoryGirl.define do
 
     site
   end
+
+  factory :author_with_photo, parent: :author do
+    photo { Rack::Test::UploadedFile.new(Rails.root + "test/fixtures/images/face.png", "image/png") }
+  end
 end
