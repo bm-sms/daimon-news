@@ -11,7 +11,7 @@ class PostBodyHeaderTest < ActionDispatch::IntegrationTest
   end
 
   test "body shouldn't have <br>" do
-    visit "/#{@post.id}"
+    visit "/#{@post.public_id}"
 
     within '.post__body' do
       assert page.has_selector?('h1', text: 'hi')
@@ -31,7 +31,7 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
   end
 
   test 'body should have <br>' do
-    visit "/#{@post.id}"
+    visit "/#{@post.public_id}"
 
     within '.post__body' do
       elem = find('p').native

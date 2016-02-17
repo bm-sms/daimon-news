@@ -9,7 +9,7 @@ module PostDecorator
       type: 'article',
       title: title,
       description: MetaTags::TextNormalizer.normalize_description(render_markdown(body)),
-      url: post_url(id, all: true),
+      url: post_url(self, all: true),
       site_name: site.name,
       modified_time: updated_at.to_datetime.to_s,
       image: thumbnail_url

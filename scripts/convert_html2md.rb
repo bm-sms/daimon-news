@@ -4,7 +4,7 @@ parser = OptionParser.new
 
 parser.banner = <<BANNER
 Usage
-  $ bin/rails r scripts/convert_html2md.rb [options] <fqdn> [id]
+  $ bin/rails r scripts/convert_html2md.rb [runner options] -- [options] <fqdn> [public_id]
 BANNER
 
 dry_run = false
@@ -52,9 +52,9 @@ Post.class_eval do
 
   def validate!(stop_on_error, validate_body)
     validator = if validate_body
-                  WpHTMLValidator.new(id, original_html, body)
+                  WpHTMLValidator.new(public_id, original_html, body)
                 else
-                  WpHTMLValidator.new(id, original_html)
+                  WpHTMLValidator.new(public_id, original_html)
                 end
     if stop_on_error
       validator.validate!
@@ -64,7 +64,7 @@ Post.class_eval do
   end
 end
 
-fqdn, id = argv
+fqdn, public_id = argv
 
 if validate_body
   puts "Validate Post#body"
@@ -72,11 +72,11 @@ else
   puts "Validate Post#original_html"
 end
 
-site = Site.find_by(fqdn: fqdn)
+site = Site.find_by!(fqdn: fqdn)
 
 site.transaction do
-  if id
-    post = site.posts.where(id: id).first
+  if public_id
+    post = site.posts.find_by(public_id: public_id)
     if post.validate!(stop_on_error, validate_body)
       unless dry_run
         post.body = post.markdown_body do |url|

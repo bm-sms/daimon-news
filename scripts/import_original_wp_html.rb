@@ -21,7 +21,7 @@ site.posts.find_each.with_index do |post, i|
   puts i
 
   site.transaction do
-    wp_post = WpPost.find_by(id: post.id)
+    wp_post = WpPost.find_by(id: post.public_id)
 
     next unless wp_post
 

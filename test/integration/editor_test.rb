@@ -111,7 +111,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   test 'preview post' do
     @post = create(:post, site: @site, body: '# title')
-    visit "/editor/posts/#{@post.id}/preview"
+    visit "/editor/posts/#{@post.public_id}/preview"
     within '.post__body' do
       assert_equal 'title', find('h1').text
     end
