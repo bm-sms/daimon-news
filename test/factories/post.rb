@@ -27,4 +27,8 @@ FactoryGirl.define do
       world
     BODY
   end
+
+  factory :post_with_author, parent: :post do
+    author
+  end
 end

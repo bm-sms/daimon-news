@@ -44,3 +44,22 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
     end
   end
 end
+
+class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
+  setup do
+    @post = create(:post_with_author)
+    switch_domain(@post.site.fqdn)
+  end
+
+  test 'body should have .author' do
+    visit "/#{@post.id}"
+
+    within '.post__body' do
+      within '.author' do
+        elem = find('p').native
+        assert_equal(1, elem.children.count)
+        assert_equal('Author 1 description', elem.children.text)
+      end
+    end
+  end
+end
