@@ -53,7 +53,8 @@ class Editor::AuthorsController < Editor::ApplicationController
     params.require(:author).permit(
       :name,
       :description,
-      :photo
+      :photo,
+      :remove_photo
     )
   end
 end
