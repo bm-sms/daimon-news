@@ -84,7 +84,7 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
 
           within '.author__photo' do
             image = find('img').native
-            assert_equal("/uploads/author/photo/1/face.png", image["src"])
+            assert_equal("face.png", File.basename(image["src"]))
           end
         end
       end
