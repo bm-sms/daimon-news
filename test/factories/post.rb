@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :post do
     title "title"
     body "body"
+    thumbnail { open(Rails.root.join('test/fixtures/images/thumbnail.jpg')) }
     published_at "2016-01-01 00:00:00"
     site
     category { create(:category, site: site) }

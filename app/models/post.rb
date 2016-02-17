@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
   belongs_to :author
 
   validates :body, presence: true
+  validates :thumbnail, presence: true
 
   before_save :assign_public_id
 
