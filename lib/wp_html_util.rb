@@ -65,11 +65,7 @@ module WpHTMLUtil
   def markdown_body(original_html, &block)
     return @markdown_body if @markdown_body
 
-    html = Nokogiri::HTML(original_html).tap {|doc|
-      convert_image_url(doc, &block)
-      convert_u_to_strong(doc)
-    }.search('body')[0].inner_html
-
+    html = Nokogiri::HTML(original_html).search('body')[0].inner_html
     @markdown_body = html.split(Page::SEPARATOR).map {|page|
       PandocRuby.convert(page,
                          {
@@ -82,6 +78,13 @@ module WpHTMLUtil
     # <strong><br/></strong> -(pandoc)-> "****" -(here)-> "<br>"
     # "****" is converted to <hr />(pandoc) or <hr>(redcarpet)
     @markdown_body = @markdown_body.gsub('****', '<br>')
+  end
+
+  def preprocess(original_html, &block)
+    Nokogiri::HTML(original_html).tap {|doc|
+      convert_image_url(doc, &block)
+      convert_u_to_strong(doc)
+    }.search('body')[0].inner_html
   end
 
   def target_html

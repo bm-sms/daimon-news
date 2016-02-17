@@ -8,12 +8,22 @@ Usage
 BANNER
 
 dry_run = false
+preprocess_only = false
+skip_preprocess = false
 stop_on_error = false
 validate_body = false
 verbose = false
 
 parser.on("--dry-run", "Dry run") do
   dry_run = true
+end
+
+parser.on("--preprocess-only", "Preprocess only") do
+  preprocess_only = true
+end
+
+parser.on("--skip-preprocess", "Skip preprocess") do
+  skip_preprocess = true
 end
 
 parser.on("--stop-on-error", "Stop on error") do
@@ -47,14 +57,18 @@ Post.class_eval do
   include WpHTMLUtil
 
   def markdown_body(&block)
+    super(base_html, &block)
+  end
+
+  def preprocess(&block)
     super(original_html, &block)
   end
 
   def validate!(stop_on_error, validate_body)
     validator = if validate_body
-                  WpHTMLValidator.new(public_id, original_html, body)
+                  WpHTMLValidator.new(public_id, base_html, body)
                 else
-                  WpHTMLValidator.new(public_id, original_html)
+                  WpHTMLValidator.new(public_id, base_html)
                 end
     if stop_on_error
       validator.validate!
@@ -62,6 +76,17 @@ Post.class_eval do
       validator.validate(display_error: true)
     end
   end
+end
+
+def preprocess(site, post)
+  # convert image URL
+  post.progress_html = post.preprocess do |url|
+    image = site.images.create!(remote_image_url: url)
+    image.image_url
+  end
+  # Convert new line "\r\n" -> "<br>\n"
+  post.base_html = post.progress_html.gsub(/\r\n/, "<br>\n")
+  post.save!
 end
 
 fqdn, public_id = argv
@@ -77,34 +102,41 @@ site = Site.find_by!(fqdn: fqdn)
 site.transaction do
   if public_id
     post = site.posts.find_by(public_id: public_id)
+    unless skip_preprocess
+      preprocess(site, post)
+      break if preprocess_only?
+    end
     if post.validate!(stop_on_error, validate_body)
-      unless dry_run
-        post.body = post.markdown_body do |url|
-          image = site.images.create!(remote_image_url: url)
-          image.image_url
-        end
+      if !validate_body && !dry_run
+        post.body = post.markdown_body
         post.save!
       end
     else
       if verbose
-        puts "--- original_html ---"
-        puts post.original_html
+        puts "--- base_html ---"
+        puts post.base_html
         puts "--- target_html ---"
         puts post.target_html
-        puts "--- markdown_body ---"
-        puts post.markdown_body
+        if validate_body
+          puts "--- body ---"
+          puts post.body
+        else
+          puts "--- markdown_body ---"
+          puts post.markdown_body
+        end
       end
     end
   else
     puts "Target records: #{site.posts.count}"
     n_errors = 0
     site.posts.each do |_post|
+      unless skip_preprocess
+        preprocess(site, _post)
+        next if preprocess_only
+      end
       if _post.validate!(stop_on_error, validate_body)
         if !validate_body && !dry_run
-          _post.body = _post.markdown_body do |url|
-            image = site.images.create!(remote_image_url: url)
-            image.image_url
-          end
+          _post.body = _post.markdown_body
           _post.save!
         end
       else
