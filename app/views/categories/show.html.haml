@@ -1,7 +1,8 @@
-- content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
-- content_for(:canonical_tag) do
-  %link{rel: :canonical, href: url_for(only_path: false)}
-- if @posts.current_page > 1
+- if @posts.respond_to?(:total_pages)
+  - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
+  - content_for(:canonical_tag) do
+    %link{rel: :canonical, href: url_for(all: true, only_path: false)}
+- if @posts.respond_to?(:total_pages) && @posts.current_page > 1
   - breadcrumb :page_num, @posts.current_page, @category
 - else
   - breadcrumb :category, @category
@@ -17,7 +18,7 @@
       = render partial: 'posts/summary', locals: {post: post}
     = render partial: 'native_ad', locals: {position: :press_articles_bottom}
 
-  - if @posts.total_pages > 1
+  - if @posts.respond_to?(:total_pages) && @posts.total_pages > 1
     %nav.pagination
       = paginate @posts
       %p.pagination__entries= page_entries_info @posts
