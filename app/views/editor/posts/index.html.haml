@@ -1,5 +1,7 @@
 %h1 Listing posts
 
+= link_to 'New Post', new_editor_post_url, class: 'btn btn-default'
+
 %table.table
   %thead
     %tr
@@ -22,5 +24,3 @@
         %td= link_to 'Preview', preview_editor_post_url(post), target: '_blank'
         %td= link_to 'Edit', edit_editor_post_url(post)
         %td= link_to 'Destroy', editor_post_url(post), method: :delete, data: { confirm: 'Are you sure?' }
-
-= link_to 'New Post', new_editor_post_url, class: 'btn btn-default'

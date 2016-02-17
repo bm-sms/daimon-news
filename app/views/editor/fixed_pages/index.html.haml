@@ -1,5 +1,7 @@
 %h1 Listing fixed_pages
 
+= link_to 'New Fixed page', new_editor_fixed_page_url, class: 'btn btn-default'
+
 %table.table
   %thead
     %tr
@@ -19,5 +21,3 @@
         %td= link_to 'Show', [:editor, fixed_page]
         %td= link_to 'Edit', edit_editor_fixed_page_url(id: fixed_page)
         %td= link_to 'Destroy', [:editor, fixed_page], method: :delete, data: { confirm: 'Are you sure?' }
-
-= link_to 'New Fixed page', new_editor_fixed_page_url, class: 'btn btn-default'

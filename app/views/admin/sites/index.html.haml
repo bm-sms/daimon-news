@@ -1,5 +1,7 @@
 %h1 Listing sites
 
+= link_to 'New site', new_admin_site_url, class: 'btn btn-default'
+
 %table.table
   %thead
     %tr
@@ -15,5 +17,3 @@
         %td= site.fqdn
         %td= link_to 'Show', admin_site_url(site)
         %td= link_to 'Edit', edit_admin_site_url(site)
-
-= link_to 'New site', new_admin_site_url, class: 'btn btn-default'
