@@ -46,6 +46,8 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
 end
 
 class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
+
+  sub_test_case 'w/o photo' do
   setup do
     @post = create(:post_with_author)
     switch_domain(@post.site.fqdn)
@@ -61,5 +63,6 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
         assert_equal('Author 1 description', elem.children.text)
       end
     end
+  end
   end
 end
