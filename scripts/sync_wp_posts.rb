@@ -1,3 +1,5 @@
+# This script is deprecated since 2016-02-17
+#
 # Usage
 #
 # bin/rails r scripts/sync_wp_posts.rb DATABASE_URL SITE_FQDN ASSET_DIR
