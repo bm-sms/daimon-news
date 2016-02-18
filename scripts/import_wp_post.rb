@@ -17,6 +17,13 @@ File.open(filename, "r") do |file|
   end
 end
 
+max_id = Post.maximum(:id)
+if max_id
+  ActiveRecord::Base.connection.execute("SELECT setval('posts_id_seq', #{max_id+1});")
+else
+  puts "max_id is nil"
+end
+
 site = Site.find_by!(fqdn: fqdn)
 rows.each do |row|
   site.transaction do
