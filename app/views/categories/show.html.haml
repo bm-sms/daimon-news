@@ -1,4 +1,6 @@
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
+- content_for(:canonical_tag) do
+  %link{rel: :canonical, href: category_url(only_path: false, page: @posts.current_page)}
 - if @posts.current_page > 1
   - breadcrumb :page_num, @posts.current_page, @category
 - else
