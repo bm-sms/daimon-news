@@ -41,11 +41,16 @@ site.transaction do
     article.search(".ad.banner").remove
     article.search("span.kdate").remove
     article.search(".blogbox").remove
+    meaningless_elements = article.search("strong").select do |element|
+      element.inner_html == "<br>\n"
+    end
+    meaningless_elements.each(&:remove)
     post.stripped_html = article.inner_html.gsub(/<!--.*-->/, "")
-    post.replaced_html = post.preprocess do |url|
+    replaced_html = post.preprocess do |url|
       image = site.images.create!(remote_image_url: url)
       image.image_url
     end
+    doc = Nokogiri::HTML(replaced_html)
     source = Nokogiri::HTML(post.original_source)
     source.search("//comment()").each do |comment|
       next_element = comment.next_element
