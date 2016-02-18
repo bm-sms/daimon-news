@@ -35,7 +35,7 @@ class PostTest < ActiveSupport::TestCase
     setup do
       @author = @site.authors.create!(name: "name",
                                       description: "description")
-      @post = @site.posts.create!(title: "title", body: "body")
+      @post = create(:post, site: @site)
       @post.author = @author
       @post.save!
     end

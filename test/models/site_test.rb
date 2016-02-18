@@ -7,7 +7,7 @@ class SiteTest < ActiveSupport::TestCase
     @site = Site.create!(name: "name",
                          js_url: "http://example.com/application.js",
                          css_url: "http://example.com/application.css")
-    @post = @site.posts.create!(title: "title", body: "body")
+    @post = create(:post, site: @site)
     Tempfile.open do |file|
       @site.images.create!(image: file)
     end

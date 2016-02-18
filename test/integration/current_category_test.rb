@@ -41,6 +41,7 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
     fill_in 'Body', with: <<~EOS
       Ruby x.x.x released just now!
     EOS
+    attach_file "Thumbnail", Rails.root.join('test/fixtures/images/thumbnail.jpg')
     fill_in 'Published at', with: '2000/01/01 00:00'
 
     click_on '登録する'
