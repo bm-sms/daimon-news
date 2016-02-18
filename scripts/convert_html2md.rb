@@ -8,22 +8,12 @@ Usage
 BANNER
 
 dry_run = false
-preprocess_only = false
-skip_preprocess = false
 stop_on_error = false
 validate_body = false
 verbose = false
 
 parser.on("--dry-run", "Dry run") do
   dry_run = true
-end
-
-parser.on("--preprocess-only", "Preprocess only") do
-  preprocess_only = true
-end
-
-parser.on("--skip-preprocess", "Skip preprocess") do
-  skip_preprocess = true
 end
 
 parser.on("--stop-on-error", "Stop on error") do
@@ -60,10 +50,6 @@ Post.class_eval do
     super(base_html, &block)
   end
 
-  def preprocess(&block)
-    super(original_html, &block)
-  end
-
   def validate!(stop_on_error, validate_body)
     validator = if validate_body
                   WpHTMLValidator.new(public_id, base_html, body)
@@ -76,17 +62,6 @@ Post.class_eval do
       validator.validate(display_error: true)
     end
   end
-end
-
-def preprocess(site, post)
-  # convert image URL
-  post.progress_html = post.preprocess do |url|
-    image = site.images.create!(remote_image_url: url)
-    image.image_url
-  end
-  # Convert new line "\r\n" -> "<br>\n"
-  post.base_html = post.progress_html.gsub(/\r\n/, "<br>\n")
-  post.save!
 end
 
 fqdn, public_id = argv
@@ -102,10 +77,6 @@ site = Site.find_by!(fqdn: fqdn)
 site.transaction do
   if public_id
     post = site.posts.find_by(public_id: public_id)
-    unless skip_preprocess
-      preprocess(site, post)
-      break if preprocess_only?
-    end
     if post.validate!(stop_on_error, validate_body)
       if !validate_body && !dry_run
         post.body = post.markdown_body
@@ -130,10 +101,6 @@ site.transaction do
     puts "Target records: #{site.posts.count}"
     n_errors = 0
     site.posts.each do |_post|
-      unless skip_preprocess
-        preprocess(site, _post)
-        next if preprocess_only
-      end
       if _post.validate!(stop_on_error, validate_body)
         if !validate_body && !dry_run
           _post.body = _post.markdown_body
