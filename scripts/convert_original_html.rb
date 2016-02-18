@@ -35,11 +35,12 @@ site.transaction do
   site.posts.each do |post|
     puts post.public_id
     doc = Nokogiri::HTML(post.original_html)
-    article = doc.search("article")
+    article = doc.search("article .post")
     article.search("aside").remove
     article.search("#breadcrumb").remove
     article.search(".ad.banner").remove
     article.search("span.kdate").remove
+    article.search(".blogbox").remove
     post.stripped_html = article.inner_html.gsub(/<!--.*-->/, "")
     post.replaced_html = post.preprocess do |url|
       image = site.images.create!(remote_image_url: url)
