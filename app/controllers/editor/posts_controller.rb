@@ -1,6 +1,6 @@
 class Editor::PostsController < Editor::ApplicationController
   def index
-    @posts = posts.preload(:category)
+    @posts = posts.preload(:category).order(:public_id => :desc)
   end
 
   def show
