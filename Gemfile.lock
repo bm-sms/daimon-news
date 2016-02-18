@@ -419,6 +419,7 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap_form
   bourbon
+  capybara
   carrierwave
   database_cleaner
   devise (>= 3.5.4)

@@ -9,6 +9,7 @@ gem 'active_link_to'
 gem 'bootstrap-sass'
 gem 'bootstrap_form'
 gem 'bourbon'
+gem 'capybara', require: false
 gem 'carrierwave'
 gem 'devise', '>= 3.5.4'
 gem 'fog'
@@ -22,6 +23,7 @@ gem 'nokogiri-diff', require: false
 gem 'pandoc-ruby', require: false
 gem 'pg'
 gem 'puma'
+gem 'poltergeist', require: false
 gem 'rails-i18n'
 gem 'rambulance'
 gem 'redcarpet'
