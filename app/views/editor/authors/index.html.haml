@@ -1,5 +1,7 @@
 %h1 Listing authors
 
+= link_to 'New Author', new_editor_author_url, class: 'btn btn-default'
+
 %table.table
   %thead
     %tr
@@ -19,7 +21,3 @@
         %td= link_to 'Show', [:editor, author]
         %td= link_to 'Edit', edit_editor_author_url(author)
         %td= link_to 'Destroy', [:editor, author], method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Author', new_editor_author_url, class: 'btn btn-default'
