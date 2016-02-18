@@ -28,32 +28,15 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       @category = create(:category, site: @post.site)
     end
 
-    test 'Cannonical must be shown' do
-      visit "/category/#{@category.slug}"
-      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}?all=true",
-                   find('link[rel=canonical]', visible: false)[:href]
-    end
-
-    test 'Cannonical must be unified for pagenation' do
-      visit "/category/#{@category.slug}?page=2"
-      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}?all=true",
-                   find('link[rel=canonical]', visible: false)[:href]
-    end
-
-    test 'Cannonical must be unified with unexpected parameters' do
-      visit "/category/#{@category.slug}?aaa=bbb&c_c=d.d"
-      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}?all=true",
-                   find('link[rel=canonical]', visible: false)[:href]
-    end
-
-    test 'Cannonical must be shown with all=true' do
-      visit "/category/#{@category.slug}?all=true"
-      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}?all=true",
-                   find('link[rel=canonical]', visible: false)[:href]
-    end
-
-    test 'Cannonical must be unified with all=true and unexpected parameters' do
-      visit "/category/#{@category.slug}?all=true&aaa=123"
+    data({
+      "no parameter"            => "",
+      "pagination"              => "?page=2",
+      "unexpected"              => "?aaa=bbb&c_c=d.d",
+      "all=true"                => "?all=true",
+      "all=true and unexpected" => "?all=true&aaa=123",
+    })
+    def test_normalize(data)
+      visit "/category/#{@category.slug}#{data}"
       assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}?all=true",
                    find('link[rel=canonical]', visible: false)[:href]
     end
