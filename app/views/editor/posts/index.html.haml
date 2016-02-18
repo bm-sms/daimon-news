@@ -26,6 +26,7 @@
         %td= link_to 'Destroy', editor_post_url(post), method: :delete, data: { confirm: 'Are you sure?' }
 
 - if @posts.total_pages > 1
-  %nav.pagination
-    = paginate @posts, views_prefix: 'editor'
-    %p.pagination__entries= page_entries_info @posts
+  .text-center
+    %nav.pagination
+      = paginate @posts, views_prefix: 'editor'
+      %p.pagination__entries= page_entries_info @posts
