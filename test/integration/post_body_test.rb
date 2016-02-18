@@ -44,3 +44,50 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
     end
   end
 end
+
+class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
+
+  sub_test_case 'w/o photo' do
+    setup do
+      @post = create(:post_with_author)
+      switch_domain(@post.site.fqdn)
+    end
+
+    test 'body should have .author' do
+      visit "/#{@post.id}"
+
+      within '.post__body' do
+        within '.author' do
+          elem = find('p').native
+          assert_equal(1, elem.children.count)
+          assert_equal("#{@post.author.name} description", elem.children.text)
+        end
+      end
+    end
+  end
+
+  sub_test_case 'w/ photo' do
+    setup do
+      author = create(:author_with_photo)
+      @post = create(:post, author: author)
+      switch_domain(@post.site.fqdn)
+    end
+
+    test 'body should have .author__photo' do
+      visit "/#{@post.id}"
+
+      within '.post__body' do
+        within '.author' do
+          elem = find('p').native
+          assert_equal(1, elem.children.count)
+          assert_equal('Author 1 description', elem.children.text)
+
+          within '.author__photo' do
+            image = find('img').native
+            assert_equal("face.png", File.basename(image["src"]))
+          end
+        end
+      end
+    end
+  end
+end
