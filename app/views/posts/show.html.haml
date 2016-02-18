@@ -12,7 +12,7 @@
       = l @post.published_at.to_date if @post.published_at?
   .post__body
     - if @post.author.present? && @pages.current_page == 1
-      = render partial: 'author', locals: {author: @post.author}
+      = render partial: 'posts/author', locals: {author: @post.author}
     = raw render_markdown(@pages.map(&:body).join)
 
   - if @pages.respond_to?(:total_pages) && @pages.total_pages > 1
