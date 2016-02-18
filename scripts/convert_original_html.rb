@@ -52,6 +52,18 @@ site.transaction do
         element.replace("{{br}}\n")
       end
     end
+    source = Nokogiri::HTML(post.original_source)
+    source.search("//comment()").each do |comment|
+      next_element = comment.next_element
+      unless next_element
+        next_element = comment.parent.next_element
+      end
+      target_element = doc.search(next_element.name).detect do |element|
+        element.inner_text == next_element.inner_text
+      end
+      target_element.add_previous_sibling("#{comment}\n")
+    end
+    post.replaced_html = doc.inner_html
     post.save!
   end
 end
