@@ -10,6 +10,7 @@ BANNER
 dry_run = false
 stop_on_error = false
 validate_body = false
+ignore_errors = false
 verbose = false
 
 parser.on("--dry-run", "Dry run") do
@@ -22,6 +23,10 @@ end
 
 parser.on("--validate-body", "Validate Post#body") do
   validate_body = true
+end
+
+parser.on("--ignore-errors", "Ignore errors") do
+  ignore_errors = true
 end
 
 parser.on("--verbose", "Verbose output") do
@@ -77,7 +82,7 @@ site = Site.find_by!(fqdn: fqdn)
 site.transaction do
   if public_id
     post = site.posts.find_by(public_id: public_id)
-    if post.validate!(stop_on_error, validate_body)
+    if post.validate!(stop_on_error, validate_body) || ignore_errors
       if !validate_body && !dry_run
         post.body = post.markdown_body
         post.save!
@@ -101,7 +106,7 @@ site.transaction do
     puts "Target records: #{site.posts.count}"
     n_errors = 0
     site.posts.each do |_post|
-      if _post.validate!(stop_on_error, validate_body)
+      if _post.validate!(stop_on_error, validate_body) || ignore_errors
         if !validate_body && !dry_run
           _post.body = _post.markdown_body
           _post.save!
