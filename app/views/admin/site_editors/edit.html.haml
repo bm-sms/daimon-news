@@ -1,0 +1,7 @@
+%h1 Assign editors
+
+= bootstrap_form_for @site, url: [:admin, @site, :editors], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+  = f.collection_check_boxes :editor_ids, User.all, :id, :email, label: 'Editors'
+
+  = f.form_group do
+    = f.submit
