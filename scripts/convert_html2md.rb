@@ -89,8 +89,8 @@ site.transaction do
       end
     else
       if verbose
-        puts "--- base_html ---"
-        puts post.base_html
+        puts "--- original_html ---"
+        puts post.original_html
         puts "--- target_html ---"
         puts post.target_html
         if validate_body
