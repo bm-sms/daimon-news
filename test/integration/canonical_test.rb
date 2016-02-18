@@ -46,11 +46,10 @@ class CanonicalTest < ActionDispatch::IntegrationTest
                    find('link[rel=canonical]', visible: false)[:href]
     end
 
-    test 'Cannonical is not shown if all=true' do
+    test 'Cannonical must be shown with all=true' do
       visit "/category/#{@category.slug}?all=true"
-      assert_raise Test::Unit::Capybara::ElementNotFound do
-        find('link[rel=canonical]', visible: false)[:href]
-      end
+      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}?all=true",
+                   find('link[rel=canonical]', visible: false)[:href]
     end
   end
 end
