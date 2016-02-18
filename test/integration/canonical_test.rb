@@ -40,6 +40,12 @@ class CanonicalTest < ActionDispatch::IntegrationTest
                    find('link[rel=canonical]', visible: false)[:href]
     end
 
+    test 'Cannonical must be unified with special parameters' do
+      visit "/category/#{@category.slug}?aaa=bbb&c_c=d.d"
+      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}?all=true",
+                   find('link[rel=canonical]', visible: false)[:href]
+    end
+
     test 'Cannonical is not shown if all=true' do
       visit "/category/#{@category.slug}?all=true"
       assert_raise Test::Unit::Capybara::ElementNotFound do
