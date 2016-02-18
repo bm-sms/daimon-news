@@ -51,5 +51,11 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}?all=true",
                    find('link[rel=canonical]', visible: false)[:href]
     end
+
+    test 'Cannonical must be unified with all=true and unexpected parameters' do
+      visit "/category/#{@category.slug}?all=true&aaa=123"
+      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}?all=true",
+                   find('link[rel=canonical]', visible: false)[:href]
+    end
   end
 end
