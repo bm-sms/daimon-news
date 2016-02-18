@@ -1,7 +1,7 @@
 - if @pages.respond_to?(:total_pages)
   - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@pages) }
-  - content_for(:canonical_tag) do
-    %link{rel: :canonical, href: url_for(all: true, only_path: false)}
+- content_for(:canonical_tag) do
+  %link{rel: :canonical, href: url_for(all: true, only_path: false)}
 - breadcrumb :post, @post
 - set_meta_tags title: @post.title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
 

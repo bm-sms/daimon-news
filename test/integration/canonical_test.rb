@@ -41,4 +41,19 @@ class CanonicalTest < ActionDispatch::IntegrationTest
                    find('link[rel=canonical]', visible: false)[:href]
     end
   end
+
+  sub_test_case 'post page' do
+    data({
+      "no parameter"            => "",
+      "pagination"              => "?page=2",
+      "unexpected"              => "?aaa=bbb&c_c=d.d",
+      "all=true"                => "?all=true",
+      "all=true and unexpected" => "?all=true&aaa=123",
+    })
+    def test_normalize(data)
+      visit "/#{@post.public_id}#{data}"
+      assert_equal "http://#{@post.site.fqdn}/#{@post.public_id}?all=true",
+                   find('link[rel=canonical]', visible: false)[:href]
+    end
+  end
 end
