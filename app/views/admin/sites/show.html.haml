@@ -70,6 +70,12 @@
   %b AD slot:
   = @site.ad_slot
 
+%p
+  %b Editors:
+  %ul
+    - @site.editors.each do |editor|
+      %li= editor.email
+
 = link_to 'Edit', edit_admin_site_url
 \|
 = link_to 'Back', admin_sites_url
