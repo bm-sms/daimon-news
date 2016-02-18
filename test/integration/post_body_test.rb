@@ -68,7 +68,7 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
 
   sub_test_case 'w/ photo' do
     setup do
-      author = create(:author_with_photo)
+      author = create(:author_with_photo, name: 'Awesome author', description: 'Awesome description')
       @post = create(:post, author: author)
       switch_domain(@post.site.fqdn)
     end
@@ -80,7 +80,7 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
         within '.author' do
           elem = find('p').native
           assert_equal(1, elem.children.count)
-          assert_equal('Author 1 description', elem.children.text)
+          assert_equal('Awesome description', elem.children.text)
 
           within '.author__photo' do
             image = find('img').native
