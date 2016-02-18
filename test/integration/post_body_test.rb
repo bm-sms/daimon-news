@@ -54,7 +54,7 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
     end
 
     test 'body should have .author' do
-      visit "/#{@post.id}"
+      visit "/#{@post.public_id}"
 
       within '.post__body' do
         within '.author' do
@@ -74,7 +74,7 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
     end
 
     test 'body should have .author__photo' do
-      visit "/#{@post.id}"
+      visit "/#{@post.public_id}"
 
       within '.post__body' do
         within '.author' do
