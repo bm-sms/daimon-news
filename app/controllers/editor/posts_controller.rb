@@ -28,7 +28,7 @@ class Editor::PostsController < Editor::ApplicationController
   def update
     @post = posts.find_by!(public_id: params[:id])
 
-    if @post.update_columns(post_params)
+    if @post.update(post_params)
       redirect_to [:editor, @post], notice: '記事が更新されました。'
     else
       render :edit
