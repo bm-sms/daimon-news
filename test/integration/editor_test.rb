@@ -38,6 +38,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on 'Destroy'
     end
 
+    assert_equal('/editor/categories', page.current_path)
     assert_not page.has_css?('td', text: 'Ruby lang')
   end
 
@@ -70,6 +71,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on 'Destroy'
     end
 
+    assert_equal('/editor/authors', page.current_path)
     assert_not page.has_css?('td', text: 'Ruby lang')
   end
 
@@ -104,6 +106,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on 'Destroy'
     end
 
+    assert_equal('/editor/fixed_pages', page.current_path)
     assert_not page.has_css?('td', text: 'Ruby lang')
   end
 
@@ -138,6 +141,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on 'Destroy'
     end
 
+    assert_equal('/editor/links', page.current_path)
     assert_not page.has_css?('td', text: 'Ruby lang')
   end
 end
