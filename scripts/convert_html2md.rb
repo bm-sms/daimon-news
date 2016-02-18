@@ -47,14 +47,14 @@ Post.class_eval do
   include WpHTMLUtil
 
   def markdown_body(&block)
-    super(base_html, &block)
+    super(replaced_html, &block)
   end
 
   def validate!(stop_on_error, validate_body)
     validator = if validate_body
-                  WpHTMLValidator.new(public_id, base_html, body)
+                  WpHTMLValidator.new(public_id, replaced_html, body)
                 else
-                  WpHTMLValidator.new(public_id, base_html)
+                  WpHTMLValidator.new(public_id, replaced_html)
                 end
     if stop_on_error
       validator.validate!
@@ -69,7 +69,7 @@ fqdn, public_id = argv
 if validate_body
   puts "Validate Post#body"
 else
-  puts "Validate Post#original_html"
+  puts "Validate Post#replaced_html"
 end
 
 site = Site.find_by!(fqdn: fqdn)
