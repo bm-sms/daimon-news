@@ -22,4 +22,26 @@ class CanonicalTest < ActionDispatch::IntegrationTest
 
     assert_equal "http://#{@post.site.fqdn}/#{@post.public_id}?all=true", find('link[rel=canonical]', visible: false)[:href]
   end
+
+  sub_test_case 'category page' do
+    setup do
+      @category = create(:category, site: @post.site)
+    end
+
+    data({
+      'no parameter'          => ['',                '?page=1'],
+      'unexpected'            => ['?aaa=123',        '?page=1'],
+      'page=1'                => ['?page=1',         '?page=1'],
+      'page=1 and unexpected' => ['?page=1&aaa=123', '?page=1'],
+      'page=2'                => ['?page=2',         '?page=2'],
+      'page=2 and unexpected' => ['?page=2&aaa=123', '?page=2'],
+    })
+    def test_normalize_parameter(data)
+      raw_parameter = data[0]
+      normalized_parameter = data[1]
+      visit "/category/#{@category.slug}#{raw_parameter}"
+      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}#{normalized_parameter}",
+                   find('link[rel=canonical]', visible: false)[:href]
+    end
+  end
 end
