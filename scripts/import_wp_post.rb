@@ -24,7 +24,10 @@ else
   puts "max_id is nil"
 end
 
-site = Site.find_by!(fqdn: fqdn)
+site = Site.find_or_create_by!(fqdn: fqdn) do |s|
+  s.name = fqdn
+end
+
 rows.each do |row|
   puts row["ID"]
   site.transaction do
