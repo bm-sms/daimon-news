@@ -2,7 +2,7 @@
   = f.text_field :title
   = f.text_area :body, data: {upload_path: editor_images_url}
   = f.collection_select :category_id, current_site.categories, :id, :name
-  = f.collection_select :author_id, current_site.authors, :id, :name
+  = f.collection_select :author_id, current_site.authors, :id, :name, include_blank: true
   = f.file_field :thumbnail
   - if @post.thumbnail.present?
     = f.form_group do
