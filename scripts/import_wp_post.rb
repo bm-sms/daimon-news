@@ -26,6 +26,7 @@ end
 
 site = Site.find_by!(fqdn: fqdn)
 rows.each do |row|
+  puts row["ID"]
   site.transaction do
     category = site.categories.find_or_create_by!(name: "uncategorized") do |c|
       c.description = "uncategolized posts"
