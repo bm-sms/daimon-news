@@ -77,7 +77,7 @@ module WpHTMLUtil
     # XXX Workaround for compatibility
     # <strong><br/></strong> -(pandoc)-> "****" -(here)-> "<br>"
     # "****" is converted to <hr />(pandoc) or <hr>(redcarpet)
-    @markdown_body = @markdown_body.gsub('****', '<br>')
+    @markdown_body = @markdown_body.gsub('****', '<br>').gsub("{{br}}", "<br>")
   end
 
   def preprocess(original_html, &block)

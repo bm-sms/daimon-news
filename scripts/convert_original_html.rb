@@ -41,16 +41,16 @@ site.transaction do
     article.search(".ad.banner").remove
     article.search("span.kdate").remove
     article.search(".blogbox").remove
-    # Replace "<strong><br>\n</strong>" to "<br>\n"
-    article.search("strong").each do |element|
-      if element.inner_html == "<br>\n"
-        element.replace("<br>\n")
-      end
-    end
     post.stripped_html = article.inner_html.gsub(/<!--.*-->/, "")
-    post.replaced_html = post.preprocess do |url|
+    replaced_html = post.preprocess do |url|
       image = site.images.create!(remote_image_url: url)
       image.image_url
+    end
+    doc = Nokogiri::HTML(replaced_html)
+    doc.search("strong").each do |element|
+      if element.inner_html == "<br>\n"
+        element.replace("{{br}}\n")
+      end
     end
     post.save!
   end

@@ -52,9 +52,9 @@ Post.class_eval do
 
   def validate!(stop_on_error, validate_body)
     validator = if validate_body
-                  WpHTMLValidator.new(public_id, replaced_html, body)
+                  WpHTMLValidator.new(public_id, replaced_html.gsub("{{br}}", "<br>"), body)
                 else
-                  WpHTMLValidator.new(public_id, replaced_html)
+                  WpHTMLValidator.new(public_id, replaced_html.gsub("{{br}}", "<br>"))
                 end
     if stop_on_error
       validator.validate!
@@ -84,8 +84,8 @@ site.transaction do
       end
     else
       if verbose
-        puts "--- base_html ---"
-        puts post.base_html
+        puts "--- replaced_html ---"
+        puts post.replaced_html.gsub("{{br}}", "<br>")
         puts "--- target_html ---"
         puts post.target_html
         if validate_body
