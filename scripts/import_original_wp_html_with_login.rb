@@ -60,7 +60,7 @@ site = Site.find_by!(fqdn: fqdn)
 
 site.transaction do
   site.posts.each do |post|
-    source = ""
+    sources = []
     content_uri = base_uri + post.public_id
     session.visit content_uri
     source << session.source
@@ -69,9 +69,8 @@ site.transaction do
     end
     links.each do |link|
       link.click
-      source << "\n\n<!--PAGINATION-->\n\n"
-      source << session.source
+      sources << session.source
     end
-    post.update!(original_html: session.source)
+    post.update!(original_html: sources.join("\n\n<!--PAGINATE-->\n\n"))
   end
 end
