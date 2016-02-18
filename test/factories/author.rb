@@ -7,6 +7,6 @@ FactoryGirl.define do
   end
 
   factory :author_with_photo, parent: :author do
-    photo { Rack::Test::UploadedFile.new(Rails.root + "test/fixtures/images/face.png", "image/png") }
+    photo { (Rails.root + "test/fixtures/images/face.png").open }
   end
 end
