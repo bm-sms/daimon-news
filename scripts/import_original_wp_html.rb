@@ -1,17 +1,15 @@
 # Usage
 #
-# bin/rails r scripts/import_original_wp_html.rb DATABASE_URL SITE_FQDN
+# bin/rails r scripts/import_original_wp_html.rb WP_BASE_URI SITE_FQDN
 #
 # Example
 #
-# bin/rails r scripts/import_original_wp_html.rb mysql://id:pass@host/table example.com
+# bin/rails r scripts/import_original_wp_html.rb https://old-press.example.com/ new.example.com
 #
-WP_DB_URI = URI(ARGV[0])
+require "open-uri"
+
+WP_BASE_URI = URI(ARGV[0])
 FQDN      = ARGV[1]
-
-load Rails.root.join('lib/wp_models.rb')
-
-WpApplicationRecord.connect_to(WP_DB_URI)
 
 site = Site.find_by!(fqdn: FQDN)
 
@@ -21,10 +19,9 @@ site.posts.find_each.with_index do |post, i|
   puts i
 
   site.transaction do
-    wp_post = WpPost.find_by(id: post.public_id)
+    uri = WP_BASE_URI + "#{post.public_id}?all=true"
+    html = open(uri).read
 
-    next unless wp_post
-
-    post.update!(original_html: wp_post.post_content)
+    post.update!(original_html: html)
   end
 end
