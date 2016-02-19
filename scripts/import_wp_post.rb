@@ -1,5 +1,8 @@
+require "activerecord-import"
 
 filename, fqdn = ARGV
+
+DUMMY_THUMBNAIL = File.open(Rails.root + "test/fixtures/images/face.png")
 
 rows = []
 File.open(filename, "r") do |file|
@@ -39,6 +42,36 @@ site.transaction do
 end
 
 puts "Total: #{rows.size}"
+
+def save_rows!(site, category, rows)
+  posts = []
+  rows.each do |row|
+    post = site.posts.find_or_initialize_by(public_id: row["ID"])
+    post.assign_attributes(title: row["post_title"],
+                           published_at: row["post_date_gmt"],
+                           body: row["post_content"],
+                           category: category,
+                           thumbnail: DUMMY_THUMBNAIL,
+                           original_updated_at: row["post_modified_gmt"],
+                           original_source: row["post_content"],
+                           updated_at: row["post_modified_gmt"])
+    posts << post if post.new_record?
+  end
+  unless posts.empty?
+    Post.import(posts)
+    puts "Import #{posts.size} rows"
+  end
+end
+
+rows.each_slice(500) do |_rows|
+  site.transaction do
+    save_rows!(site, category, _rows)
+  end
+end
+
+DUMMY_THUMBNAIL.close
+
+__END__
 
 rows.each do |row|
   begin
