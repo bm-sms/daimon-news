@@ -87,4 +87,4 @@ rows.each_slice(500) do |_rows|
   end
 end
 
-puts "done: #{LitePost.count} records exist."
+puts "done: #{site.lite_posts.count} records exist."
