@@ -1,8 +1,10 @@
 
-filename, fqdn = ARGV
+require "open-uri"
+
+path_or_uri, fqdn = ARGV
 
 rows = []
-File.open(filename, "r") do |file|
+open(path_or_uri, "r") do |file|
   header_line = file.gets.chomp
   headers = header_line.split("\t")
   file.each_line do |line|
