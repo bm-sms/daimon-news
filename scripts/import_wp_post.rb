@@ -1,3 +1,6 @@
+# Usage:
+#   bin/rails r scripts/import_wp_post.rb <file or uri> <FQDN>
+#
 
 require "open-uri"
 
