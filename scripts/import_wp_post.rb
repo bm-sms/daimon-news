@@ -70,3 +70,26 @@ rows.each_slice(500) do |_rows|
 end
 
 DUMMY_THUMBNAIL.close
+
+__END__
+
+rows.each do |row|
+  begin
+    puts row["ID"]
+    site.transaction do
+      post = site.posts.find_or_initialize_by(public_id: row["ID"])
+      post.assign_attributes(title: row["post_title"],
+                             published_at: row["post_date_gmt"],
+                             body: row["post_content"],
+                             category: category,
+                             remote_thumbnail_url: "https://github.com/bm-sms/daimon-news-multi-tenant/raw/master/test/fixtures/images/face.png",
+                             original_updated_at: row["post_modified_gmt"],
+                             original_source: row["post_content"],
+                             updated_at: row["post_modified_gmt"])
+      post.save!
+    end
+  rescue
+    p row
+    raise
+  end
+end
