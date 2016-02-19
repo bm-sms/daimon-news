@@ -38,6 +38,8 @@ site.transaction do
   end
 end
 
+puts "Total: #{rows.size}"
+
 rows.each do |row|
   puts row["ID"]
   site.transaction do
