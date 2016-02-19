@@ -6,6 +6,7 @@ gem 'rails', '~> 4.2.5'
 
 gem 'active_decorator'
 gem 'active_link_to'
+gem 'activerecord-import'
 gem 'bootstrap-sass'
 gem 'bootstrap_form'
 gem 'bourbon'
