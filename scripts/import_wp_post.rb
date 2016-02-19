@@ -28,14 +28,19 @@ site = Site.find_or_create_by!(fqdn: fqdn) do |s|
   s.name = fqdn
 end
 
+category = nil
+
+site.transaction do
+  category = site.categories.find_or_create_by!(name: "uncategorized") do |c|
+    c.description = "uncategolized posts"
+    c.slug = "uncategorized"
+    c.order = 0
+  end
+end
+
 rows.each do |row|
   puts row["ID"]
   site.transaction do
-    category = site.categories.find_or_create_by!(name: "uncategorized") do |c|
-      c.description = "uncategolized posts"
-      c.slug = "uncategorized"
-      c.order = 0
-    end
     post = site.posts.find_or_initialize_by(public_id: row["ID"])
     post.assign_attributes(title: row["post_title"],
                            published_at: row["post_date_gmt"],
