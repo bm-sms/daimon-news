@@ -37,9 +37,9 @@ class Post < ActiveRecord::Base
   end
 
   def related_posts
-    maximum_id = Post.published.maximum(:id)
-
-    Post.published.where(category: category).order("(id - #{id} + #{maximum_id} - 1) % #{maximum_id}").limit(9) # XXX 同じカテゴリの中から適当に返している
+    searcher = PostSearcher.new
+    ids = searcher.related_post_ids(self)
+    Post.published.where(id: ids)
   end
 
   def next_post
