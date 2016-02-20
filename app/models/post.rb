@@ -13,6 +13,16 @@ class Post < ActiveRecord::Base
 
   before_save :assign_public_id
 
+  after_save do |post|
+    indexer = PostIndexer.new
+    indexer.add(post)
+  end
+
+  after_destroy do |post|
+    indexer = PostIndexer.new
+    indexer.remove(post)
+  end
+
   scope :published, -> { where('published_at <= ?', Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
 
