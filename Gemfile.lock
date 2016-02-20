@@ -47,6 +47,8 @@ GEM
     airbrake (5.0.5)
       airbrake-ruby (~> 1.0)
     airbrake-ruby (1.0.4)
+    archive-zip (0.8.0)
+      io-like (~> 0.3.0)
     arel (6.0.3)
     autoprefixer-rails (6.3.3.1)
       execjs
@@ -212,8 +214,14 @@ GEM
     git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    gqtp (1.0.6)
     gretel (3.0.8)
       rails (>= 3.2.0)
+    groonga-client (0.1.9)
+      gqtp (>= 1.0.4)
+      groonga-command (>= 1.0.8)
+    groonga-command (1.1.6)
+      json
     haml (4.0.7)
       tilt
     haml-rails (0.9.0)
@@ -229,6 +237,7 @@ GEM
       ruby_parser (~> 3.5)
     i18n (0.7.0)
     inflecto (0.0.2)
+    io-like (0.3.0)
     ipaddress (0.8.3)
     jquery-rails (4.1.0)
       rails-dom-testing (~> 1.0)
@@ -261,6 +270,7 @@ GEM
     orm_adapter (0.5.0)
     pandoc-ruby (1.0.0)
     pg (0.18.4)
+    pkg-config (1.1.7)
     poltergeist (1.9.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -340,6 +350,11 @@ GEM
     reverse_markdown (1.0.1)
       nokogiri
     rr (1.1.2)
+    rroonga (5.1.1)
+      archive-zip
+      groonga-client (>= 0.0.3)
+      json
+      pkg-config
     ruby_parser (3.8.1)
       sexp_processor (~> 4.1)
     sass (3.4.21)
@@ -454,6 +469,7 @@ DEPENDENCIES
   rambulance
   redcarpet
   reverse_markdown
+  rroonga
   sass-rails
   seedbank
   sitemap_generator

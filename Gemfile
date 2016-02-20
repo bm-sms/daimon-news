@@ -42,6 +42,8 @@ end
 
 gem 'mysql2', require: false
 
+gem 'rroonga'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'factory_girl'
