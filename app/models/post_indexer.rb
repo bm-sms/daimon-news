@@ -8,9 +8,15 @@ class PostIndexer
 
   def add(post)
     site = @sites.add(post.site_id)
-    category = @categories.add(post.category_id)
+    if post.category_id
+      category = @categories.add(post.category_id,
+                                 name: post.category.name)
+    else
+      category = nil
+    end
     if post.author_id
-      author = @authors.add(post.author_id)
+      author = @authors.add(post.author_id,
+                            name: post.author.name)
     else
       author = nil
     end
