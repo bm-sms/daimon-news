@@ -25,14 +25,6 @@ class PostSearcher
   end
 
   def search(query, page: nil, size: nil)
-    result_set = PostSearchResultSet.new
-    unless query.present?
-      result_set.posts = EmptyPosts.new
-      result_set.authors = group(@posts, 'author')
-      result_set.categories = group(@posts, 'category')
-      return result_set
-    end
-
     posts = @posts.select do |record|
       conditions = []
       conditions << (record.published_at > 0)
@@ -51,8 +43,13 @@ class PostSearcher
       conditions
     end
 
+    result_set = PostSearchResultSet.new
     result_set.authors = group(posts, 'author')
     result_set.categories = group(posts, 'category')
+    unless query.present?
+      result_set.posts = EmptyPosts.new
+      return result_set
+    end
 
     page = (page || 1).to_i
     size = (size || 100).to_i
