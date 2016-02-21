@@ -26,6 +26,7 @@ class PostSearcher
   def search(query, page: nil, size: nil)
     posts = @posts.select do |record|
       conditions = []
+      conditions << (record.site._key == query.site_id)
       full_text_search = record.match(query.keywords) do |target|
         (target.index('Terms.Posts_title') * 10) |
           target.index('Terms.Posts_content')
