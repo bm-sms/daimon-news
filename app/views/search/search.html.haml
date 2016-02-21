@@ -1,10 +1,17 @@
 = render 'form', locals: {query: @query}
 
+- if @query.author_id.present?
+  著者：
+  = Author.find(@query.author_id).name
+  = link_to content_tag(:span, '', class: 'fa fa-remove'), @query.params(remove: [:author_id])
+
 %ol
   - @posts.each do |post|
     %li
       = link_to post.title, post_url(post.public_id)
       %span.score= "(#{post.score})"
+      - if post.author
+        .author= link_to post.author.name, @query.params(add: {author_id: post.author.id})
 
 - if @posts.total_pages > 1
   %nav.pagination
