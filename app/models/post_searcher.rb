@@ -24,6 +24,8 @@ class PostSearcher
   end
 
   def search(query, page: nil, size: nil)
+    return EmptyPosts.new if query.keywords.blank?
+
     posts = @posts.select do |record|
       conditions = []
       conditions << (record.site._key == query.site_id)
@@ -71,6 +73,15 @@ class PostSearcher
 
     def total_count
       n_records
+    end
+  end
+
+  class EmptyPosts
+    def each
+    end
+
+    def total_pages
+      0
     end
   end
 end
