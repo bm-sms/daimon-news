@@ -1,0 +1,12 @@
+= render 'form', locals: {query: @query}
+
+%ol
+  - @posts.each do |post|
+    %li
+      = link_to post.title, post_url(post.public_id)
+      %span.score= "(#{post.score})"
+
+- if @posts.total_pages > 1
+  %nav.pagination
+    = paginate @posts
+    %p.pagination__entries= page_entries_info @posts

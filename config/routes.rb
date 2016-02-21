@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   end
 
   concern :site do
+    get 'search', controller: 'search'
+
     resources :posts, only: %i(show), constraints: {id: /\d+/}, path: '/'
     resources :categories, only: %i(show), path: 'category'
 

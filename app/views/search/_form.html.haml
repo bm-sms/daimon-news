@@ -1,0 +1,3 @@
+= form_for @query, url: search_path, method: 'get' do |f|
+  = f.search_field :keywords
+  = f.submit 'search'
