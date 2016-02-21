@@ -18,7 +18,7 @@ class PostSearcher
         (record.site._key == post.site_id) &
         (record._key != post.id)
     end
-    related_posts.sort([["_score", :desc]], limit: limit).map do |related_post|
+    related_posts.sort([['_score', :desc]], limit: limit).map do |related_post|
       related_post._key
     end
   end
@@ -55,7 +55,7 @@ class PostSearcher
     size = (size || 100).to_i
     retried = false
     begin
-      sorted_posts = posts.paginate([["_score", :desc]],
+      sorted_posts = posts.paginate([['_score', :desc]],
                                     page: (page || 1).to_i,
                                     size: (size || 100).to_i)
     rescue Groonga::TooSmallPage, Groonga::TooLargePage
@@ -71,7 +71,7 @@ class PostSearcher
   end
 
   def group(posts, key)
-    posts.group(key).sort([["_nsubrecs", :desc]], limit: 5)
+    posts.group(key).sort([['_nsubrecs', :desc]], limit: 5)
   end
 
   module Kaminalize
