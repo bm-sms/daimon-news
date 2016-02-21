@@ -28,6 +28,7 @@ Groonga::Schema.define do |schema|
     table.reference 'site', 'Sites'
     table.reference 'category', 'Categories'
     table.reference 'participants', 'Participants', type: :vector
+    table.uint32 'public_id'
   end
 end
 

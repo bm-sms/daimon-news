@@ -20,7 +20,8 @@ class PostIndexer
                published_at: post.published_at,
                site: site,
                category: category,
-               author: author)
+               author: author,
+               public_id: post.public_id)
   end
 
   def remove(post)
