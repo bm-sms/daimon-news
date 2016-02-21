@@ -3,6 +3,6 @@ class SearchController < ApplicationController
     @query = Query.new(params[:query])
     @query.site_id = current_site.id
     searcher = PostSearcher.new
-    @posts = searcher.search(@query, page: params[:page])
+    @result_set = searcher.search(@query, page: params[:page])
   end
 end

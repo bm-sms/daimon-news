@@ -1,19 +1,25 @@
 = render 'form', locals: {query: @query}
 
-- if @query.author_id.present?
+%div
   著者：
-  = Author.find(@query.author_id).name
-  = link_to content_tag(:span, '', class: 'fa fa-remove'), @query.params(remove: [:author_id])
+  - if @query.author_id.present?
+    = Author.find(@query.author_id).name
+    = link_to content_tag(:span, '', class: 'fa fa-remove'), @query.params(remove: [:author_id])
+  - else
+    - @result_set.authors.each do |author|
+      %span
+        = link_to author.name, @query.params(add: {author_id: author._key})
+        = "(#{author.n_sub_records})"
 
 %ol
-  - @posts.each do |post|
+  - @result_set.posts.each do |post|
     %li
       = link_to post.title, post_url(post.public_id)
       %span.score= "(#{post.score})"
       - if post.author
         .author= link_to post.author.name, @query.params(add: {author_id: post.author.id})
 
-- if @posts.total_pages > 1
+- if @result_set.posts.total_pages > 1
   %nav.pagination
-    = paginate @posts
-    %p.pagination__entries= page_entries_info @posts
+    = paginate @result_set.posts
+    %p.pagination__entries= page_entries_info @result_set.posts

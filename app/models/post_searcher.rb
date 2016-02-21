@@ -24,7 +24,13 @@ class PostSearcher
   end
 
   def search(query, page: nil, size: nil)
-    return EmptyPosts.new if query.keywords.blank?
+    result_set = PostSearchResultSet.new
+    unless query.present?
+      result_set.posts = EmptyPosts.new
+      result_set.authors = group(@posts, 'author')
+      result_set.categories = group(@posts, 'category')
+      return result_set
+    end
 
     posts = @posts.select do |record|
       conditions = []
@@ -32,13 +38,18 @@ class PostSearcher
       if query.author_id.present?
         conditions << (record.author._key == query.author_id)
       end
-      full_text_search = record.match(query.keywords) do |target|
-        (target.index('Terms.Posts_title') * 10) |
-          target.index('Terms.Posts_content')
+      if query.keywords.present?
+        full_text_search = record.match(query.keywords) do |target|
+          (target.index('Terms.Posts_title') * 10) |
+            target.index('Terms.Posts_content')
+        end
+        conditions << full_text_search
       end
-      conditions << full_text_search
       conditions
     end
+
+    result_set.authors = group(posts, 'author')
+    result_set.categories = group(posts, 'category')
 
     page = (page || 1).to_i
     size = (size || 100).to_i
@@ -54,7 +65,13 @@ class PostSearcher
       retry
     end
     sorted_posts.extend(Kaminalize)
-    sorted_posts
+    result_set.posts = sorted_posts
+
+    result_set
+  end
+
+  def group(posts, key)
+    posts.group(key).sort([["_nsubrecs", :desc]], limit: 5)
   end
 
   module Kaminalize

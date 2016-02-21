@@ -4,6 +4,11 @@ class Query
   attr_accessor :site_id
   attr_accessor :author_id
 
+  def present?
+    keywords.present? ||
+      author_id.present?
+  end
+
   def params(add: {}, remove: [])
     names = [
       :keywords,
