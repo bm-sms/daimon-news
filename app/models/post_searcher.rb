@@ -14,6 +14,7 @@ class PostSearcher
         conditions |= (record.category._key == post.category.id)
       end
       conditions &
+        (record.published_at > 0) &
         (record.published_at <= Time.now) &
         (record.site._key == post.site_id) &
         (record._key != post.id)
@@ -34,6 +35,8 @@ class PostSearcher
 
     posts = @posts.select do |record|
       conditions = []
+      conditions << (record.published_at > 0)
+      conditions << (record.published_at <= Time.now)
       conditions << (record.site._key == query.site_id)
       if query.author_id.present?
         conditions << (record.author._key == query.author_id)
