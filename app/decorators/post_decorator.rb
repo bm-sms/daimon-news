@@ -1,6 +1,10 @@
 module PostDecorator
+  def short_text_body
+    truncate(plain_text_body, length: 140)
+  end
+
   def to_meta_description
-    plain_text_body.first(140)
+    short_text_body
   end
 
   def to_og_params
