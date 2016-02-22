@@ -1,10 +1,10 @@
 class Admin::SiteEditorsController < Admin::ApplicationController
   def edit
-    @site = Site.find(params[:site_id])
+    @site = current_site
   end
 
   def update
-    @site = Site.find(params[:site_id])
+    @site = current_site
 
     @site.update!(editors_params)
 
@@ -17,5 +17,9 @@ class Admin::SiteEditorsController < Admin::ApplicationController
     params.require(:site).permit(
       :editor_ids => []
     )
+  end
+
+  def current_site
+    @current_site ||= Site.find(params[:site_id])
   end
 end
