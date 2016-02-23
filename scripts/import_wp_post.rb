@@ -18,6 +18,7 @@ open(path_or_uri, "r") do |file|
       row[key] = value
     end
     next if row["post_content"].blank?
+    next unless /\Apublish|future\z/ =~ row["post_status"]
     rows << row
   end
 end
