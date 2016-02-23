@@ -73,8 +73,8 @@
 %p
   %b Editors:
   = link_to edit_admin_site_editors_url(@site), class: 'btn btn-xs btn-default' do
-    %i.glyphicon.glyphicon-plus
-    Add new editor
+    %i.glyphicon.glyphicon-pencil
+    Edit editor
 
   %ul.editors
     - @site.editors.each do |editor|

@@ -13,7 +13,7 @@ class AssignEditorToSiteTest < ActionDispatch::IntegrationTest
   test 'Assign' do
     visit "/admin/sites/#{@site.id}"
 
-    click_on 'Add new editor'
+    click_on 'Edit editor'
 
     check @user_to_be_editor.email
 
