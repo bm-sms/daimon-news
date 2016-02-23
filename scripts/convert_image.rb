@@ -47,7 +47,7 @@ class LitePost < ActiveRecord::Base
   end
 
   def preprocess(&block)
-    super(original_source, &block)
+    super(original_source.gsub(/\r?(?:\n|\\n)/, "\n"), &block)
   end
 end
 
@@ -68,7 +68,7 @@ posts.all.each do |post|
   site.transaction do
     replaced_html = post.preprocess do |url|
       begin
-        image = site.images.create!(remote_image_url: url.gsub(/\r?(?:\n|\\n)/, "").squish)
+        image = site.images.create!(remote_image_url: url.squish)
         image.image_url
       rescue
         puts <<~MESSAGE
