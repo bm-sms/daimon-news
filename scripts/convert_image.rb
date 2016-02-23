@@ -68,7 +68,7 @@ posts.all.each do |post|
   site.transaction do
     replaced_html = post.preprocess do |url|
       begin
-        image = site.images.create!(remote_image_url: url.strip)
+        image = site.images.create!(remote_image_url: url.squish)
         image.image_url
       rescue
         puts $!.message
