@@ -68,11 +68,13 @@ posts.all.each do |post|
   site.transaction do
     replaced_html = post.preprocess do |url|
       begin
-        image = site.images.create!(remote_image_url: url.squish)
+        image = site.images.create!(remote_image_url: url.gsub(/\r?(?:\n|\\n)/, "").squish)
         image.image_url
       rescue
-        puts $!.message
-        puts "Failed to upload <#{url}>"
+        puts <<~MESSAGE
+        #{$!.message}
+        Failed to upload <#{url}>
+        MESSAGE
         ""
       end
     end
