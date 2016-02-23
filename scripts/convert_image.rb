@@ -67,8 +67,14 @@ posts.all.each do |post|
   puts post.public_id
   site.transaction do
     replaced_html = post.preprocess do |url|
-      image = site.images.create!(remote_image_url: url)
-      image.image_url
+      begin
+        image = site.images.create!(remote_image_url: url.strip)
+        image.image_url
+      rescue
+        puts $!.message
+        puts "Failed to upload <#{url}>"
+        ""
+      end
     end
     post.replaced_html = replaced_html
     post.save!
