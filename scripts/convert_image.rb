@@ -25,7 +25,7 @@ rescue OptionParser::ParseError => ex
 end
 
 
-fqdn = ARGV[0]
+fqdn = argv[0]
 
 Post.class_eval do
   include WpHTMLUtil
