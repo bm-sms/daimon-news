@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'welcome#index'
 
-    resources :sites, except: :destroy
+    resources :sites, except: :destroy do
+      resource :editors, only: %i(edit update), controller: :site_editors
+    end
     resources :users, except: :show
   end
 
