@@ -57,7 +57,7 @@ site = Site.find_by!(fqdn: fqdn)
 
 site.transaction do
   puts "Target: #{site.lite_posts.count}"
-  site.lite_posts.all.each do |post|
+  site.lite_posts.where.not(replaced_html: nil).all.each do |post|
     post.body = post.markdown_body
     post.save!
   end
