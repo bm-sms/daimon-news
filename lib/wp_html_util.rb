@@ -1,4 +1,5 @@
 require "daimon/render/html"
+require "pandoc-ruby"
 
 module WpHTMLUtil
   def normalize_html(html)
