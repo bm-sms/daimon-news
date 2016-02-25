@@ -1,0 +1,13 @@
+%p
+  %b Name:
+  = @participant.name
+%p
+  %b Description:
+  = @participant.description
+%p
+  %b Photo:
+  = image_tag @participant.photo_url if @participant.photo.present?
+
+= link_to 'Edit', edit_editor_participant_url(@participant)
+\|
+= link_to 'Back', editor_participants_url

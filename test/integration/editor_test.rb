@@ -42,6 +42,39 @@ class EditorTest < ActionDispatch::IntegrationTest
     assert_not page.has_css?('td', text: 'Ruby lang')
   end
 
+  test 'Participant' do
+    click_on '関係者情報'
+    click_on 'New Participant'
+
+    fill_in 'Name', with: 'Ruby'
+    fill_in 'Description', with: "Ruby is a programing language."
+
+    click_on '登録する'
+
+    assert page.has_css?('p', text: 'Name: Ruby')
+
+    click_on 'Back'
+
+    within :row, 'Ruby' do
+      click_on 'Edit'
+    end
+
+    fill_in 'Name', with: 'Ruby lang'
+
+    click_on '更新する'
+
+    assert page.has_css?('p', text: 'Name: Ruby lang')
+
+    click_on 'Back'
+
+    within :row, 'Ruby lang' do
+      click_on 'Destroy'
+    end
+
+    assert_equal('/editor/participants', page.current_path)
+    assert_not page.has_css?('td', text: 'Ruby lang')
+  end
+
   test 'Author' do
     click_on '著者情報'
     click_on 'New Author'
