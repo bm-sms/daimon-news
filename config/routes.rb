@@ -24,7 +24,6 @@ Rails.application.routes.draw do
       end
     end
     resources :images, only: :create
-    resources :authors
     resources :participants
   end
 
