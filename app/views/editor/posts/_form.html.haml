@@ -1,6 +1,14 @@
 = bootstrap_form_for [:editor, @post], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :title
   = f.text_area :body, data: {upload_path: editor_images_url}
+  - if current_site.credit_enabled?
+    = f.form_group label: {text: :credits} do
+      = f.fields_for :credits do |ff|
+        = render 'credit_fields', f: ff
+
+      .links
+        = link_to_add_association 'Add credit', f, :credits, class: 'btn btn-default pull-right'
+
   = f.collection_select :category_id, current_site.categories, :id, :name
   = f.file_field :thumbnail
   - if @post.thumbnail.present?

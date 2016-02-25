@@ -13,6 +13,8 @@ class Post < ActiveRecord::Base
   scope :published, -> { where('published_at <= ?', Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
 
+  accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
+
   paginates_per 20
 
   mount_uploader :thumbnail, ImageUploader

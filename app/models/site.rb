@@ -16,4 +16,8 @@ class Site < ActiveRecord::Base
   mount_uploader :logo_image, ImageUploader
   mount_uploader :favicon_image, ImageUploader
   mount_uploader :mobile_favicon_image, ImageUploader
+
+  def credit_enabled?
+    participants.exists? && credit_roles.exists?
+  end
 end

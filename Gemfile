@@ -12,6 +12,7 @@ gem 'bootstrap_form'
 gem 'bourbon'
 gem 'capybara', require: false
 gem 'carrierwave'
+gem 'cocoon'
 gem 'devise', '>= 3.5.4'
 gem 'fog'
 gem 'font-awesome-sass'

@@ -79,6 +79,7 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
     cliver (0.3.2)
+    cocoon (1.2.7)
     coderay (1.1.1)
     concurrent-ruby (1.0.0)
     database_cleaner (1.5.1)
@@ -423,6 +424,7 @@ DEPENDENCIES
   bourbon
   capybara
   carrierwave
+  cocoon
   database_cleaner
   devise (>= 3.5.4)
   factory_girl

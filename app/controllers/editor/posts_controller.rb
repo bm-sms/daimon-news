@@ -68,7 +68,13 @@ class Editor::PostsController < Editor::ApplicationController
       :body,
       :category_id,
       :thumbnail,
-      :published_at
+      :published_at,
+      :credits_attributes => [
+        :id,
+        :participant_id,
+        :credit_role_id,
+        :_destroy
+      ]
     )
   end
 end
