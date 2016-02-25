@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  has_many :credits, dependent: :destroy
+
   belongs_to :site
   belongs_to :category
   belongs_to :author

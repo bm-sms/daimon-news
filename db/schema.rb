@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225025743) do
+ActiveRecord::Schema.define(version: 20160225030107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,18 @@ ActiveRecord::Schema.define(version: 20160225025743) do
 
   add_index "credit_roles", ["site_id", "order"], name: "index_credit_roles_on_site_id_and_order", unique: true, using: :btree
   add_index "credit_roles", ["site_id"], name: "index_credit_roles_on_site_id", using: :btree
+
+  create_table "credits", force: :cascade do |t|
+    t.integer  "post_id",        null: false
+    t.integer  "participant_id", null: false
+    t.integer  "credit_role_id", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "credits", ["credit_role_id"], name: "index_credits_on_credit_role_id", using: :btree
+  add_index "credits", ["participant_id"], name: "index_credits_on_participant_id", using: :btree
+  add_index "credits", ["post_id"], name: "index_credits_on_post_id", using: :btree
 
   create_table "fixed_pages", force: :cascade do |t|
     t.integer  "site_id",    null: false
@@ -177,6 +189,9 @@ ActiveRecord::Schema.define(version: 20160225025743) do
 
   add_foreign_key "authors", "sites"
   add_foreign_key "credit_roles", "sites"
+  add_foreign_key "credits", "credit_roles"
+  add_foreign_key "credits", "participants"
+  add_foreign_key "credits", "posts"
   add_foreign_key "fixed_pages", "sites"
   add_foreign_key "images", "sites"
   add_foreign_key "links", "sites"
