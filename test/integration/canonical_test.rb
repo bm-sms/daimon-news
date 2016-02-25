@@ -2,9 +2,11 @@ require 'test_helper'
 
 class CanonicalTest < ActionDispatch::IntegrationTest
   setup do
-    @post = create(:post,
-      title:        'Hi',
-      body:         <<~EOS,
+    @post = create(
+      :post,
+      :whatever,
+      title: 'Hi',
+      body: <<~EOS,
         # Hi
         this is daimon
       EOS

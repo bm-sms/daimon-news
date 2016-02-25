@@ -1,9 +1,9 @@
 class Post < ActiveRecord::Base
   has_many :credits, dependent: :destroy
+  has_many :participants, through: :credits
 
   belongs_to :site
   belongs_to :category
-  belongs_to :author
 
   validates :body, presence: true
   validates :thumbnail, presence: true

@@ -4,32 +4,36 @@ FactoryGirl.define do
     body "body"
     thumbnail { open(Rails.root.join('test/fixtures/images/thumbnail.jpg')) }
     published_at "2016-01-01 00:00:00"
-    site
     category { create(:category, site: site) }
-  end
 
-  factory :post_with_pages, parent: :post do
-    title "title"
-    body <<~BODY
-      # title
+    trait :whatever do
+      site
+    end
 
-      body
+    trait :with_pages do
+      body <<~BODY
+        # title
 
-      <!--nextpage-->
+        body
 
-      ## title 2
+        <!--nextpage-->
 
-      hello
+        ## title 2
 
-      <!--nextpage-->
+        hello
 
-      ## title 3
+        <!--nextpage-->
 
-      world
-    BODY
-  end
+        ## title 3
 
-  factory :post_with_author, parent: :post do
-    author
+        world
+      BODY
+    end
+
+    trait :with_credit do
+      after :create do |post, evaluator|
+        post.credits << build(:credit, :whatever, site: post.site)
+      end
+    end
   end
 end

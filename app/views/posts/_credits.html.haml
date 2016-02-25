@@ -1,7 +1,7 @@
 %section.credits
   - credits.each do |credit|
     - if credit.participant.photo.present?
-      .author__photo= image_tag credit.participant.photo_url, height: 80
+      .participant__photo= image_tag credit.participant.photo_url, height: 80
     .content
       %h2
         %strong= credit.role.name
