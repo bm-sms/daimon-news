@@ -11,20 +11,20 @@
     %time.post__data-item.post__data-item--published-at
       = l @post.published_at.to_date if @post.published_at?
   .post__body
-    - if @post.author.present? && @pages.current_page == 1
-      = render partial: 'posts/author', locals: {author: @post.author}
+    - if @post.credits.present? && @pages.current_page == 1
+      = render 'posts/credits', credits: @post.credits
     = raw render_markdown(@pages.map(&:body).join)
 
   - if @pages.respond_to?(:total_pages) && @pages.total_pages > 1
     %nav.pagination
       = paginate @pages, theme: :post
 
-  = render partial: 'application/banner', locals: {position: :press_article_bottom}
+  = render 'application/banner', position: :press_article_bottom
 
   %aside
-    = render partial: 'application/sns_share', locals: {title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
+    = render 'application/sns_share', title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
 
-    = render partial: 'posts/short_collection', locals: {posts: @post.related_posts}
+    = render 'posts/short_collection', posts: @post.related_posts
 
     %ul
       - if @post.next_post.present?
