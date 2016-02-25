@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218001000) do
+ActiveRecord::Schema.define(version: 20160225024906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,18 @@ ActiveRecord::Schema.define(version: 20160218001000) do
   end
 
   add_index "memberships", ["site_id", "user_id"], name: "index_memberships_on_site_id_and_user_id", unique: true, using: :btree
+
+  create_table "participants", force: :cascade do |t|
+    t.integer  "site_id",     null: false
+    t.string   "name",        null: false
+    t.text     "description"
+    t.string   "photo"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "participants", ["name"], name: "index_participants_on_name", using: :btree
+  add_index "participants", ["site_id"], name: "index_participants_on_site_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -158,5 +170,6 @@ ActiveRecord::Schema.define(version: 20160218001000) do
   add_foreign_key "links", "sites"
   add_foreign_key "memberships", "sites"
   add_foreign_key "memberships", "users"
+  add_foreign_key "participants", "sites"
   add_foreign_key "posts", "sites"
 end
