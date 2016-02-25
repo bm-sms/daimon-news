@@ -18,3 +18,18 @@
 
   = f.form_group do
     = f.submit
+
+:javascript
+  $(function() {
+    function applySelect2($element) {
+      $element.select2({
+        placeholder: '選択してください'
+      });
+    }
+
+    applySelect2($('select'));
+
+    $(document).on('cocoon:after-insert', function(e, inserted) {
+      applySelect2($(inserted[0]).find('select'));
+    })
+  });
