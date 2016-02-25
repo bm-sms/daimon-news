@@ -48,14 +48,15 @@ end
 class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
   setup do
     @site = create(:site)
-    @post = create(:post, site: @site)
+    @post = create(:post, :whatever, site: @site)
+
+    switch_domain(@post.site.fqdn)
   end
 
   sub_test_case 'w/o photo' do
     setup do
       participant = create(:participant, site: @site)
       @post.credits << build(:credit, :whatever, site: @site, participant: participant)
-      switch_domain(@post.site.fqdn)
     end
 
     test 'body should have .credits' do
@@ -71,7 +72,6 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
     setup do
       participant = create(:participant, :with_photo, site: @site)
       @post.credits << build(:credit, :whatever, site: @site, participant: participant)
-      switch_domain(@post.site.fqdn)
     end
 
     test 'body should have .participant__photo' do

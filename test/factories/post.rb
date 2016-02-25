@@ -1,13 +1,13 @@
 FactoryGirl.define do
   factory :post do
-    title "title"
-    body "body"
-    thumbnail { open(Rails.root.join('test/fixtures/images/thumbnail.jpg')) }
-    published_at "2016-01-01 00:00:00"
-    category { create(:category, site: site) }
+    title 'title'
+    body 'body'
+    thumbnail { Rails.root.join('test/fixtures/images/thumbnail.jpg').open }
+    published_at { DateTime.parse('2016-01-01') }
 
     trait :whatever do
       site
+      category { create(:category, site: site) }
     end
 
     trait :with_pages do
