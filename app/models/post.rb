@@ -8,6 +8,16 @@ class Post < ActiveRecord::Base
 
   before_save :assign_public_id
 
+  after_save do |post|
+    indexer = PostIndexer.new
+    indexer.add(post)
+  end
+
+  after_destroy do |post|
+    indexer = PostIndexer.new
+    indexer.remove(post)
+  end
+
   scope :published, -> { where('published_at <= ?', Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
 
@@ -20,9 +30,9 @@ class Post < ActiveRecord::Base
   end
 
   def related_posts
-    maximum_id = Post.published.maximum(:id)
-
-    Post.published.where(category: category).order("(id - #{id} + #{maximum_id} - 1) % #{maximum_id}").limit(9) # XXX 同じカテゴリの中から適当に返している
+    searcher = PostSearcher.new
+    ids = searcher.related_post_ids(self)
+    Post.published.where(id: ids)
   end
 
   def next_post
