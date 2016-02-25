@@ -1,6 +1,9 @@
 class Post < ActiveRecord::Base
-  has_many :credits, dependent: :destroy
-  has_many :participants, through: :credits
+  has_many :credits, dependent: :destroy do
+    def with_ordered
+      eager_load(:role).order('credit_roles.order')
+    end
+  end
 
   belongs_to :site
   belongs_to :category
