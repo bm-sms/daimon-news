@@ -3,13 +3,13 @@
   border-width: 0.1rem
   border-radius: $input-border-radius
   border-color: gray
-  padding: 0.2rem 0.2rem 0.2rem 0.2rem
-  +flex-container(vertical)
 
-  &__photo
-    +flex(0 0 rem(80))
-    height: rem(80)
-    margin-right: 1rem
+  .credit
+    padding: 0.2rem 0.2rem 0.2rem 0.2rem
+    +flex-container(horizontal)
+
+  .participant__photo
+    max-width: rem(80)
 
   h2
     font-size: normal
