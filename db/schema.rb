@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225024906) do
+ActiveRecord::Schema.define(version: 20160225025743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20160225024906) do
   end
 
   add_index "categories", ["slug", "site_id"], name: "index_categories_on_slug_and_site_id", unique: true, using: :btree
+
+  create_table "credit_roles", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "order",      null: false
+    t.integer  "site_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "credit_roles", ["site_id", "order"], name: "index_credit_roles_on_site_id_and_order", unique: true, using: :btree
+  add_index "credit_roles", ["site_id"], name: "index_credit_roles_on_site_id", using: :btree
 
   create_table "fixed_pages", force: :cascade do |t|
     t.integer  "site_id",    null: false
@@ -165,6 +176,7 @@ ActiveRecord::Schema.define(version: 20160225024906) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "authors", "sites"
+  add_foreign_key "credit_roles", "sites"
   add_foreign_key "fixed_pages", "sites"
   add_foreign_key "images", "sites"
   add_foreign_key "links", "sites"
