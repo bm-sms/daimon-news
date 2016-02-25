@@ -8,10 +8,6 @@
   %b Category:
   = @post.category&.name
 %p
-  %b Author:
-  = @post.author&.name
-  = @post.author&.description
-%p
   %b Thumbnail url:
   = image_tag @post.thumbnail_url, height: 80 if @post.thumbnail.present?
 
