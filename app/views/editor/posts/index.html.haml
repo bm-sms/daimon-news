@@ -7,6 +7,7 @@
     %tr
       %th Title
       %th Category
+      %th Author
       %th Thumbnail
       %th
       %th
@@ -17,6 +18,7 @@
       %tr
         %td= post.title
         %td= post.category&.name
+        %td= post.author&.name
         %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
         %td= link_to 'Show', editor_post_url(post)
         %td= link_to 'Preview', preview_editor_post_url(post), target: '_blank'

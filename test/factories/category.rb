@@ -5,5 +5,6 @@ FactoryGirl.define do
     description { "#{name} description\n" }
 
     sequence(:order)
+    site
   end
 end

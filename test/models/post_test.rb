@@ -4,7 +4,9 @@ class PostTest < ActiveSupport::TestCase
   setup do
     @default_locale = I18n.locale
     I18n.locale = :ja
-    @site = create(:site)
+    @site = Site.create!(name: "name",
+                         js_url: "http://example.com/application.js",
+                         css_url: "http://example.com/application.css")
   end
 
   teardown do
@@ -14,8 +16,8 @@ class PostTest < ActiveSupport::TestCase
   sub_test_case 'order' do
     data({
       null: nil,
-      blank: '',
-      alphabet: 'a',
+      blank: "",
+      alphabet: "a",
     })
     def test_only_integer(data)
       category = @site.categories.create(
@@ -25,51 +27,25 @@ class PostTest < ActiveSupport::TestCase
         order:       data
       )
       assert_false(category.valid?)
-      assert_equal(['は数値で入力してください'], category.errors[:order])
+      assert_equal(["は数値で入力してください"], category.errors[:order])
     end
   end
 
-  sub_test_case 'relation' do
+  sub_test_case "relation" do
     setup do
-      role = create(:credit_role, site: @site)
-      @participant = create(:participant, site: @site)
+      @author = @site.authors.create!(name: "name",
+                                      description: "description")
       @post = create(:post, site: @site)
-      @post.credits.create!(participant: @participant, role: role)
+      @post.author = @author
+      @post.save!
     end
 
     def test_destroy
-      assert_equal(Site.count, 1)
-      assert_equal(Participant.count, 1)
+      assert_equal(Author.count, 1)
       assert_equal(Post.count, 1)
-      assert_equal(Credit.count, 1)
-      @participant.destroy
-      assert_equal(Site.count, 1)
-      assert_equal(Participant.count, 0)
+      @author.destroy
+      assert_equal(Author.count, 0)
       assert_equal(Post.count, 1)
-      assert_equal(Credit.count, 0)
-    end
-  end
-
-  sub_test_case 'credits order' do
-    setup do
-      @post = create(:post, site: @site)
-
-      (1..3).to_a.reverse.each do |i|
-        role = create(:credit_role, name: "Role: #{i}", site: @site, order: i)
-        participant = create(:participant, name: "Participant: #{i}", site: @site)
-
-        @post.credits.create!(participant: participant, role: role)
-      end
-
-      @credits = @post.credits.with_ordered
-    end
-
-    def test_roles_should_ordered_by_role_order
-      assert_equal @credits.map(&:role).map(&:name), ['Role: 1', 'Role: 2', 'Role: 3']
-    end
-
-    def test_participants_should_ordered_by_role_order
-      assert_equal @credits.map(&:participant).map(&:name), ['Participant: 1', 'Participant: 2', 'Participant: 3']
     end
   end
 end
