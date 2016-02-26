@@ -11,21 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218001000) do
+ActiveRecord::Schema.define(version: 20160225030107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "authors", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.string   "photo"
-    t.integer  "site_id",     null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.text     "description"
-  end
-
-  add_index "authors", ["site_id"], name: "index_authors_on_site_id", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -38,6 +27,29 @@ ActiveRecord::Schema.define(version: 20160218001000) do
   end
 
   add_index "categories", ["slug", "site_id"], name: "index_categories_on_slug_and_site_id", unique: true, using: :btree
+
+  create_table "credit_roles", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "order",      null: false
+    t.integer  "site_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "credit_roles", ["site_id", "order"], name: "index_credit_roles_on_site_id_and_order", unique: true, using: :btree
+  add_index "credit_roles", ["site_id"], name: "index_credit_roles_on_site_id", using: :btree
+
+  create_table "credits", force: :cascade do |t|
+    t.integer  "post_id",        null: false
+    t.integer  "participant_id", null: false
+    t.integer  "credit_role_id", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "credits", ["credit_role_id"], name: "index_credits_on_credit_role_id", using: :btree
+  add_index "credits", ["participant_id"], name: "index_credits_on_participant_id", using: :btree
+  add_index "credits", ["post_id"], name: "index_credits_on_post_id", using: :btree
 
   create_table "fixed_pages", force: :cascade do |t|
     t.integer  "site_id",    null: false
@@ -76,6 +88,18 @@ ActiveRecord::Schema.define(version: 20160218001000) do
   end
 
   add_index "memberships", ["site_id", "user_id"], name: "index_memberships_on_site_id_and_user_id", unique: true, using: :btree
+
+  create_table "participants", force: :cascade do |t|
+    t.integer  "site_id",     null: false
+    t.string   "name",        null: false
+    t.text     "description"
+    t.string   "photo"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "participants", ["name"], name: "index_participants_on_name", using: :btree
+  add_index "participants", ["site_id"], name: "index_participants_on_site_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -152,11 +176,15 @@ ActiveRecord::Schema.define(version: 20160218001000) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "authors", "sites"
+  add_foreign_key "credit_roles", "sites"
+  add_foreign_key "credits", "credit_roles"
+  add_foreign_key "credits", "participants"
+  add_foreign_key "credits", "posts"
   add_foreign_key "fixed_pages", "sites"
   add_foreign_key "images", "sites"
   add_foreign_key "links", "sites"
   add_foreign_key "memberships", "sites"
   add_foreign_key "memberships", "users"
+  add_foreign_key "participants", "sites"
   add_foreign_key "posts", "sites"
 end
