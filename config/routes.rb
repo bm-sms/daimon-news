@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       end
     end
     resources :images, only: :create
-    resources :participants
+    resources :authors
   end
 
   concern :site do

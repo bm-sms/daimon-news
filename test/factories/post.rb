@@ -1,39 +1,35 @@
 FactoryGirl.define do
   factory :post do
-    title 'title'
-    body 'body'
-    thumbnail { Rails.root.join('test/fixtures/images/thumbnail.jpg').open }
-    published_at { DateTime.parse('2016-01-01') }
+    title "title"
+    body "body"
+    thumbnail { open(Rails.root.join('test/fixtures/images/thumbnail.jpg')) }
+    published_at "2016-01-01 00:00:00"
+    site
+    category { create(:category, site: site) }
+  end
 
-    trait :whatever do
-      site
-      category { create(:category, site: site) }
-    end
+  factory :post_with_pages, parent: :post do
+    title "title"
+    body <<~BODY
+      # title
 
-    trait :with_pages do
-      body <<~BODY
-        # title
+      body
 
-        body
+      <!--nextpage-->
 
-        <!--nextpage-->
+      ## title 2
 
-        ## title 2
+      hello
 
-        hello
+      <!--nextpage-->
 
-        <!--nextpage-->
+      ## title 3
 
-        ## title 3
+      world
+    BODY
+  end
 
-        world
-      BODY
-    end
-
-    trait :with_credit do
-      after :create do |post, evaluator|
-        post.credits << build(:credit, :whatever, site: post.site)
-      end
-    end
+  factory :post_with_author, parent: :post do
+    author
   end
 end

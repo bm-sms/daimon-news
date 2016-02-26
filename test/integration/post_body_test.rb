@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PostBodyHeaderTest < ActionDispatch::IntegrationTest
   setup do
-    @post = create(:post, :whatever, body: <<~EOS.encode(crlf_newline: true))
+    @post = create(:post, body: <<~EOS.encode(crlf_newline: true))
       <h1> hi </h1>
       contents
     EOS
@@ -22,7 +22,7 @@ end
 
 class PostBodyNewLineTest < ActionDispatch::IntegrationTest
   setup do
-    @post = create(:post, :whatever, body: <<~EOS.encode(crlf_newline: true))
+    @post = create(:post, body: <<~EOS.encode(crlf_newline: true))
       following line should be breaked:
       hi
     EOS
@@ -46,43 +46,46 @@ class PostBodyNewLineTest < ActionDispatch::IntegrationTest
 end
 
 class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
-  setup do
-    @site = create(:site)
-    @post = create(:post, :whatever, site: @site)
-
-    switch_domain(@post.site.fqdn)
-  end
 
   sub_test_case 'w/o photo' do
     setup do
-      participant = create(:participant, site: @site)
-      @post.credits << build(:credit, :whatever, site: @site, participant: participant)
+      @post = create(:post_with_author)
+      switch_domain(@post.site.fqdn)
     end
 
-    test 'body should have .credits' do
+    test 'body should have .author' do
       visit "/#{@post.public_id}"
 
-      within '.post__body .credits' do
-        assert page.has_css?('strong', text: @post.credits.first.role.name)
+      within '.post__body' do
+        within '.author' do
+          elem = find('p').native
+          assert_equal(1, elem.children.count)
+          assert_equal("#{@post.author.name} description", elem.children.text)
+        end
       end
     end
   end
 
   sub_test_case 'w/ photo' do
     setup do
-      participant = create(:participant, :with_photo, site: @site)
-      @post.credits << build(:credit, :whatever, site: @site, participant: participant)
+      author = create(:author_with_photo, name: 'Awesome author', description: 'Awesome description')
+      @post = create(:post, author: author)
+      switch_domain(@post.site.fqdn)
     end
 
-    test 'body should have .participant__photo' do
+    test 'body should have .author__photo' do
       visit "/#{@post.public_id}"
 
-      within '.post__body .credits' do
-        assert page.has_content?('Awesome description')
+      within '.post__body' do
+        within '.author' do
+          elem = find('p').native
+          assert_equal(1, elem.children.count)
+          assert_equal('Awesome description', elem.children.text)
 
-        within '.participant__photo' do
-          image = find('img').native
-          assert_equal("face.png", File.basename(image["src"]))
+          within '.author__photo' do
+            image = find('img').native
+            assert_equal("face.png", File.basename(image["src"]))
+          end
         end
       end
     end
