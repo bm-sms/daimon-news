@@ -1,7 +1,12 @@
 class Post < ActiveRecord::Base
+  has_many :credits, dependent: :destroy do
+    def with_ordered
+      eager_load(:role).order('credit_roles.order')
+    end
+  end
+
   belongs_to :site
   belongs_to :category
-  belongs_to :author
 
   validates :body, presence: true
   validates :thumbnail, presence: true
@@ -10,6 +15,8 @@ class Post < ActiveRecord::Base
 
   scope :published, -> { where('published_at <= ?', Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
+
+  accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
 
   paginates_per 20
 

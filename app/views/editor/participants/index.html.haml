@@ -1,0 +1,23 @@
+%h1 Listing participants
+
+= link_to 'New Participant', new_editor_participant_url, class: 'btn btn-default'
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th Photo
+      %th
+      %th
+      %th
+
+  %tbody
+    - @participants.each do |participant|
+      %tr
+        %td= participant.name
+        %td= participant.description
+        %td= image_tag participant.photo_url, height: 80 if participant.photo.present?
+        %td= link_to 'Show', [:editor, participant]
+        %td= link_to 'Edit', edit_editor_participant_url(participant)
+        %td= link_to 'Destroy', [:editor, participant], method: :delete, data: { confirm: 'Are you sure?' }

@@ -4,13 +4,17 @@
 %p
   %b Body:
   = @post.body
+- if current_site.credit_enabled?
+  %p
+    %b Partcipants
+    %ul
+      - @post.credits.with_ordered.each do |credit|
+        %li
+          [#{credit.role.name}]
+          = link_to credit.participant.name, [:editor, credit.participant]
 %p
   %b Category:
   = @post.category&.name
-%p
-  %b Author:
-  = @post.author&.name
-  = @post.author&.description
 %p
   %b Thumbnail url:
   = image_tag @post.thumbnail_url, height: 80 if @post.thumbnail.present?
