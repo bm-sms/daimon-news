@@ -1,0 +1,13 @@
+.nested-fields
+  .field.form-inline
+    %span{class: f.send(:has_error?, :credit_role_id) ? 'has-error' : nil }
+      = f.collection_select_without_bootstrap :credit_role_id, current_site.credit_roles, :id, :name, {prompt: '選択してください'}, class: 'form-control'
+      = f.send :generate_help, :credit_role_id, nil
+
+    %span{class: f.send(:has_error?, :participant_id) ? 'has-error' : nil }
+      = f.collection_select_without_bootstrap :participant_id, current_site.participants, :id, :name, {prompt: '選択してください'}, class: 'form-control'
+      = f.send :generate_help, :participant_id, nil
+
+    = link_to_remove_association 'Remove credit', f, class: 'btn btn-default pull-right'
+
+.row

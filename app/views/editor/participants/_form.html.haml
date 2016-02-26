@@ -1,0 +1,10 @@
+= bootstrap_form_for [:editor, @participant], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+  = f.text_field :name
+  = f.text_area :description
+  = f.file_field :photo
+  - if @participant.photo.present?
+    = f.form_group do
+      = image_tag @participant.photo_url, height: 80
+      = f.check_box :remove_photo
+  = f.form_group do
+    = f.submit

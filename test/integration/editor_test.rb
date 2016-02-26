@@ -42,9 +42,9 @@ class EditorTest < ActionDispatch::IntegrationTest
     assert_not page.has_css?('td', text: 'Ruby lang')
   end
 
-  test 'Author' do
-    click_on '著者情報'
-    click_on 'New Author'
+  test 'Participant' do
+    click_on '関係者情報'
+    click_on 'New Participant'
 
     fill_in 'Name', with: 'Ruby'
     fill_in 'Description', with: "Ruby is a programing language."
@@ -71,7 +71,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on 'Destroy'
     end
 
-    assert_equal('/editor/authors', page.current_path)
+    assert_equal('/editor/participants', page.current_path)
     assert_not page.has_css?('td', text: 'Ruby lang')
   end
 
@@ -146,7 +146,7 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test 'preview post' do
-    @post = create(:post_with_author, site: @site, body: '# title')
+    @post = create(:post, :whatever, :with_credit, site: @site, body: '# title')
     visit "/editor/posts/#{@post.public_id}/preview"
     within '.post__body' do
       assert_equal 'title', find('h1').text

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RssTest < ActionDispatch::IntegrationTest
   setup do
-    @post = create(:post, body: <<~EOS)
+    @post = create(:post, :whatever, body: <<~EOS)
       # Lorem ipsum dolor sit amet,
 
       consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
