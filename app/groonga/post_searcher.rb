@@ -7,8 +7,8 @@ class PostSearcher
     related_posts = @posts.select do |record|
       conditions = (record.index('Words.Posts_title').similar_search(post.title))
       conditions |= (record.index('Words.Posts_content').similar_search(post.body))
-      if post.author
-        conditions |= (record.author._key == post.author.id)
+      post.credits.each do |credit|
+        conditions |= (record.participant._key =~ credit.participant_id)
       end
       if post.category
         conditions |= (record.category._key == post.category.id)

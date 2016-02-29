@@ -2,7 +2,7 @@ class PostIndexer
   def initialize
     @sites = Groonga['Sites']
     @categories = Groonga['Categories']
-    @authors = Groonga['Authors']
+    @participants = Groonga['Participants']
     @posts = Groonga['Posts']
   end
 
@@ -10,10 +10,8 @@ class PostIndexer
     return if @posts.nil?
     site = @sites.add(post.site_id)
     category = @categories.add(post.category_id)
-    if post.author_id
-      author = @authors.add(post.author_id)
-    else
-      author = nil
+    participants = post.credits.map do |credit|
+      @participants.add(credit.participant_id)
     end
     @posts.add(post.id,
                title: post.title,
@@ -21,7 +19,7 @@ class PostIndexer
                published_at: post.published_at,
                site: site,
                category: category,
-               author: author)
+               participants: participants)
   end
 
   def remove(post)

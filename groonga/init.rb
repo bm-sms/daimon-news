@@ -13,7 +13,7 @@ Groonga::Schema.define do |schema|
     table.short_text 'name'
   end
 
-  schema.create_table('Authors',
+  schema.create_table('Participants',
                       type: :hash,
                       key_type: :uint32) do |table|
     table.short_text 'name'
@@ -27,7 +27,7 @@ Groonga::Schema.define do |schema|
     table.time 'published_at'
     table.reference 'site', 'Sites'
     table.reference 'category', 'Categories'
-    table.reference 'author', 'Authors'
+    table.reference 'participants', 'Participants', type: :vector
   end
 end
 
