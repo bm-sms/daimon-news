@@ -9,7 +9,11 @@ class PostIndexer
   def add(post)
     return if @posts.nil?
     site = @sites.add(post.site_id)
-    category = @categories.add(post.category_id)
+    if post.category
+      category = @categories.add(post.category_id)
+    else
+      category = nil
+    end
     participants = post.credits.map do |credit|
       @participants.add(credit.participant_id)
     end
