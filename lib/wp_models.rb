@@ -9,6 +9,7 @@ class WpApplicationRecord < ActiveRecord::Base
       establish_connection(
         adapter:  'mysql2',
         host:     uri.host,
+        port:     uri.port || 3306,
         username: uri.user,
         password: uri.password,
         database: uri.path[1..-1]
