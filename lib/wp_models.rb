@@ -33,13 +33,19 @@ class WpPost < WpApplicationRecord
   def thumbnail
     return @thumbnail if defined? @thumbnail
 
-    @thumbnail = WpPost.find_by(id: wp_postmeta.find_by(meta_key: '_thumbnail_id').try!(:meta_value))
+    url = wp_postmeta.find_by(meta_key: 'サムネイルURL')&.meta_value
+
+    if url.present?
+      @thumbnail = url
+    else
+      @thumbnail = WpPost.find_by(id: wp_postmeta.find_by(meta_key: '_thumbnail_id').try!(:meta_value))&.guid
+    end
   end
 
   def thumbnail_url(asset_dir)
     return unless thumbnail
 
-    [asset_dir, URI(thumbnail.guid).path.split('/').last(3)].join('/')
+    [asset_dir, URI(thumbnail).path.split('/').last(3)].join('/')
   end
 
 
