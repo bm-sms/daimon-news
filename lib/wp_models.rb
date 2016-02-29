@@ -2,6 +2,7 @@ require "wp_html_util"
 
 class WpApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
+  self.table_name_prefix = 'press_'
 
   class << self
     def connect_to(uri)
