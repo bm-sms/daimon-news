@@ -23,7 +23,8 @@ class PostIndexer
                published_at: post.published_at,
                site: site,
                category: category,
-               participants: participants)
+               participants: participants,
+               public_id: post.public_id)
   end
 
   def remove(post)
