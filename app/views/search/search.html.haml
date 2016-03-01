@@ -1,6 +1,6 @@
 %div
-  関係者：
   - if @query.participant_id.present?
+    関係者：
     = Author.find(@query.participant_id).name
     = link_to content_tag(:span, '', class: 'fa fa-remove'), @query.params(remove: [:participant_id])
   - else
