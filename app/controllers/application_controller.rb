@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
     before_action :authorize_user!, if: :current_user
   end
 
+  before_action :prepare_search
+
   include CurrentResouceHelper
 
   private
@@ -23,5 +25,12 @@ class ApplicationController < ActionController::Base
 
   def authorize_user!
     head :forbidden unless current_user.admin? || current_user.editor_of?(current_site)
+  end
+
+  def prepare_search
+    @query = Query.new(params[:query])
+    @query.site_id = current_site.id
+    searcher = PostSearcher.new
+    @result_set = searcher.search(@query, page: params[:page])
   end
 end

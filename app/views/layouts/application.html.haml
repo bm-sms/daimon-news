@@ -32,6 +32,9 @@
             %section.promotion
               = raw current_site.promotion_tag
           %section.promotion
+            %h2.subheading.subheading--aside.subheading--press-articles 記事検索
+            = render 'search/form', locals: {query: @query}
+
             %h2.subheading.subheading--aside.subheading--press-articles 新着記事
             %ul
               - current_site.posts.published.order_by_recently.limit(5).each do |post|
