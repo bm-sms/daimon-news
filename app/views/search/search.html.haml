@@ -16,7 +16,7 @@
       %span.score= "(#{post.score})"
       - if post.participants
         - post.participants.each do |participant|
-          .participant= link_to participant.name, @query.params(add: {participant_id: post.participant.id})
+          .participant= link_to participant.name, @query.params(add: {participant_id: participant.id})
 
 - if @result_set.posts.total_pages > 1
   %nav.pagination
