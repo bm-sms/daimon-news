@@ -2,18 +2,18 @@ class Query
   include ActiveModel::Model
   attr_accessor :keywords
   attr_accessor :site_id
-  attr_accessor :author_id
+  attr_accessor :participant_id
 
   def present?
     keywords.present? ||
-      author_id.present?
+      participant_id.present?
   end
 
   def params(add: {}, remove: [])
     names = [
       :keywords,
       :site_id,
-      :author_id,
+      :participant_id,
     ]
 
     query = {}

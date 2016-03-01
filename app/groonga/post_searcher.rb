@@ -31,8 +31,8 @@ class PostSearcher
       conditions << (record.published_at > 0)
       conditions << (record.published_at <= Time.now)
       conditions << (record.site._key == query.site_id)
-      if query.author_id.present?
-        conditions << (record.author._key == query.author_id)
+      if query.participant_id.present?
+        conditions << (record.participant._key == query.participant_id)
       end
       if query.keywords.present?
         full_text_search = record.match(query.keywords) do |target|
@@ -45,7 +45,7 @@ class PostSearcher
     end
 
     result_set = PostSearchResultSet.new
-    result_set.authors = group(posts, 'author')
+    result_set.participants = group(posts, 'participants')
     result_set.categories = group(posts, 'category')
     unless query.present?
       result_set.posts = EmptyPosts.new
