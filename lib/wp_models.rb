@@ -2,12 +2,14 @@ require "wp_html_util"
 
 class WpApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
+  self.table_name_prefix = 'press_'
 
   class << self
     def connect_to(uri)
       establish_connection(
         adapter:  'mysql2',
         host:     uri.host,
+        port:     uri.port || 3306,
         username: uri.user,
         password: uri.password,
         database: uri.path[1..-1]
@@ -31,13 +33,19 @@ class WpPost < WpApplicationRecord
   def thumbnail
     return @thumbnail if defined? @thumbnail
 
-    @thumbnail = WpPost.find_by(id: wp_postmeta.find_by(meta_key: '_thumbnail_id').try!(:meta_value))
+    url = wp_postmeta.find_by(meta_key: 'サムネイルURL')&.meta_value
+
+    if url.present?
+      @thumbnail = url
+    else
+      @thumbnail = WpPost.find_by(id: wp_postmeta.find_by(meta_key: '_thumbnail_id').try!(:meta_value))&.guid
+    end
   end
 
   def thumbnail_url(asset_dir)
     return unless thumbnail
 
-    [asset_dir, URI(thumbnail.guid).path.split('/').last(3)].join('/')
+    [asset_dir, URI(thumbnail).path.split('/').last(3)].join('/')
   end
 
 
