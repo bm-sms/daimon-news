@@ -104,5 +104,9 @@ class PostSearcher
     def total_pages
       0
     end
+
+    def empty?
+      true
+    end
   end
 end
