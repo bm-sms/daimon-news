@@ -31,7 +31,7 @@ class PostIndexer
 
   def remove(post)
     return if @posts.nil?
-    @posts[post.id].delete
+    @posts[post.id]&.delete
   end
 
   private
