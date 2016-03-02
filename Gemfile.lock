@@ -35,8 +35,6 @@ GEM
       activemodel (= 4.2.5.1)
       activesupport (= 4.2.5.1)
       arel (~> 6.0)
-    activerecord-import (0.11.0)
-      activerecord (>= 3.0)
     activesupport (4.2.5.1)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
@@ -261,15 +259,10 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
-    mysql2 (0.4.2)
     newrelic_rpm (3.15.0.314)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
-    nokogiri-diff (0.2.0)
-      nokogiri (~> 1.5)
-      tdiff (~> 0.3, >= 0.3.2)
     orm_adapter (0.5.0)
-    pandoc-ruby (1.0.0)
     pg (0.18.4)
     pkg-config (1.1.7)
     poltergeist (1.9.0)
@@ -348,8 +341,6 @@ GEM
     redcarpet (3.3.4)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
-    reverse_markdown (1.0.1)
-      nokogiri
     rr (1.1.2)
     rroonga (5.1.1)
       archive-zip
@@ -383,7 +374,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    tdiff (0.3.3)
     test-unit (3.1.7)
       power_assert
     test-unit-activesupport (1.0.4)
@@ -434,12 +424,10 @@ PLATFORMS
 DEPENDENCIES
   active_decorator
   active_link_to
-  activerecord-import
   airbrake
   bootstrap-sass
   bootstrap_form
   bourbon
-  capybara
   carrierwave
   cocoon
   database_cleaner
@@ -453,10 +441,7 @@ DEPENDENCIES
   kaminari
   launchy
   meta-tags
-  mysql2
   newrelic_rpm
-  nokogiri-diff
-  pandoc-ruby
   pg
   poltergeist
   pry-byebug
@@ -472,7 +457,6 @@ DEPENDENCIES
   rails_12factor
   rambulance
   redcarpet
-  reverse_markdown
   rroonga
   sass-rails
   seedbank

@@ -6,11 +6,9 @@ gem 'rails', '~> 4.2.5'
 
 gem 'active_decorator'
 gem 'active_link_to'
-gem 'activerecord-import'
 gem 'bootstrap-sass'
 gem 'bootstrap_form'
 gem 'bourbon'
-gem 'capybara', require: false
 gem 'carrierwave'
 gem 'cocoon'
 gem 'devise', '>= 3.5.4'
@@ -21,14 +19,12 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'meta-tags', require: 'meta_tags'
-gem 'nokogiri-diff', require: false
-gem 'pandoc-ruby', require: false
 gem 'pg'
 gem 'puma'
 gem 'rails-i18n'
 gem 'rambulance'
 gem 'redcarpet'
-gem 'reverse_markdown'
+gem 'rroonga'
 gem 'sass-rails'
 gem 'seedbank'
 gem 'select2-rails'
@@ -41,10 +37,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-markdown-editor'
   gem 'rails-assets-marked'
 end
-
-gem 'mysql2', require: false
-
-gem 'rroonga'
 
 group :development, :test do
   gem 'pry-byebug'

@@ -27,9 +27,6 @@
   ],
   "buildpacks": [
     {
-      "url": "https://github.com/ddollar/heroku-buildpack-apt"
-    },
-    {
       "url": "https://codon-buildpacks.s3.amazonaws.com/buildpacks/groonga/groonga.tgz"
     },
     {
