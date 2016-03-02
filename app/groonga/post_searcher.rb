@@ -57,8 +57,8 @@ class PostSearcher
     retried = false
     begin
       sorted_posts = posts.paginate([['_score', :desc]],
-                                    page: (page || 1).to_i,
-                                    size: (size || 100).to_i)
+                                    page: page,
+                                    size: size)
     rescue Groonga::TooSmallPage, Groonga::TooLargePage
       raise if retried
       page = 1
