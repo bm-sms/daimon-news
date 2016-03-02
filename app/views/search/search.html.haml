@@ -13,6 +13,7 @@
           = link_to participant.name, @query.params(add: {participant_id: participant._key})
           = "(#{participant.n_sub_records})"
 
+  %p 「#{@query.keywords}」を含む記事は#{@result_set.posts.total_count}件見つかりました。
   %ol
     - @result_set.posts.each do |post|
       %li
