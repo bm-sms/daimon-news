@@ -28,5 +28,20 @@ module NewsService
       g.assets false
       g.scaffold_controller = :scaffold_controller
     end
+
+    class UnknownErrorHandler
+      def initialize(app)
+        @app = app
+      end
+
+      def call(env)
+        @app.call(env)
+      rescue
+        p env
+        raise
+      end
+    end
+
+    config.middleware.insert_before Rack::MethodOverride, UnknownErrorHandler
   end
 end
