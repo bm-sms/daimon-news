@@ -20,7 +20,7 @@ class Admin::SitesController < Admin::ApplicationController
         @site.memberships.create!(user: current_user)
       end
 
-      redirect_to root_url(host: @site.fqdn)
+      redirect_to [:admin, @site], notice: 'サイトが作成されました。'
     else
       render :new
     end

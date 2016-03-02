@@ -19,7 +19,7 @@ class AdminTest < ActionDispatch::IntegrationTest
 
     click_on '登録する'
 
-    assert_equal 'http://daimon.lvh.me/', current_url
+    assert_equal '/admin/sites/2', current_path
 
     visit '/admin'
 
