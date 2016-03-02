@@ -1,24 +1,28 @@
-%div
-  - if @query.participant_id.present?
-    関係者：
-    = Participant.find(@query.participant_id).name
-    = link_to content_tag(:span, '', class: 'fa fa-remove'), @query.params(remove: [:participant_id])
-  - else
-    - @result_set.participants.each do |participant|
-      %span
-        = link_to participant.name, @query.params(add: {participant_id: participant._key})
-        = "(#{participant.n_sub_records})"
+- if @result_set.posts.empty?
+  %div
+    %p 「#{@query.keywords}」を含む記事は見つかりませんでした。
+- else
+  %div
+    - if @query.participant_id.present?
+      関係者：
+      = Participant.find(@query.participant_id).name
+      = link_to content_tag(:span, '', class: 'fa fa-remove'), @query.params(remove: [:participant_id])
+    - else
+      - @result_set.participants.each do |participant|
+        %span
+          = link_to participant.name, @query.params(add: {participant_id: participant._key})
+          = "(#{participant.n_sub_records})"
 
-%ol
-  - @result_set.posts.each do |post|
-    %li
-      = link_to post.title, post_url(post.public_id)
-      %span.score= "(#{post.score})"
-      - if post.participants
-        - post.participants.each do |participant|
-          .participant= link_to participant.name, @query.params(add: {participant_id: participant.id})
+  %ol
+    - @result_set.posts.each do |post|
+      %li
+        = link_to post.title, post_url(post.public_id)
+        %span.score= "(#{post.score})"
+        - if post.participants
+          - post.participants.each do |participant|
+            .participant= link_to participant.name, @query.params(add: {participant_id: participant.id})
 
-- if @result_set.posts.total_pages > 1
-  %nav.pagination
-    = paginate @result_set.posts
-    %p.pagination__entries= page_entries_info @result_set.posts
+  - if @result_set.posts.total_pages > 1
+    %nav.pagination
+      = paginate @result_set.posts
+      %p.pagination__entries= page_entries_info @result_set.posts
