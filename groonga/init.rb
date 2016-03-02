@@ -33,7 +33,7 @@ end
 
 if Post.table_exists?
   indexer = PostIndexer.new
-  Post.find_each do |post|
+  Post.includes(:category, credits: [:participant]).find_each do |post|
     indexer.add(post)
   end
 end
