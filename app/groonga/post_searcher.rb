@@ -25,6 +25,12 @@ class PostSearcher
     end
   end
 
+  def search_with_fallback_to_first_page(query, page: nil, size: nil)
+    search(query, page: page, size: size)
+  rescue Groonga::TooSmallPage, Groonga::TooLargePage
+    search(query, page: 1, size: size)
+  end
+
   def search(query, page: nil, size: nil)
     posts = @posts.select do |record|
       conditions = []
@@ -54,17 +60,9 @@ class PostSearcher
 
     page = (page || 1).to_i
     size = (size || 100).to_i
-    retried = false
-    begin
-      sorted_posts = posts.paginate([['_score', :desc]],
-                                    page: page,
-                                    size: size)
-    rescue Groonga::TooSmallPage, Groonga::TooLargePage
-      raise if retried
-      page = 1
-      retried = true
-      retry
-    end
+    sorted_posts = posts.paginate([['_score', :desc]],
+                                  page: page,
+                                  size: size)
     sorted_posts.extend(Kaminalize)
     result_set.posts = sorted_posts
 
