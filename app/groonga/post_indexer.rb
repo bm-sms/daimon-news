@@ -29,11 +29,6 @@ class PostIndexer
                public_id: post.public_id)
   end
 
-  def remove(post)
-    return if @posts.nil?
-    @posts[post.id]&.delete
-  end
-
   private
 
   def extract_content(post)
