@@ -17,7 +17,8 @@ class PostIndexer
     end
     participants = post.credits.map do |credit|
       @participants.add(credit.participant_id,
-                        name: credit.participant.name)
+                        name: credit.participant.name,
+                        description: credit.participant.description)
     end
     @posts.add(post.id,
                title: post.title,

@@ -45,6 +45,8 @@ class PostSearcher
           (target.index('Terms.Posts_title') * 10) |
             target.index('Terms.Posts_content')
         end
+        full_text_search |= (record.participants.name =~ query.keywords)
+        full_text_search |= (record.participants.description =~ query.keywords)
         conditions << full_text_search
       end
       conditions
