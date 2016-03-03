@@ -1,0 +1,13 @@
+.page-navi {
+  @include display(flex);
+
+  padding: 0.5rem;
+
+  &__label {
+    @include flex(0 0 6rem);
+  }
+
+  &__link {
+    @include flex(1);
+  }
+}

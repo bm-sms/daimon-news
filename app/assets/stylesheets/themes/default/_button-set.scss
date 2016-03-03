@@ -1,0 +1,15 @@
+.button-set {
+  @include flex-container(horizontal);
+
+  @include align-items(center);
+
+  margin: 1rem 0;
+
+  > .button-set__button {
+    @include flex(1);
+
+    &:not(:first-child) {
+      margin-left: 1rem;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+.credits {
+  border-style: solid;
+  border-width: 0.1rem;
+  border-radius: $input-border-radius;
+  border-color: gray;
+
+  .credit {
+    padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+
+    @include flex-container(horizontal);
+  }
+
+  .participant__photo {
+    max-width: rem(80);
+  }
+
+  h2 {
+    font-size: normal;
+    font-weight: normal;
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    margin-left: 0.5rem;
+
+    strong {
+      font-size: small;
+      font-weight: normal;
+      padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+      color: white;
+      background-color: gray;
+      border-radius: $input-border-radius;
+    }
+  }
+
+  p {
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    margin-left: 1rem;
+  }
+}

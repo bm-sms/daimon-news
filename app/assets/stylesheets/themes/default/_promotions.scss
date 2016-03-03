@@ -1,0 +1,10 @@
+.promotions {
+  box-sizing: content-box;
+  padding: 0.5rem;
+
+  @include middle-screen {
+    @include flex(0 0 rem(300));
+
+    width: rem(300);
+  }
+}
