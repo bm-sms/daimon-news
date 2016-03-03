@@ -32,9 +32,8 @@
             %section.promotion
               = raw current_site.promotion_tag
           %section.promotion
-            - if @query
-              %h2.subheading.subheading--aside.subheading--press-articles 記事検索
-              = render 'search/form', locals: {query: @query}
+            %h2.subheading.subheading--aside.subheading--press-articles 記事検索
+            = render 'search/form'
 
             %h2.subheading.subheading--aside.subheading--press-articles 新着記事
             %ul
