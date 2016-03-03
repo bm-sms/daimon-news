@@ -3,8 +3,8 @@
     %p 「#{@query.keywords}」を含む記事は見つかりませんでした。
 - else
   %div
+    絞り込み：
     - if @query.participant_id.present?
-      関係者：
       = Participant.find(@query.participant_id).name
       = link_to content_tag(:span, '', class: 'fa fa-remove'), @query.params(remove: [:participant_id])
     - else
