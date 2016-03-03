@@ -9,6 +9,6 @@ class SearchController < ApplicationController
   private
 
   def search_params
-    params.permit(:page, query: [:keywords, :participant_id, :site_id])
+    params.permit(:page, :utf8, :commit, query: [:keywords, :participant_id, :site_id])
   end
 end
