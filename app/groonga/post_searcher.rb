@@ -61,7 +61,7 @@ class PostSearcher
     end
 
     page = (page || 1).to_i
-    size = (size || 100).to_i
+    size = (size || 50).to_i
     sorted_posts = posts.paginate([['_score', :desc]],
                                   page: page,
                                   size: size)
