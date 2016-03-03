@@ -6,6 +6,8 @@ class SearchController < ApplicationController
     @result_set = searcher.search_with_fallback_to_first_page(@query, page: search_params[:page])
   end
 
+  private
+
   def search_params
     params.permit(:page, query: [:keywords, :participant_id, :site_id])
   end
