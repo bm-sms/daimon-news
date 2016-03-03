@@ -4,6 +4,8 @@ class PostSearcher
   end
 
   def related_post_ids(post, limit: 5)
+    return [] if @posts.nil?
+
     related_posts = @posts.select do |record|
       conditions = (record.index('Words.Posts_title').similar_search(post.title))
       conditions |= (record.index('Words.Posts_content').similar_search(post.body))
