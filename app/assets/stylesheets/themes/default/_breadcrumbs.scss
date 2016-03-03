@@ -1,0 +1,30 @@
+.breadcrumbs {
+  padding-bottom: 0.4rem;
+  font-size: 0.8rem;
+
+  &__list {
+    @include flex-container(horizontal);
+
+    margin: 0;
+    padding: 0;
+  }
+
+  &__fragment {
+    list-style-type: none;
+
+    &:last-child {
+      @include flex(1);
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    &:not(:last-child) {
+      &::after {
+        content: "> ";
+        margin-right: 0.3rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+.banner {
+  text-align: center;
+  padding: 1rem;
+
+  &__image {
+    width: 100%;
+    max-width: 30rem;
+  }
+}

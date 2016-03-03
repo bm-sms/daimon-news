@@ -1,0 +1,46 @@
+.pagination {
+  margin-top: 1.5rem;
+  text-align: center;
+
+  &__entries {
+    font-size: rem(12);
+    color: $pagination-entries-color;
+    padding: rem(12) 0;
+  }
+
+  &__current-entries {
+    font-weight: bold;
+  }
+
+  &__item {
+    display: inline-block;
+    margin: 0 rem(5);
+  }
+
+  &__link {
+    display: inline-block;
+    padding: rem(5);
+    border: rem(3) solid $pagination-bg-color;
+    border-radius: rem(5);
+    color: $pagination-link-color;
+    background-color: $pagination-bg-color;
+    font-size: 0.9rem;
+    min-width: 3.5rem;
+
+    &#{&}--first {
+      @include prepend-fa-icon($fa-var-angle-double-left, $color: $pagination-icon-color);
+    }
+
+    &#{&}--prev {
+      @include prepend-fa-icon($fa-var-caret-left, $color: $pagination-icon-color);
+    }
+
+    &#{&}--next {
+      @include append-fa-icon($fa-var-caret-right, $color: $pagination-icon-color);
+    }
+
+    &#{&}--last {
+      @include append-fa-icon($fa-var-angle-double-right, $color: $pagination-icon-color);
+    }
+  }
+}

@@ -1,0 +1,20 @@
+.wrappable {
+  @include flex-container(vertical);
+
+  @include flex(1);
+
+  overflow-x: hidden;
+
+  @include middle-screen {
+    @include flex-container(horizontal);
+  }
+
+
+  &__content {
+    &#{&}--flex {
+      @include flex(1);
+
+      overflow-x: hidden;
+    }
+  }
+}

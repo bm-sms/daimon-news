@@ -1,0 +1,32 @@
+.content-footer {
+  @include flex-container(vertical);
+
+  @include align-items(center);
+
+  font-size: rem(12);
+  color: #94969c;
+  margin: rem(20) 0;
+  padding: 0 0.5rem;
+
+  &__links {
+    width: 100%;
+    line-height: 2rem;
+    text-align: center;
+    background-color: $content-footer-bg-color;
+    border-radius: rem(10);
+  }
+
+  &__link {
+    display: inline;
+  }
+
+  &__link-label {
+    margin: 0 rem(12);
+    color: $content-footer-link-color;
+    word-break: keep-all;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

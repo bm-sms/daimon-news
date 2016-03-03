@@ -1,0 +1,14 @@
+.main-pane {
+  padding: 0 0.5rem;
+
+  @include middle-screen {
+    margin: 0 1rem;
+    padding: 1.2rem 1rem;
+    border: 2px solid $main-pane-border-color;
+  }
+
+
+  @include large-screen {
+    padding: 1.2rem 2rem;
+  }
+}

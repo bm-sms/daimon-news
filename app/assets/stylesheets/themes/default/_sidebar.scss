@@ -1,0 +1,35 @@
+.sidebar {
+  @include position(fixed, 0 nil 0 nil);
+
+  @include transition-property(transform);
+
+  @include flex(0 0 15rem);
+
+  @include modal($duration: 0.2s, $z-index: 5) {
+    @include transform(translateX(0));
+  }
+
+
+  width: 15rem;
+  background-color: $sidebar-bg-color;
+
+  @include large-screen {
+    @include flex(0 0 10rem);
+
+    width: 10rem;
+  }
+
+
+  &--left {
+    @include transform(translateX(-100%));
+
+    left: 0;
+
+    @include large-screen {
+      @include transform(translateX(0));
+
+      position: static;
+      z-index: auto;
+    }
+  }
+}
