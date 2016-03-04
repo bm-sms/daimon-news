@@ -16,5 +16,8 @@
       - if alert
         .alert.alert-warning(role='alert')= alert
 
+      - if browser.ie?
+        = render 'application/modern_browser'
+
       %main
         = yield
