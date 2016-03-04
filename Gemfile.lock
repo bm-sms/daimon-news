@@ -64,6 +64,7 @@ GEM
     bourbon (4.2.6)
       sass (~> 3.4)
       thor (~> 0.19)
+    browser (2.0.2)
     builder (3.2.2)
     byebug (8.2.2)
     capybara (2.6.2)
@@ -428,6 +429,7 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap_form
   bourbon
+  browser
   carrierwave
   cocoon
   database_cleaner
