@@ -36,9 +36,10 @@ module NewsService
 
       def call(env)
         @app.call(env)
-      rescue
-        p env
-        raise
+      rescue => e
+        env["unknown_error"] = e
+        env["REQUEST_METHOD"] = "GET"
+        @app.call(env)
       end
     end
 
