@@ -8,6 +8,7 @@ BANNER
 base_directory = nil
 fqdn = nil
 public_id = nil
+split = false
 
 parser.on("-b", "--base-dir=BASE_DIR", "Output files here") do |dir|
   base_directory = Pathname(dir)
@@ -19,6 +20,10 @@ end
 
 parser.on("--public-id=ID", "Public ID") do |id|
   public_id = id
+end
+
+parser.on("--split", "Split Post#body") do
+  split = true
 end
 
 parser.on("-e", "--environment=NAME", "Rails environment. This option is handled by `bin/rails r`") do |name|
@@ -61,5 +66,12 @@ include ApplicationHelper
 posts.each do |post|
   (base_directory + post.site.fqdn).mkpath
   path = (base_directory + post.site.fqdn + "#{post.public_id}.html")
-  path.write(render_markdown(post.body))
+  if split
+    pages = post.body.split("<!--nextpage-->").map do |text|
+      render_markdown(text)
+    end
+    path.write(pages.join("\n"))
+  else
+    path.write(render_markdown(post.body))
+  end
 end
