@@ -4,7 +4,7 @@ class Editor::ApplicationController < ActionController::Base
   layout 'editor'
 
   before_action do
-    error = raise request.env["unknown_error"]
+    error = request.env["unknown_error"]
     raise error if error.present?
   end
   before_action :authenticate_user!
