@@ -60,5 +60,6 @@ include ApplicationHelper
 
 posts.each do |post|
   (base_directory + post.site.fqdn).mkpath
-  (base_directory + post.site.fqdn + "#{post.public_id}.html").write(render_markdown(post.body))
+  path = (base_directory + post.site.fqdn + "#{post.public_id}.html")
+  path.write(render_markdown(post.body))
 end
