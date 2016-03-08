@@ -1,4 +1,4 @@
-- if @result_set.posts.empty?
+- if @posts.empty?
   %div
     %p 「#{@query.keywords}」を含む記事は見つかりませんでした。
 - else
@@ -13,16 +13,16 @@
           = link_to participant.name, @query.params(add: {participant_id: participant._key})
           = "(#{participant.n_sub_records})"
 
-  %p 「#{@query.keywords}」を含む記事は#{@result_set.posts.total_count}件見つかりました。
+  %p 「#{@query.keywords}」を含む記事は#{@posts.total_count}件見つかりました。
   %ol
-    - @result_set.posts.each do |post|
+    - @posts.each do |post|
       %li
-        = link_to post.title, post_url(post.public_id), data: {score: post.score}
-        - if post.participants
-          - post.participants.each do |participant|
-            .participant= link_to participant.name, @query.params(add: {participant_id: participant.id})
+        = link_to post.title, post
+        - if post.credits
+          - post.credits.each do |credit|
+            .participant= link_to credit.participant.name, @query.params(add: {participant_id: credit.participant.id})
 
-  - if @result_set.posts.total_pages > 1
+  - if @posts.total_pages > 1
     %nav.pagination
-      = paginate @result_set.posts
-      %p.pagination__entries= page_entries_info @result_set.posts
+      = paginate @posts
+      %p.pagination__entries= page_entries_info @posts

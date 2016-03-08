@@ -46,6 +46,11 @@ class SearchTest < ActionDispatch::IntegrationTest
     create_post(site: @current_site,
                 title: 'post3 is published',
                 body: 'body...')
+    stopped_post = create_post(site: @current_site,
+                               title: 'post4 is stopped',
+                               body: 'body...')
+    stopped_post.published_at = nil
+    stopped_post.save!
 
     visit '/'
 
@@ -67,5 +72,6 @@ class SearchTest < ActionDispatch::IntegrationTest
   def create_post(attributes)
     post = create(:post, attributes)
     @indexer.add(post)
+    post
   end
 end

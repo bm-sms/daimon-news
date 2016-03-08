@@ -25,13 +25,7 @@ class PostSearcher
     end
   end
 
-  def search_with_fallback_to_first_page(query, page: nil, size: nil)
-    search(query, page: page, size: size)
-  rescue Groonga::TooSmallPage, Groonga::TooLargePage
-    search(query, page: 1, size: size)
-  end
-
-  def search(query, page: nil, size: nil)
+  def search(query)
     posts = @posts.select do |record|
       conditions = []
       conditions << (record.published_at > 0)
@@ -56,57 +50,16 @@ class PostSearcher
     result_set.participants = group(posts, 'participants')
     result_set.categories = group(posts, 'category')
     unless query.present?
-      result_set.posts = EmptyPosts.new
+      result_set.posts = []
       return result_set
     end
 
-    page = (page || 1).to_i
-    size = (size || 50).to_i
-    sorted_posts = posts.paginate([['_score', :desc]],
-                                  page: page,
-                                  size: size)
-    sorted_posts.extend(Kaminalize)
-    result_set.posts = sorted_posts
+    result_set.posts = posts
 
     result_set
   end
 
   def group(posts, key)
     posts.group(key).sort([['_nsubrecs', :desc]], limit: 5)
-  end
-
-  module Kaminalize
-    def entry_name
-      'post'
-    end
-
-    def offset_value
-      (start_offset || 1) - 1
-    end
-
-    def limit_value
-      page_size
-    end
-
-    def total_pages
-      n_pages
-    end
-
-    def total_count
-      n_records
-    end
-  end
-
-  class EmptyPosts
-    def each
-    end
-
-    def total_pages
-      0
-    end
-
-    def empty?
-      true
-    end
   end
 end
