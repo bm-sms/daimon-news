@@ -16,13 +16,18 @@ class ActiveSupport::TestCase
 
   def setup_groonga_database
     ENV['GROONGA_DATABASE_PATH'] ||= groonga_database_path
-    FileUtils.rm_rf(groonga_database_dir)
+    teardown_groonga_database
     FileUtils.mkdir_p(groonga_database_dir)
     Groonga::Database.create(path: groonga_database_path)
     load Rails.root.join("groonga/init.rb")
   end
 
   def teardown_groonga_database
+    context = Groonga::Context.default
+    database = context.database
+    database.close if database
+    context.close
+    Groonga::Context.default = nil
     FileUtils.rm_rf(groonga_database_dir)
   end
 
