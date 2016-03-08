@@ -48,8 +48,6 @@ Groonga::Schema.define do |schema|
                       default_tokenizer: 'TokenMecab') do |table|
     table.index 'Posts.title'
     table.index 'Posts.content'
-    table.index 'Participants.name'
-    table.index 'Participants.description'
   end
 
   schema.create_table('Terms',
