@@ -13,7 +13,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     teardown_groonga_database
   end
 
-  test 'only posts of the current site' do
+  test 'posts of other sites should not be shown' do
     create_post(site: @current_site,
                 title: 'the post of the current site',
                 body: 'contents...')
