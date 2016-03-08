@@ -15,7 +15,6 @@ class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
 
   def setup_groonga_database
-    ENV['GROONGA_DATABASE_PATH'] ||= groonga_database_path
     teardown_groonga_database
     FileUtils.mkdir_p(groonga_database_dir)
     Groonga::Database.create(path: groonga_database_path)
