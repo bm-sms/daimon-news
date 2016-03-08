@@ -30,7 +30,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     within('main') do
       assert_equal '「contents」を含む記事は1件見つかりました。', find('p').text
       within('ol') do
-        assert_equal 'the post of the current site', find('a').text
+        assert find_link('the post of the current site')
       end
     end
   end
