@@ -63,7 +63,11 @@ end
 
 include ApplicationHelper
 
+$stdout.sync = true
+puts "Target: #{posts.count}"
+print "Dumping "
 posts.each do |post|
+  print "."
   (base_directory + post.site.fqdn).mkpath
   path = (base_directory + post.site.fqdn + "#{post.public_id}.html")
   if split
@@ -75,3 +79,5 @@ posts.each do |post|
     path.write(render_markdown(post.body))
   end
 end
+
+puts "Done"
