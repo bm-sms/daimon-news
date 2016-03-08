@@ -35,7 +35,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'no published posts should be hide' do
+  test 'unpublished posts should not be shown' do
     create_post(site: @current_site,
                 title: 'post1 is published',
                 body: 'body...')
