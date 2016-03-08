@@ -6,7 +6,8 @@
     絞り込み：
     - if @query.participant_id.present?
       = Participant.find(@query.participant_id).name
-      = link_to content_tag(:span, '', class: 'fa fa-remove'), @query.params(remove: [:participant_id])
+      = link_to @query.params(remove: [:participant_id]) do
+        %span.fa.fa-remove
     - else
       - @result_set.participants.each do |participant|
         %span
