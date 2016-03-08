@@ -26,12 +26,7 @@ parser.on("--split", "Split Post#body") do
   split = true
 end
 
-parser.on("-e", "--environment=NAME", "Rails environment. This option is handled by `bin/rails r`") do |name|
-  # NOP
-end
-
-argv = ARGV.dup
-
+argv = ARGV.dup.drop_while{|arg| arg != "--" }
 argv.delete("--")
 
 begin
