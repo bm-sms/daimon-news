@@ -18,9 +18,8 @@
     - @posts.each do |post|
       %li
         = link_to post.title, post
-        - if post.credits
-          - post.credits.each do |credit|
-            .participant= link_to credit.participant.name, @query.params(add: {participant_id: credit.participant.id})
+        - post.credits.each do |credit|
+          .participant= link_to credit.participant.name, @query.params(add: {participant_id: credit.participant.id})
 
   - if @posts.total_pages > 1
     %nav.pagination
