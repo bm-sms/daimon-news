@@ -14,8 +14,8 @@ class SearchTest < ActionDispatch::IntegrationTest
   end
 
   test 'only posts of the current site' do
-    create_post(@current_site, 'current site', 'contents...')
-    create_post(@other_site, 'other site', 'contents...')
+    create_post(site: @current_site, title: 'current site', body: 'contents...')
+    create_post(site: @other_site, title: 'other site', body: 'contents...')
 
     visit '/'
 
@@ -33,8 +33,8 @@ class SearchTest < ActionDispatch::IntegrationTest
 
   private
 
-  def create_post(site, title, body)
-    post = create(:post, site: site, title: title, body: body)
+  def create_post(attributes)
+    post = create(:post, attributes)
     @indexer.add(post)
   end
 end
