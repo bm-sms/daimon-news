@@ -42,7 +42,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     create_post(site: @current_site,
                 title: 'post2 is not published',
                 body: 'body...',
-                published_at: Time.now.since(1.hour))
+                published_at: 1.hour.from_now)
     create_post(site: @current_site,
                 title: 'post3 is published',
                 body: 'body...')
