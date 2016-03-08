@@ -35,6 +35,33 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'no published posts should be hide' do
+    create_post(site: @current_site,
+                title: 'post1 is published',
+                body: 'body...')
+    create_post(site: @current_site,
+                title: 'post2 is not published',
+                body: 'body...',
+                published_at: Time.now.since(1.hour))
+    create_post(site: @current_site,
+                title: 'post3 is published',
+                body: 'body...')
+
+    visit '/'
+
+    fill_in 'query[keywords]', with: 'body'
+
+    click_on 'search'
+
+    within('main') do
+      assert_equal '「body」を含む記事は2件見つかりました。', find('p').text
+      within('ol') do
+        assert find_link('post1 is published')
+        assert find_link('post3 is published')
+      end
+    end
+  end
+
   private
 
   def create_post(attributes)
