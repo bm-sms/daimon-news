@@ -14,8 +14,8 @@ class SearchTest < ActionDispatch::IntegrationTest
   end
 
   test 'only posts of the current site' do
-    create_post(site: @current_site, title: 'current site', body: 'contents...')
-    create_post(site: @other_site, title: 'other site', body: 'contents...')
+    create_post(site: @current_site, title: 'the post of the current site', body: 'contents...')
+    create_post(site: @other_site, title: 'the post of the other site', body: 'contents...')
 
     visit '/'
 
@@ -26,7 +26,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     within('main') do
       assert_equal '「contents」を含む記事は1件見つかりました。', find('p').text
       within('ol') do
-        assert_equal 'current site', find('a').text
+        assert_equal 'the post of the current site', find('a').text
       end
     end
   end
