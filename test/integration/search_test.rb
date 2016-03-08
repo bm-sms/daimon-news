@@ -25,7 +25,7 @@ class SearchTest < ActionDispatch::IntegrationTest
 
     fill_in 'query[keywords]', with: 'contents'
 
-    click_on 'search'
+    click_on '検索'
 
     within('main') do
       assert_equal '「contents」を含む記事は1件見つかりました。', find('p').text
@@ -51,7 +51,7 @@ class SearchTest < ActionDispatch::IntegrationTest
 
     fill_in 'query[keywords]', with: 'body'
 
-    click_on 'search'
+    click_on '検索'
 
     within('main') do
       assert_equal '「body」を含む記事は2件見つかりました。', find('p').text
