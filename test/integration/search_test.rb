@@ -14,8 +14,12 @@ class SearchTest < ActionDispatch::IntegrationTest
   end
 
   test 'only posts of the current site' do
-    create_post(site: @current_site, title: 'the post of the current site', body: 'contents...')
-    create_post(site: @other_site, title: 'the post of the other site', body: 'contents...')
+    create_post(site: @current_site,
+                title: 'the post of the current site',
+                body: 'contents...')
+    create_post(site: @other_site,
+                title: 'the post of the other site',
+                body: 'contents...')
 
     visit '/'
 
