@@ -53,7 +53,7 @@ class Editor::PostsController < Editor::ApplicationController
         Kaminari.paginate_array(@post.pages).page(params[:page]).per(1)
       end
 
-    render 'posts/show', layout: 'application'
+    render template: 'posts/show', layout: 'preview'
   end
 
   private

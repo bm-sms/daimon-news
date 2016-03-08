@@ -6,6 +6,8 @@
     = google_tag_manager(current_site.gtm_id)
     = render 'application/content_header'
 
+    = content_for(:notification)
+
     .content-body
       %nav.sidebar.sidebar--left(data-state='off-canvas')
         %ul.menu
@@ -23,7 +25,7 @@
         .wrappable__content.wrappable__content--flex.main-pane
           %main
             = render 'application/breadcrumbs'
-            = yield
+            = content_for?(:content) ? yield(:content) : yield
         %aside.wrappable__content.promotions
           - if current_site.ad_client.present? && current_site.ad_slot.present?
             %section.promotion
