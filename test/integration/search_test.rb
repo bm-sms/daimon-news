@@ -46,11 +46,11 @@ class SearchTest < ActionDispatch::IntegrationTest
     create_post(site: @current_site,
                 title: 'post3 is published',
                 body: 'body...')
-    stopped_post = create_post(site: @current_site,
-                               title: 'post4 is stopped',
+    stopped_publishing_post = create_post(site: @current_site,
+                               title: 'post4 is stopped publishing',
                                body: 'body...')
-    stopped_post.published_at = nil
-    stopped_post.save!
+    stopped_publishing_post.published_at = nil
+    stopped_publishing_post.save!
 
     visit '/'
 
