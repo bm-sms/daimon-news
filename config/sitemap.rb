@@ -17,7 +17,7 @@ if ENV.has_key?('S3_BUCKET')
 end
 
 SitemapGenerator::Sitemap.create do
-  site.posts.find_each do |post|
+  site.posts.published.find_each do |post|
     add post_path(post), changefreq: 'weekly', priority: 0.8
   end
 
