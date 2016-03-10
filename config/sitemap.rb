@@ -18,10 +18,10 @@ end
 
 SitemapGenerator::Sitemap.create do
   site.posts.find_each do |post|
-    add post_url(post), changefreq: 'weekly', priority: 0.8
+    add post_path(post), changefreq: 'weekly', priority: 0.8
   end
 
   site.categories.find_each do |category|
-    add category_url(category.slug), changefreq: 'daily', priority: 0.6
+    add category_path(category.slug), changefreq: 'daily', priority: 0.6
   end
 end
