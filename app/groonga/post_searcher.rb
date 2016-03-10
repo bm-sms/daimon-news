@@ -24,4 +24,42 @@ class PostSearcher
       related_post._key
     end
   end
+
+  def search(query)
+    posts = @posts.select do |record|
+      conditions = []
+      conditions << (record.published_at > 0)
+      conditions << (record.published_at <= Time.now)
+      conditions << (record.site._key == query.site_id)
+      if query.participant_id.present?
+        conditions << (record.participants =~ query.participant_id)
+      end
+      if query.keywords.present?
+        full_text_search = record.match(query.keywords) do |target|
+          (target.index('Terms.Posts_title') * 10) |
+            target.index('Terms.Posts_content')
+        end
+        full_text_search |= (record.participants.name =~ query.keywords)
+        full_text_search |= (record.participants.description =~ query.keywords)
+        conditions << full_text_search
+      end
+      conditions
+    end
+
+    result_set = PostSearchResultSet.new
+    result_set.participants = group(posts, 'participants')
+    result_set.categories = group(posts, 'category')
+    unless query.present?
+      result_set.posts = []
+      return result_set
+    end
+
+    result_set.posts = posts
+
+    result_set
+  end
+
+  def group(posts, key)
+    posts.group(key).sort([['_nsubrecs', :desc]], limit: 5)
+  end
 end

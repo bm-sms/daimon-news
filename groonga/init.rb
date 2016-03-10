@@ -17,6 +17,7 @@ Groonga::Schema.define do |schema|
                       type: :hash,
                       key_type: :uint32) do |table|
     table.short_text 'name'
+    table.text 'description'
   end
 
   schema.create_table('Posts',
@@ -28,6 +29,7 @@ Groonga::Schema.define do |schema|
     table.reference 'site', 'Sites'
     table.reference 'category', 'Categories'
     table.reference 'participants', 'Participants', type: :vector
+    table.uint32 'public_id'
   end
 end
 
@@ -55,11 +57,17 @@ Groonga::Schema.define do |schema|
                       default_tokenizer: 'TokenBigram') do |table|
     table.index 'Posts.title'
     table.index 'Posts.content'
+    table.index 'Participants.name'
+    table.index 'Participants.description'
   end
 
   schema.create_table('Times',
                       type: :patricia_trie,
                       key_type: :time) do |table|
     table.index 'Posts.published_at'
+  end
+
+  schema.change_table('Participants') do |table|
+    table.index 'Posts.participants'
   end
 end
