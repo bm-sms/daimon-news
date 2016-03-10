@@ -4,16 +4,28 @@
 - else
   .drilldown-participant
     - if @query.participant_id.present?
-      %span.drilldown-participant__label 絞り込み中：
+      %span.drilldown-participant__label 関係者による絞り込み中：
       = Participant.find(@query.participant_id).name
       = link_to @query.params(remove: [:participant_id]) do
         %i.fa.fa-remove
     - elsif @result_set.participants.present?
-      %span.drilldown-participant__label 絞り込み候補：
+      %span.drilldown-participant__label 関係者による絞り込み候補：
       - @result_set.participants.each do |participant|
         %span.drilldown-participant__link
           = link_to participant.name, @query.params(add: {participant_id: participant._key})
           = "(#{participant.n_sub_records})"
+  .drilldown-category
+    - if @query.category_id.present?
+      %span.drilldown-category__label カテゴリーによる絞り込み中：
+      = Category.find(@query.category_id).name
+      = link_to @query.params(remove: [:category_id]) do
+        %i.fa.fa-remove
+    - elsif @result_set.categories.present?
+      %span.drilldown-category__label カテゴリーによる絞り込み候補：
+      - @result_set.categories.each do |category|
+        %span
+          = link_to category.name, @query.params(add: {category_id: category._key})
+          = "(#{category.n_sub_records})"
 
   %p.message 「#{@query.keywords}」を含む記事は#{@posts.total_count}件見つかりました。
   %ul
@@ -31,6 +43,8 @@
           = raw @result_set.snippet(post.plain_text_body, class: 'search-result__keyword').join('<br>')
         - post.credits.each do |credit|
           .participant= link_to credit.participant.name, @query.params(add: {participant_id: credit.participant.id})
+        - if post.category
+          .category= link_to post.category.name, @query.params(add: {category_id: post.category.id})
 
   - if @posts.total_pages > 1
     %nav.pagination

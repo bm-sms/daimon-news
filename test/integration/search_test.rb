@@ -84,7 +84,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on '検索'
 
     within('main div.drilldown-participant') do
-      assert_equal '絞り込み候補：', find('.drilldown-participant__label').text
+      assert_equal '関係者による絞り込み候補：', find('.drilldown-participant__label').text
       assert has_css?('.drilldown-participant__link')
     end
   end
