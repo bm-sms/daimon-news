@@ -2,7 +2,7 @@
   %div
     %p 「#{@query.keywords}」を含む記事は見つかりませんでした。
 - else
-  %div.drilldown-participant
+  .drilldown-participant
     - if @query.participant_id.present?
       .drilldown-participant-label 絞り込み中：
       = Participant.find(@query.participant_id).name
