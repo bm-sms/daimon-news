@@ -1,5 +1,5 @@
 class CreditRole < ActiveRecord::Base
-  has_many :credites, dependent: :destroy
+  has_many :credits, dependent: :destroy
 
   belongs_to :site
 end
