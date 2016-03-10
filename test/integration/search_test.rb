@@ -33,6 +33,10 @@ class SearchTest < ActionDispatch::IntegrationTest
         assert find_link('the post of the current site')
       end
     end
+
+    within('aside') do
+      assert_equal 'contents', find('#query_keywords').value
+    end
   end
 
   test 'unpublished posts should not be shown' do
