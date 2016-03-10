@@ -23,7 +23,7 @@ Rails.application.routes.draw do
         get :preview
       end
     end
-    resources :images, only: :create
+    resources :images, only: %i(create index)
     resources :participants
   end
 
