@@ -9,7 +9,8 @@
       = link_to @query.params(remove: [:participant_id]) do
         %i.fa.fa-remove
     - else
-      絞り込み候補：
+      - unless @result_set.participants.empty?
+        絞り込み候補：
       - @result_set.participants.each do |participant|
         %span
           = link_to participant.name, @query.params(add: {participant_id: participant._key})
