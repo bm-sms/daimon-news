@@ -3,12 +3,13 @@
     %p 「#{@query.keywords}」を含む記事は見つかりませんでした。
 - else
   %div
-    絞り込み：
     - if @query.participant_id.present?
+      絞り込み中：
       = Participant.find(@query.participant_id).name
       = link_to @query.params(remove: [:participant_id]) do
         %i.fa.fa-remove
     - else
+      絞り込み候補：
       - @result_set.participants.each do |participant|
         %span
           = link_to participant.name, @query.params(add: {participant_id: participant._key})
