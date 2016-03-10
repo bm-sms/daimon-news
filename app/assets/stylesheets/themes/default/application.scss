@@ -28,3 +28,9 @@
 @import "sidebar";
 @import "subheading";
 @import "wrappable";
+
+.snippet {
+  .keyword {
+    color: red;
+  }
+}
