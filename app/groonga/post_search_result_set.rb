@@ -7,13 +7,13 @@ class PostSearchResultSet
     @snippet = nil
   end
 
-  def snippet(text)
-    (@snippet ||= create_snippet).execute(text)
+  def snippet(text, html_options = {})
+    (@snippet ||= create_snippet(html_options)).execute(text)
   end
 
   private
-  def create_snippet
-    open_tag = '<span class="keyword">'
+  def create_snippet(html_options)
+    open_tag = "<span class='#{html_options[:class]}'>"
     close_tag = '</span>'
     options = {
       :normalize => true,

@@ -15,7 +15,7 @@
           = link_to participant.name, @query.params(add: {participant_id: participant._key})
           = "(#{participant.n_sub_records})"
 
-  %p 「#{@query.keywords}」を含む記事は#{@posts.total_count}件見つかりました。
+  %p.message 「#{@query.keywords}」を含む記事は#{@posts.total_count}件見つかりました。
   %ul
     - @posts.each do |post|
       %li.article-summary.article-summary--with-thumbnail
@@ -27,7 +27,8 @@
             %p.article-summary__data
               %time.article-summary__data-item
                 = l post.published_at.to_date if post.published_at?
-        = raw @result_set.snippet(post.plain_text_body).join('<br>')
+        .search-result
+          = raw @result_set.snippet(post.plain_text_body, class: 'search-result__keyword').join('<br>')
         - post.credits.each do |credit|
           .participant= link_to credit.participant.name, @query.params(add: {participant_id: credit.participant.id})
 
