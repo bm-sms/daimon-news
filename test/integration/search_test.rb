@@ -94,6 +94,35 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'all drilldown candidates must be shown for pagination' do
+    role_author = create(:credit_role, name: "著者", site: @current_site)
+    role_commentator = create(:credit_role, name: "解説", site: @current_site)
+    n_per_page = 50
+    (n_per_page * 2).times do |i|
+      post = create(:post,
+                    site: @current_site,
+                    title: 'the post of the current site',
+                    body: 'contents...')
+      if n_per_page > i
+        post.credits << create(:credit, :whatever, post: post, role: role_author, site: @current_site)
+      else
+        post.credits << create(:credit, :whatever, post: post, role: role_commentator, site: @current_site)
+      end
+      @indexer.add(post)
+    end
+
+    visit '/'
+
+    fill_in 'query[keywords]', with: 'contents'
+
+    click_on '検索'
+
+    within('main div.drilldown-participant') do
+      assert_equal "著者・解説による絞り込み候補：", find('.drilldown-participant__label').text
+      assert has_css?('.drilldown-participant__link')
+    end
+  end
+
   test 'drilldown candidates must not be shown if credits do not exist' do
     create_post(site: @current_site,
                 title: 'the post of the current site',
