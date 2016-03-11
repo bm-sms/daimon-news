@@ -28,8 +28,8 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on '検索'
 
     within('main') do
-      assert_equal '「contents」を含む記事は1件見つかりました。', find('p').text
-      within('ol') do
+      assert_equal '「contents」を含む記事は1件見つかりました。', find('.message').text
+      within('ul') do
         assert find_link('the post of the current site')
       end
     end
@@ -63,8 +63,8 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on '検索'
 
     within('main') do
-      assert_equal '「body」を含む記事は2件見つかりました。', find('p').text
-      within('ol') do
+      assert_equal '「body」を含む記事は2件見つかりました。', find('.message').text
+      within('ul') do
         assert find_link('post1 is published')
         assert find_link('post3 is published')
       end
