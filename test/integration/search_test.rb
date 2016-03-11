@@ -84,8 +84,8 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on '検索'
 
     within('main div.drilldown-participant') do
-      assert_equal '絞り込み候補：', find('.drilldown-participant-label').text
-      assert has_css?('.drilldown-participant-link')
+      assert_equal '絞り込み候補：', find('.drilldown-participant__label').text
+      assert has_css?('.drilldown-participant__link')
     end
   end
 
@@ -101,8 +101,8 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on '検索'
 
     within('main div.drilldown-participant') do
-      assert_false has_css?('.drilldown-participant-label')
-      assert_false has_css?('.drilldown-participant-link')
+      assert_false has_css?('.drilldown-participant__label')
+      assert_false has_css?('.drilldown-participant__link')
     end
   end
 
