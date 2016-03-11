@@ -53,7 +53,7 @@ if fqdn
     posts = site.posts
   end
 else
-  posts = Post.all
+  posts = Post.includes(:site).all
 end
 
 include ApplicationHelper
