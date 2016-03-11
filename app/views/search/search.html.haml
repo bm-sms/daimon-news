@@ -21,7 +21,7 @@
       %li
         = link_to post.title, post
         %div.snippet
-          = raw @result_set.snippet(post.body).join('<br>')
+          = raw @result_set.snippet(post.plain_text_body).join('<br>')
         - post.credits.each do |credit|
           .participant= link_to credit.participant.name, @query.params(add: {participant_id: credit.participant.id})
 
