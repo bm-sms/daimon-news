@@ -72,10 +72,12 @@ class SearchTest < ActionDispatch::IntegrationTest
   end
 
   test 'drilldown candidates must be shown if credits exist' do
-    create_post(:with_credit,
-                site: @current_site,
-                title: 'the post of the current site',
-                body: 'contents...')
+    post = create_post(:with_credit,
+                       site: @current_site,
+                       title: 'the post of the current site',
+                       body: 'contents...')
+    # TODO: Use multiple roles
+    role_names = post.credits.map(&:role).map(&:name).uniq.join("・")
 
     visit '/'
 
@@ -84,7 +86,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on '検索'
 
     within('main div.drilldown-participant') do
-      assert_equal '関係者による絞り込み候補：', find('.drilldown-participant__label').text
+      assert_equal "#{role_names}による絞り込み候補：", find('.drilldown-participant__label').text
       assert has_css?('.drilldown-participant__link')
     end
   end
