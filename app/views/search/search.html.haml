@@ -3,13 +3,14 @@
     %p 「#{@query.keywords}」を含む記事は見つかりませんでした。
 - else
   .drilldown-participant
+    - role_names_label = @role_names.join("・")
     - if @query.participant_id.present?
-      %span.drilldown-participant__label 関係者による絞り込み中：
+      %span.drilldown-participant__label #{role_names_label}による絞り込み中：
       = Participant.find(@query.participant_id).name
       = link_to @query.params(remove: [:participant_id]) do
         %i.fa.fa-remove
     - elsif @result_set.participants.present?
-      %span.drilldown-participant__label 関係者による絞り込み候補：
+      %span.drilldown-participant__label #{role_names_label}による絞り込み候補：
       - @result_set.participants.each do |participant|
         %span.drilldown-participant__link
           = link_to participant.name, @query.params(add: {participant_id: participant._key})

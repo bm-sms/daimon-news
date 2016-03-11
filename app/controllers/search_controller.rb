@@ -5,11 +5,16 @@ class SearchController < ApplicationController
     searcher = PostSearcher.new
     @result_set = searcher.search(@query)
     searched_post_ids = @result_set.posts.map(&:_key)
-    @posts = Post.includes(:category, credits: [:participant])
+    @posts = Post.includes(:category, credits: [:participant, :role])
                .published.where(id: searched_post_ids)
                .order_by_recently
                .page(params[:page])
                .per(50)
+    @role_names = @posts.map {|post|
+      post.credits.map do |credit|
+        credit.role.name
+      end
+    }.flatten.uniq
   end
 
   private
