@@ -8,9 +8,8 @@
       = Participant.find(@query.participant_id).name
       = link_to @query.params(remove: [:participant_id]) do
         %i.fa.fa-remove
-    - else
-      - unless @result_set.participants.empty?
-        %span.drilldown-participant-label 絞り込み候補：
+    - elsif @result_set.participants.present?
+      %span.drilldown-participant-label 絞り込み候補：
       - @result_set.participants.each do |participant|
         %span.drilldown-participant-link
           = link_to participant.name, @query.params(add: {participant_id: participant._key})
