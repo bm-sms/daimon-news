@@ -33,3 +33,26 @@ $(function() {
     $postBody.val(content);
   });
 });
+
+// FormData.get polyfill
+let originalAppend = FormData.prototype.append;
+FormData.prototype.append = function(...args) {
+  this.data[args[0]] = args.slice(1);
+  originalAppend.call(this, ...args);
+}
+FormData.prototype.get = function(name) {
+  return this.data[name];
+}
+let originalFormData = FormData;
+FormData = function() {
+  let fd = new originalFormData();
+  fd.data = {};
+
+  return fd;
+}
+
+// Workaround to avoid empty content POST request
+// https://github.com/inacho/bootstrap-markdown-editor/pull/16
+$(document).on('ajaxSend', (event, xhr, opts) => {
+  if (!opts.data.get('file0')) { xhr.abort(); }
+});
