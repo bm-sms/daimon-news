@@ -1,4 +1,12 @@
 class PostSearcher
+  class << self
+    def search(query_params:, page:, site:)
+      query = Query.new(query_params.merge(site_id: site.id))
+      groonga_posts = new.search(query)
+      PostSearchResultSet.new(groonga_posts: groonga_posts, site: site, query: query, page: page)
+    end
+  end
+
   def initialize
     @posts = Groonga['Posts']
   end
@@ -26,6 +34,8 @@ class PostSearcher
   end
 
   def search(query)
+    return [] unless query.present?
+
     posts = @posts.select do |record|
       conditions = []
       conditions << (record.published_at > 0)
@@ -44,20 +54,6 @@ class PostSearcher
       conditions
     end
 
-    result_set = PostSearchResultSet.new
-    result_set.participants = group(posts, 'participants')
-    result_set.categories = group(posts, 'category')
-    unless query.present?
-      result_set.posts = []
-      return result_set
-    end
-
-    result_set.posts = posts
-
-    result_set
-  end
-
-  def group(posts, key)
-    posts.group(key).sort([['_nsubrecs', :desc]], limit: 5)
+    posts
   end
 end
