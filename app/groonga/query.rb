@@ -3,6 +3,7 @@ class Query
   attr_accessor :keywords
   attr_accessor :site_id
   attr_accessor :participant_id
+  attr_accessor :category_id
 
   def present?
     keywords.present? ||
@@ -14,6 +15,7 @@ class Query
       :keywords,
       :site_id,
       :participant_id,
+      :category_id,
     ]
 
     query = {}
