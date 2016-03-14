@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def search
-    @query = Query.new(search_query_params[:query].merge(site_id: current_site.id))
+    @query = Query.new(search_query_params.merge(site_id: current_site.id))
     searcher = PostSearcher.new
     @result_set = searcher.search(@query)
     searched_post_ids = @result_set.posts.map(&:_key)
@@ -10,6 +10,6 @@ class SearchController < ApplicationController
   private
 
   def search_query_params
-    params.permit(query: [:keywords, :participant_id])
+    params.require(:query).permit(:keywords, :participant_id)
   end
 end
