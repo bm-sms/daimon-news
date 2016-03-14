@@ -10,6 +10,6 @@ class SearchController < ApplicationController
   private
 
   def search_query_params
-    params.require(:query).permit(:keywords, :participant_id)
+    params.require(:query).permit(:keywords)
   end
 end

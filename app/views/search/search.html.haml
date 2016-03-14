@@ -2,19 +2,6 @@
   %div
     %p 「#{@query.keywords}」を含む記事は見つかりませんでした。
 - else
-  .drilldown-participant
-    - if @query.participant_id.present?
-      %span.drilldown-participant__label 絞り込み中：
-      = Participant.find(@query.participant_id).name
-      = link_to @query.params(remove: [:participant_id]) do
-        %i.fa.fa-remove
-    - elsif @result_set.participants.present?
-      %span.drilldown-participant__label 絞り込み候補：
-      - @result_set.participants.each do |participant|
-        %span.drilldown-participant__link
-          = link_to participant.name, @query.params(add: {participant_id: participant._key})
-          = "(#{participant.n_sub_records})"
-
   %p.message 「#{@query.keywords}」を含む記事は#{@posts.total_count}件見つかりました。
   %ul
     - @posts.each do |post|
@@ -29,8 +16,6 @@
                 = l post.published_at.to_date if post.published_at?
         .search-result
           = raw @result_set.snippet(post.plain_text_body, class: 'search-result__keyword').join('<br>')
-        - post.credits.each do |credit|
-          .participant= link_to credit.participant.name, @query.params(add: {participant_id: credit.participant.id})
 
   - if @posts.total_pages > 1
     %nav.pagination

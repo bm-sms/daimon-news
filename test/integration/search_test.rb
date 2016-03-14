@@ -71,41 +71,6 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'drilldown candidates must be shown if credits exist' do
-    create_post(:with_credit,
-                site: @current_site,
-                title: 'the post of the current site',
-                body: 'contents...')
-
-    visit '/'
-
-    fill_in 'query[keywords]', with: 'contents'
-
-    click_on '検索'
-
-    within('main div.drilldown-participant') do
-      assert_equal '絞り込み候補：', find('.drilldown-participant__label').text
-      assert has_css?('.drilldown-participant__link')
-    end
-  end
-
-  test 'drilldown candidates must not be shown if credits do not exist' do
-    create_post(site: @current_site,
-                title: 'the post of the current site',
-                body: 'contents...')
-
-    visit '/'
-
-    fill_in 'query[keywords]', with: 'contents'
-
-    click_on '検索'
-
-    within('main div.drilldown-participant') do
-      assert_false has_css?('.drilldown-participant__label')
-      assert_false has_css?('.drilldown-participant__link')
-    end
-  end
-
   private
 
   def create_post(*attributes)
