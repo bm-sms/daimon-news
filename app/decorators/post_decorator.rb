@@ -28,6 +28,9 @@ module PostDecorator
   end
 
   def plain_text_body
-    @plain_text_body ||= strip_tags(render_markdown(body)).gsub(/[[:space:]]+/, ' ')
+    @plain_text_body ||= ->() {
+      html = render_markdown(body.gsub(/#{Page::SEPARATOR}/, ""))
+      Nokogiri::HTML(html).inner_text.squeeze(" ")
+    }.call
   end
 end
