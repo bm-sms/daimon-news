@@ -1,4 +1,6 @@
 class PostIndexer
+  include ApplicationHelper
+
   def initialize
     @sites = Groonga['Sites']
     @categories = Groonga['Categories']
@@ -33,6 +35,6 @@ class PostIndexer
   private
 
   def extract_content(post)
-    post.body
+    Nokogiri::HTML(render_markdown(post.body)).inner_text
   end
 end
