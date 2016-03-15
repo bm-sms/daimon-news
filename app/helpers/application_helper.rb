@@ -1,6 +1,4 @@
 module ApplicationHelper
-  include MarkdownHelper
-
   def google_tag_manager(gtm_id)
     if gtm_id.present?
       render partial: 'application/google_tag_manager', locals: { gtm_id: gtm_id }
