@@ -71,11 +71,57 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
+  sub_test_case 'meta data' do
+    test 'no result' do
+      visit '/'
+
+      fill_in 'query[keywords]', with: 'a'
+
+      click_on '検索'
+
+      assert_equal "aの検索結果(0件) | #{@current_site.name}", title
+      assert_equal '「a」を含む記事は見つかりませんでした。', find('meta[name=description]', visible: false)['content']
+      assert_equal({'page' => '1', 'query' => {'keywords' => 'a'}}, canonical_params)
+    end
+
+    test 'with pagenation' do
+      keywords = 51.times.map { create_post(site: @current_site) }.first.title
+
+      visit '/'
+
+      fill_in 'query[keywords]', with: keywords
+
+      click_on '検索'
+
+      assert_equal "#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", title
+      assert_equal "「#{keywords}」を含む記事は51件見つかりました。(1〜50/51件)", find('meta[name=description]', visible: false)['content']
+      assert_equal({'page' => '1', 'query' => {'keywords' => keywords}}, canonical_params)
+    end
+
+    test 'without pagenation' do
+      keywords = create_post(site: @current_site).title
+
+      visit '/'
+
+      fill_in 'query[keywords]', with: keywords
+
+      click_on '検索'
+
+      assert_equal "#{keywords}の検索結果(1件) | #{@current_site.name}", title
+      assert_equal "「#{keywords}」を含む記事は1件見つかりました。", find('meta[name=description]', visible: false)['content']
+      assert_equal({'page' => '1', 'query' => {'keywords' => keywords}}, canonical_params)
+    end
+  end
+
   private
 
   def create_post(*attributes)
     post = create(:post, :whatever, *attributes)
     @indexer.add(post)
     post
+  end
+
+  def canonical_params
+    Rack::Utils.parse_nested_query(URI.parse(find('link[rel=canonical]', visible: false)['href']).query)
   end
 end
