@@ -4,17 +4,23 @@ module GroongaHelper
   def setup_groonga_database
     teardown_groonga_database
     FileUtils.mkdir_p(groonga_database_dir)
-    Groonga::Database.create(path: groonga_database_path)
+    if File.exist?(groonga_database_path)
+      Groonga::Database.open(groonga_database_path)
+    else
+      Groonga::Database.create(path: groonga_database_path)
+    end
     load Rails.root.join("groonga/init.rb")
   end
 
   def teardown_groonga_database
     context = Groonga::Context.default
     database = context.database
-    database.close if database
+    if database
+      database.tables.each(&:truncate)
+      database.close
+    end
     context.close
     Groonga::Context.default = nil
-    FileUtils.rm_rf(groonga_database_dir)
   end
 
   def groonga_database_path
