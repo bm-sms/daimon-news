@@ -30,7 +30,7 @@ module PostDecorator
   def plain_text_body
     @plain_text_body ||= ->() {
       html = render_markdown(body.gsub(/#{Page::SEPARATOR}/, ""))
-      Nokogiri::HTML(html).inner_text.squeeze(" ")
+      Nokogiri::HTML(html).inner_text.gsub(/[[:space:]]+/, " ")
     }.call
   end
 end
