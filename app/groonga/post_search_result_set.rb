@@ -16,7 +16,7 @@ class PostSearchResultSet
   end
 
   def posts
-    @posts ||= @site.posts.includes(credits: [:participant]).published.where(id: searched_post_ids).order_by_recently.page(@page).per(50)
+    @posts ||= @site.posts.includes(credits: [:participant]).published.where(id: searched_post_ids).order_by_ids(searched_post_ids).page(@page).per(50)
   end
 
   def snippet(text, html_options = {})
