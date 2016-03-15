@@ -1,5 +1,5 @@
 class PostIndexer
-  include ApplicationHelper
+  include MarkdownHelper
 
   def initialize
     @sites = Groonga['Sites']
