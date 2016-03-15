@@ -1,4 +1,4 @@
-module CurrentResouceHelper
+module CurrentResourceHelper
   def current_site
     @current_site ||=
       if params[:site_id]

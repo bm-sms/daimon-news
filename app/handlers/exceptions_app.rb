@@ -1,8 +1,8 @@
 class ExceptionsApp < Rambulance::ExceptionsApp
-  include CurrentResouceHelper
+  include CurrentResourceHelper
 
   helper ApplicationHelper
-  helper CurrentResouceHelper
+  helper CurrentResourceHelper
 
   def not_found
     respond_to do |format|
