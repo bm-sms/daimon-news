@@ -15,7 +15,7 @@ module PostDecorator
       description: MetaTags::TextNormalizer.normalize_description(render_markdown(body)),
       url: post_url(self, all: true),
       site_name: site.name,
-      modified_time: updated_at.to_datetime.to_s,
+      modified_time: updated_at.iso8601,
       image: thumbnail_url
     }
   end
@@ -23,7 +23,7 @@ module PostDecorator
   def to_article_params
     {
       section: category.name,
-      published_time: published_at&.to_datetime&.to_s
+      published_time: published_at&.iso8601
     }
   end
 
