@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     before_action :authorize_user!, if: :current_user
   end
 
-  include CurrentResouceHelper
+  include CurrentResourceHelper
 
   private
 

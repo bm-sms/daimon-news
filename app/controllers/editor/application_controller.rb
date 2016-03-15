@@ -6,5 +6,5 @@ class Editor::ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action -> { redirect_to root_url unless current_user.editor_of?(current_site)  }
 
-  include CurrentResouceHelper
+  include CurrentResourceHelper
 end
