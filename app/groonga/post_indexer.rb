@@ -35,7 +35,7 @@ class PostIndexer
   private
 
   def extract_content(post)
-    html = render_markdown(post.body.gsub(/<!--nextpage-->/, ""))
+    html = render_markdown(post.body.gsub(/#{Page::SEPARATOR}/, ""))
     Nokogiri::HTML(html).inner_text.squeeze(" ")
   end
 end
