@@ -41,7 +41,7 @@ $(function() {
 
   FormData.prototype.append = function(...args) {
     this.data[args[0]] = args.slice(1);
-    originalAppend.call(this, ...args);
+    return originalAppend.call(this, ...args);
   }
   FormData.prototype.get = function(name) {
     return this.data[name];
