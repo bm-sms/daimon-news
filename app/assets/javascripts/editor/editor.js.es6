@@ -35,20 +35,23 @@ $(function() {
 });
 
 // FormData.get polyfill
-let originalAppend = FormData.prototype.append;
-FormData.prototype.append = function(...args) {
-  this.data[args[0]] = args.slice(1);
-  originalAppend.call(this, ...args);
-}
-FormData.prototype.get = function(name) {
-  return this.data[name];
-}
-let originalFormData = FormData;
-FormData = function() {
-  let fd = new originalFormData();
-  fd.data = {};
+{
+  let originalFormData = FormData;
+  let originalAppend = FormData.prototype.append;
 
-  return fd;
+  FormData.prototype.append = function(...args) {
+    this.data[args[0]] = args.slice(1);
+    return originalAppend.call(this, ...args);
+  }
+  FormData.prototype.get = function(name) {
+    return this.data[name];
+  }
+  window.FormData = function() {
+    let fd = new originalFormData();
+    fd.data = {};
+
+    return fd;
+  }
 }
 
 // Workaround to avoid empty content POST request
