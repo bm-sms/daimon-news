@@ -39,7 +39,7 @@ module PostSearchResultSetDecorator
       description: to_meta_description,
       url: canonical_url,
       site_name: site.name,
-      modified_time: posts.maximum(:updated_at)&.to_datetime.to_s,
+      modified_time: posts.maximum(:updated_at)&.iso8601,
       image: site.logo_url
     }
   end
