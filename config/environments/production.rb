@@ -103,7 +103,7 @@ Rails.application.configure do
     end
   end
 
-  config.middleware.use DigestAuthUnless, 'daimon', ENV['DIGEST_AUTH_SECRET_KEY'], (-> (env) { env['PATH_INFO'] =~ %r{\A/hooks/} }) do |username|
+  config.middleware.use DigestAuthUnless, 'daimon', ENV['DIGEST_AUTH_SECRET_KEY'], (-> (env) { env['PATH_INFO'] =~ %r{\A/hooks/} || env['PATH_INFO'] =~ %r{\A/assets/} }) do |username|
     {ENV['DIGEST_AUTH_USERNAME'] => ENV['DIGEST_AUTH_PASSWORD']}[username]
   end if ENV['DIGEST_AUTH_SECRET_KEY']
 
