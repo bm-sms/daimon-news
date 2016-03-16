@@ -109,4 +109,11 @@ Rails.application.configure do
 
   allowd_ips = ENV['ADMIN_IP_ADDRESSES'].split(',')
   config.middleware.use Rack::Access, '/admin' => allowd_ips, '/users' => allowd_ips, '/editor' => allowd_ips
+
+  config.middleware.insert_before 0, 'Rack::Cors' do
+    allow do
+      origins '*'
+      resource '/assets/*', headers: :any, methods: %i(get post options)
+    end
+  end
 end

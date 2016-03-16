@@ -286,6 +286,7 @@ GEM
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
       rack (~> 1.4)
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-timeout (0.3.2)
@@ -451,6 +452,7 @@ DEPENDENCIES
   pry-rails
   puma
   rack-contrib
+  rack-cors
   rack-timeout
   rails (~> 4.2.6)
   rails-assets-bootstrap-markdown-editor!
