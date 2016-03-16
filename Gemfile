@@ -61,6 +61,7 @@ group :production do
   gem 'airbrake'
   gem 'newrelic_rpm'
   gem 'rack-contrib', require: 'rack/contrib'
+  gem 'rack-cors'
   gem 'rack-timeout'
   gem 'rails_12factor'
 end
