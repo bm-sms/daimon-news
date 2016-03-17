@@ -7,32 +7,32 @@
 
 $(function() {
   function embedMarkdownEditor(id) {
-  let $postBody = $(id);
+    let $postBody = $(id);
 
-  if ($postBody.length === 0) {
-    return;
-  }
-
-  let content = $postBody.val();
-  let $editor = $('<div id="editor"></div>');
-
-  $postBody.hide();
-  $postBody.after($editor);
-
-  $editor.markdownEditor({
-    preview: true,
-    imageUpload: true,
-    uploadPath:  $postBody.data('upload-path'),
-    onPreview(content, callback) {
-      callback(marked(content));
+    if ($postBody.length === 0) {
+      return;
     }
-  });
-  $editor.markdownEditor('setContent', content);
-  $('form').submit((event) => {
-    let content = $editor.markdownEditor('content');
 
-    $postBody.val(content);
-  });
+    let content = $postBody.val();
+    let $editor = $('<div id="editor"></div>');
+
+    $postBody.hide();
+    $postBody.after($editor);
+
+    $editor.markdownEditor({
+      preview: true,
+      imageUpload: true,
+      uploadPath:  $postBody.data('upload-path'),
+      onPreview(content, callback) {
+        callback(marked(content));
+      }
+    });
+    $editor.markdownEditor('setContent', content);
+    $('form').submit((event) => {
+      let content = $editor.markdownEditor('content');
+
+      $postBody.val(content);
+    });
   }
   embedMarkdownEditor('#post_body');
 });
