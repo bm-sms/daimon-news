@@ -28,6 +28,6 @@ module PostDecorator
   end
 
   def plain_text_body
-    @plain_text_body ||= strip_tags(render_markdown(body)).gsub(/[[:space:]]+/, ' ')
+    @plain_text_body ||= extract_plain_text(body)
   end
 end

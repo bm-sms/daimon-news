@@ -113,6 +113,54 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
+  sub_test_case 'markdown' do
+    setup do
+      create_post(site: @current_site,
+                  title: 'post1',
+                  body: <<~BODY)
+      # This is a title
+
+      contents contents contents contents
+
+      * item1
+        * item2
+          * item3
+
+      ## h2 title
+
+      contents contents **strong contents** contents
+
+      - item4
+        - item5
+          - item6
+
+      BODY
+    end
+
+    data("#" => "#",
+         "##" => "##",
+         "*" => "*",
+         "**" => "**",
+         "-" => "-",
+         "----" => "----",
+         "unmatch1-unmatch2" => "unmatch1-unmatch2",
+         "unmatch1 -unmatch2" => "unmatch1 -unmatch2",
+         "unmatch1 - unmatch2" => "unmatch1 - unmatch2")
+    test 'markdown characters should not be matched' do |data|
+      pend "Groonga::SyntaxError: syntax error: Syntax error:" if /^-/ =~ data
+
+      visit '/'
+
+      fill_in 'query[keywords]', with: data
+
+      click_on '検索'
+
+      within('main') do
+        assert_equal "「#{data}」を含む記事は見つかりませんでした。", find('.message').text
+      end
+    end
+  end
+
   private
 
   def create_post(*attributes)

@@ -1,4 +1,6 @@
 class PostIndexer
+  include MarkdownHelper
+
   def initialize
     @sites = Groonga['Sites']
     @categories = Groonga['Categories']
@@ -33,6 +35,6 @@ class PostIndexer
   private
 
   def extract_content(post)
-    post.body
+    extract_plain_text(post.body)
   end
 end
