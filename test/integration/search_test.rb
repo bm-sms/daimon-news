@@ -191,6 +191,66 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
+  sub_test_case 'snippets' do
+    setup do
+      create_post(site: @current_site,
+                  title: 'post1',
+                  body: <<~BODY)
+      # This is a title
+
+      contents contents contents contents
+      contents contents contents contents
+      contents contents contents contents
+      contents contents contents contents
+
+      * item1
+        * item2
+          * item3
+
+      ## h2 title
+
+      contents contents **strong contents** contents
+      contents contents **strong contents** contents
+      contents contents **strong contents** contents
+      contents contents **strong contents** contents
+
+      - item4
+        - item5
+          - item6
+
+      BODY
+    end
+
+    test 'display truncated body when snippets is empty' do
+      visit '/'
+
+      fill_in 'query[keywords]', with: 'post1'
+
+      click_on '検索'
+
+      within('main') do
+        assert_equal "「post1」を含む記事は1件見つかりました。", find('.message').text
+        expected = "This is a title contents contents contents contents contents contents contents contents contents contents contents contents contents cont..."
+        assert_equal expected, find('.search-result').text
+      end
+    end
+
+    test 'display snippets when snippets is not empty' do
+      visit '/'
+
+      fill_in 'query[keywords]', with: 'title'
+
+      click_on '検索'
+
+      within('main') do
+        assert_equal "「title」を含む記事は1件見つかりました。", find('.message').text
+        within('.search-result') do
+          assert_equal(["title", "title"], all('.search-result__keyword').map(&:text))
+        end
+      end
+    end
+  end
+
   private
 
   def create_post(*attributes)

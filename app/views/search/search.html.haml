@@ -10,7 +10,11 @@
     - @search_result.posts.each do |post|
       = render layout: 'posts/summary', locals: {post: post} do
         .search-result
-          = raw @search_result.snippet(post.plain_text_body, class: 'search-result__keyword').join('<br>')
+          - snippets = @search_result.snippet(post.plain_text_body, class: 'search-result__keyword')
+          - if snippets.empty?
+            = post.short_text_body
+          - else
+            = raw snippets.join('<br>')
 
   - if @search_result.posts.total_pages > 1
     %nav.pagination
