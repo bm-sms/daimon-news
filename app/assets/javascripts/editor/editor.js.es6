@@ -6,8 +6,8 @@
 //= require marked
 
 $(function() {
-  function embedMarkdownEditor(id) {
-    let $postBody = $(id);
+  function embedMarkdownEditor(selector) {
+    let $postBody = $(selector);
 
     if ($postBody.length === 0) {
       return;
