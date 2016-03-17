@@ -1,4 +1,6 @@
 module PostSearchResultSetDecorator
+  include PaginationInfoDecorator
+
   def canonical_params
     {query: {keywords: keywords}, page: posts.current_page}
   end
@@ -11,7 +13,7 @@ module PostSearchResultSetDecorator
     if posts.empty?
       "「#{keywords}」を含む記事は見つかりませんでした。"
     elsif posts.total_pages > 1
-      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。(#{page_entries_info})"
+      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。(#{page_entries_info(posts)})"
     else
       "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。"
     end
@@ -24,7 +26,7 @@ module PostSearchResultSetDecorator
   end
 
   def to_meta_title
-    "#{keywords}の検索結果(#{page_entries_info})"
+    "#{keywords}の検索結果(#{page_entries_info(posts)})"
   end
 
   def to_meta_description
@@ -50,19 +52,6 @@ module PostSearchResultSetDecorator
       post.short_text_body
     else
       snippets.map{|snippet| "&hellip;#{snippet}&hellip;" }.join.html_safe
-    end
-  end
-
-  private
-
-  def page_entries_info
-    if posts.total_pages > 1
-      first = posts.offset_value + 1
-      last  = posts.last_page? ? posts.total_count : posts.offset_value + posts.limit_value
-
-      "#{first}〜#{last}/#{posts.total_count}件"
-    else
-      "#{posts.total_count}件"
     end
   end
 end
