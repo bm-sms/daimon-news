@@ -35,7 +35,7 @@ $(function() {
     });
   }
   embedMarkdownEditor('#post_body');
-  embed_editor('#fixed_page_body');
+  embedMarkdownEditor('#fixed_page_body');
 });
 
 // FormData.get polyfill
