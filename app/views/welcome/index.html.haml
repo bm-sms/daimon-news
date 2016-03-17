@@ -12,11 +12,11 @@
         %p.tagline= current_site.tagline
 
 %section
-  = render partial: 'banner', locals: {position: :press_articles_top}
+  = render 'banner', position: :press_articles_top
   %ul
     - @posts.each do |post|
-      = render partial: 'posts/summary_with_content', locals: {post: post}
-    = render partial: 'native_ad', locals: {position: :press_articles_bottom}
+      = render 'posts/summary_with_content', post: post
+    = render 'native_ad', position: :press_articles_bottom
 
   - if @posts.total_pages > 1
     %nav.pagination
@@ -24,4 +24,4 @@
       %p.pagination__entries= page_entries_info @posts
 
   %aside
-    = render partial: 'sns_share', locals: {title: "#{current_site.name} #{current_site.tagline}", url: root_url, twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
+    = render 'sns_share', title: "#{current_site.name} #{current_site.tagline}", url: root_url, twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
