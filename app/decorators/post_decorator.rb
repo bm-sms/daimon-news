@@ -30,4 +30,17 @@ module PostDecorator
   def plain_text_body
     @plain_text_body ||= extract_plain_text(body)
   end
+
+  def display_credits?
+    return false unless credits.present?
+    if params[:all]
+      true
+    else
+      if @pages.respond_to?(:current_page)
+        @pages.current_page == 1
+      else
+        true
+      end
+    end
+  end
 end
