@@ -1,6 +1,6 @@
 = bootstrap_form_for [:editor, @fixed_page], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :title
-  = f.text_area :body
+  = f.text_area :body, data: {upload_path: editor_images_url}
   = f.text_field :slug
 
   = f.form_group do
