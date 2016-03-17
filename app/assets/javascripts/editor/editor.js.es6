@@ -6,7 +6,8 @@
 //= require marked
 
 $(function() {
-  let $postBody = $('#post_body');
+  function embedMarkdownEditor(id) {
+  let $postBody = $(id);
 
   if ($postBody.length === 0) {
     return;
@@ -32,6 +33,8 @@ $(function() {
 
     $postBody.val(content);
   });
+  }
+  embedMarkdownEditor('#post_body');
 });
 
 // FormData.get polyfill
