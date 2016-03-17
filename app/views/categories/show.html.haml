@@ -13,11 +13,11 @@
   %h1.category-header= @category.name
   %p.category-description= @category.description
 
-  = render partial: 'banner', locals: {position: :press_articles_top}
+  = render 'banner', position: :press_articles_top
   %ul
     - @posts.each do |post|
-      = render partial: 'posts/summary_with_content', locals: {post: post}
-    = render partial: 'native_ad', locals: {position: :press_articles_bottom}
+      = render 'posts/summary_with_content', post: post
+    = render 'native_ad', position: :press_articles_bottom
 
   - if @posts.total_pages > 1
     %nav.pagination
