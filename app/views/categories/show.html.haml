@@ -1,13 +1,24 @@
+:ruby
+  if @posts.current_page > 1
+    canonical_url = category_url(page: @posts.current_page)
+    page_title = "#{@category.name} (#{@posts.page_entries_info})"
+  else
+    canonical_url = category_url
+    page_title = @category.name
+  end
+
 - @class_category_id = "category-" + @category.order.to_s
 - @class_page_name = "category-index"
+
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
 - content_for(:canonical_tag) do
-  %link{rel: :canonical, href: category_url(only_path: false, page: @posts.current_page)}
+  %link{rel: :canonical, href: canonical_url}
 - if @posts.current_page > 1
   - breadcrumb :page_num, @posts.current_page, @category
 - else
   - breadcrumb :category, @category
-- set_meta_tags title: @category.name, og: @category.to_og_params
+- set_meta_tags title: page_title, og: @category.to_og_params
+- set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
 
 %section
   %h1.category-header= @category.name
