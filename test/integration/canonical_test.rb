@@ -50,8 +50,7 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       raw, expected = data
 
       visit "/category/#{@category.slug}#{raw}"
-      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}#{expected}",
-                   find('link[rel=canonical]', visible: false)[:href]
+      assert_canonical_url "http://#{@post.site.fqdn}/category/#{@category.slug}#{expected}"
     end
   end
 
@@ -65,11 +64,10 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       'page=2 and unexpected' => ['?page=2&aaa=123', '?page=2'],
     })
     def test_normalize(data)
-      input, expected = data
+      raw, expected = data
 
-      visit "/#{@post.public_id}#{input}"
-      assert_equal "http://#{@post.site.fqdn}/#{@post.public_id}#{expected}",
-                   find('link[rel=canonical]', visible: false)[:href]
+      visit "/#{@post.public_id}#{raw}"
+      assert_canonical_url "http://#{@post.site.fqdn}/#{@post.public_id}#{expected}"
     end
   end
 
@@ -83,11 +81,14 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       'page=2 and unexpected' => ['?page=2&aaa=123', '?page=2'],
     })
     def test_normalize(data)
-      input, expected = data
+      raw, expected = data
 
-      visit "/#{input}"
-      assert_equal "http://#{@post.site.fqdn}/#{expected}",
-                   find('link[rel=canonical]', visible: false)[:href]
+      visit "/#{raw}"
+      assert_canonical_url "http://#{@post.site.fqdn}/#{expected}"
     end
+  end
+
+  def assert_canonical_url(url)
+    assert_equal url, find('link[rel=canonical]', visible: false)[:href]
   end
 end
