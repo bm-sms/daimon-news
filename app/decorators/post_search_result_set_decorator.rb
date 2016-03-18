@@ -9,11 +9,11 @@ module PostSearchResultSetDecorator
 
   def message
     if posts.empty?
-      "「#{keywords}」を含む記事は見つかりませんでした。"
+      "<em>「#{keywords}」</em>を含む記事は見つかりませんでした。"
     elsif posts.total_pages > 1
-      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。(#{page_entries_info})"
+      "<em>「#{keywords}」</em>を含む記事は#{posts.total_count}件見つかりました。(#{page_entries_info})"
     else
-      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。"
+      "<em>「#{keywords}」</em>を含む記事は<em>#{posts.total_count}</em>件見つかりました。"
     end
   end
 

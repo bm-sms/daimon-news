@@ -3,6 +3,7 @@
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
 - breadcrumb :page_num, @posts.current_page if @posts.current_page > 1
 - set_meta_tags title: current_site.tagline, reverse: false, description: current_site.description, og: current_site.to_og_params
+- @class_page_name = "welcome"
 
 %section
   = render partial: 'banner', locals: {position: :press_articles_top}

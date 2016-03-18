@@ -1,9 +1,10 @@
 - set_meta_tags title: t('.title'), noindex: true
 
-%h1= t('.title')
-%p= t('.confirm_url')
+%div.error-message
+  %h1= t('.title')
+  %p= t('.confirm_url')
 
-%h2= t('.reasons.header')
-%p= t('.reasons.mistyped')
-%p= t('.reasons.confirm_url')
-%p= t('.reasons.mispasted')
+  %h2= t('.reasons.header')
+  %p= t('.reasons.mistyped')
+  %p= t('.reasons.confirm_url')
+  %p= t('.reasons.mispasted')
