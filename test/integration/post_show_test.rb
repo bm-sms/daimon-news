@@ -10,7 +10,7 @@ class PostShowTest < ActionDispatch::IntegrationTest
     switch_domain(@post.site.fqdn)
   end
 
-  test "?all=true should not raise error" do
+  test "should display credits when ?all=true" do
     visit "/#{@post.public_id}?all=true"
 
     within '.post__body' do
