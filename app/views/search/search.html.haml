@@ -1,23 +1,27 @@
+- @class_page_name = "search"
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@search_result.posts, params: @search_result.canonical_params) }
 - set_meta_tags title: @search_result.to_meta_title, description: @search_result.to_meta_description, og: @search_result.to_og_params
 - content_for(:canonical_tag) do
   %link{rel: :canonical, href: @search_result.canonical_url}
 
-%p.message= @search_result.message
+%p.message= @search_result.message.html_safe
 - if @search_result.posts.present?
   %ul
     - @search_result.posts.each do |post|
       %li.article-summary.article-summary--with-thumbnail
         = link_to post_url(post), class: 'article-summary__url' do
-          = image_tag post.thumbnail_url, class: 'article-summary__thumbnail'
-          .article-summary__body
-            %p.article-summary__title
-              = post.title
+          %div.article-summary__thumbnail
+            = image_tag post.thumbnail_url
+          %div.article-summary__body
             %p.article-summary__data
               %time.article-summary__data-item
                 = l post.published_at.to_date if post.published_at?
-        .search-result
-          = raw @search_result.snippet(post.plain_text_body, class: 'search-result__keyword').join('<br>')
+              %span.category
+                = post.category.name
+            %p.article-summary__title
+              = post.title
+            .search-result
+              = raw @search_result.snippet(post.plain_text_body, class: 'search-result__keyword').join('<br>')
 
   - if @search_result.posts.total_pages > 1
     %nav.pagination
