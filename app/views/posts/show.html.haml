@@ -1,9 +1,19 @@
+:ruby
+  if @pages.current_page > 1
+    canonical_url = post_url(page: @pages.current_page)
+    page_title = "#{@post.title} (#{@pages.current_page} ページ)"
+  else
+    canonical_url = post_url
+    page_title = @post.title
+  end
+
 - if @pages.respond_to?(:total_pages)
   - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@pages) }
 - content_for(:canonical_tag) do
-  %link{rel: :canonical, href: url_for(all: true, only_path: false)}
+  %link{rel: :canonical, href: canonical_url}
 - breadcrumb :post, @post
-- set_meta_tags title: @post.title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
+- set_meta_tags title: page_title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
+- set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
 
 %article.post
   %div.post__header
