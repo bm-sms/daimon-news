@@ -47,9 +47,9 @@ module PostSearchResultSetDecorator
   def snippet_or_short_text(post)
     snippets = snippet(post.plain_text_body, class: 'search-result__keyword')
     if snippets.empty?
-      h(post.short_text_body)
+      post.short_text_body
     else
-      snippets.join('<br>')
+      snippets.join('<br>').html_safe
     end
   end
 
