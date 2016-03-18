@@ -146,7 +146,7 @@ GEM
       builder
       excon (~> 0.45)
       formatador (~> 0.2)
-    fog-dynect (0.0.2)
+    fog-dynect (0.0.3)
       fog-core
       fog-json
       fog-xml
@@ -281,7 +281,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    puma (3.1.0)
+    puma (3.1.1)
     rack (1.6.4)
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
@@ -307,7 +307,7 @@ GEM
     rails-assets-bootstrap-markdown-editor (1.2.1)
       rails-assets-ace-builds (~> 1.1.8)
       rails-assets-bootstrap (~> 3.3.1)
-    rails-assets-jquery (2.2.1)
+    rails-assets-jquery (2.2.2)
     rails-assets-marked (0.3.5)
     rails-assets-normalize-scss (3.0.3)
     rails-deprecated_sanitizer (1.0.3)
