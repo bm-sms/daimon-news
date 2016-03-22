@@ -1,3 +1,5 @@
+- @class_category_id = "category-" + @category.order.to_s
+- @class_page_name = "category-index"
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
 - content_for(:canonical_tag) do
   %link{rel: :canonical, href: category_url(only_path: false, page: @posts.current_page)}
@@ -14,7 +16,7 @@
   = render partial: 'banner', locals: {position: :press_articles_top}
   %ul
     - @posts.each do |post|
-      = render partial: 'posts/summary', locals: {post: post}
+      = render partial: 'posts/summary_with_content', locals: {post: post}
     = render partial: 'native_ad', locals: {position: :press_articles_bottom}
 
   - if @posts.total_pages > 1

@@ -62,7 +62,7 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
     test 'body should have .credits' do
       visit "/#{@post.public_id}"
 
-      within '.post__body .credits' do
+      within '.post .credits' do
         assert page.has_css?('strong', text: @post.credits.first.role.name)
       end
     end
@@ -77,7 +77,7 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
     test 'body should have .participant__photo' do
       visit "/#{@post.public_id}"
 
-      within '.post__body .credits' do
+      within '.post .credits' do
         assert page.has_content?('Awesome description')
 
         within '.participant__photo' do

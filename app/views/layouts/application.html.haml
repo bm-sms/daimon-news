@@ -2,7 +2,7 @@
 %html
   = render 'application/head'
 
-  %body.root-container(data-layer='top')
+  %body(data-layer='top'){ class: "#{['root-container', @class_page_name, @class_category_id].compact.join(' ')}" }
     = google_tag_manager(current_site.gtm_id)
     = render 'application/content_header'
 
@@ -40,7 +40,7 @@
             %h2.subheading.subheading--aside.subheading--press-articles 新着記事
             %ul
               - current_site.posts.published.order_by_recently.limit(5).each do |post|
-                = render partial: 'posts/summary', locals: {post: post}
+                = render partial: 'posts/summary_with_content', locals: {post: post}
             %h2.subheading.subheading--aside カテゴリ
             %ul.category-list
               - current_site.categories.ordered.each do |category|
