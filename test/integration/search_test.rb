@@ -71,6 +71,23 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'keywords should be split for all target columns' do
+    create_post(:with_credit,
+                site: @current_site,
+                title: 'post1',
+                body: 'contents...')
+
+    visit '/'
+
+    fill_in 'query[keywords]', with: 'post contents author description'
+
+    click_on '検索'
+
+    within('main') do
+      assert_equal "「post contents author description」を含む記事は1件見つかりました。", find('.message').text
+    end
+  end
+
   sub_test_case 'meta data' do
     test 'no result' do
       visit '/'

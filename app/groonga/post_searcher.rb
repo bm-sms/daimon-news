@@ -49,10 +49,10 @@ class PostSearcher
         end
         keywords = query.keywords.split
         full_text_search = keywords.map {|keyword|
-          match_target =~ keyword
+          (match_target =~ keyword) |
+            (record.participants.name =~ keyword) |
+            (record.participants.description =~ keyword)
         }.inject(&:&)
-        full_text_search |= (record.participants.name =~ query.keywords)
-        full_text_search |= (record.participants.description =~ query.keywords)
         conditions << full_text_search
       end
       conditions
