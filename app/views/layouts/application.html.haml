@@ -31,12 +31,14 @@
               = render 'application/breadcrumbs'
             = content_for?(:content) ? yield(:content) : yield
         %aside.wrappable__content.promotions
-          - if current_site.ad_client.present? && current_site.ad_slot.present?
-            %section.promotion
-              = render 'application/adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
-          - elsif current_site.promotion_tag.present?
-            %section.promotion
-              = raw current_site.promotion_tag
+          %section.promotion{ style: 'margin-top: 20px;'}
+            - if current_site.ad_client.present? && current_site.ad_slot.present?
+              %section.promotion
+                = render 'application/adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
+            - elsif current_site.promotion_tag.present?
+              %section.promotion.yyy
+                = raw current_site.promotion_tag
+
           %section.promotion
             %h2.subheading.subheading--aside.subheading--press-articles 記事検索
             = render 'search/form'
@@ -53,4 +55,5 @@
           - if current_site.promotion_url.present?
             .external-component{data: {external_src: current_site.promotion_url}}
 
+    = render 'application/mobile_ad', promotion_tag: current_site.promotion_tag if current_site.promotion_tag.present?
     = render 'application/footer'
