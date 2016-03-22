@@ -1,6 +1,4 @@
 module PostSearchResultSetDecorator
-  include PaginationInfoDecorator
-
   def canonical_params
     {query: {keywords: keywords}, page: posts.current_page}
   end
@@ -13,20 +11,20 @@ module PostSearchResultSetDecorator
     if posts.empty?
       "「#{keywords}」を含む記事は見つかりませんでした。"
     elsif posts.total_pages > 1
-      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。(#{page_entries_info(posts)})"
+      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。(#{posts.page_entries_info})"
     else
       "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。"
     end
   end
 
   def posts
-    @decorated_posts ||= super.tap do |original_posts|
+    @decorated_posts ||= super.tap {|original_posts|
       ActiveDecorator::Decorator.instance.decorate(original_posts)
-    end
+    }.extend(PaginationInfoDecorator)
   end
 
   def to_meta_title
-    "#{keywords}の検索結果(#{page_entries_info(posts)})"
+    "#{keywords}の検索結果(#{posts.page_entries_info})"
   end
 
   def to_meta_description
