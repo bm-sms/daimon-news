@@ -4,5 +4,4 @@
   = render partial: 'application/native_ad', locals: {position: :related_articles}
 
   - posts.each do |post|
-    = render layout: 'posts/summary', locals: {post: post} do
-      = post.short_text_body
+    = render partial: 'posts/summary_with_content', locals: {post: post}
