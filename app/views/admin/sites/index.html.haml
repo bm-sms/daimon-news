@@ -7,12 +7,13 @@
     %tr
       %th name
       %th fqdn
+      %th open
       %th
       %th
 
   %tbody
     - @sites.each do |site|
-      %tr
+      %tr{ class: site.opened? ? nil : 'private' }
         %td= site.name
         %td= site.fqdn
         %td= site.opened? ? icon('check-square-o') : icon('square-o')
