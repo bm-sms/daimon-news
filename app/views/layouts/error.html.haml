@@ -12,6 +12,6 @@
           %main
             = render 'application/breadcrumbs'
             = yield
-            %p= link_to t('.link_to_top', site_name: current_site.name), current_site.home_url.presence || root_url
+            %p.link-from-error-page= link_to t('.link_to_top', site_name: current_site.name), current_site.home_url.presence || root_url
 
     = render 'application/footer'

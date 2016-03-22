@@ -8,8 +8,8 @@
 - set_meta_tags title: @category.name, og: @category.to_og_params
 
 %section
-  %h1= @category.name
-  %p= @category.description
+  %h1.category-header= @category.name
+  %p.category-description= @category.description
 
   = render partial: 'banner', locals: {position: :press_articles_top}
   %ul
