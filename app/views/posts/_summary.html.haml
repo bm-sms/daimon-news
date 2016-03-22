@@ -1,7 +1,7 @@
 %li.article-summary.article-summary--with-thumbnail
   = link_to post_url(post), class: 'article-summary__url' do
     %div.article-summary__thumbnail
-      = image_tag post.thumbnail_url
+      = image_tag 'https://cloud.githubusercontent.com/assets/290782/13948133/bcc85f3c-f061-11e5-9621-4886a4490b1f.png' # post.thumbnail_url # XXX
     %div.article-summary__data
       %time.article-summary__data-item
         = l post.published_at.to_date if post.published_at?
