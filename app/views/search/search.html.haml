@@ -8,20 +8,9 @@
 - if @search_result.posts.present?
   %ul
     - @search_result.posts.each do |post|
-      %li.article-summary.article-summary--with-thumbnail
-        = link_to post_url(post), class: 'article-summary__url' do
-          %div.article-summary__thumbnail
-            = image_tag post.thumbnail_url
-          %div.article-summary__body
-            %p.article-summary__data
-              %time.article-summary__data-item
-                = l post.published_at.to_date if post.published_at?
-              %span.category
-                = post.category.name
-            %p.article-summary__title
-              = post.title
-            .search-result
-              = raw @search_result.snippet(post.plain_text_body, class: 'search-result__keyword').join('<br>')
+      = render layout: 'posts/summary', locals: {post: post} do
+        .search-result
+          = raw @search_result.snippet(post.plain_text_body, class: 'search-result__keyword').join('<br>')
 
   - if @search_result.posts.total_pages > 1
     %nav.pagination
