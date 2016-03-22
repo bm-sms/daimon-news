@@ -9,7 +9,8 @@
   = render partial: 'banner', locals: {position: :press_articles_top}
   %ul
     - @posts.each do |post|
-      = render partial: 'posts/summary', locals: {post: post}
+      = render layout: 'posts/summary', locals: {post: post} do
+        = post.short_text_body
     = render partial: 'native_ad', locals: {position: :press_articles_bottom}
 
   - if @posts.total_pages > 1
