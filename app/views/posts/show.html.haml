@@ -11,7 +11,7 @@
     %time.post__data-item.post__data-item--published-at
       = l @post.published_at.to_date if @post.published_at?
   .post__body
-    - if @post.display_credits?(@pages, all: params[:all])
+    - if @post.display_credits?(@pages)
       = render 'posts/credits', credits: @post.credits.with_ordered
     = raw render_markdown(@pages.map(&:body).join)
 
