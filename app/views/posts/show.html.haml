@@ -6,13 +6,16 @@
 - set_meta_tags title: @post.title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
 
 %article.post
-  %h1.post__title= @post.title
-  %p.post__data
-    %time.post__data-item.post__data-item--published-at
-      = l @post.published_at.to_date if @post.published_at?
+  %div.post__header
+    %div.title-and-data
+      %h1.post__title= @post.title
+      %p.post__data
+      %time.post__data-item.post__data-item--published-at
+        = l @post.published_at.to_date if @post.published_at?
+      - if @post.display_credits?(@pages.current_page)
+        = render 'posts/credits', credits: @post.credits.with_ordered
+    %p.thumbnail= image_tag @post.thumbnail_url
   .post__body
-    - if @post.display_credits?(@pages.current_page)
-      = render 'posts/credits', credits: @post.credits.with_ordered
     = raw render_markdown(@pages.map(&:body).join)
 
   - if @pages.respond_to?(:total_pages) && @pages.total_pages > 1
@@ -24,14 +27,17 @@
   %aside
     = render 'application/sns_share', title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
 
-    = render 'posts/short_collection', posts: @post.related_posts
-
     %ul
       - if @post.next_post.present?
         %li.page-navi
-          .page-navi__label 次の記事へ
-          = link_to @post.next_post.title, post_url(@post.next_post), class: 'page-navi__link'
+          = link_to post_url(@post.next_post), class: 'page-navi__link' do
+            %p.page-navi__label.next 次の記事へ
+            %p.page-navi__title= @post.next_post.title
+
       - if @post.previous_post.present?
         %li.page-navi
-          .page-navi__label 前の記事へ
-          = link_to @post.previous_post.title, post_url(@post.previous_post), class: 'page-navi__link'
+          = link_to post_url(@post.previous_post), class: 'page-navi__link' do
+            %p.page-navi__label.prev 前の記事へ
+            %p.page-navi__title= @post.previous_post.title
+
+    = render 'posts/short_collection', posts: @post.related_posts
