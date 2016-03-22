@@ -1,6 +1,6 @@
 module PostSearchResultSetDecorator
   def canonical_params
-    {query: {keywords: keywords}, page: posts.current_page}
+    {query: {keywords: keywords}, page: post_ids.current_page}
   end
 
   def canonical_url
@@ -10,16 +10,22 @@ module PostSearchResultSetDecorator
   def message
     if posts.empty?
       "「#{keywords}」を含む記事は見つかりませんでした。"
-    elsif posts.total_pages > 1
-      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。(#{page_entries_info})"
+    elsif post_ids.total_pages > 1
+      "「#{keywords}」を含む記事は#{post_ids.total_count}件見つかりました。(#{page_entries_info})"
     else
-      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。"
+      "「#{keywords}」を含む記事は#{post_ids.total_count}件見つかりました。"
     end
   end
 
   def posts
     @decorated_posts ||= super.tap do |original_posts|
       ActiveDecorator::Decorator.instance.decorate(original_posts)
+    end
+  end
+
+  def post_ids
+    @decorated_post_ids ||= super.tap do |original_post_ids|
+      ActiveDecorator::Decorator.instance.decorate(original_post_ids)
     end
   end
 
@@ -47,13 +53,13 @@ module PostSearchResultSetDecorator
   private
 
   def page_entries_info
-    if posts.total_pages > 1
-      first = posts.offset_value + 1
-      last  = posts.last_page? ? posts.total_count : posts.offset_value + posts.limit_value
+    if post_ids.total_pages > 1
+      first = post_ids.offset_value + 1
+      last  = post_ids.last_page? ? post_ids.total_count : post_ids.offset_value + post_ids.limit_value
 
-      "#{first}〜#{last}/#{posts.total_count}件"
+      "#{first}〜#{last}/#{post_ids.total_count}件"
     else
-      "#{posts.total_count}件"
+      "#{post_ids.total_count}件"
     end
   end
 end
