@@ -26,11 +26,7 @@ class CanonicalTest < ActionDispatch::IntegrationTest
   test 'Canonical must be absolute path' do
     visit '/'
 
-    within '.main-pane' do
-      click_on 'Hi'
-    end
-
-    assert_equal "http://#{@post.site.fqdn}/#{@post.public_id}", find('link[rel=canonical]', visible: false)[:href]
+    assert_canonical_url "http://#{@post.site.fqdn}/"
   end
 
   sub_test_case 'category page' do
@@ -56,14 +52,15 @@ class CanonicalTest < ActionDispatch::IntegrationTest
 
   sub_test_case 'post page' do
     data({
-      'no parameter'          => ['',                ''],
-      'unexpected'            => ['?aaa=123',        ''],
-      'page=1'                => ['?page=1',         ''],
-      'page=1 and unexpected' => ['?page=1&aaa=123', ''],
-      'page=2'                => ['?page=2',         '?page=2'],
-      'page=2 and unexpected' => ['?page=2&aaa=123', '?page=2'],
+      'no parameter'          => ['',                '?all=true'],
+      'unexpected'            => ['?aaa=123',        '?all=true'],
+      'all=true'              => ['?all=true',       '?all=true'],
+      'page=1'                => ['?page=1',         '?all=true'],
+      'page=1 and unexpected' => ['?page=1&aaa=123', '?all=true'],
+      'page=2'                => ['?page=2',         '?all=true'],
+      'page=2 and unexpected' => ['?page=2&aaa=123', '?all=true'],
     })
-    def test_normalize(data)
+    def test_normalize_parameter(data)
       raw, expected = data
 
       visit "/#{@post.public_id}#{raw}"
@@ -80,7 +77,7 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       'page=2'                => ['?page=2',         '?page=2'],
       'page=2 and unexpected' => ['?page=2&aaa=123', '?page=2'],
     })
-    def test_normalize(data)
+    def test_normalize_parameter(data)
       raw, expected = data
 
       visit "/#{raw}"
