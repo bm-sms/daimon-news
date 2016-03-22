@@ -71,6 +71,32 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'sort order by score' do
+    newer_date = 1.hour.ago
+    older_date = 2.hour.ago
+    create_post(site: @current_site,
+                title: 'title has no keyword',
+                body: 'AAA...',
+                published_at: newer_date)
+    create_post(site: @current_site,
+                title: 'title has keyword "AAA"',
+                body: 'AAA...',
+                published_at: older_date)
+
+    visit '/'
+
+    fill_in 'query[keywords]', with: 'AAA'
+
+    click_on '検索'
+
+    within('main') do
+      assert_equal '「AAA」を含む記事は2件見つかりました。', find('.message').text
+      within('ul') do
+        assert_equal "title has keyword \"AAA\" #{older_date.strftime('%Y/%m/%d')} AAA...", first('li').text
+      end
+    end
+  end
+
   sub_test_case 'meta data' do
     test 'no result' do
       visit '/'

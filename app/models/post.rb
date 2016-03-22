@@ -23,6 +23,18 @@ class Post < ActiveRecord::Base
 
   mount_uploader :thumbnail, ImageUploader
 
+  class << self
+    def order_by_ids(ids)
+      return all if ids.empty?
+      sql = ["CASE"]
+      ids.each_with_index do |id, i|
+        sql << "WHEN #{quoted_table_name}.id='#{id}' THEN #{i}"
+      end
+      sql << "END"
+      order(sql.join(' '))
+    end
+  end
+
   def pages
     @pages ||= Page.pages_for(body)
   end
