@@ -43,10 +43,14 @@ class PostSearcher
       conditions << (record.site._key == query.site_id)
 
       if query.keywords.present?
-        full_text_search = record.match(query.keywords) do |target|
+        match_target = record.match_target do |target|
           (target.index('Terms.Posts_title') * 10) |
             target.index('Terms.Posts_content')
         end
+        keywords = query.keywords.split
+        full_text_search = keywords.map {|keyword|
+          match_target =~ keyword
+        }.inject(&:&)
         full_text_search |= (record.participants.name =~ query.keywords)
         full_text_search |= (record.participants.description =~ query.keywords)
         conditions << full_text_search

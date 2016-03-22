@@ -147,8 +147,6 @@ class SearchTest < ActionDispatch::IntegrationTest
          "unmatch1 -unmatch2" => "unmatch1 -unmatch2",
          "unmatch1 - unmatch2" => "unmatch1 - unmatch2")
     test 'markdown characters should not be matched' do |data|
-      pend "Groonga::SyntaxError: syntax error: Syntax error:" if /^-/ =~ data
-
       visit '/'
 
       fill_in 'query[keywords]', with: data
@@ -157,6 +155,38 @@ class SearchTest < ActionDispatch::IntegrationTest
 
       within('main') do
         assert_equal "「#{data}」を含む記事は見つかりませんでした。", find('.message').text
+      end
+    end
+  end
+
+  sub_test_case 'operator' do
+    setup do
+      create_post(site: @current_site,
+                  title: 'operators',
+                  body: <<~BODY)
+      # operators
+
+      `+ - -a ~ ( ) < >`
+      BODY
+    end
+
+    data("+" => "+",
+         "-" => "-",
+         "-a" => "-a",
+         "~" => "~",
+         "(" => "(",
+         ")" => ")",
+         "<" => "<",
+         ">" => ">")
+    test 'operators should be as-is' do |data|
+      visit '/'
+
+      fill_in 'query[keywords]', with: data
+
+      click_on '検索'
+
+      within('main') do
+        assert_equal "「#{data}」を含む記事は1件見つかりました。", find('.message').text
       end
     end
   end
