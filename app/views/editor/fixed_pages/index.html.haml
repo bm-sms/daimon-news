@@ -6,7 +6,6 @@
   %thead
     %tr
       %th Title
-      %th Body
       %th Slug
       %th
       %th
@@ -16,7 +15,6 @@
     - @fixed_pages.each do |fixed_page|
       %tr
         %td= fixed_page.title
-        %td= fixed_page.body
         %td= fixed_page.slug
         %td= link_to 'Show', [:editor, fixed_page]
         %td= link_to 'Edit', edit_editor_fixed_page_url(id: fixed_page)
