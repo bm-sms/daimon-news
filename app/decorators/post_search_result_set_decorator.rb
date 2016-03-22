@@ -44,7 +44,7 @@ module PostSearchResultSetDecorator
     }
   end
 
-  def snippet_or_short_text(post)
+  def excerpt(post)
     snippets = snippet(post.plain_text_body, class: 'search-result__keyword')
     if snippets.empty?
       post.short_text_body

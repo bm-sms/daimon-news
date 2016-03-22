@@ -10,7 +10,7 @@
     - @search_result.posts.each do |post|
       = render layout: 'posts/summary', locals: {post: post} do
         .search-result
-          = @search_result.snippet_or_short_text(post)
+          = @search_result.excerpt(post)
 
   - if @search_result.posts.total_pages > 1
     %nav.pagination
