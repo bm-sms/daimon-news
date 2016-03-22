@@ -30,4 +30,9 @@ module PostDecorator
   def plain_text_body
     @plain_text_body ||= extract_plain_text(body)
   end
+
+  def display_credits?(current_page)
+    return false unless credits.present?
+    current_page == 1
+  end
 end
