@@ -48,7 +48,8 @@
             - if current_site.ad_client.present? && current_site.ad_slot.present?
               %section.promotion
                 = render 'application/adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
-            - elsif current_site.promotion_tag.present?
+            -# TODO PC/モバイル用 `promotion_tag` を用意したら、PC 用をここに表示する
+            -# elsif current_site.promotion_tag.present?
               %section.promotion
                 = raw current_site.promotion_tag
 
@@ -67,5 +68,13 @@
                     = link_to category.name, category_url(category.slug)
           - if current_site.promotion_url.present?
             .external-component{data: {external_src: current_site.promotion_url}}
+
+    -# TODO PC/モバイル用 `promotion_tag` を用意したら、モバイル用をここに表示する
+    - if current_site.promotion_tag.present?
+      %div#mobile-ad-container
+        %div#mobile-ad
+          %p#mobile-ad-close-btn
+            = image_tag 'close-btn.svg', alt: '閉じる'
+          = raw current_site.promotion_tag
 
     = render 'application/footer'
