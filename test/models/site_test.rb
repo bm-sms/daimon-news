@@ -12,8 +12,8 @@ class SiteTest < ActiveSupport::TestCase
 
   sub_test_case 'relation' do
     setup do
-      @site = create(:site, name: 'name')
-      @post = create(:post, site: @site)
+      @site = create(:site)
+      @post = create(:post, :whatever, site: @site)
       Tempfile.open do |file|
         @site.images.create!(image: file)
       end
@@ -21,10 +21,12 @@ class SiteTest < ActiveSupport::TestCase
 
     test 'destroy site' do
       assert_equal(1, Site.count)
+      assert_equal(1, Category.count)
       assert_equal(1, Post.count)
       assert_equal(1, Image.count)
       @site.destroy
       assert_equal(0, Site.count)
+      assert_equal(0, Category.count)
       assert_equal(0, Post.count)
       assert_equal(0, Image.count)
     end

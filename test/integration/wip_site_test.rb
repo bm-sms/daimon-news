@@ -3,7 +3,7 @@ require 'test_helper'
 class WipSiteTest < ActionDispatch::IntegrationTest
   setup do
     @site   = create(:site, opened: false)
-    @post   = create(:post, site: @site)
+    @post   = create(:post, :whatever, site: @site)
     @editor = create(:user)
 
     switch_domain(@site.fqdn)
