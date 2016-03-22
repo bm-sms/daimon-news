@@ -1,3 +1,5 @@
+- @class_category_id = "category-" + @category.order.to_s
+- @class_page_name = "category-index"
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
 - content_for(:canonical_tag) do
   %link{rel: :canonical, href: category_url(only_path: false, page: @posts.current_page)}

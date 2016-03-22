@@ -1,3 +1,4 @@
+- @class_page_name = "search"
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@search_result.posts, params: @search_result.canonical_params) }
 - set_meta_tags title: @search_result.to_meta_title, description: @search_result.to_meta_description, og: @search_result.to_og_params
 - content_for(:canonical_tag) do
