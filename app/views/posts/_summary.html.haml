@@ -1,14 +1,13 @@
 %li.article-summary.article-summary--with-thumbnail
   = link_to post_url(post), class: 'article-summary__url' do
-    %div.article-summary__thumbnail
-      = image_tag post.thumbnail_url
-    %div.article-summary__data
-      %time.article-summary__data-item
-        = l post.published_at.to_date if post.published_at?
-      %span.category
-        = post.category.name
-    %div.article-summary__body
+    = image_tag post.thumbnail_url, class: 'article-summary__thumbnail'
+    .article-summary__body
       %p.article-summary__title
         = post.title
       %p.article-summary__content
         = strip_tags(render_markdown(post.body))
+      %p.article-summary__data
+        %time.article-summary__data-item
+          = l post.published_at.to_date if post.published_at?
+        %span.category
+          = post.category.name
