@@ -56,7 +56,7 @@ else
   posts = Post.includes(:site).all
 end
 
-include ApplicationHelper
+include MarkdownHelper
 
 $stdout.sync = true
 puts "Target: #{posts.count}"
