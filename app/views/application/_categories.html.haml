@@ -1,4 +1,4 @@
-- categories1, categories2 = categories.partition.with_index {|_, i| i < 7 }
+- categories1, categories2 = categories[0...7], categories[7..-1]
 %ul.menu__items.menu__items.menu__items--first
   - categories1.each do |category|
     %li.menu__item{class: "menu__item--#{category.slug}", data: {menu_item_state: category == current_category ? 'current' : nil}}
