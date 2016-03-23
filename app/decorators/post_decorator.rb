@@ -35,4 +35,9 @@ module PostDecorator
     return false unless credits.present?
     current_page == 1
   end
+
+  def published?
+    return false unless published_at
+    published_at <= Time.current
+  end
 end
