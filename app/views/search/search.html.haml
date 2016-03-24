@@ -6,7 +6,7 @@
 
 %p.message= @search_result.message
 - if @search_result.posts.present?
-  %ul
+  %ul.search-result-list
     - @search_result.posts.each do |post|
       = render layout: 'posts/summary', locals: {post: post} do
         .search-result
