@@ -65,6 +65,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     within('main') do
       # NOTE: 記事が公開されてから非公開になった場合、Groongaのデータベースが更新されるまでは件数がずれる。
       # ref: https://github.com/bm-sms/daimon-news-multi-tenant/pull/365#issuecomment-200634038
+
       within('ul') do
         assert has_content?('post1 is published')
         assert has_no_content?('post2 is not published')
