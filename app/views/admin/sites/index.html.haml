@@ -13,7 +13,7 @@
 
   %tbody
     - @sites.each do |site|
-      %tr{ class: site.opened? ? nil : 'private' }
+      %tr{ class: site.opened? ? nil : 'site--private' }
         %td= site.name
         %td= site.fqdn
         %td= site.opened? ? icon('check-square-o') : icon('square-o')

@@ -1,7 +1,5 @@
-table.site {
-  tr.private {
-    td {
-      color: gray;
-    }
+.site {
+  &--private {
+    color: gray;
   }
 }
