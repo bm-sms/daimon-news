@@ -1,3 +1,5 @@
-tr.unpublished {
-  color: gray;
+.post {
+  &--unpublished {
+    color: gray;
+  }
 }

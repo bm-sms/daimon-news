@@ -2,7 +2,7 @@
 
 = link_to 'New Post', new_editor_post_url, class: 'btn btn-default'
 
-%table.table
+%table.table.post
   %thead
     %tr
       %th Public ID
@@ -17,7 +17,7 @@
 
   %tbody
     - @posts.each do |post|
-      %tr{ class: post.published? ? nil : 'unpublished' }
+      %tr{ class: post.published? ? nil : 'post--unpublished' }
         %td= post.public_id
         %td= post.title
         %td= post.category&.name
