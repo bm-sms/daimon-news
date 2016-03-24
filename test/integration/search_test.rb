@@ -63,10 +63,39 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on '検索'
 
     within('main') do
-      assert_equal '「body」を含む記事は2件見つかりました。', find('.message').text
+      # NOTE: 記事が公開されてから非公開になった場合、Groongaのデータベースが更新されるまでは件数がずれる。
+      # ref: https://github.com/bm-sms/daimon-news-multi-tenant/pull/365#issuecomment-200634038
+      assert_equal '「body」を含む記事は3件見つかりました。', find('.message').text
       within('ul') do
         assert find_link('post1 is published')
+        # TODO: 'post2 is not published'が表示されていないことのテストを追加
         assert find_link('post3 is published')
+      end
+    end
+  end
+
+  test 'sort order by score' do
+    newer_date = 1.hour.ago
+    older_date = 2.hour.ago
+    create_post(site: @current_site,
+                title: 'title has not keyword',
+                body: 'AAA...',
+                published_at: newer_date)
+    top_post = create_post(site: @current_site,
+                           title: 'title has keyword "AAA"',
+                           body: 'AAA...',
+                           published_at: older_date)
+
+    visit '/'
+
+    fill_in 'query[keywords]', with: 'AAA'
+
+    click_on '検索'
+
+    within('main') do
+      assert_equal '「AAA」を含む記事は2件見つかりました。', find('.message').text
+      within('ul') do
+        assert_equal "#{older_date.strftime('%Y/%m/%d')} #{top_post.category.name} #{top_post.title} #{top_post.body}", first('li').text
       end
     end
   end
