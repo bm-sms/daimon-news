@@ -20,7 +20,7 @@
         %td= post.public_id
         %td= post.title
         %td= post.category&.name
-        %td= l post.published_at  if post.published_at
+        %td= l post.published_at if post.published_at
         %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
         %td= link_to 'Show', editor_post_url(post)
         %td= link_to 'Preview', preview_editor_post_url(post), target: '_blank'
