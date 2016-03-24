@@ -64,6 +64,7 @@ class Editor::PostsController < Editor::ApplicationController
 
   def post_params
     params.require(:post).permit(
+      :public_id,
       :title,
       :body,
       :category_id,
