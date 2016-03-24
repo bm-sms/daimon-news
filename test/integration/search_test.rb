@@ -73,17 +73,19 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'sort order by score' do
-    newer_date = 1.hour.ago
-    older_date = 2.hour.ago
+  test 'highest score post is come to the top' do
     create_post(site: @current_site,
-                title: 'title has not keyword',
+                title: 'title has no keyword',
                 body: 'AAA...',
-                published_at: newer_date)
-    top_post = create_post(site: @current_site,
-                           title: 'title has keyword "AAA"',
-                           body: 'AAA...',
-                           published_at: older_date)
+                published_at: 1.hour.ago)
+    highest_score_post = create_post(site: @current_site,
+                                     title: 'highest score post that title  and body have keyword "AAA"',
+                                     body: 'AAA...',
+                                     published_at: 2.hour.ago)
+    create_post(site: @current_site,
+                title: 'title has keyword "AAA"',
+                body: 'BBB...',
+                published_at: 3.hour.ago)
 
     visit '/'
 
@@ -92,9 +94,9 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on '検索'
 
     within('main') do
-      assert_equal '「AAA」を含む記事は2件見つかりました。', find('.message').text
+      assert_equal '「AAA」を含む記事は3件見つかりました。', find('.message').text
       within('ul') do
-        assert_equal "#{older_date.strftime('%Y/%m/%d')} #{top_post.category.name} #{top_post.title} #{top_post.body}", first('li').text
+        assert first('li').has_content?(highest_score_post.title)
       end
     end
   end
