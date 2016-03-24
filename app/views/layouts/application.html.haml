@@ -23,9 +23,12 @@
       = content_for(:welcome_content)
 
       .wrappable
+        %span.xxx
+          = render 'application/breadcrumbs'
         .wrappable__content.wrappable__content--flex.main-pane
           %main
-            = render 'application/breadcrumbs'
+            %span.yyy
+              = render 'application/breadcrumbs'
             = content_for?(:content) ? yield(:content) : yield
         %aside.wrappable__content.promotions
           - if current_site.ad_client.present? && current_site.ad_slot.present?
