@@ -1,43 +1,4 @@
 class PostSearchResultSet
-  module Kaminarize
-    def total_count
-      paginated_post_ids.total_count
-    end
-
-    def total_pages
-      paginated_post_ids.total_pages
-    end
-
-    def current_page
-      paginated_post_ids.current_page
-    end
-
-    def prev_page
-      paginated_post_ids.prev_page
-    end
-
-    def next_page
-      paginated_post_ids.next_page
-    end
-
-    def last_page?
-      paginated_post_ids.last_page?
-    end
-
-    def offset_value
-      paginated_post_ids.offset_value
-    end
-
-    def limit_value
-      paginated_post_ids.limit_value
-    end
-
-    def entry_name
-      paginated_post_ids.entry_name
-    end
-  end
-  include Kaminarize
-
   attr_reader :site
 
   def initialize(groonga_posts:, site:, query:, page:)
@@ -56,6 +17,10 @@ class PostSearchResultSet
 
   def posts
     @posts ||= @site.posts.includes(credits: [:participant]).published.where(id: paginated_post_ids).order_as_specified(id: paginated_post_ids)
+  end
+
+  def paginator
+    paginated_post_ids
   end
 
   def snippet(text, html_options = {})

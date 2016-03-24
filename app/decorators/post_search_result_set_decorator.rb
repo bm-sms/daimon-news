@@ -1,6 +1,6 @@
 module PostSearchResultSetDecorator
   def canonical_params
-    {query: {keywords: keywords}, page: current_page}
+    {query: {keywords: keywords}, page: paginator.current_page}
   end
 
   def canonical_url
@@ -10,10 +10,10 @@ module PostSearchResultSetDecorator
   def message
     if posts.empty?
       "「#{keywords}」を含む記事は見つかりませんでした。"
-    elsif total_pages > 1
-      "「#{keywords}」を含む記事は#{total_count}件見つかりました。(#{page_entries_info})"
+    elsif paginator.total_pages > 1
+      "「#{keywords}」を含む記事は#{paginator.total_count}件見つかりました。(#{page_entries_info})"
     else
-      "「#{keywords}」を含む記事は#{total_count}件見つかりました。"
+      "「#{keywords}」を含む記事は#{paginator.total_count}件見つかりました。"
     end
   end
 
@@ -56,13 +56,13 @@ module PostSearchResultSetDecorator
   private
 
   def page_entries_info
-    if total_pages > 1
-      first = offset_value + 1
-      last  = last_page? ? total_count : offset_value + limit_value
+    if paginator.total_pages > 1
+      first = paginator.offset_value + 1
+      last  = paginator.last_page? ? paginator.total_count : paginator.offset_value + paginator.limit_value
 
-      "#{first}〜#{last}/#{total_count}件"
+      "#{first}〜#{last}/#{paginator.total_count}件"
     else
-      "#{total_count}件"
+      "#{paginator.total_count}件"
     end
   end
 end
