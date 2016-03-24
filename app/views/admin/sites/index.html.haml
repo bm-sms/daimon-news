@@ -2,18 +2,20 @@
 
 = link_to 'New site', new_admin_site_url, class: 'btn btn-default'
 
-%table.table
+%table.table.site
   %thead
     %tr
       %th name
       %th fqdn
+      %th open
       %th
       %th
 
   %tbody
     - @sites.each do |site|
-      %tr
+      %tr{ class: site.opened? ? nil : 'site--private' }
         %td= site.name
         %td= site.fqdn
+        %td= site.opened? ? icon('check-square-o') : icon('square-o')
         %td= link_to 'Show', admin_site_url(site)
         %td= link_to 'Edit', edit_admin_site_url(site)
