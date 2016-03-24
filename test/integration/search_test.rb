@@ -67,7 +67,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       # ref: https://github.com/bm-sms/daimon-news-multi-tenant/pull/365#issuecomment-200634038
       within('ul') do
         assert find_link('post1 is published')
-        # TODO: 'post2 is not published'が表示されていないことのテストを追加
+        assert has_no_content?('post2 is not published')
         assert find_link('post3 is published')
       end
     end
