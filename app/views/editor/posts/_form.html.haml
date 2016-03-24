@@ -1,4 +1,5 @@
 = bootstrap_form_for [:editor, @post], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+  = f.number_field :public_id, help: '未記入の場合、自動的に連番がセットされます。' if @post.new_record?
   = f.text_field :title
   = f.text_area :body, data: {upload_path: editor_images_url}
   - if current_site.credit_enabled?
