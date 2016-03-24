@@ -1,0 +1,6 @@
+= bootstrap_form_for [:editor, @credit_role], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+  = f.text_field :name
+  = f.number_field :order
+
+  = f.form_group do
+    = f.submit
