@@ -25,7 +25,6 @@ Rails.application.routes.draw do
     end
     resources :images, only: :create
     resources :participants
-    resources :credit_roles
   end
 
   concern :site do
