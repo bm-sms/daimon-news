@@ -20,10 +20,7 @@
               %span.yyy Press
           = render partial: 'application/categories', locals: {categories: current_site.categories.ordered, current_category: current_category}
 
-      - if current_site.tagline.present?
-        .welcome-content-wrapper.xxx
-          .tagline-wrapper
-            %p.tagline= current_site.tagline
+      = content_for(:welcome_content)
 
       .wrappable
         .wrappable__content.wrappable__content--flex.main-pane

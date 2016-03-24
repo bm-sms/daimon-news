@@ -5,6 +5,12 @@
 - set_meta_tags title: current_site.tagline, reverse: false, description: current_site.description, og: current_site.to_og_params
 - @class_page_name = "welcome"
 
+= content_for(:welcome_content) do
+  - if current_site.tagline.present?
+    .welcome-content-wrapper.xxx
+      .tagline-wrapper
+        %p.tagline= current_site.tagline
+
 %section
   = render partial: 'banner', locals: {position: :press_articles_top}
   %ul
