@@ -3,6 +3,7 @@
   = render 'application/head'
 
   %body(data-layer='top'){ class: "#{['root-container', @class_page_name, @class_category_id].compact.join(' ')}" }
+    %div.overlay
     = google_tag_manager(current_site.gtm_id)
     = render 'application/content_header'
 
