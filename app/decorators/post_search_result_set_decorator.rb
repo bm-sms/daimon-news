@@ -49,7 +49,7 @@ module PostSearchResultSetDecorator
     if snippets.empty?
       post.short_text_body
     else
-      "&hellip;#{snippets.join('&hellip;')}&hellip;".html_safe
+      snippets.map{|snippet| "&hellip;#{snippet}&hellip;" }.join.html_safe
     end
   end
 
