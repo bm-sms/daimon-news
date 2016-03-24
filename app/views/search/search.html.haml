@@ -6,7 +6,7 @@
 
 %p.message= @search_result.message.html_safe
 - if @search_result.posts.present?
-  %ul
+  %ul.search-result-list
     - @search_result.posts.each do |post|
       %li.article-summary.article-summary--with-thumbnail
         = link_to post_url(post), class: 'article-summary__url' do
