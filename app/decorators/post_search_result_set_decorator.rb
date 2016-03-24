@@ -1,6 +1,6 @@
 module PostSearchResultSetDecorator
   def canonical_params
-    {query: {keywords: keywords}, page: posts.current_page}
+    {query: {keywords: keywords}, page: paginator.current_page}
   end
 
   def canonical_url
@@ -12,10 +12,10 @@ module PostSearchResultSetDecorator
       "検索キーワードを入力してください。"
     elsif posts.empty?
       "「#{keywords}」を含む記事は見つかりませんでした。"
-    elsif posts.total_pages > 1
-      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。(#{posts.page_entries_info})"
+    elsif paginator.total_pages > 1
+      "「#{keywords}」を含む記事は#{paginator.total_count}件見つかりました。(#{page_entries_info})"
     else
-      "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。"
+      "「#{keywords}」を含む記事は#{paginator.total_count}件見つかりました。"
     end
   end
 
@@ -26,7 +26,7 @@ module PostSearchResultSetDecorator
   end
 
   def to_meta_title
-    "#{keywords}の検索結果(#{posts.page_entries_info})"
+    "#{keywords}の検索結果(#{page_entries_info})"
   end
 
   def to_meta_description
@@ -57,6 +57,19 @@ module PostSearchResultSetDecorator
       post.short_text_body
     else
       snippets.map{|snippet| "&hellip;#{snippet}&hellip;" }.join.html_safe
+    end
+  end
+
+  private
+
+  def page_entries_info
+    if paginator.total_pages > 1
+      first = paginator.offset_value + 1
+      last  = paginator.last_page? ? paginator.total_count : paginator.offset_value + paginator.limit_value
+
+      "#{first}〜#{last}/#{paginator.total_count}件"
+    else
+      "#{paginator.total_count}件"
     end
   end
 end

@@ -34,7 +34,7 @@ class PostSearcher
   end
 
   def search(query)
-    return [] unless query.present?
+    return @posts.select unless query.present?
 
     posts = @posts.select do |record|
       conditions = []

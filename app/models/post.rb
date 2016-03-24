@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  extend OrderAsSpecified
+
   attr_accessor :snippet
 
   has_many :credits, dependent: :destroy do
