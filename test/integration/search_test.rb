@@ -65,7 +65,6 @@ class SearchTest < ActionDispatch::IntegrationTest
     within('main') do
       # NOTE: 記事が公開されてから非公開になった場合、Groongaのデータベースが更新されるまでは件数がずれる。
       # ref: https://github.com/bm-sms/daimon-news-multi-tenant/pull/365#issuecomment-200634038
-      assert_equal '「body」を含む記事は3件見つかりました。', find('.message').text
       within('ul') do
         assert find_link('post1 is published')
         # TODO: 'post2 is not published'が表示されていないことのテストを追加
