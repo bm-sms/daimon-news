@@ -1,0 +1,21 @@
+%h1 Listing credit roles
+
+= link_to 'New Credit role', new_editor_credit_role_url, class: 'btn btn-default'
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Order
+      %th
+      %th
+      %th
+
+  %tbody
+    - @credit_roles.each do |credit_role|
+      %tr
+        %td= credit_role.name
+        %td= credit_role.order
+        %td= link_to 'Show', editor_credit_role_url(credit_role)
+        %td= link_to 'Edit', edit_editor_credit_role_url(credit_role)
+        %td= link_to 'Destroy', editor_credit_role_url(credit_role), method: :delete, data: { confirm: 'Are you sure?' }

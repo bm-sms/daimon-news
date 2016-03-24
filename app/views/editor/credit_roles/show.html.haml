@@ -1,0 +1,10 @@
+%p
+  %b Name:
+  = @credit_role.name
+%p
+  %b Order
+  = @credit_role.order
+
+= link_to 'Edit', edit_editor_credit_role_url
+\|
+= link_to 'Back', editor_credit_roles_url
