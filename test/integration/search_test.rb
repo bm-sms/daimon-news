@@ -74,7 +74,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'highest score post should appear to the top' do
+  test 'the highest score post should appear in the top' do
     create_post(site: @current_site,
                 title: 'BBB',
                 body: 'AAA...',
