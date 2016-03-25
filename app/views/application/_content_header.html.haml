@@ -1,6 +1,8 @@
 %header.content-header
   .content-header__main
-    %a.content-header__button.content-header__button--menu(data-sidebar='left') menu
+    %div.content-header__menu
+      %a.content-header__button.content-header__button--menu(data-sidebar='left')
+        %span.yyy menu
 
     %p.content-header__title
       = link_to current_site.home_url.presence || root_url, class: 'content-header__logo' do
@@ -9,6 +11,6 @@
     - if current_site.content_header_url.present?
       .external-component{data: {external_src: current_site.content_header_url}}
 
-  .content-header__sub
+  .content-header__sub.yyy
     - if current_site.tagline.present?
       %p.content-header__tagline= current_site.tagline

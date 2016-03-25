@@ -4,6 +4,8 @@
 - content_for(:canonical_tag) do
   %link{rel: :canonical, href: @search_result.canonical_url}
 
+- content_for(:search_keyword) { @search_result.keywords }
+
 %p.message= @search_result.message
 - if @search_result.posts.present?
   %ul.search-result-list
