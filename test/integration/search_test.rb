@@ -66,7 +66,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       # NOTE: 記事が公開されてから非公開になった場合、Groongaのデータベースが更新されるまでは件数がずれる。
       # ref: https://github.com/bm-sms/daimon-news-multi-tenant/pull/365#issuecomment-200634038
 
-      within('ul') do
+      within('ul.search-result-list') do
         assert has_content?('post1 is published')
         assert has_no_content?('post2 is not published')
         assert has_content?('post3 is published')
@@ -96,7 +96,7 @@ class SearchTest < ActionDispatch::IntegrationTest
 
     within('main') do
       assert_equal '「AAA」を含む記事は3件見つかりました。', find('.message').text
-      within('ul') do
+      within('ul.search-result-list') do
         assert first('li').has_content?(highest_score_post.title)
       end
     end
