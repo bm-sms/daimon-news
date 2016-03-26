@@ -79,10 +79,10 @@ class SearchTest < ActionDispatch::IntegrationTest
                 title: 'post1 BBB',
                 body: 'AAA...',
                 published_at: 1.hour.ago)
-    highest_score_post = create_post(site: @current_site,
-                                     title: 'post2 AAA',
-                                     body: 'AAA...',
-                                     published_at: 2.hour.ago)
+    create_post(site: @current_site,
+                title: 'post2 AAA',
+                body: 'AAA...',
+                published_at: 2.hour.ago)
     create_post(site: @current_site,
                 title: 'post3 AAA',
                 body: 'BBB...',
@@ -97,7 +97,12 @@ class SearchTest < ActionDispatch::IntegrationTest
     within('main') do
       assert_equal '「AAA」を含む記事は3件見つかりました。', find('.message').text
       within('ul.search-result-list') do
-        assert first('li').has_content?(highest_score_post.title)
+        assert_equal([
+                       "post2 AAA", # The highest score post; title and body has the keyword "AAA".
+                       "post3 AAA", # The second highest score post; title has the keyword "AAA".
+                       "post1 BBB", # The third highest score post; body has the keyword "AAA".
+                     ],
+                     all('.article-summary__title').map(&:text))
       end
     end
   end
