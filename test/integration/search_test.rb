@@ -76,15 +76,15 @@ class SearchTest < ActionDispatch::IntegrationTest
 
   test 'the highest score post should appear in the top' do
     create_post(site: @current_site,
-                title: 'BBB',
+                title: 'post1 BBB',
                 body: 'AAA...',
                 published_at: 1.hour.ago)
     highest_score_post = create_post(site: @current_site,
-                                     title: 'AAA',
+                                     title: 'post2 AAA',
                                      body: 'AAA...',
                                      published_at: 2.hour.ago)
     create_post(site: @current_site,
-                title: 'AAA',
+                title: 'post3 AAA',
                 body: 'BBB...',
                 published_at: 3.hour.ago)
 
