@@ -48,7 +48,7 @@ GEM
     archive-zip (0.8.0)
       io-like (~> 0.3.0)
     arel (6.0.3)
-    autoprefixer-rails (6.3.4)
+    autoprefixer-rails (6.3.5)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -218,7 +218,7 @@ GEM
     gqtp (1.0.6)
     gretel (3.0.8)
       rails (>= 3.2.0)
-    groonga-client (0.2.3)
+    groonga-client (0.2.4)
       gqtp (>= 1.0.4)
       groonga-command (>= 1.2.0)
       hashie
@@ -341,7 +341,7 @@ GEM
       activesupport (= 4.2.6)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (11.1.1)
+    rake (11.1.2)
     rambulance (0.3.1)
       actionpack
       activesupport
