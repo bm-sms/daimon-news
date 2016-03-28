@@ -25,9 +25,10 @@ class CustomizableTagTest < ActionDispatch::IntegrationTest
 
     visit '/'
 
-    # TODO xxx/yyy の運用をやめたらテストからも xxx を取り除く
-
     assert page.has_css?('meta[name="test"]', visible: false)
-    assert_equal 'Hi', find('.xxx h1#test').text
+
+    within '.promotions' do
+      assert_equal 'Hi', find('#test').text
+    end
   end
 end

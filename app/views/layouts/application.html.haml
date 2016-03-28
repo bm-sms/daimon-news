@@ -38,7 +38,7 @@
               %section.promotion
                 = render 'application/adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
             - elsif current_site.promotion_tag.present?
-              %section.promotion.yyy
+              %section.promotion
                 = raw current_site.promotion_tag
 
           %section.promotion
@@ -57,5 +57,4 @@
           - if current_site.promotion_url.present?
             .external-component{data: {external_src: current_site.promotion_url}}
 
-    = render 'application/mobile_ad', promotion_tag: current_site.promotion_tag if current_site.promotion_tag.present?
     = render 'application/footer'
