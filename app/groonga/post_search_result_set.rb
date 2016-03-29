@@ -16,7 +16,11 @@ class PostSearchResultSet
   end
 
   def posts
-    @posts ||= @site.posts.includes(credits: [:participant]).published.where(id: searched_post_ids).order_by_recently.page(@page).per(50)
+    @posts ||= @site.posts.includes(credits: [:participant]).published.where(id: paginated_post_ids).order_as_specified(id: paginated_post_ids)
+  end
+
+  def paginator
+    paginated_post_ids
   end
 
   def snippet(text, html_options = {})
@@ -26,7 +30,11 @@ class PostSearchResultSet
   private
 
   def searched_post_ids
-    @groonga_posts.map(&:_key)
+    @groonga_posts.sort([['_score', :desc]]).map(&:_key)
+  end
+
+  def paginated_post_ids
+    @paginated_post_ids ||= Kaminari.paginate_array(searched_post_ids).page(@page).per(50)
   end
 
   def create_snippet(html_options)

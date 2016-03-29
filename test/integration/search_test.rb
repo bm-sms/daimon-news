@@ -63,10 +63,46 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on '検索'
 
     within('main') do
-      assert_equal '「body」を含む記事は2件見つかりました。', find('.message').text
-      within('ul') do
-        assert find_link('post1 is published')
-        assert find_link('post3 is published')
+      # NOTE: 記事が公開されてから非公開になった場合、Groongaのデータベースが更新されるまでは件数がずれる。
+      # ref: https://github.com/bm-sms/daimon-news-multi-tenant/pull/365#issuecomment-200634038
+
+      within('ul.search-result-list') do
+        assert has_content?('post1 is published')
+        assert has_no_content?('post2 is not published')
+        assert has_content?('post3 is published')
+      end
+    end
+  end
+
+  test 'the highest score post should appear in the top' do
+    create_post(site: @current_site,
+                title: 'post1 BBB',
+                body: 'AAA...',
+                published_at: 1.hour.ago)
+    create_post(site: @current_site,
+                title: 'post2 AAA',
+                body: 'AAA...',
+                published_at: 2.hour.ago)
+    create_post(site: @current_site,
+                title: 'post3 AAA',
+                body: 'BBB...',
+                published_at: 3.hour.ago)
+
+    visit '/'
+
+    fill_in 'query[keywords]', with: 'AAA'
+
+    click_on '検索'
+
+    within('main') do
+      assert_equal '「AAA」を含む記事は3件見つかりました。', find('.message').text
+      within('ul.search-result-list') do
+        assert_equal([
+                       "post2 AAA", # The highest score post; title and body has the keyword "AAA".
+                       "post3 AAA", # The second highest score post; title has the keyword "AAA".
+                       "post1 BBB", # The third highest score post; body has the keyword "AAA".
+                     ],
+                     all('.article-summary__title').map(&:text))
       end
     end
   end
