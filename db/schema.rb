@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322055719) do
+ActiveRecord::Schema.define(version: 20160329021637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,9 +134,6 @@ ActiveRecord::Schema.define(version: 20160322055719) do
     t.datetime "updated_at",                           null: false
     t.string   "fqdn",                                 null: false
     t.string   "tagline"
-    t.string   "logo_url"
-    t.string   "favicon_url"
-    t.string   "mobile_favicon_url"
     t.string   "gtm_id"
     t.string   "content_header_url"
     t.string   "promotion_url"
