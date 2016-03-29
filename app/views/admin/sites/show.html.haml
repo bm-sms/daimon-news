@@ -19,22 +19,13 @@
   %b Tagline:
   = @site.tagline
 %p
-  %b Logo URL:
-  = @site.logo_url
-%p
   %b Logo image:
   - if @site.logo_image.present?
     = image_tag @site.logo_image_url
 %p
-  %b Favicon URL:
-  = @site.favicon_url
-%p
   %b Favicon image:
   - if @site.favicon_image.present?
     = image_tag @site.favicon_image_url
-%p
-  %b Mobile Favicon URL:
-  = @site.mobile_favicon_url
 %p
   %b Mobile favicon image:
   - if @site.mobile_favicon_image.present?

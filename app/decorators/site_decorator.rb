@@ -7,7 +7,7 @@ module SiteDecorator
       description: MetaTags::TextNormalizer.normalize_description(description),
       url: root_url,
       site_name: name,
-      image: logo_url
+      image: logo_image_url
     }
   end
 end

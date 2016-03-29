@@ -4,7 +4,7 @@
       .navbar-header
         .navbar-brand
           = link_to editor_root_url do
-            = image_tag current_site.logo_image_url.presence || current_site.logo_url, height: 24
+            = image_tag current_site.logo_image_url, height: 24
             Editor for
           %span.dropdown
             %a#change-site.dropdown-toggle(href='#' role="button" data-toggle='dropdown' aria-expanded='false')

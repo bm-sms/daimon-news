@@ -16,18 +16,12 @@ module ApplicationHelper
   def favicon_tag(site)
     if site.favicon_image.present?
       favicon_link_tag site.favicon_image_url
-    elsif site.favicon_url.present?
-      favicon_link_tag site.favicon_url
     end
   end
 
   def mobile_favicon_tag(site)
     if site.mobile_favicon_image.present?
-      favicon_link_tag(site.mobile_favicon_image_url,
-                       rel: 'apple-touch-icon-precomposed', type: 'image/png')
-    elsif site.mobile_favicon_url.present?
-      favicon_link_tag(site.mobile_favicon_url,
-                       rel: 'apple-touch-icon-precomposed', type: 'image/png')
+      favicon_link_tag(site.mobile_favicon_image_url, rel: 'apple-touch-icon-precomposed', type: 'image/png')
     end
   end
 end
