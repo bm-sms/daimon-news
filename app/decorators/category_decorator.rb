@@ -7,7 +7,7 @@ module CategoryDecorator
       description: MetaTags::TextNormalizer.normalize_description(description),
       url: category_url(slug),
       site_name: site.name,
-      image: site.logo_url
+      image: site.logo_image_url
     }
   end
 end
