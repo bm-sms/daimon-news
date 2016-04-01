@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/bm-sms/daimon_news-layout.git
+  revision: 4d2444b3d5987d8219fa9250cdd2823c6137d90d
+  specs:
+    daimon_news-layout (0.1.0)
+      bourbon
+      font-awesome-sass
+      neat
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -284,6 +293,9 @@ GEM
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
+    neat (1.7.4)
+      bourbon (>= 4.0)
+      sass (>= 3.3)
     newrelic_rpm (3.15.1.316)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
@@ -336,7 +348,6 @@ GEM
       rails-assets-bootstrap (~> 3.3.1)
     rails-assets-jquery (2.2.2)
     rails-assets-marked (0.3.5)
-    rails-assets-normalize-scss (3.0.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -475,6 +486,7 @@ DEPENDENCIES
   browser
   carrierwave
   cocoon
+  daimon_news-layout!
   database_cleaner
   devise (>= 3.5.4)
   factory_girl
@@ -498,7 +510,6 @@ DEPENDENCIES
   rails (~> 4.2.6)
   rails-assets-bootstrap-markdown-editor!
   rails-assets-marked!
-  rails-assets-normalize-scss!
   rails-erd
   rails-i18n
   rails_12factor
