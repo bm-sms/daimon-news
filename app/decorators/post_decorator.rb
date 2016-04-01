@@ -40,4 +40,16 @@ module PostDecorator
     return false unless published_at
     published_at <= Time.current
   end
+
+  def canonical_url
+    post_url(all: true)
+  end
+
+  def page_title(pages)
+    if pages.current_page > 1
+      "#{title} (#{pages.current_page} ページ)"
+    else
+      title
+    end
+  end
 end

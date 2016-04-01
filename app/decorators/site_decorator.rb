@@ -10,4 +10,20 @@ module SiteDecorator
       image: logo_image_url
     }
   end
+
+  def canonical_url(posts)
+    if posts.current_page > 1
+      root_url(page: posts.current_page)
+    else
+      root_url
+    end
+  end
+
+  def page_title(posts)
+    if posts.current_page > 1
+      "#{tagline} (#{posts.page_entries_info})"
+    else
+      tagline
+    end
+  end
 end

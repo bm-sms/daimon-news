@@ -1,11 +1,6 @@
 :ruby
-  if @pages.current_page > 1
-    page_title = "#{@post.title} (#{@pages.current_page} ページ)"
-  else
-    page_title = @post.title
-  end
-
-  canonical_url = post_url(all: true)
+  canonical_url = @post.canonical_url
+  page_title = @post.page_title(@pages)
 
 - if @pages.total_pages > 1
   - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@pages) }

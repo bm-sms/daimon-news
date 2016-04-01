@@ -1,11 +1,6 @@
 :ruby
-  if @posts.current_page > 1
-    canonical_url = category_url(page: @posts.current_page)
-    page_title = "#{@category.name} (#{@posts.page_entries_info})"
-  else
-    canonical_url = category_url
-    page_title = @category.name
-  end
+  canonical_url = @category.canonical_url(@posts)
+  page_title = @category.page_title(@posts)
 
 - @class_category_id = "category-" + @category.order.to_s
 - @class_page_name = "category-index"

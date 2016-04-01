@@ -1,11 +1,6 @@
 :ruby
-  if @posts.current_page > 1
-    canonical_url = root_url(page: @posts.current_page)
-    page_title = "#{current_site.tagline} (#{@posts.page_entries_info})"
-  else
-    canonical_url = root_url
-    page_title = current_site.tagline
-  end
+  canonical_url = current_site.canonical_url(@posts)
+  page_title = current_site.page_title(@posts)
 
 - content_for(:canonical_tag) do
   %link{rel: :canonical, href: canonical_url}
