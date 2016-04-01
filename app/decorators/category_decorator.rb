@@ -10,4 +10,20 @@ module CategoryDecorator
       image: site.logo_image_url
     }
   end
+
+  def canonical_url(posts)
+    if posts.current_page > 1
+      category_url(page: posts.current_page)
+    else
+      category_url
+    end
+  end
+
+  def page_title(posts)
+    if posts.current_page > 1
+      "#{name} (#{posts.page_entries_info})"
+    else
+      name
+    end
+  end
 end

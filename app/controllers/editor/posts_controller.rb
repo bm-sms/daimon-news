@@ -48,9 +48,9 @@ class Editor::PostsController < Editor::ApplicationController
 
     @pages =
       if params[:all]
-        Kaminari.paginate_array(@post.pages).page(1).per(@post.pages.size)
+        @post.pages.page(1).per(@post.pages.size)
       else
-        Kaminari.paginate_array(@post.pages).page(params[:page]).per(1)
+        @post.pages.page(params[:page]).per(1)
       end
 
     render template: 'posts/show', layout: 'preview'

@@ -1,8 +1,14 @@
+:ruby
+  canonical_url = current_site.canonical_url(@posts)
+  page_title = current_site.page_title(@posts)
+
 - content_for(:canonical_tag) do
-  %link{rel: :canonical, href: root_url}
+  %link{rel: :canonical, href: canonical_url}
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
+
 - breadcrumb :page_num, @posts.current_page if @posts.current_page > 1
-- set_meta_tags title: current_site.tagline, reverse: false, description: current_site.description, og: current_site.to_og_params
+- set_meta_tags title: page_title, reverse: false, description: current_site.description, og: current_site.to_og_params
+- set_meta_tags og: {url: canonical_url, title: "#{current_site.name} | #{page_title}"}
 - @class_page_name = "welcome"
 
 = content_for(:welcome_content) do
@@ -12,11 +18,11 @@
         %p.tagline= current_site.tagline
 
 %section
-  = render partial: 'banner', locals: {position: :press_articles_top}
+  = render 'banner', position: :press_articles_top
   %ul
     - @posts.each do |post|
-      = render partial: 'posts/summary_with_content', locals: {post: post}
-    = render partial: 'native_ad', locals: {position: :press_articles_bottom}
+      = render 'posts/summary_with_content', post: post
+    = render 'native_ad', position: :press_articles_bottom
 
   - if @posts.total_pages > 1
     %nav.pagination
@@ -24,4 +30,4 @@
       %p.pagination__entries= page_entries_info @posts
 
   %aside
-    = render partial: 'sns_share', locals: {title: "#{current_site.name} #{current_site.tagline}", url: root_url, twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption}
+    = render 'sns_share', title: "#{current_site.name} #{current_site.tagline}", url: root_url, twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption

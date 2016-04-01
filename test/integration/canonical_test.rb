@@ -9,6 +9,14 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       body: <<~EOS,
         # Hi
         this is daimon
+
+        <!--nextpage-->
+
+        # 2 page
+
+        <!--nextpage-->
+
+        # 3 page
       EOS
     )
 
@@ -18,11 +26,7 @@ class CanonicalTest < ActionDispatch::IntegrationTest
   test 'Canonical must be absolute path' do
     visit '/'
 
-    within '.main-pane' do
-      click_on 'Hi'
-    end
-
-    assert_equal "http://#{@post.site.fqdn}/#{@post.public_id}?all=true", find('link[rel=canonical]', visible: false)[:href]
+    assert_canonical_url "http://#{@post.site.fqdn}/"
   end
 
   sub_test_case 'category page' do
@@ -31,34 +35,57 @@ class CanonicalTest < ActionDispatch::IntegrationTest
     end
 
     data({
-      'no parameter'          => ['',                '?page=1'],
-      'unexpected'            => ['?aaa=123',        '?page=1'],
-      'page=1'                => ['?page=1',         '?page=1'],
-      'page=1 and unexpected' => ['?page=1&aaa=123', '?page=1'],
+      'no parameter'          => ['',                ''],
+      'unexpected'            => ['?aaa=123',        ''],
+      'page=1'                => ['?page=1',         ''],
+      'page=1 and unexpected' => ['?page=1&aaa=123', ''],
       'page=2'                => ['?page=2',         '?page=2'],
       'page=2 and unexpected' => ['?page=2&aaa=123', '?page=2'],
     })
     def test_normalize_parameter(data)
-      raw_parameter = data[0]
-      normalized_parameter = data[1]
-      visit "/category/#{@category.slug}#{raw_parameter}"
-      assert_equal "http://#{@post.site.fqdn}/category/#{@category.slug}#{normalized_parameter}",
-                   find('link[rel=canonical]', visible: false)[:href]
+      raw, expected = data
+
+      visit "/category/#{@category.slug}#{raw}"
+      assert_canonical_url "http://#{@post.site.fqdn}/category/#{@category.slug}#{expected}"
     end
   end
 
   sub_test_case 'post page' do
     data({
-      "no parameter"            => "",
-      "pagination"              => "?page=2",
-      "unexpected"              => "?aaa=bbb&c_c=d.d",
-      "all=true"                => "?all=true",
-      "all=true and unexpected" => "?all=true&aaa=123",
+      'no parameter'          => ['',                '?all=true'],
+      'unexpected'            => ['?aaa=123',        '?all=true'],
+      'all=true'              => ['?all=true',       '?all=true'],
+      'page=1'                => ['?page=1',         '?all=true'],
+      'page=1 and unexpected' => ['?page=1&aaa=123', '?all=true'],
+      'page=2'                => ['?page=2',         '?all=true'],
+      'page=2 and unexpected' => ['?page=2&aaa=123', '?all=true'],
     })
-    def test_normalize(data)
-      visit "/#{@post.public_id}#{data}"
-      assert_equal "http://#{@post.site.fqdn}/#{@post.public_id}?all=true",
-                   find('link[rel=canonical]', visible: false)[:href]
+    def test_normalize_parameter(data)
+      raw, expected = data
+
+      visit "/#{@post.public_id}#{raw}"
+      assert_canonical_url "http://#{@post.site.fqdn}/#{@post.public_id}#{expected}"
     end
+  end
+
+  sub_test_case 'welcome page' do
+    data({
+      'no parameter'          => ['',                ''],
+      'unexpected'            => ['?aaa=123',        ''],
+      'page=1'                => ['?page=1',         ''],
+      'page=1 and unexpected' => ['?page=1&aaa=123', ''],
+      'page=2'                => ['?page=2',         '?page=2'],
+      'page=2 and unexpected' => ['?page=2&aaa=123', '?page=2'],
+    })
+    def test_normalize_parameter(data)
+      raw, expected = data
+
+      visit "/#{raw}"
+      assert_canonical_url "http://#{@post.site.fqdn}/#{expected}"
+    end
+  end
+
+  def assert_canonical_url(url)
+    assert_equal url, find('link[rel=canonical]', visible: false)[:href]
   end
 end

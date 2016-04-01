@@ -1,9 +1,14 @@
-- if @pages.respond_to?(:total_pages)
+:ruby
+  canonical_url = @post.canonical_url
+  page_title = @post.page_title(@pages)
+
+- if @pages.total_pages > 1
   - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@pages) }
 - content_for(:canonical_tag) do
-  %link{rel: :canonical, href: url_for(all: true, only_path: false)}
+  %link{rel: :canonical, href: canonical_url}
 - breadcrumb :post, @post
-- set_meta_tags title: @post.title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
+- set_meta_tags title: page_title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
+- set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
 
 %article.post
   %div.post__header
@@ -18,7 +23,7 @@
   .post__body
     = raw render_markdown(@pages.map(&:body).join)
 
-  - if @pages.respond_to?(:total_pages) && @pages.total_pages > 1
+  - if @pages.total_pages > 1
     %nav.pagination
       = paginate @pages, theme: :post
 

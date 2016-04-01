@@ -1,23 +1,29 @@
+:ruby
+  canonical_url = @category.canonical_url(@posts)
+  page_title = @category.page_title(@posts)
+
 - @class_category_id = "category-" + @category.order.to_s
 - @class_page_name = "category-index"
+
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
 - content_for(:canonical_tag) do
-  %link{rel: :canonical, href: category_url(only_path: false, page: @posts.current_page)}
+  %link{rel: :canonical, href: canonical_url}
 - if @posts.current_page > 1
   - breadcrumb :page_num, @posts.current_page, @category
 - else
   - breadcrumb :category, @category
-- set_meta_tags title: @category.name, og: @category.to_og_params
+- set_meta_tags title: page_title, og: @category.to_og_params
+- set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
 
 %section
   %h1.category-header= @category.name
   %p.category-description= @category.description
 
-  = render partial: 'banner', locals: {position: :press_articles_top}
+  = render 'banner', position: :press_articles_top
   %ul
     - @posts.each do |post|
-      = render partial: 'posts/summary_with_content', locals: {post: post}
-    = render partial: 'native_ad', locals: {position: :press_articles_bottom}
+      = render 'posts/summary_with_content', post: post
+    = render 'native_ad', position: :press_articles_bottom
 
   - if @posts.total_pages > 1
     %nav.pagination
