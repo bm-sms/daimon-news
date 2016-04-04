@@ -5,6 +5,9 @@ AllCops:
     - "vendor/**/*"
     - "db/schema.rb"
 
+Rails:
+  Enabled: true
+
 Metrics/LineLength:
   Enabled: false
 Style/FrozenStringLiteralComment:
