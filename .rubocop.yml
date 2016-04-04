@@ -5,6 +5,8 @@ AllCops:
 
 Metrics/LineLength:
   Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 Style/TrailingCommaInLiteral:
