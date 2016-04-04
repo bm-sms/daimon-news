@@ -21,4 +21,6 @@ Style/WordArray:
   Enabled: false
 Style/BarePercentLiterals:
   EnforcedStyle: percent_q
-
+Style/SpaceInsideBlockBraces:
+  EnforcedStyle: space
+  SpaceBeforeBlockParameters: false
