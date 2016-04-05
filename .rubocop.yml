@@ -5,11 +5,30 @@ AllCops:
     - "vendor/**/*"
     - "db/schema.rb"
 
-Rails:
-  Enabled: true
+Lint/UnderscorePrefixedVariableName:
+  Enabled: false
+Lint/UnusedMethodArgument:
+  Enabled: false
 
 Metrics/LineLength:
   Enabled: false
+Metrics/ClassLength:
+  Exclude:
+    - "test/**/*.rb"
+Metrics/ParameterLists:
+  Max: 7
+
+Rails:
+  Enabled: true
+Rails/FindBy:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+Style/HashSyntax:
+  Exclude:
+    - "**/*.rake"
+    - "Rakefile"
 Style/FrozenStringLiteralComment:
   Enabled: false
 Style/StringLiterals:
@@ -29,3 +48,7 @@ Style/BarePercentLiterals:
 Style/SpaceInsideBlockBraces:
   EnforcedStyle: space
   SpaceBeforeBlockParameters: false
+Style/BracesAroundHashParameters:
+  Enabled: false
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
