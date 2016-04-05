@@ -51,4 +51,3 @@ class WipSiteTest < ActionDispatch::IntegrationTest
     end
   end
 end
-

@@ -26,4 +26,3 @@ after "development:sites" do
     EOS
   )
 end
-
