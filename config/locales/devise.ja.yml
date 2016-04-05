@@ -1,0 +1,6 @@
+ja:
+  devise:
+    failure:
+      already_authenticated: "すでにログインしています。"
+    sessions:
+      signed_in: "ログインしました。"
