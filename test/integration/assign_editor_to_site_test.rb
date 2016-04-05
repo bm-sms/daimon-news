@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class AssignEditorToSiteTest < ActionDispatch::IntegrationTest
   setup do
@@ -10,18 +10,18 @@ class AssignEditorToSiteTest < ActionDispatch::IntegrationTest
     login_as_admin(site: @site, admin: admin)
   end
 
-  test 'Assign' do
+  test "Assign" do
     visit "/admin/sites/#{@site.id}"
 
-    click_on 'Edit editor'
+    click_on "Edit editor"
 
     check @user_to_be_editor.email
 
-    click_on '更新する'
+    click_on "更新する"
 
-    assert page.has_css?('.alert', text: 'サイトの編集者が更新されました')
+    assert page.has_css?(".alert", text: "サイトの編集者が更新されました")
 
-    within '.editors' do
+    within ".editors" do
       assert page.has_content?(@user_to_be_editor.email)
       assert_not page.has_content?(@user_not_to_be_editor.email)
     end

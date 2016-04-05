@@ -1,9 +1,9 @@
-after 'development:sites' do
-  site1 = Site.find_by!(name: 'site1')
+after "development:sites" do
+  site1 = Site.find_by!(name: "site1")
 
   site1.fixed_pages.create!(
-    slug:  'about',
-    title: 'About Site 1',
+    slug:  "about",
+    title: "About Site 1",
     body: <<~EOS,
     Site 1 is:
 
@@ -13,8 +13,8 @@ after 'development:sites' do
     EOS
   )
   site1.fixed_pages.create!(
-    slug:  'policy',
-    title: 'Privacy Policy',
+    slug:  "policy",
+    title: "Privacy Policy",
     body: <<~EOS,
     ## Privacy Policy
 

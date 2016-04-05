@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PostTest < ActiveSupport::TestCase
   setup do
@@ -11,25 +11,25 @@ class PostTest < ActiveSupport::TestCase
     I18n.locale = @default_locale
   end
 
-  sub_test_case 'order' do
+  sub_test_case "order" do
     data({
       null: nil,
-      blank: '',
-      alphabet: 'a',
+      blank: "",
+      alphabet: "a",
     })
     def test_only_integer(data)
       category = @site.categories.create(
-        name:        'category 1',
-        description: 'category 1',
-        slug:        'category1',
+        name:        "category 1",
+        description: "category 1",
+        slug:        "category1",
         order:       data
       )
       assert_false(category.valid?)
-      assert_equal(['は数値で入力してください'], category.errors[:order])
+      assert_equal(["は数値で入力してください"], category.errors[:order])
     end
   end
 
-  sub_test_case 'relation' do
+  sub_test_case "relation" do
     setup do
       category = create(:category, site: @site)
       role = create(:credit_role, site: @site)
@@ -53,7 +53,7 @@ class PostTest < ActiveSupport::TestCase
     end
   end
 
-  sub_test_case 'credits order' do
+  sub_test_case "credits order" do
     setup do
       @post = create(:post, :whatever, site: @site)
 
@@ -68,11 +68,11 @@ class PostTest < ActiveSupport::TestCase
     end
 
     def test_roles_should_ordered_by_role_order
-      assert_equal @credits.map(&:role).map(&:name), ['Role: 1', 'Role: 2', 'Role: 3']
+      assert_equal @credits.map(&:role).map(&:name), ["Role: 1", "Role: 2", "Role: 3"]
     end
 
     def test_participants_should_ordered_by_role_order
-      assert_equal @credits.map(&:participant).map(&:name), ['Participant: 1', 'Participant: 2', 'Participant: 3']
+      assert_equal @credits.map(&:participant).map(&:name), ["Participant: 1", "Participant: 2", "Participant: 3"]
     end
   end
 end

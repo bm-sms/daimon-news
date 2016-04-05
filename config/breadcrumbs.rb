@@ -1,5 +1,5 @@
 crumb :root do
-  link 'Press', root_url
+  link "Press", root_url
 end
 
 crumb :category do |category|

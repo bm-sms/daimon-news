@@ -2,7 +2,7 @@ class AddColumnPostPublicId < ActiveRecord::Migration
   def up
     add_column :posts, :public_id, :integer
 
-    execute 'UPDATE posts SET public_id = id'
+    execute "UPDATE posts SET public_id = id"
 
     change_column_null :posts, :public_id, false
 

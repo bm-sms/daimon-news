@@ -22,7 +22,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.serve_static_files = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -58,19 +58,19 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST']
+  config.action_controller.asset_host = ENV["ASSET_HOST"] if ENV["ASSET_HOST"]
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.smtp_settings = [
-    address:              'smtp.sendgrid.net',
-    port:                 '587',
+    address:              "smtp.sendgrid.net",
+    port:                 "587",
     authentication:       :plain,
-    user_name:            ENV['SENDGRID_USERNAME'],
-    password:             ENV['SENDGRID_PASSWORD'],
-    domain:               'heroku.com',
+    user_name:            ENV["SENDGRID_USERNAME"],
+    password:             ENV["SENDGRID_PASSWORD"],
+    domain:               "heroku.com",
     enable_starttls_auto: true
   ]
 
@@ -103,17 +103,17 @@ Rails.application.configure do
     end
   end
 
-  config.middleware.use DigestAuthUnless, 'daimon', ENV['DIGEST_AUTH_SECRET_KEY'], (-> (env) { env['PATH_INFO'] =~ %r{\A/hooks/} || env['PATH_INFO'] =~ %r{\A/assets/} }) do |username|
-    {ENV['DIGEST_AUTH_USERNAME'] => ENV['DIGEST_AUTH_PASSWORD']}[username]
-  end if ENV['DIGEST_AUTH_SECRET_KEY']
+  config.middleware.use DigestAuthUnless, "daimon", ENV["DIGEST_AUTH_SECRET_KEY"], (-> (env) { env["PATH_INFO"] =~ %r{\A/hooks/} || env["PATH_INFO"] =~ %r{\A/assets/} }) do |username|
+    {ENV["DIGEST_AUTH_USERNAME"] => ENV["DIGEST_AUTH_PASSWORD"]}[username]
+  end if ENV["DIGEST_AUTH_SECRET_KEY"]
 
-  allowd_ips = ENV['ADMIN_IP_ADDRESSES'].split(',')
-  config.middleware.use Rack::Access, '/admin' => allowd_ips, '/users' => allowd_ips, '/editor' => allowd_ips
+  allowd_ips = ENV["ADMIN_IP_ADDRESSES"].split(",")
+  config.middleware.use Rack::Access, "/admin" => allowd_ips, "/users" => allowd_ips, "/editor" => allowd_ips
 
-  config.middleware.insert_before 0, 'Rack::Cors' do
+  config.middleware.insert_before 0, "Rack::Cors" do
     allow do
-      origins '*'
-      resource '/assets/*', headers: :any, methods: %i(get post options)
+      origins "*"
+      resource "/assets/*", headers: :any, methods: %i(get post options)
     end
   end
 end

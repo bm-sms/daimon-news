@@ -7,7 +7,7 @@ module MarkdownEditorUploadImageHelper
 
     execute_script("$('.md-input-upload').css('position', 'initial')")
 
-    find('.md-input-upload', visible: false).set(files)
+    find(".md-input-upload", visible: false).set(files)
 
     execute_script("$('.md-input-upload').css('position', '#{before_position}')")
   end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class CustomizableTagTest < ActionDispatch::IntegrationTest
   setup do
@@ -6,29 +6,29 @@ class CustomizableTagTest < ActionDispatch::IntegrationTest
     login_as_admin(site: @site, admin: create(:user, :admin))
   end
 
-  test 'Customizable head and promotion area' do
-    click_on 'サイト情報'
+  test "Customizable head and promotion area" do
+    click_on "サイト情報"
 
     within :row, @site.name do
-      click_on 'Edit'
+      click_on "Edit"
     end
 
-    fill_in 'Head tag', with: <<~EOS
+    fill_in "Head tag", with: <<~EOS
       <meta name="test">
     EOS
 
-    fill_in 'Promotion tag', with: <<~EOS
+    fill_in "Promotion tag", with: <<~EOS
       <h1 id="test">Hi</h1>
     EOS
 
-    click_on '更新する'
+    click_on "更新する"
 
-    visit '/'
+    visit "/"
 
     assert page.has_css?('meta[name="test"]', visible: false)
 
-    within '.promotions' do
-      assert_equal 'Hi', find('#test').text
+    within ".promotions" do
+      assert_equal "Hi", find('#test').text
     end
   end
 end

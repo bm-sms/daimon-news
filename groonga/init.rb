@@ -1,35 +1,35 @@
-require_relative '../config/environment'
+require_relative "../config/environment"
 
 Groonga::Schema.define do |schema|
-  schema.create_table('Sites',
+  schema.create_table("Sites",
                       type: :hash,
                       key_type: :uint32) do |table|
-    table.short_text 'name'
+    table.short_text "name"
   end
 
-  schema.create_table('Categories',
+  schema.create_table("Categories",
                       type: :hash,
                       key_type: :uint32) do |table|
-    table.short_text 'name'
+    table.short_text "name"
   end
 
-  schema.create_table('Participants',
+  schema.create_table("Participants",
                       type: :hash,
                       key_type: :uint32) do |table|
-    table.short_text 'name'
-    table.text 'description'
+    table.short_text "name"
+    table.text "description"
   end
 
-  schema.create_table('Posts',
+  schema.create_table("Posts",
                       type: :hash,
                       key_type: :uint32) do |table|
-    table.short_text 'title'
-    table.text 'content'
-    table.time 'published_at'
-    table.reference 'site', 'Sites'
-    table.reference 'category', 'Categories'
-    table.reference 'participants', 'Participants', type: :vector
-    table.uint32 'public_id'
+    table.short_text "title"
+    table.text "content"
+    table.time "published_at"
+    table.reference "site", "Sites"
+    table.reference "category", "Categories"
+    table.reference "participants", "Participants", type: :vector
+    table.uint32 "public_id"
   end
 end
 
@@ -41,33 +41,33 @@ if Post.table_exists?
 end
 
 Groonga::Schema.define do |schema|
-  schema.create_table('Words',
+  schema.create_table("Words",
                       type: :patricia_trie,
                       key_type: :short_text,
-                      normalizer: 'NormalizerAuto',
-                      default_tokenizer: 'TokenMecab') do |table|
-    table.index 'Posts.title'
-    table.index 'Posts.content'
+                      normalizer: "NormalizerAuto",
+                      default_tokenizer: "TokenMecab") do |table|
+    table.index "Posts.title"
+    table.index "Posts.content"
   end
 
-  schema.create_table('Terms',
+  schema.create_table("Terms",
                       type: :patricia_trie,
                       key_type: :short_text,
-                      normalizer: 'NormalizerAuto',
-                      default_tokenizer: 'TokenBigram') do |table|
-    table.index 'Posts.title'
-    table.index 'Posts.content'
-    table.index 'Participants.name'
-    table.index 'Participants.description'
+                      normalizer: "NormalizerAuto",
+                      default_tokenizer: "TokenBigram") do |table|
+    table.index "Posts.title"
+    table.index "Posts.content"
+    table.index "Participants.name"
+    table.index "Participants.description"
   end
 
-  schema.create_table('Times',
+  schema.create_table("Times",
                       type: :patricia_trie,
                       key_type: :time) do |table|
-    table.index 'Posts.published_at'
+    table.index "Posts.published_at"
   end
 
-  schema.change_table('Participants') do |table|
-    table.index 'Posts.participants'
+  schema.change_table("Participants") do |table|
+    table.index "Posts.participants"
   end
 end

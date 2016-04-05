@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   has_many :credits, dependent: :destroy do
     def with_ordered
-      eager_load(:role).order('credit_roles.order')
+      eager_load(:role).order("credit_roles.order")
     end
   end
 
@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
 
   before_save :assign_public_id
 
-  scope :published, -> { where('published_at <= ?', Time.current) }
+  scope :published, -> { where("published_at <= ?", Time.current) }
   scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
@@ -37,14 +37,14 @@ class Post < ActiveRecord::Base
   def next_post
     @next_post ||= around_posts_candidates
       .order(:id => :desc)
-      .where('id > ?', id)
+      .where("id > ?", id)
       .first
   end
 
   def previous_post
     @previous_post ||= around_posts_candidates
       .order(:id)
-      .where('id < ?', id)
+      .where("id < ?", id)
       .first
   end
 

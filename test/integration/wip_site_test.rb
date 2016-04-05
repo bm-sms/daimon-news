@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class WipSiteTest < ActionDispatch::IntegrationTest
   setup do
@@ -13,7 +13,7 @@ class WipSiteTest < ActionDispatch::IntegrationTest
     test "User can't show the site" do
       login_as_editor(site: @site, editor: @editor)
 
-      visit '/'
+      visit "/"
 
       assert_equal 403, status_code
     end
@@ -24,29 +24,29 @@ class WipSiteTest < ActionDispatch::IntegrationTest
       @editor.sites << @site
     end
 
-    test 'User can show the site' do
+    test "User can show the site" do
       login_as_editor(site: @site, editor: @editor)
 
-      visit '/'
+      visit "/"
 
-      within 'main' do
-        assert_equal @post.title, find('.article-summary:not(.ad) .article-summary__title').text
+      within "main" do
+        assert_equal @post.title, find(".article-summary:not(.ad) .article-summary__title").text
       end
     end
   end
 
-  sub_test_case 'When user is an admin' do
+  sub_test_case "When user is an admin" do
     setup do
       @admin = create(:user, :admin)
     end
 
-    test 'User can show the site' do
+    test "User can show the site" do
       login_as_admin(site: @site, admin: @admin)
 
-      visit '/'
+      visit "/"
 
-      within 'main' do
-        assert_equal @post.title, find('.article-summary:not(.ad) .article-summary__title').text
+      within "main" do
+        assert_equal @post.title, find(".article-summary:not(.ad) .article-summary__title").text
       end
     end
   end
