@@ -16,7 +16,7 @@ class BreadcrumbsTest < ActionDispatch::IntegrationTest
 
     click_on "次へ"
 
-    # TODO xxx/yyy の運用をやめたらテストからも xxx を取り除く
+    # TODO: xxx/yyy の運用をやめたらテストからも xxx を取り除く
 
     assert_equal "Press 2ページ目", find(".xxx .breadcrumbs").text
     assert_equal 2, all(".xxx .breadcrumbs__fragment").count
@@ -28,7 +28,7 @@ class BreadcrumbsTest < ActionDispatch::IntegrationTest
       click_on @category.name
     end
 
-    # TODO xxx/yyy の運用をやめたらテストからも xxx を取り除く
+    # TODO: xxx/yyy の運用をやめたらテストからも xxx を取り除く
 
     assert_equal "Press #{@category.name}", find(".xxx .breadcrumbs").text
 
