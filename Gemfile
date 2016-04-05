@@ -50,6 +50,7 @@ group :development do
   gem 'launchy'
   gem 'pry-rails'
   gem 'rails-erd', require: false
+  gem 'rubocop', require: false
 end
 
 group :test do
