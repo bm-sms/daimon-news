@@ -71,6 +71,24 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "search results should be empty when keyword is empty" do
+    create_post(:with_credit,
+                site: @current_site,
+                title: "post1",
+                body: "contents...")
+
+    visit "/"
+
+    fill_in "query[keywords]", with: ""
+
+    click_on "検索"
+
+    within("main") do
+      assert_equal "検索キーワードを入力してください。", find(".message").text
+      assert has_no_css?(".search-result-list")
+    end
+  end
+
   test "keywords should be split for all target columns" do
     create_post(:with_credit,
                 site: @current_site,

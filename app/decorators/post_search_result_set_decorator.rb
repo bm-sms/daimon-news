@@ -8,7 +8,9 @@ module PostSearchResultSetDecorator
   end
 
   def message
-    if posts.empty?
+    if keywords.empty?
+      "検索キーワードを入力してください。"
+    elsif posts.empty?
       "「#{keywords}」を含む記事は見つかりませんでした。"
     elsif posts.total_pages > 1
       "「#{keywords}」を含む記事は#{posts.total_count}件見つかりました。(#{posts.page_entries_info})"
