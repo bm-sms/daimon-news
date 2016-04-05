@@ -1,4 +1,4 @@
-require_dependency 'daimon/render/html'
+require_dependency "daimon/render/html"
 
 module MarkdownHelper
   def render_markdown(markdown_text)

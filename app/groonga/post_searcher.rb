@@ -8,15 +8,15 @@ class PostSearcher
   end
 
   def initialize
-    @posts = Groonga['Posts']
+    @posts = Groonga["Posts"]
   end
 
   def related_post_ids(post, limit: 5)
     return [] if @posts.nil?
 
     related_posts = @posts.select do |record|
-      conditions = (record.index('Words.Posts_title').similar_search(post.title))
-      conditions |= (record.index('Words.Posts_content').similar_search(post.body))
+      conditions = (record.index("Words.Posts_title").similar_search(post.title))
+      conditions |= (record.index("Words.Posts_content").similar_search(post.body))
       post.credits.each do |credit|
         conditions |= (record.participants._key =~ credit.participant_id)
       end
@@ -44,8 +44,8 @@ class PostSearcher
 
       if query.keywords.present?
         match_target = record.match_target do |target|
-          (target.index('Terms.Posts_title') * 10) |
-            target.index('Terms.Posts_content')
+          (target.index("Terms.Posts_title") * 10) |
+            target.index("Terms.Posts_content")
         end
         keywords = query.keywords.split
         full_text_search = keywords.map {|keyword|

@@ -1,7 +1,7 @@
 class Admin::ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  layout 'admin'
+  layout "admin"
 
   before_action :authenticate_user!
   before_action -> { redirect_to root_url unless current_user.admin?  }

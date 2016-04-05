@@ -1,4 +1,4 @@
-DEFAULT_PASSWORD = 'passw0rd'
+DEFAULT_PASSWORD = "passw0rd"
 
 FactoryGirl.define do
   factory :user do

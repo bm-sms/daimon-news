@@ -33,8 +33,8 @@ module PostSearchResultSetDecorator
 
   def to_og_params
     {
-      locale: 'ja_JP',
-      type: 'article',
+      locale: "ja_JP",
+      type: "article",
       title: to_meta_title,
       description: to_meta_description,
       url: canonical_url,
@@ -45,7 +45,7 @@ module PostSearchResultSetDecorator
   end
 
   def excerpt(post)
-    snippets = snippet(post.plain_text_body, class: 'search-result__keyword')
+    snippets = snippet(post.plain_text_body, class: "search-result__keyword")
     if snippets.empty?
       post.short_text_body
     else

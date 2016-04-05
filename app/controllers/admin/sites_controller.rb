@@ -20,7 +20,7 @@ class Admin::SitesController < Admin::ApplicationController
         @site.memberships.create!(user: current_user)
       end
 
-      redirect_to [:admin, @site], notice: 'サイトが作成されました。'
+      redirect_to [:admin, @site], notice: "サイトが作成されました。"
     else
       render :new
     end
@@ -34,7 +34,7 @@ class Admin::SitesController < Admin::ApplicationController
     @site = current_site
 
     if @site.update(site_params)
-      redirect_to [:admin, @site], notice: 'サイト情報が更新されました。'
+      redirect_to [:admin, @site], notice: "サイト情報が更新されました。"
     else
       render :edit
     end

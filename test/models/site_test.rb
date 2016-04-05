@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class SiteTest < ActiveSupport::TestCase
   setup do
@@ -10,7 +10,7 @@ class SiteTest < ActiveSupport::TestCase
     I18n.locale = @default_locale
   end
 
-  sub_test_case 'relation' do
+  sub_test_case "relation" do
     setup do
       @site = create(:site)
       @post = create(:post, :whatever, site: @site)
@@ -19,7 +19,7 @@ class SiteTest < ActiveSupport::TestCase
       end
     end
 
-    test 'destroy site' do
+    test "destroy site" do
       assert_equal(1, Site.count)
       assert_equal(1, Category.count)
       assert_equal(1, Post.count)
@@ -32,33 +32,33 @@ class SiteTest < ActiveSupport::TestCase
     end
   end
 
-  sub_test_case 'name' do
-    test 'null' do
+  sub_test_case "name" do
+    test "null" do
       site = Site.new
       assert_false(site.valid?)
-      assert_equal(['を入力してください'], site.errors[:name])
+      assert_equal(["を入力してください"], site.errors[:name])
     end
 
-    test 'blank' do
-      site = Site.new(name: '')
+    test "blank" do
+      site = Site.new(name: "")
       assert_false(site.valid?)
-      assert_equal(['を入力してください'], site.errors[:name])
+      assert_equal(["を入力してください"], site.errors[:name])
     end
   end
 
-  sub_test_case 'fqdn' do
-    test 'blank' do
-      site = Site.new(name: 'site1', fqdn: '')
+  sub_test_case "fqdn" do
+    test "blank" do
+      site = Site.new(name: "site1", fqdn: "")
       assert_false(site.valid?)
-      assert_equal(['を入力してください'], site.errors[:fqdn])
+      assert_equal(["を入力してください"], site.errors[:fqdn])
     end
 
-    test 'unique' do
-      fqdn = 'exapmle.com'
-      Site.create!(name: 'site1', fqdn: fqdn)
-      site = Site.new(name: 'site2', fqdn: fqdn)
+    test "unique" do
+      fqdn = "exapmle.com"
+      Site.create!(name: "site1", fqdn: fqdn)
+      site = Site.new(name: "site2", fqdn: fqdn)
       assert_false(site.valid?)
-      assert_equal(['はすでに存在します'], site.errors[:fqdn])
+      assert_equal(["はすでに存在します"], site.errors[:fqdn])
     end
   end
 end

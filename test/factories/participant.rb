@@ -8,7 +8,7 @@ FactoryGirl.define do
     end
 
     trait :with_photo do
-      photo { Rails.root.join('test/fixtures/images/face.png').open }
+      photo { Rails.root.join("test/fixtures/images/face.png").open }
     end
   end
 end

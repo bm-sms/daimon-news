@@ -2,10 +2,10 @@ class PostIndexer
   include MarkdownHelper
 
   def initialize
-    @sites = Groonga['Sites']
-    @categories = Groonga['Categories']
-    @participants = Groonga['Participants']
-    @posts = Groonga['Posts']
+    @sites = Groonga["Sites"]
+    @categories = Groonga["Categories"]
+    @participants = Groonga["Participants"]
+    @posts = Groonga["Posts"]
   end
 
   def add(post)

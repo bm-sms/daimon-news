@@ -15,7 +15,7 @@ class Editor::ParticipantsController < Editor::ApplicationController
     @participant = participants.build(participant_params)
 
     if @participant.save
-      redirect_to [:editor, @participant], notice: '関係者情報が作成されました'
+      redirect_to [:editor, @participant], notice: "関係者情報が作成されました"
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Editor::ParticipantsController < Editor::ApplicationController
     @participant = participants.find(params[:id])
 
     if @participant.update(participant_params)
-      redirect_to [:editor, @participant], notice: '関係者情報が更新されました'
+      redirect_to [:editor, @participant], notice: "関係者情報が更新されました"
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Editor::ParticipantsController < Editor::ApplicationController
 
     @participant.destroy
 
-    redirect_to editor_participants_url, notice: '関係者情報が削除されました'
+    redirect_to editor_participants_url, notice: "関係者情報が削除されました"
   end
 
   private

@@ -1,5 +1,5 @@
 class Page
-  SEPARATOR = '<!--nextpage-->'.freeze
+  SEPARATOR = "<!--nextpage-->".freeze
 
   class << self
     def pages_for(text)

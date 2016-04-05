@@ -2,21 +2,21 @@ module LoginHelper
   def login_as_admin(site:, admin:)
     switch_domain(site.fqdn)
 
-    visit '/admin'
+    visit "/admin"
 
-    fill_in 'Email',    with: admin.email
-    fill_in 'Password', with: DEFAULT_PASSWORD
-    click_on 'Log in'
+    fill_in "Email",    with: admin.email
+    fill_in "Password", with: DEFAULT_PASSWORD
+    click_on "Log in"
   end
 
   def login_as_editor(site:, editor:)
     switch_domain(site.fqdn)
 
-    visit '/editor'
+    visit "/editor"
 
-    fill_in 'Email',    with: editor.email
-    fill_in 'Password', with: DEFAULT_PASSWORD
-    click_on 'Log in'
+    fill_in "Email",    with: editor.email
+    fill_in "Password", with: DEFAULT_PASSWORD
+    click_on "Log in"
   end
 end
 

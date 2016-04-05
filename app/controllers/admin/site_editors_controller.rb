@@ -8,7 +8,7 @@ class Admin::SiteEditorsController < Admin::ApplicationController
 
     @site.update!(editors_params)
 
-    redirect_to admin_site_url(@site), notice: 'サイトの編集者が更新されました'
+    redirect_to admin_site_url(@site), notice: "サイトの編集者が更新されました"
   end
 
   private

@@ -11,7 +11,7 @@ module DomainHelper
   end
 
   def switch_domain(domain)
-    Capybara.default_host = 'http://' + domain
+    Capybara.default_host = "http://" + domain
   end
 end
 

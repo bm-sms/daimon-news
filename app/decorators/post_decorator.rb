@@ -9,8 +9,8 @@ module PostDecorator
 
   def to_og_params
     {
-      locale: 'ja_JP',
-      type: 'article',
+      locale: "ja_JP",
+      type: "article",
       title: title,
       description: MetaTags::TextNormalizer.normalize_description(render_markdown(body)),
       url: post_url(self, all: true),

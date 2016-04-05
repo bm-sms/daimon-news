@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :post do
-    title 'title'
-    body 'body'
-    thumbnail { Rails.root.join('test/fixtures/images/thumbnail.jpg').open }
-    published_at { DateTime.parse('2016-01-01') }
+    title "title"
+    body "body"
+    thumbnail { Rails.root.join("test/fixtures/images/thumbnail.jpg").open }
+    published_at { DateTime.parse("2016-01-01") }
 
     trait :whatever do
       site

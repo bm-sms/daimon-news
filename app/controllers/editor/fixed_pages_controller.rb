@@ -15,7 +15,7 @@ class Editor::FixedPagesController < Editor::ApplicationController
     @fixed_page = fixed_pages.build(fixed_page_params)
 
     if @fixed_page.save
-      redirect_to [:editor, @fixed_page], notice: '固定ページが作成されました'
+      redirect_to [:editor, @fixed_page], notice: "固定ページが作成されました"
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Editor::FixedPagesController < Editor::ApplicationController
     @fixed_page = fixed_pages.find(params[:id])
 
     if @fixed_page.update(fixed_page_params)
-      redirect_to [:editor, @fixed_page], notice: '固定ページが更新されました'
+      redirect_to [:editor, @fixed_page], notice: "固定ページが更新されました"
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Editor::FixedPagesController < Editor::ApplicationController
 
     @fixed_page.destroy
 
-    redirect_to editor_fixed_pages_url, notice: '固定ページが削除されました'
+    redirect_to editor_fixed_pages_url, notice: "固定ページが削除されました"
   end
 
   private

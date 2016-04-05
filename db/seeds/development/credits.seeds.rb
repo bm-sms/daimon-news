@@ -1,5 +1,5 @@
-after 'development:credit_roles', 'development:participants', 'development:posts' do
-  site1 = Site.find_by!(name: 'site1')
+after "development:credit_roles", "development:participants", "development:posts" do
+  site1 = Site.find_by!(name: "site1")
   participants = site1.participants.cycle
   credit_role = site1.credit_roles.first!
 

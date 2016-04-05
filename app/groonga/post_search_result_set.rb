@@ -31,7 +31,7 @@ class PostSearchResultSet
 
   def create_snippet(html_options)
     open_tag = "<span class='#{html_options[:class]}'>"
-    close_tag = '</span>'
+    close_tag = "</span>"
     options = {
       :normalize => true,
       :width => 200,
