@@ -31,7 +31,7 @@ class Post < ActiveRecord::Base
   def related_posts
     searcher = PostSearcher.new
     ids = searcher.related_post_ids(self)
-    Post.published.where(id: ids)
+    Post.published.where(id: ids).order_by_recently
   end
 
   def next_post
