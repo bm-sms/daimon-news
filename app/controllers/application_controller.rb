@@ -12,11 +12,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def access_denied(exception)
-    # FIXME Should we render 404 error page?
-    redirect_to root_url
-  end
-
   def routing_error!
     raise ActionController::RoutingError, %|(No route matches [GET] "#{request.path}")|
   end
