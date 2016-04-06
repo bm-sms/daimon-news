@@ -15,8 +15,8 @@ class PostSearcher
     return [] if @posts.nil?
 
     related_posts = @posts.select do |record|
-      conditions = (record.index("Words.Posts_title").similar_search(post.title))
-      conditions |= (record.index("Words.Posts_content").similar_search(post.body))
+      conditions = record.index("Words.Posts_title").similar_search(post.title)
+      conditions |= record.index("Words.Posts_content").similar_search(post.body)
       post.credits.each do |credit|
         conditions |= (record.participants._key =~ credit.participant_id)
       end
