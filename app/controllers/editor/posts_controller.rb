@@ -70,7 +70,7 @@ class Editor::PostsController < Editor::ApplicationController
       :category_id,
       :thumbnail,
       :published_at,
-      :credits_attributes => [
+      credits_attributes: [
         :id,
         :participant_id,
         :credit_role_id,

@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
   before_save :assign_public_id
 
   scope :published, -> { where("published_at <= ?", Time.current) }
-  scope :order_by_recently, -> { order(:published_at => :desc, :id => :asc) }
+  scope :order_by_recently, -> { order(published_at: :desc, id: :asc) }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
 
@@ -36,7 +36,7 @@ class Post < ActiveRecord::Base
 
   def next_post
     @next_post ||= around_posts_candidates
-      .order(:id => :desc)
+      .order(id: :desc)
       .where("id > ?", id)
       .first
   end

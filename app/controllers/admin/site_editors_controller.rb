@@ -15,7 +15,7 @@ class Admin::SiteEditorsController < Admin::ApplicationController
 
   def editors_params
     params.require(:site).permit(
-      :editor_ids => []
+      editor_ids: []
     )
   end
 
