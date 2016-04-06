@@ -33,9 +33,9 @@ class PostSearchResultSet
     open_tag = "<span class='#{html_options[:class]}'>"
     close_tag = "</span>"
     options = {
-      :normalize => true,
-      :width => 200,
-      :html_escape => true,
+      normalize: true,
+      width: 200,
+      html_escape: true,
     }
     @groonga_posts.expression.snippet([open_tag, close_tag], options)
   end
