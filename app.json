@@ -6,6 +6,10 @@
     "HEROKU_APP_NAME": {
       "required": true
     },
+    "USE_SHARED_S3_BUCKET": {
+      "value": "true",
+      "required": false
+    },
     "DIGEST_AUTH_SECRET_KEY": {
       "generator": "secret"
     },
