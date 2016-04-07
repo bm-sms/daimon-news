@@ -12,49 +12,36 @@ Daimon is a place name. It's located in Hamamatsu-cho, Minato-ku, Tokyo, Japan.
 $ bin/setup
 ```
 
+Report to [GitHub Issues](https://github.com/bm-sms/daimon-news-multi-tenant/issues) if you get an error.
+
 ## Run server
 
 ``` sh
 $ bin/rails s
 ```
 
-## Routing
+## Usage
 
-### Admin
+### Register administrators and editors
 
-http://localhost:3000/admin/
+Register admin users and editor users via Rails console or seed data.
 
-### Blog
+ref: [db/seeds/development/users.seeds.rb](https://github.com/bm-sms/daimon-news-multi-tenant/blob/master/db/seeds/development/users.seeds.rb)
 
-http://localhost:3000/blog/sites/1/posts/
+### Manage sites information
 
-Or
+http://localhost:3000/admin
 
-http://site1.lvh.me:3000/blog/
+Login as an admin user.
 
-## Starting up new service
+### Edit posts of a site
 
-1. Create new site in Admin route:
-  * http://localhost:3000/admin/sites
-2. Create posts in Admin route:
-  * http://localhost:3000/admin/posts
-3. You can show new service in Blog route:
-  * http://localhost:3000/blog/sites/1/posts
+http://#{site.fqdn}/editor
 
-## Customizing CSS/JavaScript
+Login as an editor user of the site.
 
-1. Create the following files:
-  * public/site#{id}/site.css
-  * public/site#{id}/site.js
+### Show a site
 
-### Confirming a site
+http://#{site.fqdn}/
 
-```sh
-$ bin/run-site SITE_ID
-```
-
-For example:
-
-```sh
-$ bin/run-site 1
-```
+If the site is not opened, must be logged in to view posts. You can open the site in admin page.
