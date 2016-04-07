@@ -17,6 +17,8 @@ Metrics/ClassLength:
     - "test/**/*.rb"
 Metrics/ParameterLists:
   Max: 7
+Metrics/MethodLength:
+  Max: 30
 
 Rails:
   Enabled: true
