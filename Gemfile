@@ -12,6 +12,7 @@ gem "bourbon"
 gem "browser"
 gem "carrierwave"
 gem "cocoon"
+gem "daimon_news-layout", github: "bm-sms/daimon_news-layout"
 gem "devise", ">= 3.5.4"
 gem "fog"
 gem "font-awesome-sass"
@@ -35,7 +36,6 @@ gem "sprockets-es6"
 gem "uglifier"
 
 source "https://rails-assets.org" do
-  gem "rails-assets-normalize-scss"
   gem "rails-assets-bootstrap-markdown-editor"
   gem "rails-assets-marked"
 end
