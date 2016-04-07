@@ -3,8 +3,9 @@
   = render 'application/head'
 
   %body(data-layer='top'){ class: "#{['root-container', @class_page_name, @class_category_id].compact.join(' ')}" }
-    %div.overlay
+    - # Do not insert any other tag between `<body>` and GTM snippet. See https://developers.google.com/tag-manager/quickstart
     = google_tag_manager(current_site.gtm_id)
+    %div.overlay
     = render 'application/content_header'
 
     = content_for(:notification)
