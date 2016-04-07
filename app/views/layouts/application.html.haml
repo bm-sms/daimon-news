@@ -4,6 +4,7 @@
 
   %body(data-layer='top'){ class: "#{['root-container', @class_page_name, @class_category_id].compact.join(' ')}" }
     - # <body> と google tag manager の間には別のタグを入れないこと
+    - # <body> タグと GTMのスニペットの間に別のタグが挟まれていると Search Console の所有者確認でエラーになるため
     = google_tag_manager(current_site.gtm_id)
     %div.overlay
     = render 'application/content_header'
