@@ -66,7 +66,8 @@ class Admin::SitesController < Admin::ApplicationController
       :mobile_favicon_image,
       :head_tag,
       :promotion_tag,
-      :category_title_format
+      :category_title_format,
+      :base_hue
     )
   end
 

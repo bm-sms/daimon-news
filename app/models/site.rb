@@ -14,6 +14,11 @@ class Site < ActiveRecord::Base
 
   validates :name, presence: true
   validates :fqdn, presence: true, uniqueness: true
+  validates :base_hue, numericality: {
+    greater_than_or_equal_to: 0,
+    less_than: 360,
+    allow_nil: true
+  }
   validate :validate_category_title_format
 
   mount_uploader :logo_image, ImageUploader
