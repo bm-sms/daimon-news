@@ -3,8 +3,9 @@
   = render 'application/head'
 
   %body(data-layer='top'){ class: "#{['root-container', @class_page_name, @class_category_id].compact.join(' ')}" }
-    %div.overlay
+    - # <body> と google tag manager の間には別のタグを入れないこと
     = google_tag_manager(current_site.gtm_id)
+    %div.overlay
     = render 'application/content_header'
 
     = content_for(:notification)
