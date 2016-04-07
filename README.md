@@ -1,5 +1,7 @@
 # daimon-news-multi-tenant
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 ## Setup
 
 ``` sh
