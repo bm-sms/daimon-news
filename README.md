@@ -2,6 +2,10 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
+A web application that can launch a news website easily and quickly. And it can manage multiple websites in a single web application.
+
+Daimon is a place name. It's located in Hamamatsu-cho, Minato-ku, Tokyo, Japan.
+
 ## Setup
 
 ``` sh
