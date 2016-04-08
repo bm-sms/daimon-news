@@ -1,5 +1,7 @@
 # daimon-news-multi-tenant
 
+hi
+
 ## Setup
 
 ``` sh
