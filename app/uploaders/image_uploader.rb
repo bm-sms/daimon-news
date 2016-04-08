@@ -1,11 +1,11 @@
 class ImageUploader < CarrierWave::Uploader::Base
-  if fog_credentials.present?
-    storage :fog
-  else
-    storage :file
+  def store_dir
+    [store_root_dir, "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"].compact.join("/")
   end
 
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  private
+
+  def store_root_dir
+    ENV["HEROKU_APP_NAME"] if ENV["USE_SHARED_S3_BUCKET"]
   end
 end

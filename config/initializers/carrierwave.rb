@@ -1,5 +1,7 @@
-if ENV["S3_ACCESS_KEY_ID"]
-  CarrierWave.configure do |config|
+CarrierWave.configure do |config|
+  if ENV["S3_ACCESS_KEY_ID"]
+    config.storage :fog
+
     config.fog_credentials = {
       provider:              "AWS",
       aws_access_key_id:     ENV["S3_ACCESS_KEY_ID"],
@@ -8,5 +10,7 @@ if ENV["S3_ACCESS_KEY_ID"]
     }
     config.asset_host    = ENV["ASSET_HOST"]
     config.fog_directory = ENV["S3_BUCKET"]
+  else
+    config.storage :file
   end
 end
