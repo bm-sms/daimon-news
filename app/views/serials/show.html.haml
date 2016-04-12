@@ -1,0 +1,30 @@
+:ruby
+  canonical_url = @serial.canonical_url(@posts)
+  page_title = @serial.page_title(@posts)
+
+- @class_page_name = "serial-index"
+
+- content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
+- content_for(:canonical_tag) do
+  %link{rel: :canonical, href: canonical_url}
+- if @posts.current_page > 1
+  - breadcrumb :page_num, @posts.current_page, @serial
+- else
+  - breadcrumb :serial, @serial
+- set_meta_tags title: page_title, og: @serial.to_og_params
+- set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
+
+%section
+  %h1.serial-header= @serial.title
+  %p.serial-description= @serial.description
+
+  = render 'banner', position: :press_articles_top
+  %ul
+    - @posts.each do |post|
+      = render 'posts/summary_with_content', post: post
+    = render 'native_ad', position: :press_articles_bottom
+
+  - if @posts.total_pages > 1
+    %nav.pagination
+      = paginate @posts
+      %p.pagination__entries= page_entries_info @posts
