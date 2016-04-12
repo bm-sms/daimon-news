@@ -38,6 +38,7 @@ gem "uglifier"
 source "https://rails-assets.org" do
   gem "rails-assets-bootstrap-markdown-editor"
   gem "rails-assets-marked"
+  gem "rails-assets-spectrum"
 end
 
 group :development, :test do
