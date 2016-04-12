@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160412021434) do
+ActiveRecord::Schema.define(version: 20160412023517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 20160412021434) do
     t.integer  "author_id"
     t.datetime "original_updated_at"
     t.integer  "public_id",           null: false
+    t.integer  "series_id"
   end
 
   add_index "posts", ["published_at", "id"], name: "index_posts_on_published_at_and_id", using: :btree
@@ -189,6 +190,7 @@ ActiveRecord::Schema.define(version: 20160412021434) do
   add_foreign_key "memberships", "sites"
   add_foreign_key "memberships", "users"
   add_foreign_key "participants", "sites"
+  add_foreign_key "posts", "series"
   add_foreign_key "posts", "sites"
   add_foreign_key "series", "sites"
 end
