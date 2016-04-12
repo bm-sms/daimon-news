@@ -4,7 +4,7 @@ class SerialsController < ApplicationController
   end
 
   def show
-    @serial = current_site.serials.find_by!(slug: params[:id])
+    @serial = current_site.serials.find_by!(slug: params[:slug])
     @posts = current_site.posts.where(serial: @serial).published.order_by_recently.page(params[:page])
 
     @posts.extend(PaginationInfoDecorator)

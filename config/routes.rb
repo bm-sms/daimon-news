@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
     resources :posts, only: %i(show), constraints: {id: /\d+/}, path: "/"
     resources :categories, only: %i(show), path: "category"
-    resources :serials, only: %i(index show), path: "serials"
+    resources :serials, only: %i(index show), path: "serials", param: :slug
 
     # compatibility for old URL
     get ":id/:page" => redirect("%{id}?page=%{page}"), constraints: {id: /\d+/, page: /\d+/}
