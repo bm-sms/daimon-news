@@ -6,7 +6,7 @@ crumb :category do |category|
   link category.name, category_url(category.slug)
 end
 
-crumb :series_index do |series_list|
+crumb :series_index do
   link "連載一覧", series_index_url
 end
 
