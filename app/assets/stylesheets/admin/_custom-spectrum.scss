@@ -37,6 +37,11 @@
 
 .sp-container {
   border: none;
+
+  button {
+    padding: 2px 2px;
+    float: right;
+  }
 }
 
 .sp-top {
@@ -101,7 +106,6 @@
   color: #66afe9 !important;
 }
 
-.sp-choose,
 .sp-color {
   display: none;
 }
