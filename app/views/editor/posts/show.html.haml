@@ -16,6 +16,10 @@
   %b Category:
   = @post.category&.name
 %p
+  %b Serial:
+  = @post.serial&.title
+
+%p
   %b Thumbnail url:
   = image_tag @post.thumbnail_url, height: 80 if @post.thumbnail.present?
 
