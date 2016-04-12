@@ -42,6 +42,40 @@ class EditorTest < ActionDispatch::IntegrationTest
     assert_not page.has_css?("td", text: "Ruby lang")
   end
 
+  test "Serial" do
+    click_on "連載"
+    click_on "New Serial"
+
+    fill_in "Title", with: "Ruby"
+    fill_in "Description", with: "Ruby is a programming language."
+    fill_in "Slug",        with: "ruby"
+
+    click_on "登録する"
+
+    assert page.has_css?("p", text: "Title: Ruby")
+
+    click_on "Back"
+
+    within :row, "Ruby" do
+      click_on "Edit"
+    end
+
+    fill_in "Title", with: "Ruby lang"
+
+    click_on "更新する"
+
+    assert page.has_css?("p", text: "Title: Ruby lang")
+
+    click_on "Back"
+
+    within :row, "Ruby lang" do
+      click_on "Destroy"
+    end
+
+    assert_equal("/editor/serials", page.current_path)
+    assert_not page.has_css?("td", text: "Ruby lang")
+  end
+
   test "Participant" do
     click_on "関係者情報"
     click_on "New Participant"
