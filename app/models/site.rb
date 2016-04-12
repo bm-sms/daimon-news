@@ -8,6 +8,7 @@ class Site < ActiveRecord::Base
   has_many :credit_roles, dependent: :destroy
   has_many :memberships, dependent: :destroy
   has_many :editors, through: :memberships, source: :user
+  has_many :series, dependent: :destroy
 
   validates :name, presence: true
   validates :fqdn, presence: true, uniqueness: true

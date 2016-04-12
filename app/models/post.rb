@@ -7,6 +7,7 @@ class Post < ActiveRecord::Base
 
   belongs_to :site
   belongs_to :category
+  belongs_to :series
 
   validates :public_id, uniqueness: { scope: :site_id }
   validates :category_id, presence: true
