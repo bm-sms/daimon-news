@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :fixed_pages
     resources :links
     resources :categories
-    resources :series
+    resources :serials
     resources :posts do
       member do
         get :preview
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
     resources :posts, only: %i(show), constraints: {id: /\d+/}, path: "/"
     resources :categories, only: %i(show), path: "category"
-    resources :series, only: %i(show), path: "series"
+    resources :serials, only: %i(index show), path: "serials"
 
     # compatibility for old URL
     get ":id/:page" => redirect("%{id}?page=%{page}"), constraints: {id: /\d+/, page: /\d+/}
