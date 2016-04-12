@@ -1,0 +1,133 @@
+.sp-hue {
+  position: absolute;
+  top: 0;
+  width: 110px;
+  height: 180px;
+  left: 0;
+  border: none;
+}
+
+.sp-hue {
+  $color01: hsla(0, 40%, 50%, 1);
+  $color02: hsla(59, 40%, 50%, 1);
+  $color03: hsla(120, 40%, 50%, 1);
+  $color04: hsla(179, 40%, 50%, 1);
+  $color05: hsla(240, 40%, 50%, 1);
+  $color06: hsla(299, 40%, 50%, 1);
+
+  background: -moz-linear-gradient(top, $color01 0%, $color02 17%, $color03 33%, $color04 50%, $color05 67%, $color06 83%, $color01 100%);
+  background: -ms-linear-gradient(top, $color01 0%, $color02 17%, $color03 33%, $color04 50%, $color05 67%, $color06 83%, $color01 100%);
+  background: -o-linear-gradient(top, $color01 0%, $color02 17%, $color03 33%, $color04 50%, $color05 67%, $color06 83%, $color01 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from($color01), color-stop(0.17, $color02), color-stop(0.33, $color03), color-stop(0.5, $color04), color-stop(0.67, $color05), color-stop(0.83, $color06), to($color01));
+  background: -webkit-linear-gradient(top, $color01 0%, $color02 17%, $color03 33%, $color04 50%, $color05 67%, $color06 83%, $color01 100%);
+  background: linear-gradient(to bottom, $color01 0%, $color02 17%, $color03 33%, $color04 50%, $color05 67%, $color06 83%, $color01 100%);
+}
+
+.sp-dragger {
+  background: #666;
+}
+
+.sp-slider {
+  position: relative;
+  height: 5px;
+  left: 0;
+  border: 1px solid #666;
+  box-sizing: border-box;
+}
+
+.sp-container {
+  border: none;
+}
+
+.sp-top {
+  height: 180px;
+}
+
+.sp-color, .sp-hue, .sp-clear {
+  border: solid 1px #999;
+}
+
+.sp-input:focus  {
+  border: 2px solid #666;
+}
+
+.sp-picker-container {
+  width:110px;
+  height: 200px;
+}
+
+.sp-palette .sp-thumb-el:hover, .sp-palette .sp-thumb-el.sp-thumb-active {
+  border-color: #666;
+}
+
+.sp-palette-button-container,
+.sp-button-container {
+  float: none;
+}
+
+.sp-replacer {
+  padding: 0px;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  color: #666;
+  background: #eee;
+}
+
+.sp-replacer:hover, .sp-replacer.sp-active {
+  color: #ccc;
+  border-color: #ccc;
+}
+
+.sp-dd {
+  color: #999;
+  margin: 7px 4px 0;
+}
+
+.sp-preview {
+  width: 130px;
+  height: 32px;
+  border-right: solid 1px #ccc;
+  border: solid 0px;
+  margin-right: 0px;
+  float:left;
+  z-index: 0;
+}
+
+.sp-cancel {
+  color: #66afe9 !important;
+}
+
+.sp-cancel:hover {
+  color: #66afe9 !important;
+}
+
+.sp-choose,
+.sp-color {
+  display: none;
+}
+
+#site_base_hue {
+  display: inline-block;
+  width: 5em;
+}
+
+.light-transparency,
+.middle-transparency,
+.original-transparency {
+  height: 100%;
+  display: inline-block;
+}
+
+.light-transparency {
+  width: 60%;
+  background: rgba(white, 0.7);
+}
+
+.middle-transparency {
+  width: 30%;
+  background: rgba(white, 0.2);
+}
+
+.original-transparency {
+  width: 10%;
+}
