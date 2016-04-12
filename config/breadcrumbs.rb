@@ -6,6 +6,15 @@ crumb :category do |category|
   link category.name, category_url(category.slug)
 end
 
+crumb :serials do
+  link "連載一覧", serials_url
+end
+
+crumb :serial do |serial|
+  link serial.title, serial_url(serial.slug)
+  parent :serials
+end
+
 crumb :post do |post|
   link post.title, post_url(post)
   parent :category, post.category
