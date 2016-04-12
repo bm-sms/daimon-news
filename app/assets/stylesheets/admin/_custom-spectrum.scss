@@ -52,6 +52,10 @@
   border: solid 1px #999;
 }
 
+.sp-clear-enabled .sp-clear {
+  position: static;
+}
+
 .sp-input:focus  {
   border: 2px solid #666;
 }

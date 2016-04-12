@@ -4,6 +4,7 @@ jQuery(($) => {
   }
 
   $("#color-selector").spectrum({
+    allowEmpty: true,
     color: "#6f9966",
     cancelText: "Cancel",
     hide(tinycolor) {
@@ -20,14 +21,25 @@ jQuery(($) => {
   restoreHue();
 
   function setColor(tinycolor) {
-    $("#site_base_hue").val(Math.round(tinycolor.toHsl().h));
+    let hue;
+    if (tinycolor) {
+      hue = Math.round(tinycolor.toHsl().h);
+    } else {
+      hue = null;
+    }
+    $("#site_base_hue").val(hue);
   }
 
   function restoreHue() {
     let hue = $("#site_base_hue").val();
-    let hsl = $("#color-selector").spectrum("get").toHsl();
+    let hsl;
 
-    hsl.h = hue;
+    if (hue) {
+      hsl = $("#color-selector").spectrum("get").toHsl();
+      hsl.h = hue;
+    } else {
+      hsl = null;
+    }
 
     $("#color-selector").spectrum("set", hsl);
   }
