@@ -43,6 +43,7 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "Series" do
+    pend
     click_on "連載"
     click_on "New Series"
 
