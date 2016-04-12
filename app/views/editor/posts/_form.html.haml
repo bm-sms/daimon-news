@@ -11,6 +11,7 @@
         = link_to_add_association 'Add credit', f, :credits, class: 'btn btn-default pull-right'
 
   = f.collection_select :category_id, current_site.categories, :id, :name
+  = f.collection_select :series_id, current_site.series, :id, :title
   = f.file_field :thumbnail
   - if @post.thumbnail.present?
     = f.form_group do
