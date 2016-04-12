@@ -1,0 +1,5 @@
+%h1 連載一覧
+
+%ul
+  - @series_list.each do |series|
+    = render 'series/summary', series: series

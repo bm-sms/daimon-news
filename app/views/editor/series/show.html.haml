@@ -1,0 +1,13 @@
+%p
+  %b Title:
+  = @series.title
+%p
+  %b Description:
+  = @series.description
+%p
+  %b Slug:
+  = @series.slug
+
+= link_to 'Edit', edit_editor_series_url
+\|
+= link_to 'Back', editor_series_index_url

@@ -1,0 +1,23 @@
+%h1 Listing series
+
+= link_to 'New Series', new_editor_series_url, class: 'btn btn-default'
+
+%table.table
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th Slug
+      %th
+      %th
+      %th
+
+  %tbody
+    - @series_list.each do |series|
+      %tr
+        %td= series.title
+        %td= series.description
+        %td= series.slug
+        %td= link_to 'Show', editor_series_url(series)
+        %td= link_to 'Edit', edit_editor_series_url(series)
+        %td= link_to 'Destroy', editor_series_url(series), method: :delete, data: { confirm: 'Are you sure?' }
