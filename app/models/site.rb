@@ -29,6 +29,14 @@ class Site < ActiveRecord::Base
     participants.exists? && credit_roles.exists?
   end
 
+  def js_location
+    js_url.presence || "themes/default/application"
+  end
+
+  def css_location
+    css_url.presence || (base_hue? ? custom_css_url : "themes/default/application")
+  end
+
   private
 
   def validate_category_title_format

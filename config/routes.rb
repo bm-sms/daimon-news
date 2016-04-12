@@ -43,10 +43,9 @@ Rails.application.routes.draw do
     get "category/:slug/page/:page" => redirect("category/%{slug}?page=%{page}")
 
     resource :feed, only: %i(show), path: "feed", controller: "feed"
-
     resource :sitemaps, only: %i(show), path: "sitemap"
-
     resource :robots, only: %i(show), path: "robots"
+    resource :custom_css, only: %i(show), path: "custom_css", controller: "custom_css"
 
     resources :fixed_pages, param: :slug, path: "/", only: :show
   end
