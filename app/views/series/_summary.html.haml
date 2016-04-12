@@ -1,0 +1,5 @@
+%li
+  = link_to series_url(series), class: 'series-summary__url' do
+    .series-summary__body
+      %p.series-summary__title
+        = series.title_with_n_posts(series.posts)
