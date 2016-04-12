@@ -20,11 +20,16 @@ crumb :post do |post|
   parent :category, post.category
 end
 
-crumb :page_num do |page_num, category|
+crumb :page_num do |page_num, options|
   link "#{page_num}ページ目"
 
-  if category
-    parent :category, category
+  if options
+    case
+    when options[:category]
+      parent :category, options[:category]
+    when options[:serial]
+      parent :serial, options[:serial]
+    end
   else
     parent :root
   end
