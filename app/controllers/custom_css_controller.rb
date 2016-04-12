@@ -1,6 +1,6 @@
 class CustomCssController < ApplicationController
   def show
-    # TODO: `Site#base_hue` が未設定の場合は、デフォルトの URL にリダイレクトする
+    redirect_to current_site.css_location and return if current_site.base_hue.blank?
 
     render text: generate_custom_css(current_site), content_type: "text/css"
   end
