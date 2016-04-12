@@ -37,4 +37,8 @@ class CustomCssController < ApplicationController
 
     result
   end
+
+  def current_site
+    @current_site ||= Site.find_by!(fqdn: params[:fqdn])
+  end
 end

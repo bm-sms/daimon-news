@@ -45,10 +45,11 @@ Rails.application.routes.draw do
     resource :feed, only: %i(show), path: "feed", controller: "feed"
     resource :sitemaps, only: %i(show), path: "sitemap"
     resource :robots, only: %i(show), path: "robots"
-    resource :custom_css, only: %i(show), path: "custom_css", controller: "custom_css"
 
     resources :fixed_pages, param: :slug, path: "/", only: :show
   end
+
+  resource :custom_css, only: %i(show), constraints: {fqdn: /[\w.\-:]+/}, path: "custom_css/:fqdn-:digest.css", controller: "custom_css"
 
   concerns :site
 
