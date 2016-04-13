@@ -51,8 +51,10 @@ Rails.application.routes.draw do
 
   concerns :site
 
-  # for debug
-  resources :sites, only: %i() do
-    concerns :site
-  end if Rails.env.development?
+  namespace :api do
+    resources :sites, only: [], path: "/", param: :fqdn, fqdn: %r{[^/]+} do
+      resources :posts, only: %i(index show)
+      resources :categories, only: :show, param: :slug
+    end
+  end
 end
