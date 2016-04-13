@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   concerns :site
 
   namespace :api do
-    resources :sites, only: [], path: "/", param: :fqdn do
+    resources :sites, only: [], path: "/", param: :fqdn, fqdn: %r{[^/]+} do
       resources :posts, only: %i(index show)
       resources :categories, only: :show, param: :slug
     end
