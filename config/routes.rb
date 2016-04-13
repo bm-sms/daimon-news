@@ -51,7 +51,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :sites, only: [], path: "/", param: :fqdn do
-      resources :posts, only: :show
+      resources :posts, only: %i(index show)
+      resources :categories, only: :show, param: :slug
     end
   end
 end
