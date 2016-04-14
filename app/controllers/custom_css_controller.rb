@@ -50,9 +50,7 @@ class CustomCssController < ApplicationController
   end
 
   def working_on_multi_threaded?
-    config = Rails.application.config
-
-    config.cache_classes && config.eager_load
+    request.env[Rack::Lock::FLAG]
   end
 
   def overwrite_variables(site_path)
