@@ -12,6 +12,7 @@ class Site < ActiveRecord::Base
 
   validates :name, presence: true
   validates :fqdn, presence: true, uniqueness: true
+  validate :validate_category_title_format
 
   mount_uploader :logo_image, ImageUploader
   mount_uploader :favicon_image, ImageUploader
@@ -19,5 +20,12 @@ class Site < ActiveRecord::Base
 
   def credit_enabled?
     participants.exists? && credit_roles.exists?
+  end
+
+  def validate_category_title_format
+    if /%{(?!name)}/ =~ category_title_format ||
+         /%[^{]/ =~ category_title_format
+      errors.add(:category_title_format, "Invalid format")
+    end
   end
 end
