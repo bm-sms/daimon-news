@@ -3,7 +3,7 @@
     .container-fluid
       .navbar-header
         .navbar-brand
-          Admin for "#{current_site&.name || 'daimon-news-multi-tenant'}"
+          Admin for "#{current_site&.name || 'daimon-news'}"
 
       %ul.nav.navbar-nav.navbar-right
         = active_link_to 'サイト情報', admin_sites_url, wrap_tag: 'li'
