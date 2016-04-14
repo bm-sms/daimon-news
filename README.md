@@ -1,3 +1,3 @@
-# daimon-news-multi-tenant
+# daimon-news
 
 NOTE: The documentation is in progress.

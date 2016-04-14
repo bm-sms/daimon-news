@@ -1,7 +1,7 @@
 {
-  "name": "daimon-news-multi-tenant",
-  "website": "https://daimon-news-multi-tenant.herokuapp.com",
-  "repository": "https://github.com/bm-sms/daimon-news-multi-tenant",
+  "name": "daimon-news",
+  "website": "https://daimon-news.herokuapp.com",
+  "repository": "https://github.com/bm-sms/daimon-news",
   "env":{
     "HEROKU_APP_NAME": {
       "required": true
