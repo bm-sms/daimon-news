@@ -67,6 +67,7 @@ class Editor::PostsController < Editor::ApplicationController
       :title,
       :body,
       :category_id,
+      :serial_id,
       :thumbnail,
       :published_at,
       credits_attributes: [

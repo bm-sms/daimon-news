@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407023218) do
+ActiveRecord::Schema.define(version: 20160412023517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,13 +113,27 @@ ActiveRecord::Schema.define(version: 20160407023218) do
     t.integer  "author_id"
     t.datetime "original_updated_at"
     t.integer  "public_id",           null: false
+    t.integer  "serial_id"
   end
 
   add_index "posts", ["published_at", "id"], name: "index_posts_on_published_at_and_id", using: :btree
+  add_index "posts", ["serial_id"], name: "index_posts_on_serial_id", using: :btree
   add_index "posts", ["site_id", "id"], name: "index_posts_on_site_id_and_id", unique: true, using: :btree
   add_index "posts", ["site_id", "public_id"], name: "index_posts_on_site_id_and_public_id", unique: true, using: :btree
   add_index "posts", ["site_id"], name: "index_posts_on_site_id", using: :btree
   add_index "posts", ["updated_at"], name: "index_posts_on_updated_at", using: :btree
+
+  create_table "serials", force: :cascade do |t|
+    t.string   "title",       null: false
+    t.text     "description", null: false
+    t.string   "slug",        null: false
+    t.integer  "site_id",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "serials", ["site_id", "slug"], name: "index_serials_on_site_id_and_slug", unique: true, using: :btree
+  add_index "serials", ["site_id"], name: "index_serials_on_site_id", using: :btree
 
   create_table "sites", force: :cascade do |t|
     t.string   "name",                                 null: false
@@ -178,5 +192,7 @@ ActiveRecord::Schema.define(version: 20160407023218) do
   add_foreign_key "memberships", "sites"
   add_foreign_key "memberships", "users"
   add_foreign_key "participants", "sites"
+  add_foreign_key "posts", "serials"
   add_foreign_key "posts", "sites"
+  add_foreign_key "serials", "sites"
 end

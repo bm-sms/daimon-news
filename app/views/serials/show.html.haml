@@ -1,23 +1,22 @@
 :ruby
-  canonical_url = @category.canonical_url(@posts)
-  page_title = @category.page_title(@posts)
+  canonical_url = @serial.canonical_url(@posts)
+  page_title = @serial.page_title(@posts)
 
-- @class_category_id = "category-" + @category.order.to_s
-- @class_page_name = "category-index"
+- @class_page_name = "serial-index"
 
 - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
 - content_for(:canonical_tag) do
   %link{rel: :canonical, href: canonical_url}
 - if @posts.current_page > 1
-  - breadcrumb :page_num, @posts.current_page, category: @category
+  - breadcrumb :page_num, @posts.current_page, serial: @serial
 - else
-  - breadcrumb :category, @category
-- set_meta_tags title: page_title, og: @category.to_og_params
+  - breadcrumb :serial, @serial
+- set_meta_tags title: page_title, og: @serial.to_og_params
 - set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
 
 %section
-  %h1.category-header= @category.name
-  %p.category-description= @category.description
+  %h1.serial-header= @serial.title
+  %p.serial-description= @serial.description
 
   = render 'banner', position: :press_articles_top
   %ul

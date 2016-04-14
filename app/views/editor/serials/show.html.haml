@@ -1,0 +1,13 @@
+%p
+  %b Title:
+  = @serial.title
+%p
+  %b Description:
+  = @serial.description
+%p
+  %b Slug:
+  = @serial.slug
+
+= link_to 'Edit', edit_editor_serial_url
+\|
+= link_to 'Back', editor_serials_url

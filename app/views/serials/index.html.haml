@@ -1,0 +1,5 @@
+%h1 連載一覧
+
+%ul
+  - @serials.each do |serial|
+    = render 'serials/summary', serial: serial

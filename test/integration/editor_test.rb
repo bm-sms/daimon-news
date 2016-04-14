@@ -18,7 +18,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on "登録する"
 
-    assert page.has_css?("p", text: "Name: Ruby")
+    assert(page.has_css?("p", text: "Name: Ruby"))
 
     click_on "Back"
 
@@ -30,7 +30,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on "更新する"
 
-    assert page.has_css?("p", text: "Name: Ruby lang")
+    assert(page.has_css?("p", text: "Name: Ruby lang"))
 
     click_on "Back"
 
@@ -39,7 +39,41 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal("/editor/categories", page.current_path)
-    assert_not page.has_css?("td", text: "Ruby lang")
+    assert_not(page.has_css?("td", text: "Ruby lang"))
+  end
+
+  test "Serial" do
+    click_on "連載"
+    click_on "New Serial"
+
+    fill_in "Title", with: "Ruby"
+    fill_in "Description", with: "Ruby is a programming language."
+    fill_in "Slug",        with: "ruby"
+
+    click_on "登録する"
+
+    assert(page.has_css?("p", text: "Title: Ruby"))
+
+    click_on "Back"
+
+    within :row, "Ruby" do
+      click_on "Edit"
+    end
+
+    fill_in "Title", with: "Ruby lang"
+
+    click_on "更新する"
+
+    assert(page.has_css?("p", text: "Title: Ruby lang"))
+
+    click_on "Back"
+
+    within :row, "Ruby lang" do
+      click_on "Destroy"
+    end
+
+    assert_equal("/editor/serials", page.current_path)
+    assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
   test "Participant" do
@@ -51,7 +85,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on "登録する"
 
-    assert page.has_css?("p", text: "Name: Ruby")
+    assert(page.has_css?("p", text: "Name: Ruby"))
 
     click_on "Back"
 
@@ -63,7 +97,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on "更新する"
 
-    assert page.has_css?("p", text: "Name: Ruby lang")
+    assert(page.has_css?("p", text: "Name: Ruby lang"))
 
     click_on "Back"
 
@@ -72,7 +106,7 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal("/editor/participants", page.current_path)
-    assert_not page.has_css?("td", text: "Ruby lang")
+    assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
   test "Fixed Page" do
@@ -86,7 +120,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on "登録する"
 
-    assert page.has_css?("p", text: "Title: Ruby")
+    assert(page.has_css?("p", text: "Title: Ruby"))
 
     click_on "Back"
 
@@ -98,7 +132,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on "更新する"
 
-    assert page.has_css?("p", text: "Title: Ruby lang")
+    assert(page.has_css?("p", text: "Title: Ruby lang"))
 
     click_on "Back"
 
@@ -107,7 +141,7 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal("/editor/fixed_pages", page.current_path)
-    assert_not page.has_css?("td", text: "Ruby lang")
+    assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
   test "Link" do
@@ -121,7 +155,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on "登録する"
 
-    assert page.has_css?("p", text: "Text: Ruby")
+    assert(page.has_css?("p", text: "Text: Ruby"))
 
     click_on "Back"
 
@@ -133,7 +167,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on "更新する"
 
-    assert page.has_css?("p", text: "Text: Ruby lang")
+    assert(page.has_css?("p", text: "Text: Ruby lang"))
 
     click_on "Back"
 
@@ -142,14 +176,14 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     assert_equal("/editor/links", page.current_path)
-    assert_not page.has_css?("td", text: "Ruby lang")
+    assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
   test "preview post" do
     @post = create(:post, :whatever, :with_credit, site: @site, body: '# title')
     visit "/editor/posts/#{@post.public_id}/preview"
     within ".post__body" do
-      assert_equal "title", find("h1").text
+      assert_equal("title", find("h1").text)
     end
   end
 end
