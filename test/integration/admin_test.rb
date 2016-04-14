@@ -12,20 +12,20 @@ class AdminTest < ActionDispatch::IntegrationTest
     click_on "サイト情報"
     click_on "New site"
 
-    fill_in "Name", with: "daimon"
+    fill_in "Name", with: "Awesome site"
     fill_in "Fqdn", with: "daimon.lvh.me"
 
     check "Opened"
 
     click_on "登録する"
 
-    assert_equal "/admin/sites/2", current_path
+    assert page.has_css?("h1", text: "Awesome site")
 
     visit "/admin"
 
     click_on "サイト情報"
 
-    within :row, "daimon" do
+    within :row, "Awesome site" do
       click_on "Edit"
     end
 
