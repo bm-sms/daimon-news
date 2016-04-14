@@ -1,7 +1,7 @@
 class CustomCssController < ApplicationController
-  def show
-    redirect_to current_site.css_location and return if current_site.base_hue.blank?
+  before_action :redirect_to_correct_css_url
 
+  def show
     render text: generate_custom_css(current_site), content_type: "text/css"
   end
 
@@ -9,6 +9,10 @@ class CustomCssController < ApplicationController
 
   def current_site
     @current_site ||= Site.find_by!(fqdn: params[:fqdn])
+  end
+
+  def redirect_to_correct_css_url
+    redirect_to self.class.helpers.asset_path(current_site.css_location) unless current_site.custom_css_available?
   end
 
   def generate_custom_css(site)

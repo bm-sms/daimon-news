@@ -29,6 +29,10 @@ class Site < ActiveRecord::Base
     participants.exists? && credit_roles.exists?
   end
 
+  def custom_css_available?
+    base_hue? && !css_url?
+  end
+
   def js_location
     js_url.presence || "themes/default/application"
   end
