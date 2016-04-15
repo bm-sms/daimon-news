@@ -2,7 +2,7 @@ class CustomCssController < ApplicationController
   before_action :redirect_to_correct_css_url
 
   def show
-    render text: generate_custom_css(current_site), content_type: "text/css"
+    render text: generate_custom_css(current_site, params[:digest]), content_type: "text/css"
   end
 
   private
@@ -15,11 +15,11 @@ class CustomCssController < ApplicationController
     redirect_to self.class.helpers.asset_path(current_site.css_location) unless current_site.custom_css_available?
   end
 
-  def generate_custom_css(site)
+  def generate_custom_css(site, digest)
     with_tmp_dir(Rails.root.join("tmp/custom_css")) do |dir|
       assets = Rails.application.assets
 
-      site_path = Pathname(dir).join("custom")
+      site_path = Pathname(dir).join(digest)
       original_css_path = assets.resolve("themes/default/application.css")
 
       FileUtils.cp_r(Pathname(original_css_path).join("../"), site_path)
