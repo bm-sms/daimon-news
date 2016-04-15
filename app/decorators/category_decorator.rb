@@ -21,11 +21,7 @@ module CategoryDecorator
 
   def page_title(posts)
     if site.category_title_format.present?
-      begin
-        title = site.category_title_format % {category_name: name}
-      rescue KeyError
-        title = name
-      end
+      title = site.category_title_format % {category_name: name}
     else
       title = name
     end
