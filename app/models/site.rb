@@ -1,4 +1,6 @@
 class Site < ActiveRecord::Base
+  VALID_FORMAT_KEYS = ["category_name"]
+
   has_many :categories, dependent: :destroy
   has_many :serials, dependent: :destroy
   has_many :posts, dependent: :destroy
@@ -23,9 +25,14 @@ class Site < ActiveRecord::Base
   end
 
   def validate_category_title_format
-    if /%{(?!name)}/ =~ category_title_format ||
-         /%[^{]/ =~ category_title_format
-      errors.add(:category_title_format, "Invalid format")
+    return if category_title_format.blank?
+    category_title_format.scan(/%{(\w+?)}/) do |match|
+      unless VALID_FORMAT_KEYS.include?(match[0])
+        errors.add(:category_title_format, :invalid)
+      end
+    end
+    category_title_format.scan(/%([^{%])/) do
+      errors.add(:category_title_format, :invalid)
     end
   end
 end
