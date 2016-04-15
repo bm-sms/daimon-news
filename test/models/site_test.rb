@@ -82,7 +82,9 @@ class SiteTest < ActiveSupport::TestCase
       "%%" => ["This is a %%", true],
       "%s" => ["This is a %s", false],
       "%d" => ["This is a %d", false],
-      "%0x" => ["This is a %0x", false]
+      "%0x" => ["This is a %0x", false],
+      "%" => ["This is a % test", true],
+      "% at the end of line" => ["This is a %", true]
     )
     def test_validate(data)
       format, expected = data

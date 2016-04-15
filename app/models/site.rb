@@ -33,7 +33,7 @@ class Site < ActiveRecord::Base
         errors.add(:category_title_format, :invalid)
       end
     end
-    category_title_format.scan(/%([^{%])/) do
+    category_title_format.scan(/%([^{% ])/) do
       errors.add(:category_title_format, :invalid)
     end
   end
