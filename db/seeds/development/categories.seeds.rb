@@ -4,6 +4,7 @@ after "development:sites" do
   site1.categories.create!(
     name:        "category 1",
     description: "category 1",
+    title:       "category 1 title",
     slug:        "category1",
     order:       1
   )

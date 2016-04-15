@@ -20,10 +20,11 @@ module CategoryDecorator
   end
 
   def page_title(posts)
+    category_title = title.present? ? title : name
     if posts.current_page > 1
-      "#{name} (#{posts.page_entries_info})"
+      "#{category_title} (#{posts.page_entries_info})"
     else
-      name
+      category_title
     end
   end
 end
