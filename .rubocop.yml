@@ -54,3 +54,7 @@ Style/BracesAroundHashParameters:
   Enabled: false
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
+Style/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
