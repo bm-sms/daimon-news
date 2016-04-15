@@ -24,6 +24,8 @@ class Site < ActiveRecord::Base
     participants.exists? && credit_roles.exists?
   end
 
+  private
+
   def validate_category_title_format
     return if category_title_format.blank?
     category_title_format.scan(/%{(\w+?)}/) do |match|
