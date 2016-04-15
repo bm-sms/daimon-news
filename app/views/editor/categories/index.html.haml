@@ -9,6 +9,7 @@
       %th Description
       %th Slug
       %th Order
+      %th Title
       %th
       %th
       %th
@@ -20,6 +21,7 @@
         %td= category.description
         %td= category.slug
         %td= category.order
+        %td= category.title
         %td= link_to 'Show', editor_category_url(category)
         %td= link_to 'Edit', edit_editor_category_url(category)
         %td= link_to 'Destroy', editor_category_url(category), method: :delete, data: { confirm: 'Are you sure?' }
