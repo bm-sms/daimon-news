@@ -21,7 +21,11 @@ module CategoryDecorator
 
   def page_title(posts)
     if site.category_title_format.present?
-      title = escaped_category_title_format % {name: name}
+      begin
+        title = site.category_title_format % {category_name: name}
+      rescue KeyError
+        title = name
+      end
     else
       title = name
     end
@@ -30,11 +34,5 @@ module CategoryDecorator
     else
       title
     end
-  end
-
-  private
-
-  def escaped_category_title_format
-    site.category_title_format.gsub(/%(?!{name})/, "%%")
   end
 end
