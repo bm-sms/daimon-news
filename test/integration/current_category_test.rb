@@ -7,9 +7,9 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
   setup do
     travel_to Time.zone.parse("2000-01-01 00:00:00")
 
-    site = Site.create!(name: "daimon-news", fqdn: "www.example.com")
+    @site = Site.create!(name: "daimon-news", fqdn: "www.example.com")
     editor = User.create!(email: "editor@example.com", password: "password")
-    site.memberships.create!(user: editor)
+    @site.memberships.create!(user: editor)
 
     visit "/editor"
 
@@ -53,6 +53,8 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
 
   test "mark current category" do
     visit "/category/ruby"
+
+    assert_equal "Ruby | #{@site.name}", title
 
     within ".menu__items" do
       assert_equal "Ruby", find(".menu__item[data-menu-item-state=current]").text

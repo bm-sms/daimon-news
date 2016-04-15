@@ -1,4 +1,6 @@
 class Site < ActiveRecord::Base
+  VALID_FORMAT_KEYS = ["category_name"]
+
   has_many :categories, dependent: :destroy
   has_many :serials, dependent: :destroy
   has_many :posts, dependent: :destroy
@@ -12,6 +14,7 @@ class Site < ActiveRecord::Base
 
   validates :name, presence: true
   validates :fqdn, presence: true, uniqueness: true
+  validate :validate_category_title_format
 
   mount_uploader :logo_image, ImageUploader
   mount_uploader :favicon_image, ImageUploader
@@ -19,5 +22,19 @@ class Site < ActiveRecord::Base
 
   def credit_enabled?
     participants.exists? && credit_roles.exists?
+  end
+
+  private
+
+  def validate_category_title_format
+    return if category_title_format.blank?
+    category_title_format.scan(/%{(\w+?)}/) do |match|
+      unless VALID_FORMAT_KEYS.include?(match[0])
+        errors.add(:category_title_format, :invalid)
+      end
+    end
+    category_title_format.scan(/%([^{% ])/) do
+      errors.add(:category_title_format, :invalid)
+    end
   end
 end

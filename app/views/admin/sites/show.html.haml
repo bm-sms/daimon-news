@@ -19,6 +19,9 @@
   %b Tagline:
   = @site.tagline
 %p
+  %b Category title format:
+  = @site.category_title_format
+%p
   %b Logo image:
   - if @site.logo_image.present?
     = image_tag @site.logo_image_url

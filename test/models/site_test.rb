@@ -61,4 +61,35 @@ class SiteTest < ActiveSupport::TestCase
       assert_equal(["はすでに存在します"], site.errors[:fqdn])
     end
   end
+
+  sub_test_case "category_title_format" do
+    test "null" do
+      site = build(:site)
+      assert_true(site.valid?)
+    end
+
+    test "blank" do
+      site = build(:site, category_title_format: "")
+      assert_true(site.valid?)
+    end
+
+    data(
+      "without format" => ["This is a title", true],
+      "%{category_name}" => ["This is a %{category_name}", true],
+      "%{title}" => ["This is a %{title}", false],
+      "multiple %{category_name}" => ["This is a %{category_name} and %{category_name}", true],
+      "%{category_name} and %{title}" => ["This is a %{category_name} | %{title}", false],
+      "%%" => ["This is a %%", true],
+      "%s" => ["This is a %s", false],
+      "%d" => ["This is a %d", false],
+      "%0x" => ["This is a %0x", false],
+      "%" => ["This is a % test", true],
+      "% at the end of line" => ["This is a %", true]
+    )
+    def test_validate(data)
+      format, expected = data
+      site = build(:site, category_title_format: format)
+      assert_equal(expected, site.valid?)
+    end
+  end
 end
