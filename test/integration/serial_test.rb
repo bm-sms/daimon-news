@@ -2,7 +2,7 @@ class SerialTest < ActionDispatch::IntegrationTest
   setup do
     site = create(:site)
     3.times do
-      create(:serial, :whatever, :with_posts, site: site)
+      create(:serial, :with_posts, site: site)
     end
 
     switch_domain(site.fqdn)
