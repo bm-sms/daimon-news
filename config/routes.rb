@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
     resources :posts, only: %i(show), constraints: {id: /\d+/}, path: "/"
     resources :categories, only: %i(show), path: "category"
-    if Rails.env.development?
+    unless Rails.env.production?
       resources :serials, only: %i(index show), path: "serials", param: :slug
     end
 
