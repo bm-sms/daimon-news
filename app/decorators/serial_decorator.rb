@@ -1,4 +1,4 @@
-module SerialsDecorator
+module SerialDecorator
   def to_og_params
     {
       locale: "ja_JP",
