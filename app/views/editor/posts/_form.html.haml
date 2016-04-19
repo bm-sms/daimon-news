@@ -22,17 +22,18 @@
 
 :javascript
   $(function() {
-    function applySelect2($element, allowClear) {
-      $element.select2({
-        placeholder: '選択してください',
-        allowClear: allowClear
-      });
+    function applySelect2($element, options) {
+      var default_options = {
+        placeholder: '選択してください'
+      }
+      var merged_options = $.extend(default_options, options);
+      $element.select2(merged_options);
     }
 
-    applySelect2($('select#post_category_id'), false);
-    applySelect2($('select#post_serial_id'), true);
+    applySelect2($('select#post_category_id'), {allowClear: false});
+    applySelect2($('select#post_serial_id'), {allowClear: true});
 
     $(document).on('cocoon:after-insert', function(e, inserted) {
-      applySelect2($(inserted[0]).find('select'), false);
+      applySelect2($(inserted[0]).find('select'), {allowClear: false});
     })
   });
