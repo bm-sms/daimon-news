@@ -41,8 +41,14 @@ module PostDecorator
     published_at <= Time.current
   end
 
-  def canonical_url
-    post_url(all: true)
+  def canonical_url(pages)
+    return post_url(all: true) if current_site.view_all?
+
+    if pages.current_page > 1
+      post_url(page: pages.current_page)
+    else
+      post_url
+    end
   end
 
   def page_title(pages)
