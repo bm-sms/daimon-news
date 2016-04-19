@@ -1,11 +1,11 @@
-module SerialsDecorator
+module SerialDecorator
   def to_og_params
     {
       locale: "ja_JP",
       type: "object",
       title: [title, site.tagline, site.name].select(&:present?).join(" | "),
       description: MetaTags::TextNormalizer.normalize_description(description),
-      url: serial_url(slug),
+      url: serial_url(slug: slug),
       site_name: site.name,
       image: site.logo_image_url
     }
@@ -13,9 +13,9 @@ module SerialsDecorator
 
   def canonical_url(posts)
     if posts.current_page > 1
-      serial_url(page: posts.current_page)
+      serial_url(slug: slug, page: posts.current_page)
     else
-      serial_url
+      serial_url(slug: slug)
     end
   end
 
