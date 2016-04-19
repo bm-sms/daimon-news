@@ -1,3 +1,5 @@
+require "test_helper"
+
 class SerialTest < ActionDispatch::IntegrationTest
   setup do
     site = create(:site)
