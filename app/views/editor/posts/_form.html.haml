@@ -23,10 +23,10 @@
 :javascript
   $(function() {
     function applySelect2($element, options) {
-      var default_options = {
+      var defaultOptions = {
         placeholder: '選択してください'
       };
-      var merged_options = $.extend(default_options, options);
+      var merged_options = $.extend(defaultOptions, options);
       $element.select2(merged_options);
     }
 
