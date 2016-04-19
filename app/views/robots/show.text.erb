@@ -1,5 +1,7 @@
 <% if current_site.opened? %>
 Sitemap: <%= sitemaps_url(format: :xml) %>
+User-Agent: *
+Noindex: /search
 <% else %>
 User-Agent: *
 Disallow: /
