@@ -5,8 +5,8 @@
   = display_meta_tags default_meta_tags
 
   = javascript_include_tag 'application'
-  = javascript_include_tag current_site.js_location
-  = stylesheet_link_tag current_site.css_location
+  = javascript_include_tag site_js_location(current_site)
+  = stylesheet_link_tag site_css_location(current_site)
   = csrf_meta_tag
   = auto_discovery_link_tag :rss, feed_url
   = favicon_tag current_site

@@ -12,7 +12,7 @@ class CustomCssController < ApplicationController
   end
 
   def redirect_to_correct_css_url
-    redirect_to self.class.helpers.asset_path(current_site.css_location) unless current_site.custom_css_available?
+    redirect_to self.class.helpers.asset_path(site_css_location(current_site)) unless current_site.custom_css_available?
   end
 
   def generate_custom_css(site, digest)

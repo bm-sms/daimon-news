@@ -33,20 +33,6 @@ class Site < ActiveRecord::Base
     base_hue? && !css_url?
   end
 
-  def js_location
-    js_url.presence || "themes/default/application"
-  end
-
-  def css_location
-    asset_host = Rails.application.config.action_controller.asset_host
-
-    url_options = {}
-    url_options[:digest] = Digest::MD5.hexdigest(["site-css", base_hue, "layout-version"].join(":")) # TODO: Add layout-version API to layout gem. And use it.
-    url_options[:host] = asset_host if asset_host.present?
-
-    css_url.presence || (base_hue? ? custom_css_url(fqdn, url_options) : "themes/default/application")
-  end
-
   private
 
   def validate_category_title_format
