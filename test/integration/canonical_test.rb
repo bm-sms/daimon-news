@@ -39,14 +39,14 @@ class CanonicalTest < ActionDispatch::IntegrationTest
         @category = create(:category, site: @post.site)
       end
 
-      data({
+      data(
         "no parameter"          => ["",                ""],
         "unexpected"            => ["?aaa=123",        ""],
         "page=1"                => ["?page=1",         ""],
         "page=1 and unexpected" => ["?page=1&aaa=123", ""],
         "page=2"                => ["?page=2",         "?page=2"],
         "page=2 and unexpected" => ["?page=2&aaa=123", "?page=2"],
-      })
+      )
       def test_normalize_parameter(data)
         raw, expected = data
 
@@ -56,7 +56,7 @@ class CanonicalTest < ActionDispatch::IntegrationTest
     end
 
     sub_test_case "post page" do
-      data({
+      data(
         "no parameter"          => ["",                "?all=true"],
         "unexpected"            => ["?aaa=123",        "?all=true"],
         "all=true"              => ["?all=true",       "?all=true"],
@@ -64,7 +64,7 @@ class CanonicalTest < ActionDispatch::IntegrationTest
         "page=1 and unexpected" => ["?page=1&aaa=123", "?all=true"],
         "page=2"                => ["?page=2",         "?all=true"],
         "page=2 and unexpected" => ["?page=2&aaa=123", "?all=true"],
-      })
+      )
       def test_normalize_parameter(data)
         raw, expected = data
 
@@ -74,14 +74,14 @@ class CanonicalTest < ActionDispatch::IntegrationTest
     end
 
     sub_test_case "welcome page" do
-      data({
+      data(
         "no parameter"          => ["",                ""],
         "unexpected"            => ["?aaa=123",        ""],
         "page=1"                => ["?page=1",         ""],
         "page=1 and unexpected" => ["?page=1&aaa=123", ""],
         "page=2"                => ["?page=2",         "?page=2"],
         "page=2 and unexpected" => ["?page=2&aaa=123", "?page=2"],
-      })
+      )
       def test_normalize_parameter(data)
         raw, expected = data
 
@@ -97,7 +97,7 @@ class CanonicalTest < ActionDispatch::IntegrationTest
     end
 
     sub_test_case "post page" do
-      data({
+      data(
         "no parameter"          => ["",                ""],
         "unexpected"            => ["?aaa=123",        ""],
         "all=true"              => ["?all=true",       ""],
@@ -105,7 +105,7 @@ class CanonicalTest < ActionDispatch::IntegrationTest
         "page=1 and unexpected" => ["?page=1&aaa=123", ""],
         "page=2"                => ["?page=2",         "?page=2"],
         "page=2 and unexpected" => ["?page=2&aaa=123", "?page=2"],
-      })
+      )
       def test_normalize_parameter(data)
         raw, expected = data
 
