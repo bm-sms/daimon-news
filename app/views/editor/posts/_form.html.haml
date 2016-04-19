@@ -22,15 +22,17 @@
 
 :javascript
   $(function() {
-    function applySelect2($element) {
+    function applySelect2($element, allowClear) {
       $element.select2({
-        placeholder: '選択してください'
+        placeholder: '選択してください',
+        allowClear: allowClear
       });
     }
 
-    applySelect2($('select'));
+    applySelect2($('select#post_category_id'), false);
+    applySelect2($('select#post_serial_id'), true);
 
     $(document).on('cocoon:after-insert', function(e, inserted) {
-      applySelect2($(inserted[0]).find('select'));
+      applySelect2($(inserted[0]).find('select'), false);
     })
   });
