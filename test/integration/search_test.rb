@@ -117,6 +117,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       assert_equal "aの検索結果(0件) | #{@current_site.name}", title
       assert_equal "「a」を含む記事は見つかりませんでした。", find("meta[name=description]", visible: false)["content"]
       assert_equal({"page" => "1", "query" => {"keywords" => "a"}}, canonical_params)
+      assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
     end
 
     test "with pagenation" do
@@ -131,6 +132,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       assert_equal "#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", title
       assert_equal "「#{keywords}」を含む記事は51件見つかりました。(1〜50/51件)", find("meta[name=description]", visible: false)["content"]
       assert_equal({"page" => "1", "query" => {"keywords" => keywords}}, canonical_params)
+      assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
     end
 
     test "without pagenation" do
@@ -145,6 +147,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       assert_equal "#{keywords}の検索結果(1件) | #{@current_site.name}", title
       assert_equal "「#{keywords}」を含む記事は1件見つかりました。", find("meta[name=description]", visible: false)["content"]
       assert_equal({"page" => "1", "query" => {"keywords" => keywords}}, canonical_params)
+      assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
     end
   end
 
