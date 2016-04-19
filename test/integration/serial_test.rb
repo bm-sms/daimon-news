@@ -11,12 +11,12 @@ class SerialTest < ActionDispatch::IntegrationTest
   test "/serials" do
     visit "/serials"
 
-    serial_titles = find_all "ul li p.serial-summary__title"
+    serial_titles = find_all ".serial-summary__title"
     assert_equal(["Serial 3 (1)", "Serial 2 (1)", "Serial 1 (1)"], serial_titles.map(&:text))
 
     click_on "Serial 3"
 
-    header = find "h1.serial-header"
+    header = find ".serial-header"
     assert_equal("Serial 3", header.text)
   end
 end
