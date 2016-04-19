@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     @post = current_site.posts.published.find_by!(public_id: params[:id])
 
     @pages =
-      if params[:all]
+      if current_site.view_all? && params[:all]
         @post.pages.page(1).per(@post.pages.size)
       else
         @post.pages.page(params[:page]).per(1)
