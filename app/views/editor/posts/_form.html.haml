@@ -25,7 +25,7 @@
     function applySelect2($element, options) {
       var default_options = {
         placeholder: '選択してください'
-      }
+      };
       var merged_options = $.extend(default_options, options);
       $element.select2(merged_options);
     }
@@ -35,5 +35,5 @@
 
     $(document).on('cocoon:after-insert', function(e, inserted) {
       applySelect2($(inserted[0]).find('select'), {allowClear: false});
-    })
+    });
   });
