@@ -1,4 +1,6 @@
 class Site < ActiveRecord::Base
+  include CustomCssSupport
+
   VALID_FORMAT_KEYS = ["category_name"]
 
   has_many :categories, dependent: :destroy
@@ -14,23 +16,15 @@ class Site < ActiveRecord::Base
 
   validates :name, presence: true
   validates :fqdn, presence: true, uniqueness: true
-  validates :base_hue, numericality: {
-    greater_than_or_equal_to: 0,
-    less_than: 360,
-    allow_nil: true
-  }
   validate :validate_category_title_format
 
   mount_uploader :logo_image, ImageUploader
   mount_uploader :favicon_image, ImageUploader
   mount_uploader :mobile_favicon_image, ImageUploader
+  mount_uploader :custom_hue_css, AssetUploader
 
   def credit_enabled?
     participants.exists? && credit_roles.exists?
-  end
-
-  def custom_css_available?
-    base_hue? && !css_url?
   end
 
   private

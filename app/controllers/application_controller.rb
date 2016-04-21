@@ -9,7 +9,6 @@ class ApplicationController < ActionController::Base
   end
 
   include CurrentResourceHelper
-  include SiteHelper
 
   private
 

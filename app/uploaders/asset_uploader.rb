@@ -1,0 +1,2 @@
+class AssetUploader < ApplicationUploader
+end

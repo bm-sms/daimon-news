@@ -49,8 +49,6 @@ Rails.application.routes.draw do
     resources :fixed_pages, param: :slug, path: "/", only: :show
   end
 
-  resource :custom_css, only: %i(show), constraints: {fqdn: /[\w.\-:]+/}, path: "custom_css/:fqdn-:digest.css", controller: "custom_css"
-
   concerns :site
 
   # for debug
