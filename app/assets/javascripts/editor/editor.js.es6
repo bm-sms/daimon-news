@@ -22,7 +22,7 @@ $(function() {
     $editor.markdownEditor({
       preview: true,
       imageUpload: true,
-      uploadPath:  $postBody.data('upload-path'),
+      uploadPath: $postBody.data('upload-path'),
       onPreview(content, callback) {
         callback(marked(content));
       }

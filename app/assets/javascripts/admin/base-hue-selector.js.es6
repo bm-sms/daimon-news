@@ -18,6 +18,8 @@ jQuery(($) => {
     <div class="original-transparency"></div>`
   );
 
+  $("#site_base_hue").on('change', restoreHue);
+
   restoreHue();
 
   function setColor(tinycolor) {
