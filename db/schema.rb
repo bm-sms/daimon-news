@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419103640) do
+ActiveRecord::Schema.define(version: 20160421194616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -162,6 +162,8 @@ ActiveRecord::Schema.define(version: 20160419103640) do
     t.text     "head_tag"
     t.string   "category_title_format"
     t.boolean  "view_all",              default: false, null: false
+    t.integer  "base_hue"
+    t.string   "custom_hue_css"
   end
 
   create_table "users", force: :cascade do |t|
