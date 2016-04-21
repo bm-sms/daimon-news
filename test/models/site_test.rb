@@ -92,4 +92,32 @@ class SiteTest < ActiveSupport::TestCase
       assert_equal(expected, site.valid?)
     end
   end
+
+  sub_test_case "Custome style" do
+    test "with #base_hue" do
+      site = create(:site, base_hue: 300)
+
+      assert site.custom_hue_css_url
+    end
+
+    test "without #base_hue" do
+      site = create(:site, base_hue: nil)
+
+      assert_nil site.custom_hue_css_url
+    end
+
+    test "update #base_hue" do
+      site = create(:site, base_hue: nil)
+
+      assert_nil site.custom_hue_css_url
+
+      site.update!(base_hue: 200)
+
+      assert site.custom_hue_css_url
+
+      site.update!(base_hue: nil)
+
+      assert_nil site.custom_hue_css_url
+    end
+  end
 end
