@@ -26,8 +26,8 @@
       var defaultOptions = {
         placeholder: '選択してください'
       };
-      var merged_options = $.extend(defaultOptions, options);
-      $element.select2(merged_options);
+      var mergedOptions = $.extend(defaultOptions, options);
+      $element.select2(mergedOptions);
     }
 
     applySelect2($('select#post_category_id'), {allowClear: false});
