@@ -5,7 +5,7 @@
 //= require bootstrap-markdown-editor
 //= require marked
 
-$(function() {
+$(() => {
   function embedMarkdownEditor(selector) {
     let $editor = $(selector);
 
