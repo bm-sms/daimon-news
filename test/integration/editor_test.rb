@@ -77,7 +77,7 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "Participant" do
-    click_on "関係者情報"
+    click_on "執筆関係者"
     click_on "New Participant"
 
     fill_in "Name", with: "Ruby"
