@@ -6,7 +6,7 @@
     %a.button--facebook{href: "http://www.facebook.com/sharer.php?u=#{url}&amp;t=#{Rack::Utils.escape(title)}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"}
       = image_tag asset_path('facebook.svg'), alt: "いいね"
 
-    %a.button--twitter{href: "http://twitter.com/share?text=#{Rack::Utils.escape(title)}&amp;url=#{Rack::Utils.escape(url)}&amp;via=#{twitter_account}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"}
+    %a.button--twitter{href: "http://twitter.com/share?text=#{Rack::Utils.escape(title)}&amp;url=#{Rack::Utils.escape(url)}#{twitter_account.present? ? "&amp;via=#{twitter_account}" : ""}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"}
       = image_tag asset_path('twitter.svg'), alt: "ツイート"
 
     %a.button--line{href: "http://line.me/R/msg/text/?#{Rack::Utils.escape(title)}%0D%0A#{Rack::Utils.escape(url)}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"}
