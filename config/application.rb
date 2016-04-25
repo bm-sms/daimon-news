@@ -30,7 +30,7 @@ module DaimonNews
     end
 
     config.assets.configure do |env|
-      env.append_path Rails.root.join("tmp/custom_css")
+      env.append_path(Rails.root.join("tmp/custom_css"))
     end
 
     class UnknownErrorHandler
