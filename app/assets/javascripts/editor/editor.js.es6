@@ -5,35 +5,24 @@
 //= require bootstrap-markdown-editor
 //= require marked
 
-$(function() {
+$(() => {
   function embedMarkdownEditor(selector) {
-    let $postBody = $(selector);
+    let $editor = $(selector);
 
-    if ($postBody.length === 0) {
+    if ($editor.length === 0) {
       return;
     }
-
-    let content = $postBody.val();
-    let $editor = $('<div id="editor"></div>');
-
-    $postBody.hide();
-    $postBody.after($editor);
 
     $editor.markdownEditor({
       preview: true,
       imageUpload: true,
-      uploadPath: $postBody.data('upload-path'),
+      uploadPath:  $editor.data('upload-path'),
       onPreview(content, callback) {
         callback(marked(content));
       }
     });
-    $editor.markdownEditor('setContent', content);
-    $('form').submit((event) => {
-      let content = $editor.markdownEditor('content');
-
-      $postBody.val(content);
-    });
   }
+
   embedMarkdownEditor('#post_body');
   embedMarkdownEditor('#fixed_page_body');
 });
