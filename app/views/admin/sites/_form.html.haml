@@ -18,7 +18,7 @@
   = f.text_field :ad_slot
   = f.text_area :head_tag
   = f.text_area :promotion_tag
-  = f.form_group label: {text: Site.human_attribute_name(:theme_color)} do
+  = f.form_group label: {text: Site.human_attribute_name(:theme_color)}, help: t('.what_is_hue_html') do
     %span{class: f.send(:has_error?, :base_hue) ? 'has-error' : nil}
       %input#color-selector
       = f.text_field_without_bootstrap :base_hue, class: 'form-control'
