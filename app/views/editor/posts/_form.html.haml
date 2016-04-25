@@ -2,7 +2,7 @@
   = f.text_field :title
   = f.text_area :body, data: {upload_path: editor_images_url}
   - if current_site.credit_enabled?
-    = f.form_group label: {text: :credits} do
+    = f.form_group label: {text: :credits}, help: "クレジットとして表示する執筆関係者を選択します" do
       = f.fields_for :credits do |ff|
         = render 'credit_fields', f: ff
 
@@ -11,11 +11,11 @@
 
   = f.collection_select :category_id, current_site.categories, :id, :name
   = f.collection_select :serial_id, current_site.serials, :id, :title, include_blank: true
-  = f.file_field :thumbnail
+  = f.file_field :thumbnail, help: "300px x 300px 程度の正方形の画像を指定します"
   - if @post.thumbnail.present?
     = f.form_group do
       = image_tag @post.thumbnail_url, height: 80
-  = f.datetime_local_field :published_at
+  = f.datetime_local_field :published_at, help: "公開時刻を指定します。未来の時刻を指定すると予約投稿できます。空のままにしておくと記事は公開されません。"
 
   = f.form_group do
     = f.submit
