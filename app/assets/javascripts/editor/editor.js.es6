@@ -25,6 +25,7 @@ $(() => {
 
   embedMarkdownEditor('#post_body');
   embedMarkdownEditor('#fixed_page_body');
+  embedMarkdownEditor('#category_description');
 });
 
 // FormData.get polyfill

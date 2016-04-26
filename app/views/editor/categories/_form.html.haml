@@ -1,6 +1,6 @@
 = bootstrap_form_for [:editor, @category], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :name
-  = f.text_area :description
+  = f.text_area :description, data: {upload_path: editor_images_url}
   = f.text_field :slug, help: "URLの一部に使うこのカテゴリを表すわかりやすい英単語を指定します"
   = f.number_field :order, help: "ナビゲーションバーに表示する順序を指定します"
 
