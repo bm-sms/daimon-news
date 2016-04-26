@@ -7,7 +7,7 @@
   = f.text_field :tagline, help: "Tagline is a short text which serves to clarify a thought of this site."
   = f.text_field :category_title_format, help: "You can use following placeholder(s): #{Site::VALID_FORMAT_KEYS.map{|key| "%{#{key}}" }.join(",")}"
   = f.text_field :gtm_id, help: "Google tag manager id."
-  = f.url_field :content_header_url, help: "URL of external content on header""
+  = f.url_field :content_header_url, help: "URL of external content on header"
   = f.url_field :promotion_url, help: "URL of external content for promotion"
   = f.text_field :sns_share_caption, help: "Caption for SNS share buttons."
   = f.text_field :twitter_account, help: "Twitter account name without @ prefix."
