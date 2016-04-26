@@ -3,7 +3,7 @@
   = f.text_area :description, help: "Description of your site. This is used in meta tags."
   = f.url_field :js_url, help: "JavaScript URL. Default: embedded"
   = f.url_field :css_url, help: "CSS URL. Default: embedded"
-  = f.text_field :fqdn, help: "Full qualified domain name (FQND)"
+  = f.text_field :fqdn, help: "Full qualified domain name (FQDN)"
   = f.text_field :tagline, help: "Tagline is a short text which serves to clarify a thought of this site."
   = f.text_field :category_title_format, help: "You can use following placeholder(s): #{Site::VALID_FORMAT_KEYS.map{|key| "%{#{key}}" }.join(",")}"
   = f.text_field :gtm_id, help: "Google tag manager id."
