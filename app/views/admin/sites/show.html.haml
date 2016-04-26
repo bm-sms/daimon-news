@@ -63,6 +63,13 @@
 %p
   %b AD slot:
   = @site.ad_slot
+%p
+  %b Base hue:
+  = @site.base_hue
+%p
+  %b Theme color:
+  %input#color-selector(disabled=true)
+  = hidden_field_tag :site_base_hue, @site.base_hue
 
 %p
   %b Editors:

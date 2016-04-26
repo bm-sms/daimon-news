@@ -1,4 +1,6 @@
 class Site < ActiveRecord::Base
+  include CustomCssSupport
+
   VALID_FORMAT_KEYS = ["category_name"]
 
   has_many :categories, dependent: :destroy
@@ -19,6 +21,7 @@ class Site < ActiveRecord::Base
   mount_uploader :logo_image, ImageUploader
   mount_uploader :favicon_image, ImageUploader
   mount_uploader :mobile_favicon_image, ImageUploader
+  mount_uploader :custom_hue_css, AssetUploader
 
   def credit_enabled?
     participants.exists? && credit_roles.exists?

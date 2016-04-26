@@ -29,6 +29,10 @@ module DaimonNews
       g.scaffold_controller = :scaffold_controller
     end
 
+    config.assets.configure do |env|
+      env.append_path(Rails.root.join("tmp/custom_css"))
+    end
+
     class UnknownErrorHandler
       def initialize(app)
         @app = app

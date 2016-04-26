@@ -40,3 +40,12 @@ ja:
           other: ""
       more_pages:
         display_entries: '<span class="pagination__current-entries">%{first}～%{last}</span>/%{total}件'
+  admin:
+    sites:
+      form:
+        what_is_hue_html: |-
+          The <a href="https://ja.wikipedia.org/wiki/%E8%89%B2%E7%9B%B8" target="_blank">
+          hue
+          <i class='glyphicon glyphicon-new-window'></i>
+          </a>
+          which you can adjust to customize site's theme color.
