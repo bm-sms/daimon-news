@@ -112,7 +112,9 @@ class SiteTest < ActiveSupport::TestCase
       assert_nil(site.custom_hue_css_url)
       site.update!(base_hue: 200)
       assert_valid_custom_css(site)
-      site.update!(base_hue: 300)
+      assert_custom_css_changed(site) do
+        site.update!(base_hue: 300)
+      end
       assert_valid_custom_css(site)
       site.update!(base_hue: nil)
       assert_nil(site.custom_hue_css_url)
@@ -121,6 +123,17 @@ class SiteTest < ActiveSupport::TestCase
     def assert_valid_custom_css(site)
       assert_match(/\.css\z/, site.custom_hue_css_url)
       assert_equal("text/css", site.custom_hue_css.content_type)
+    end
+
+    def assert_custom_css_changed(site)
+      before_url = site.custom_hue_css_url
+      before_content = site.custom_hue_css.read
+      yield
+      after_url = site.custom_hue_css_url
+      after_content = site.custom_hue_css.read
+
+      assert_not_equal(before_url, after_url)
+      assert_not_equal(before_content, after_content)
     end
   end
 end
