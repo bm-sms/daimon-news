@@ -1,5 +1,5 @@
 = bootstrap_form_for [:admin, site], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
-  = f.text_field :name, help: "Specify site name."
+  = f.text_field :name, help: "Name of your site. This is used in title tag, meta tags and so on."
   = f.text_area :description, help: "Description of your site. This is used in meta tags."
   = f.url_field :js_url, help: "JavaScript URL. Default: embedded"
   = f.url_field :css_url, help: "CSS URL. Default: embedded"
