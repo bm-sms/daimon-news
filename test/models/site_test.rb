@@ -103,19 +103,19 @@ class SiteTest < ActiveSupport::TestCase
     test "without #base_hue" do
       site = create(:site, base_hue: nil)
 
-      assert_nil site.custom_hue_css_url
+      assert_nil(site.custom_hue_css_url)
     end
 
     test "update #base_hue" do
       site = create(:site, base_hue: nil)
 
-      assert_nil site.custom_hue_css_url
+      assert_nil(site.custom_hue_css_url)
       site.update!(base_hue: 200)
-      assert_valid_custom_css site
+      assert_valid_custom_css(site)
       site.update!(base_hue: 300)
-      assert_valid_custom_css site
+      assert_valid_custom_css(site)
       site.update!(base_hue: nil)
-      assert_nil site.custom_hue_css_url
+      assert_nil(site.custom_hue_css_url)
     end
 
     def assert_valid_custom_css(site)
