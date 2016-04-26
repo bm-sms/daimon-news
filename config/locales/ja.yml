@@ -44,8 +44,8 @@ ja:
     sites:
       form:
         what_is_hue_html: |-
-          You can adjust <a href="https://ja.wikipedia.org/wiki/%E8%89%B2%E7%9B%B8" target="_blank">
+          The <a href="https://ja.wikipedia.org/wiki/%E8%89%B2%E7%9B%B8" target="_blank">
           hue
           <i class='glyphicon glyphicon-new-window'></i>
           </a>
-          to customize site's theme color.
+          which you can adjust to customize site's theme color.
