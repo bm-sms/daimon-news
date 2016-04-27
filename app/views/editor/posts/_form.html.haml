@@ -1,6 +1,6 @@
 = bootstrap_form_for [:editor, @post], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :title
-  = f.text_area :body, data: {upload_path: editor_images_url}
+  = f.text_area :body, class: "markdown-editor", data: {upload_path: editor_images_url}
   - if current_site.credit_enabled?
     = f.form_group label: {text: :credits}, help: "クレジットとして表示する執筆関係者を選択します" do
       = f.fields_for :credits do |ff|
