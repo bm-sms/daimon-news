@@ -24,7 +24,7 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
 
     fill_in "Name", with: "Ruby"
     fill_in "Description",  with: <<~EOS
-      Ruby is a programming language.
+      [Ruby](https://www.ruby-lang.org/) is a programming language.
     EOS
     fill_in "Slug", with: "ruby"
     fill_in "Order", with: "1"
@@ -67,5 +67,11 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
     within ".menu__items" do
       assert_equal "Ruby", find(".menu__item[data-menu-item-state=current]").text
     end
+  end
+
+  test "render description as Markdown" do
+    visit "/category/ruby"
+
+    assert_equal "https://www.ruby-lang.org/", find(".category-description a")[:href]
   end
 end
