@@ -17,7 +17,7 @@
 
 %section
   %h1.category-header= @category.name
-  %p.category-description= raw render_markdown(@category.description)
+  .category-description= raw render_markdown(@category.description)
 
   = render 'banner', position: :press_articles_top
   %ul
