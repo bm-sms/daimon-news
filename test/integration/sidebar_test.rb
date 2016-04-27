@@ -1,0 +1,44 @@
+require "test_helper"
+
+class SidebarTest < ActionDispatch::IntegrationTest
+  setup do
+    @post = create(:post, :whatever, body: <<~EOS.encode(crlf_newline: true))
+      <h1> hi </h1>
+      contents
+    EOS
+
+    switch_domain(@post.site.fqdn)
+  end
+
+  test "top page does not display recent posts on sidebar" do
+    visit "/"
+
+    within ".wrappable__content.promotions" do
+      assert(page.has_no_selector?("h2", text: "新着記事"))
+    end
+  end
+
+  test "pages except top page display recent posts on sidebar" do
+    visit "/#{@post.public_id}"
+
+    within ".wrappable__content.promotions" do
+      assert(page.has_selector?("h2", text: "新着記事"))
+    end
+
+    visit "/category/#{@post.category.slug}"
+
+    within ".wrappable__content.promotions" do
+      assert(page.has_selector?("h2", text: "新着記事"))
+    end
+  end
+
+  test "search result page display recent posts on sidebar" do
+    visit "/"
+    fill_in "query[keywords]", with: "contents"
+    click_on "検索"
+
+    within ".wrappable__content.promotions" do
+      assert(page.has_selector?("h2", text: "新着記事"))
+    end
+  end
+end
