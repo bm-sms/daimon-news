@@ -2,12 +2,18 @@ require "test_helper"
 
 class SidebarTest < ActionDispatch::IntegrationTest
   setup do
+    setup_groonga_database
     @post = create(:post, :whatever, body: <<~EOS.encode(crlf_newline: true))
       <h1> hi </h1>
       contents
     EOS
 
     switch_domain(@post.site.fqdn)
+    @indexer = PostIndexer.new
+  end
+
+  teardown do
+    teardown_groonga_database
   end
 
   test "top page does not display recent posts on sidebar" do
