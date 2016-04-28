@@ -1,0 +1,11 @@
+!!!
+%html
+  %meta{charset: 'utf-8'}
+  %title Daimon Admin
+  = csrf_meta_tag
+
+  %body
+    %h1
+      = current_site.fqdn
+    %main
+      = yield
