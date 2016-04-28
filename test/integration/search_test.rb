@@ -273,17 +273,29 @@ class SearchTest < ActionDispatch::IntegrationTest
       end
     end
 
-    test "display snippets when snippets is not empty" do
+    data(
+      "title" => {
+        query: "title",
+        highlighted: ["title", "title"]
+      },
+      "participant info" => {
+        query: "Author",
+        highlighted: ["Author", "Author"]
+      }
+    )
+    test "display snippets when snippets is not empty" do |data|
+      query = data[:query]
+      highlighted = data[:highlighted]
       visit "/"
 
-      fill_in "query[keywords]", with: "title"
+      fill_in "query[keywords]", with: query
 
       click_on "検索"
 
       within("main") do
-        assert_equal "「title」を含む記事は1件見つかりました。", find(".message").text
+        assert_equal "「#{query}」を含む記事は1件見つかりました。", find(".message").text
         within(".search-result") do
-          assert_equal(["title", "title"], all(".search-result__keyword").map(&:text))
+          assert_equal(highlighted, all(".search-result__keyword").map(&:text))
         end
       end
     end
@@ -292,7 +304,7 @@ class SearchTest < ActionDispatch::IntegrationTest
   private
 
   def create_post(*attributes)
-    post = create(:post, :whatever, *attributes)
+    post = create(:post, :whatever, :with_credit, *attributes)
     @indexer.add(post)
     post
   end
