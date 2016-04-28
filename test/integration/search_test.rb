@@ -276,16 +276,16 @@ class SearchTest < ActionDispatch::IntegrationTest
     data(
       "title" => {
         query: "title",
-        snippets: ["title", "title"]
+        highlighted: ["title", "title"]
       },
       "participant info" => {
         query: "Author",
-        snippets: ["Author", "Author"]
+        highlighted: ["Author", "Author"]
       }
     )
     test "display snippets when snippets is not empty" do |data|
       query = data[:query]
-      snippets = data[:snippets]
+      highlighted = data[:highlighted]
       visit "/"
 
       fill_in "query[keywords]", with: query
@@ -295,7 +295,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       within("main") do
         assert_equal "「#{query}」を含む記事は1件見つかりました。", find(".message").text
         within(".search-result") do
-          assert_equal(snippets, all(".search-result__keyword").map(&:text))
+          assert_equal(highlighted, all(".search-result__keyword").map(&:text))
         end
       end
     end
