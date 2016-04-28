@@ -4,7 +4,7 @@ class SidebarTest < ActionDispatch::IntegrationTest
   setup do
     setup_groonga_database
     @post = create(:post, :whatever, body: <<~EOS.encode(crlf_newline: true))
-      <h1> hi </h1>
+      # hi
       contents
     EOS
 
