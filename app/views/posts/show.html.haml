@@ -32,6 +32,9 @@
   %aside
     = render 'application/sns_share', title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
 
+    - if @serial
+      = link_to 'この連載の記事一覧へ', serial_path(@serial.slug)
+
     %ul
       - if @post.next_post.present?
         %li.page-navi
