@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/bm-sms/daimon_news-layout.git
-  revision: cb5d0ebeebf6f870dc79233cd5495580e5c86480
+  revision: bb9b79fdb0aeaa7fdf1e51293d1610259d3488dc
   specs:
     daimon_news-layout (0.1.0)
       bourbon
@@ -236,7 +236,7 @@ GEM
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-sass (4.5.0)
+    font-awesome-sass (4.6.2)
       sass (>= 3.2)
     formatador (0.2.5)
     git-version-bump (0.15.1)
