@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/bm-sms/daimon_news-layout.git
-  revision: bb9b79fdb0aeaa7fdf1e51293d1610259d3488dc
+  revision: c14fae8a84035545a10fb63d0595cc8b92b0f1d2
   specs:
     daimon_news-layout (0.1.0)
       bourbon
@@ -31,7 +31,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_decorator (0.7.0)
+    active_decorator (0.7.1)
     active_link_to (1.0.3)
       actionpack
     activejob (4.2.6)
@@ -53,7 +53,7 @@ GEM
     addressable (2.4.0)
     airbrake (5.2.3)
       airbrake-ruby (~> 1.2)
-    airbrake-ruby (1.2.3)
+    airbrake-ruby (1.2.4)
     archive-zip (0.8.0)
       io-like (~> 0.3.0)
     arel (6.0.3)
@@ -74,7 +74,7 @@ GEM
     bourbon (4.2.7)
       sass (~> 3.4)
       thor (~> 0.19)
-    browser (2.0.3)
+    browser (2.1.0)
     builder (3.2.2)
     byebug (8.2.5)
     capybara (2.7.1)
@@ -84,11 +84,12 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    carrierwave (0.11.0)
+    carrierwave (0.11.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+      mimemagic (>= 0.3.0)
     choice (0.2.0)
     cliver (0.3.2)
     cocoon (1.2.9)
@@ -180,7 +181,7 @@ GEM
       multi_json (~> 1.10)
     fog-local (0.3.0)
       fog-core (~> 1.27)
-    fog-openstack (0.1.4)
+    fog-openstack (0.1.5)
       fog-core (>= 1.38)
       fog-json (>= 1.0)
       fog-xml (>= 0.1)
@@ -212,7 +213,7 @@ GEM
     fog-serverlove (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (1.1.0)
+    fog-softlayer (1.1.1)
       fog-core
       fog-json
     fog-storm_on_demand (0.1.1)
@@ -289,9 +290,10 @@ GEM
     mime-types (3.0)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0221)
+    mimemagic (0.3.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
-    multi_json (1.11.3)
+    multi_json (1.12.0)
     neat (1.7.4)
       bourbon (>= 4.0)
       sass (>= 3.3)
@@ -395,15 +397,15 @@ GEM
       groonga-client (>= 0.0.3)
       json
       pkg-config
-    rubocop (0.39.0)
-      parser (>= 2.3.0.7, < 3.0)
+    rubocop (0.40.0)
+      parser (>= 2.3.1.0, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-graphviz (1.2.2)
     ruby-progressbar (1.8.0)
-    ruby_parser (3.8.1)
+    ruby_parser (3.8.2)
       sexp_processor (~> 4.1)
     sass (3.4.22)
     sass-rails (5.0.4)
@@ -413,7 +415,7 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     seedbank (0.3.0)
-    select2-rails (4.0.1.1)
+    select2-rails (4.0.2)
       thor (~> 0.14)
     sexp_processor (4.7.0)
     sitemap_generator (5.1.0)
