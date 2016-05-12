@@ -20,9 +20,10 @@
 
   = render 'banner', position: :press_articles_top
   %ul
-    - @posts.each do |post|
-      = render 'posts/summary_with_content', post: post
-    = render 'native_ad', position: :press_articles_bottom
+    - @posts.each_with_index do |post, i|
+      - post_index = @posts.total_count - (@posts.limit_value * (@posts.current_page - 1)) - i
+      %li
+        = link_to "第#{post_index}回 #{post.title}", post_url(post), class: 'post-summary__url'
 
   - if @posts.total_pages > 1
     %nav.pagination
