@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :serial do
     sequence(:title) {|n| "Serial #{n}" }
     description { "#{title} description\n" }
+    thumbnail { Rails.root.join("test/fixtures/images/thumbnail.jpg").open }
 
     trait :with_posts do
       after :create do |serial, _evaluator|

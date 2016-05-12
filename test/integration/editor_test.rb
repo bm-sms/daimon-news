@@ -48,6 +48,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     fill_in "Title", with: "Ruby"
     fill_in "Description", with: "Ruby is a programming language."
+    attach_file "Thumbnail", Rails.root.join("test/fixtures/images/thumbnail.jpg")
 
     click_on "登録する"
 

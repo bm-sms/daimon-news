@@ -4,6 +4,9 @@
 %p
   %b Description:
   = @serial.description
+%p
+  %b Thumbnail:
+  = image_tag @serial.thumbnail_url, height: 80 if @serial.thumbnail.present?
 
 = link_to 'Edit', edit_editor_serial_url
 \|
