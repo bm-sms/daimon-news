@@ -30,10 +30,24 @@
       $element.select2(mergedOptions);
     }
 
+    function setupCreditOrder($element) {
+      var orders = $('.credit-order-value').map(function(_i, el) {
+        return Number($(el).val());
+      });
+
+      orders.push(0); // Minimum value
+
+      var maxOrder = Math.max.apply(null, orders);
+      $element.find('.credit-order-value').val(maxOrder + 1);
+    }
+
     applySelect2($('select#post_category_id'), {allowClear: false});
     applySelect2($('select#post_serial_id'), {allowClear: true});
 
     $(document).on('cocoon:after-insert', function(e, inserted) {
-      applySelect2($(inserted[0]).find('select'), {allowClear: false});
+      let $element = $(inserted[0]);
+
+      applySelect2($element.find('select'), {allowClear: false});
+      setupCreditOrder($element);
     });
   });

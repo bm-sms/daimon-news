@@ -72,6 +72,7 @@ class Editor::PostsController < Editor::ApplicationController
       :published_at,
       credits_attributes: [
         :id,
+        :order,
         :participant_id,
         :credit_role_id,
         :_destroy

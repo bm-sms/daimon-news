@@ -8,6 +8,8 @@
       = f.collection_select_without_bootstrap :participant_id, current_site.participants, :id, :name, {prompt: '選択してください'}, class: 'form-control'
       = f.send :generate_help, :participant_id, nil
 
+    = f.hidden_field :order, class: 'credit-order-value'
+
     = link_to_remove_association 'Remove credit', f, class: 'btn btn-default pull-right'
 
 .row
