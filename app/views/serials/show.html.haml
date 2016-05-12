@@ -22,9 +22,8 @@
   = render 'banner', position: :press_articles_top
   %ul
     - @posts.each_with_index do |post, i|
-      - post_index = @posts.total_count - (@posts.limit_value * (@posts.current_page - 1)) - i
       %li
-        = link_to "第#{post_index}回 #{post.title}", post_url(post), class: 'post-summary__url'
+        = link_to post.title, post_url(post), class: 'post-summary__url'
 
   - if @posts.total_pages > 1
     %nav.pagination
