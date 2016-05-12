@@ -13,6 +13,8 @@
 %article.post
   %div.post__header
     %div.title-and-data
+      - if @post.serial
+        = link_to "【連載】#{@post.serial.title}", serial_path(@post.serial.slug)
       %h1.post__title= @post.title
       %p.post__data
       %time.post__data-item.post__data-item--published-at
