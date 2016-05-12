@@ -3,3 +3,8 @@
 %ul
   - @serials.each do |serial|
     = render 'serials/summary', serial: serial
+
+- if @serials.total_pages > 1
+  %nav.pagination
+    = paginate @serials
+    %p.pagination__entries= page_entries_info @serials
