@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20160526010558) do
     t.integer  "site_id",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "thumbnail",   null: false
   end
 
   add_index "serials", ["site_id"], name: "index_serials_on_site_id", using: :btree
