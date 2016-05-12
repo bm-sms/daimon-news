@@ -1,3 +1,8 @@
+- if @serials.current_page > 1
+  - breadcrumb :page_num, @serials.current_page, serials: true
+- else
+  - breadcrumb :serials
+
 %h1 すべての連載
 
 %ul

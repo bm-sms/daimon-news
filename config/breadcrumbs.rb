@@ -29,6 +29,8 @@ crumb :page_num do |page_num, options|
       parent :category, options[:category]
     when options[:serial]
       parent :serial, options[:serial]
+    when options[:serials]
+      parent :serials
     end
   else
     parent :root
