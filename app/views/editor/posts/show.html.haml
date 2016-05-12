@@ -20,7 +20,7 @@
   = @post.serial&.title
 
 %p
-  %b Thumbnail url:
+  %b Thumbnail:
   = image_tag @post.thumbnail_url, height: 80 if @post.thumbnail.present?
 
 = link_to 'Preview', preview_editor_post_url, target: '_blank'
