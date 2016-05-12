@@ -61,7 +61,7 @@ class PostTest < ActiveSupport::TestCase
         role = create(:credit_role, name: "Role: #{i}", site: @site, order: i)
         participant = create(:participant, name: "Participant: #{i}", site: @site)
 
-        @post.credits.create!(participant: participant, role: role)
+        @post.credits.create!(participant: participant, role: role, order: i)
       end
 
       @credits = @post.credits.with_ordered
