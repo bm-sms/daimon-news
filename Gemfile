@@ -5,6 +5,7 @@ ruby "2.3.0"
 gem "rails", "~> 4.2.6"
 
 gem "active_decorator"
+gem "active_model_serializers"
 gem "active_link_to"
 gem "bootstrap-sass"
 gem "bootstrap_form"
