@@ -10,19 +10,37 @@ class SerialTest < ActionDispatch::IntegrationTest
     switch_domain(@site.fqdn)
   end
 
-  test "/serials" do
+  sub_test_case "/serials" do
+  test "page title" do
     visit "/serials"
 
     assert_equal("すべての連載 | #{@site.name}", title)
+  end
+
+  test "serial titles" do
+    visit "/serials"
 
     serial_titles = find_all ".serial-summary__title"
     assert_equal(["Serial 3 (1)", "Serial 2 (1)", "Serial 1 (1)"], serial_titles.map(&:text))
+  end
+  end
+
+  sub_test_case "/serials/:slug" do
+  test "page title" do
+    visit "/serials"
 
     click_on "Serial 3"
 
     assert_equal("Serial 3 | #{@site.name}", title)
+  end
+
+  test "serial header" do
+    visit "/serials"
+
+    click_on "Serial 3"
 
     header = find ".serial-header"
     assert_equal("Serial 3", header.text)
+  end
   end
 end
