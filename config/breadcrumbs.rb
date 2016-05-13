@@ -7,7 +7,7 @@ crumb :category do |category|
 end
 
 crumb :serials do
-  link "連載一覧", serials_url
+  link "すべての連載", serials_url
 end
 
 crumb :serial do |serial|
