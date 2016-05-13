@@ -106,6 +106,28 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "full-width space should be delimiter" do
+    create_post(site: @current_site,
+                title: "記事のタイトル",
+                body: "...記事の内容...")
+    keywords = "タイトル　内容"
+
+    visit "/"
+
+    fill_in "query[keywords]", with: keywords
+
+    click_on "検索"
+
+    within("main") do
+      # NOTE: Capybara::Node::Finders#find may replace full-width space with half-width space...
+      normalized_message = find(".message").text.gsub(/ /, "　")
+      assert_equal "「#{keywords}」を含む記事は1件見つかりました。", normalized_message
+      within("ul") do
+        assert find_link("記事のタイトル")
+      end
+    end
+  end
+
   sub_test_case "meta data" do
     test "no result" do
       visit "/"
