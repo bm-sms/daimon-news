@@ -17,7 +17,7 @@
 %section
   %h1.serial-header= @serial.title
   = image_tag @serial.thumbnail_url
-  %p.serial-description= @serial.description
+  %p.serial-description= raw render_markdown(@serial.description)
 
   = render 'banner', position: :press_articles_top
   %ul
