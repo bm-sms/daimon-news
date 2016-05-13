@@ -19,6 +19,14 @@ module SiteDecorator
     end
   end
 
+  def serials_canonical_url(serials)
+    if serials.current_page > 1
+      serials_url(page: serials.current_page)
+    else
+      serials_url
+    end
+  end
+
   def page_title(posts)
     if posts.current_page > 1
       "#{tagline} (#{posts.page_entries_info})"

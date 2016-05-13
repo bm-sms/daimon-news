@@ -89,6 +89,23 @@ class CanonicalTest < ActionDispatch::IntegrationTest
         assert_canonical_url "http://#{@post.site.fqdn}/#{expected}"
       end
     end
+
+    sub_test_case "serials page" do
+      data(
+        "no parameter"          => ["",                ""],
+        "unexpected"            => ["?aaa=123",        ""],
+        "page=1"                => ["?page=1",         ""],
+        "page=1 and unexpected" => ["?page=1&aaa=123", ""],
+        "page=2"                => ["?page=2",         "?page=2"],
+        "page=2 and unexpected" => ["?page=2&aaa=123", "?page=2"],
+      )
+      def test_normalize_parameter(data)
+        raw, expected = data
+
+        visit "/serials/#{raw}"
+        assert_canonical_url "http://#{@post.site.fqdn}/serials#{expected}"
+      end
+    end
   end
 
   sub_test_case "view all disabled" do
