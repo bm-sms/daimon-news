@@ -21,7 +21,7 @@
 
   = render 'banner', position: :press_articles_top
   %ul
-    - @posts.each_with_index do |post, i|
+    - @posts.each do |post|
       %li
         = link_to post.title, post_url(post), class: 'post-summary__url'
 
