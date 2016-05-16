@@ -47,7 +47,7 @@ class PostSearcher
           (target.index("Terms.Posts_title") * 10) |
             target.index("Terms.Posts_content")
         end
-        keywords = query.keywords.gsub(/　/, " ").split
+        keywords = query.keywords.split(/[[:blank:]]/)
         full_text_search = keywords.map {|keyword|
           (match_target =~ keyword) |
             (record.participants.name =~ keyword) |
