@@ -7,7 +7,7 @@ after "development:posts" do
     serial = site1.serials.create!(
       title: "Serial#{i}",
       description: "Serial",
-      thumbnail: open(Rails.root.join("db/data/thumbnail.jpg"))
+      thumbnail: Rails.root.join("db/data/thumbnail.jpg").open
     )
     3.times do
       posts.next.update!(serial: serial)
