@@ -5,12 +5,4 @@ class Credit < ActiveRecord::Base
 
   validates :participant_id, presence: true
   validates :credit_role_id, presence: true
-
-  before_save :setup_order
-
-  private
-
-  def setup_order
-    self.order ||= (post.credits.map(&:order).compact.max || 0) + 1
-  end
 end

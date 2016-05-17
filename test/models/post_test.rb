@@ -35,7 +35,7 @@ class PostTest < ActiveSupport::TestCase
       role = create(:credit_role, site: @site)
       @participant = create(:participant, site: @site)
       post = create(:post, site: @site, category: category)
-      post.credits.create!(participant: @participant, role: role)
+      post.credits.create!(participant: @participant, role: role, order: 1)
     end
 
     def test_destroy
