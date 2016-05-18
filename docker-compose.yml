@@ -1,0 +1,16 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: /start web
+    working_dir: /app
+    environment:
+      PORT: 3000
+      DATABASE_URL: 'postgres://postgres:@postgres:5432/postgres'
+      RAILS_ENV: development
+    links:
+      - postgres
+    ports:
+      - 3000:3000
+  postgres:
+    image: postgres
