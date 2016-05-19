@@ -14,7 +14,7 @@
   %div.post__header
     %div.title-and-data
       - if @post.serial
-        = link_to "【連載】#{@post.serial.title}", serial_url(@post.serial.slug)
+        = link_to "【連載】#{@post.serial.title}", serial_url(@post.serial.slug), class: 'post__serial--title'
       %h1.post__title= @post.title
       %p.post__data
       %time.post__data-item.post__data-item--published-at
@@ -35,7 +35,7 @@
     = render 'application/sns_share', title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
 
     - if @post.serial
-      = link_to 'この連載の記事一覧へ', serial_url(@post.serial.slug)
+      = link_to 'この連載の記事一覧へ', serial_url(@post.serial.slug), class: 'post__serial--index'
 
     %ul
       - if @post.next_post.present?
