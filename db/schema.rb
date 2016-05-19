@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512013450) do
+ActiveRecord::Schema.define(version: 20160421194616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,12 +45,10 @@ ActiveRecord::Schema.define(version: 20160512013450) do
     t.integer  "credit_role_id", null: false
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.integer  "order",          null: false
   end
 
   add_index "credits", ["credit_role_id"], name: "index_credits_on_credit_role_id", using: :btree
   add_index "credits", ["participant_id"], name: "index_credits_on_participant_id", using: :btree
-  add_index "credits", ["post_id", "order"], name: "index_credits_on_post_id_and_order", unique: true, using: :btree
   add_index "credits", ["post_id"], name: "index_credits_on_post_id", using: :btree
 
   create_table "fixed_pages", force: :cascade do |t|
