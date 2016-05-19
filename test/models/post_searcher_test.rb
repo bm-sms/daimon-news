@@ -12,7 +12,7 @@ class PostSearcherTest < ActiveSupport::TestCase
   end
 
   test "full-width space should be delimiter" do
-    post = create_post(
+    create_post(
       site: @site,
       title: "記事のタイトル",
       body: "...記事の内容..."
