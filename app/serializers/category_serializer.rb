@@ -1,5 +1,3 @@
 class CategorySerializer < ActiveModel::Serializer
-  attributes :id, :name, :slug, :description
-
-  has_many :posts
+  attributes :id, :name, :slug, :description, :order
 end
