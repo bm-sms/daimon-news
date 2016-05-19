@@ -6,7 +6,8 @@ after "development:credit_roles", "development:participants", "development:posts
   site1.posts.published.order_by_recently.limit(10).each do |post|
     post.credits.create!(
       participant: participants.next,
-      role: credit_role
+      role: credit_role,
+      order: 1
     )
   end
 end
