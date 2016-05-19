@@ -24,12 +24,4 @@ class PostSearcherTest < ActiveSupport::TestCase
 
     assert_equal(["記事のタイトル"], searched_posts.map(&:title))
   end
-
-  private
-
-  def create_post(*attributes)
-    post = create(:post, :whatever, :with_credit, *attributes)
-    @indexer.add(post)
-    post
-  end
 end

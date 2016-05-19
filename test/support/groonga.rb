@@ -30,6 +30,13 @@ module GroongaHelper
   def groonga_database_dir
     Rails.root.join("groonga/data/#{Rails.env}").to_s
   end
+
+  def create_post(*attributes)
+    post = create(:post, :whatever, :with_credit, *attributes)
+    indexer = @indexer || PostIndexer.new
+    indexer.add(post)
+    post
+  end
 end
 
 ActionDispatch::IntegrationTest.include(GroongaHelper)
