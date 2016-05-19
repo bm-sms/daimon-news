@@ -52,7 +52,9 @@ Rails.application.routes.draw do
   concerns :site
 
   namespace :api do
-    resources :sites, only: [], path: "/", param: :fqdn, fqdn: %r{[^/]+} do
+    resources :sites, only: %i(), path: "/", param: :fqdn, fqdn: %r{[^/]+} do
+      get "sites/current" => "current_sites#show"
+
       resources :posts, only: %i(index show)
       resources :categories, only: :show, param: :slug
     end
