@@ -21,19 +21,4 @@
     = f.submit
 
 :javascript
-  $(function() {
-    function applySelect2($element, options) {
-      var defaultOptions = {
-        placeholder: '選択してください'
-      };
-      var mergedOptions = $.extend(defaultOptions, options);
-      $element.select2(mergedOptions);
-    }
-
-    applySelect2($('select#post_category_id'), {allowClear: false});
-    applySelect2($('select#post_serial_id'), {allowClear: true});
-
-    $(document).on('cocoon:after-insert', function(e, inserted) {
-      applySelect2($(inserted[0]).find('select'), {allowClear: false});
-    });
-  });
+  $(setupPostForm);

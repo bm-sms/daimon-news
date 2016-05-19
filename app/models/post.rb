@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   has_many :credits, dependent: :destroy do
     def with_ordered
-      eager_load(:role).order("credit_roles.order")
+      order(:order)
     end
   end
 
