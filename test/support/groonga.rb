@@ -33,3 +33,4 @@ module GroongaHelper
 end
 
 ActionDispatch::IntegrationTest.include(GroongaHelper)
+ActiveSupport::TestCase.include(GroongaHelper)
