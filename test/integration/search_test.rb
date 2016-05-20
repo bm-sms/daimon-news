@@ -303,12 +303,6 @@ class SearchTest < ActionDispatch::IntegrationTest
 
   private
 
-  def create_post(*attributes)
-    post = create(:post, :whatever, :with_credit, *attributes)
-    @indexer.add(post)
-    post
-  end
-
   def canonical_params
     Rack::Utils.parse_nested_query(URI.parse(find("link[rel=canonical]", visible: false)["href"]).query)
   end
