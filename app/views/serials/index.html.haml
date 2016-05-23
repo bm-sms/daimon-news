@@ -13,9 +13,9 @@
 - set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
 - @class_page_name = "serials"
 
-%h1 すべての連載
+%h1.serials-header すべての連載
 
-%ul
+%ul.serials-list
   - @serials.each do |serial|
     = render 'serials/summary', serial: serial
 
