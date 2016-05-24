@@ -49,7 +49,7 @@
             - unless current_page?(root_path)
               %h2.subheading.subheading--aside.subheading--press-articles 新着記事
               %ul
-                - current_site.posts.published.order_by_recently.limit(5).each do |post|
+                - current_site.recent_posts.each do |post|
                   = render partial: 'posts/summary_with_content', locals: {post: post}
 
             %h2.subheading.subheading--aside カテゴリ
