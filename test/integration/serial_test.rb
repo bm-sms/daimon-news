@@ -41,13 +41,13 @@ class SerialTest < ActionDispatch::IntegrationTest
       assert_equal("Serial 3 | #{@site.name}", title)
     end
 
-    test "serial header" do
+    test "serial title" do
       visit "/serials"
 
       click_on "Serial 3"
 
-      header = find ".serial-header"
-      assert_equal("Serial 3", header.text)
+      title = find ".serial-content__title"
+      assert_equal("Serial 3", title.text)
     end
   end
 end
