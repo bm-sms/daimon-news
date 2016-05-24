@@ -15,9 +15,9 @@
 - set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
 
 %section
-  %h1.serial-header= @serial.title
   %div.serial-content
     = image_tag @serial.thumbnail_url, class: 'serial-content__thumbnail'
+    %h1.serial-content__title= @serial.title
     %div.serial-content__description= raw render_markdown(@serial.description)
 
     = render 'banner', position: :press_articles_top
