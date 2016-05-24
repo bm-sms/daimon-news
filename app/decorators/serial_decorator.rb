@@ -27,7 +27,7 @@ module SerialDecorator
     end
   end
 
-  def title_with_n_posts(posts)
-    "#{title} (#{posts.size})"
+  def number_of_posts(posts)
+    "記事数：#{posts.size}"
   end
 end
