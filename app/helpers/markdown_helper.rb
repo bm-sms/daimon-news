@@ -3,6 +3,9 @@ module MarkdownHelper
     processor = Daimon::Markdown::Processor.new
     result = processor.call(markdown_text)
     result[:output].to_html
+  rescue => ex
+    Rails.logger.warn("#{ex.class}: #{ex.message}\n#{ex.backtrace.join("\n")}")
+    markdown_text
   end
 
   def extract_plain_text(markdown_text)
