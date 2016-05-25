@@ -12,6 +12,6 @@ class Api::SearchController < Api::ApplicationController
   private
 
   def search_query_params
-    params.require(:query).permit(:keywords)
+    params.require(:filter).permit(:keywords)
   end
 end
