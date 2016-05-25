@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/bm-sms/daimon-markdown.git
-  revision: 51a59a81dcb1b839d102f96e867964d1d88390cb
-  tag: v0.2.2
-  specs:
-    daimon-markdown (0.2.2)
-      html-pipeline
-      redcarpet
-      rouge
-
-GIT
   remote: git://github.com/bm-sms/daimon_news-layout.git
   revision: c14fae8a84035545a10fb63d0595cc8b92b0f1d2
   specs:
@@ -105,6 +95,10 @@ GEM
     cocoon (1.2.9)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
+    daimon-markdown (0.1.0)
+      html-pipeline
+      redcarpet
+      rouge
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     devise (4.1.1)
@@ -502,7 +496,7 @@ DEPENDENCIES
   browser
   carrierwave
   cocoon
-  daimon-markdown!
+  daimon-markdown
   daimon_news-layout!
   database_cleaner
   devise (>= 3.5.4)
