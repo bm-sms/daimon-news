@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  attr_accessor :snippet
+
   has_many :credits, dependent: :destroy do
     def with_ordered
       order(:order)
