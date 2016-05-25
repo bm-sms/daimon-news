@@ -95,7 +95,7 @@ GEM
     cocoon (1.2.9)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
-    daimon-markdown (0.1.0)
+    daimon-markdown (0.2.2)
       html-pipeline
       redcarpet
       rouge
