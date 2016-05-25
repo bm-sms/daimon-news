@@ -1,11 +1,8 @@
-require_dependency "daimon/render/html"
-
 module MarkdownHelper
   def render_markdown(markdown_text)
-    markdown = Redcarpet::Markdown.new(Daimon::Render::HTML.new(hard_wrap: true),
-                                       fenced_code_blocks: true,
-                                       tables: true)
-    markdown.render(markdown_text)
+    processor = Daimon::Markdown::Processor.new
+    result = processor.call(markdown_text)
+    result[:output].to_html
   end
 
   def extract_plain_text(markdown_text)
