@@ -5,7 +5,7 @@ module SerialDecorator
       type: "object",
       title: [title, site.tagline, site.name].select(&:present?).join(" | "),
       description: MetaTags::TextNormalizer.normalize_description(description),
-      url: serial_url(slug: slug),
+      url: serial_url(self),
       site_name: site.name,
       image: site.logo_image_url
     }
@@ -13,9 +13,9 @@ module SerialDecorator
 
   def canonical_url(posts)
     if posts.current_page > 1
-      serial_url(slug: slug, page: posts.current_page)
+      serial_url(self, page: posts.current_page)
     else
-      serial_url(slug: slug)
+      serial_url(self)
     end
   end
 

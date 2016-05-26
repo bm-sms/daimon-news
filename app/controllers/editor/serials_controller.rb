@@ -52,8 +52,7 @@ class Editor::SerialsController < Editor::ApplicationController
   def serial_params
     params.require(:serial).permit(
       :title,
-      :description,
-      :slug
+      :description
     )
   end
 end

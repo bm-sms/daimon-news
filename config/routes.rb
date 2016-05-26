@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     resources :posts, only: %i(show), constraints: {id: /\d+/}, path: "/"
     resources :categories, only: %i(show), path: "category"
     unless Rails.env.production?
-      resources :serials, only: %i(index show), path: "serials", param: :slug
+      resources :serials, only: %i(index show), path: "serials"
     end
 
     # compatibility for old URL
