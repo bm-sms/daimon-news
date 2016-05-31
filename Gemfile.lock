@@ -99,7 +99,7 @@ GEM
     cocoon (1.2.9)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
-    daimon-markdown (0.2.3)
+    daimon-markdown (0.3.0)
       html-pipeline
       redcarpet
       rouge
@@ -547,4 +547,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.3
+   1.12.5
