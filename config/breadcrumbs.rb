@@ -11,7 +11,7 @@ crumb :serials do
 end
 
 crumb :serial do |serial|
-  link serial.title, serial_url(serial.slug)
+  link serial.title, serial_url(serial)
   parent :serials
 end
 
