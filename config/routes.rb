@@ -55,6 +55,8 @@ Rails.application.routes.draw do
 
       resources :posts, only: %i(index show)
       resources :categories, only: :show, param: :slug
+
+      resource :feed, only: %i(show), controller: "/feed"
     end
   end
 end
