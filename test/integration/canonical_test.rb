@@ -123,8 +123,8 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       def test_normalize_parameter(data)
         raw, expected = data
 
-        visit "/serials/#{@serial.slug}#{raw}"
-        assert_canonical_url "http://#{@post.site.fqdn}/serials/#{@serial.slug}#{expected}"
+        visit "/serials/#{@serial.id}#{raw}"
+        assert_canonical_url "http://#{@post.site.fqdn}/serials/#{@serial.id}#{expected}"
       end
     end
   end

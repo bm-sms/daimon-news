@@ -4,7 +4,7 @@ class SerialTest < ActionDispatch::IntegrationTest
   setup do
     @site = create(:site)
     1.upto(3) do |i|
-      create(:serial, :with_posts, title: "Serial #{i}", slug: "serial#{i}", site: @site)
+      create(:serial, :with_posts, title: "Serial #{i}", site: @site)
     end
 
     switch_domain(@site.fqdn)
@@ -32,7 +32,7 @@ class SerialTest < ActionDispatch::IntegrationTest
     end
   end
 
-  sub_test_case "/serials/:slug" do
+  sub_test_case "/serials/:id" do
     test "page title" do
       visit "/serials"
 
