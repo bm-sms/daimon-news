@@ -1,6 +1,10 @@
 = bootstrap_form_for [:editor, @serial], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :title
-  = f.text_area :description
+  = f.text_area :description, class: "markdown-editor", data: {upload_path: editor_images_url}
+  = f.file_field :thumbnail, help: "300px x 300px 程度の正方形の画像を指定します"
+  - if @serial.thumbnail.present?
+    = f.form_group do
+      = image_tag @serial.thumbnail_url, height: 80
 
   = f.form_group do
     = f.submit

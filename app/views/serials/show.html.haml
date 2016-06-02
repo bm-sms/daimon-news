@@ -15,16 +15,18 @@
 - set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
 
 %section
-  %h1.serial-header= @serial.title
-  %p.serial-description= @serial.description
+  %div.serial-content
+    = image_tag @serial.thumbnail_url, class: 'serial-content__thumbnail'
+    %h1.serial-content__title= @serial.title
+    %div.serial-content__description= raw render_markdown(@serial.description)
 
-  = render 'banner', position: :press_articles_top
-  %ul
-    - @posts.each do |post|
-      = render 'posts/summary_with_content', post: post
-    = render 'native_ad', position: :press_articles_bottom
+    = render 'banner', position: :press_articles_top
+    %ul.serial-titles
+      - @posts.each do |post|
+        %li
+          = link_to post.title, post_url(post), class: 'post-summary__url'
 
-  - if @posts.total_pages > 1
-    %nav.pagination
-      = paginate @posts
-      %p.pagination__entries= page_entries_info @posts
+    - if @posts.total_pages > 1
+      %nav.pagination
+        = paginate @posts
+        %p.pagination__entries= page_entries_info @posts

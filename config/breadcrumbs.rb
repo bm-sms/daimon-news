@@ -7,7 +7,7 @@ crumb :category do |category|
 end
 
 crumb :serials do
-  link "連載一覧", serials_url
+  link "すべての連載", serials_url
 end
 
 crumb :serial do |serial|
@@ -29,6 +29,8 @@ crumb :page_num do |page_num, options|
       parent :category, options[:category]
     when options[:serial]
       parent :serial, options[:serial]
+    when options[:serials]
+      parent :serials
     end
   else
     parent :root

@@ -47,4 +47,24 @@ class SidebarTest < ActionDispatch::IntegrationTest
       assert(page.has_selector?("h2", text: "新着記事"))
     end
   end
+
+  sub_test_case "serials" do
+    test "serials section is not displayed if no serials" do
+      visit "/"
+
+      within ".wrappable__content.promotions" do
+        assert(page.has_no_selector?("h2", text: "連載"))
+      end
+    end
+
+    test "serials section is displayed if any serials are exist" do
+      create(:serial, site: @post.site)
+
+      visit "/"
+
+      within ".wrappable__content.promotions" do
+        assert(page.has_selector?("h2", text: "連載"))
+      end
+    end
+  end
 end

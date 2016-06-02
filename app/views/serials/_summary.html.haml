@@ -1,5 +1,10 @@
-%li
+%li.serial-summary.serial-summary--with-thumbnail
   = link_to serial_url(serial), class: 'serial-summary__url' do
+    = image_tag serial.thumbnail_url, class: 'serial-summary__thumbnail'
     .serial-summary__body
       %p.serial-summary__title
-        = serial.title_with_n_posts(serial.posts)
+        = serial.title
+      %p.number-of-posts
+        = serial.number_of_posts(serial.posts)
+      %p.serial-summary__content
+        = serial.description

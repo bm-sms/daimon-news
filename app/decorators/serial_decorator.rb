@@ -4,7 +4,7 @@ module SerialDecorator
       locale: "ja_JP",
       type: "object",
       title: [title, site.tagline, site.name].select(&:present?).join(" | "),
-      description: MetaTags::TextNormalizer.normalize_description(description),
+      description: MetaTags::TextNormalizer.normalize_description(render_markdown(description)),
       url: serial_url(self),
       site_name: site.name,
       image: site.logo_image_url
@@ -27,7 +27,7 @@ module SerialDecorator
     end
   end
 
-  def title_with_n_posts(posts)
-    "#{title} (#{posts.size})"
+  def number_of_posts(posts)
+    "記事数：#{posts.size}"
   end
 end

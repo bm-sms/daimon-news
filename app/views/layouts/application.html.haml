@@ -52,6 +52,11 @@
                 - current_site.posts.published.order_by_recently.limit(5).each do |post|
                   = render partial: 'posts/summary_with_content', locals: {post: post}
 
+            - if current_site.serials.present?
+              %h2.subheading.subheading--aside.subheading--press-articles 連載
+              %p.to-serials
+                = link_to 'すべての連載を見る', serials_url
+
             %h2.subheading.subheading--aside カテゴリ
             %ul.category-list
               - current_site.categories.ordered.each do |category|

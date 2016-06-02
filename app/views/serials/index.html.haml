@@ -1,5 +1,25 @@
-%h1 連載一覧
+:ruby
+  canonical_url = current_site.serials_canonical_url(@serials)
+  page_title = "すべての連載"
 
-%ul
+- content_for(:canonical_tag) do
+  %link{rel: :canonical, href: canonical_url}
+- content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@serials) }
+- if @serials.current_page > 1
+  - breadcrumb :page_num, @serials.current_page, serials: true
+- else
+  - breadcrumb :serials
+- set_meta_tags title: page_title
+- set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
+- @class_page_name = "serials"
+
+%h1.serials-header すべての連載
+
+%ul.serials-list
   - @serials.each do |serial|
     = render 'serials/summary', serial: serial
+
+- if @serials.total_pages > 1
+  %nav.pagination
+    = paginate @serials
+    %p.pagination__entries= page_entries_info @serials
