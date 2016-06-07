@@ -21,5 +21,6 @@ class SiteSerializer < ActiveModel::Serializer
   )
 
   has_many :categories
+  has_many :serials
   has_many :links
 end
