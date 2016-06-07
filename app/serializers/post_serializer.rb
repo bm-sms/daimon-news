@@ -1,5 +1,5 @@
 class PostSerializer < ActiveModel::Serializer
-  attributes :id, :title, :body, :created_at, :updated_at, :published_at, :thumbnail_url
+  attributes :id, :title, :body, :created_at, :updated_at, :published_at, :thumbnail_url, :snippet
 
   belongs_to :category
   has_one :next_post
