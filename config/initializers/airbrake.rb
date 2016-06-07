@@ -32,7 +32,7 @@ Airbrake.configure do |c|
   # environments. By default, it's not set.
   # https://github.com/airbrake/airbrake-ruby#environment
   c.environment = Rails.env
-end if defined?(Airbrake)
+end if defined?(Airbrake) && ENV["AIRBRAKE_PROJECT_ID"] && ENV["AIRBRAKE_API_KEY"]
 
 # If Airbrake doesn't send any expected exceptions, we suggest to uncomment the
 # line below. It might simplify debugging of background Airbrake workers, which

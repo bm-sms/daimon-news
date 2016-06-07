@@ -107,7 +107,7 @@ Rails.application.configure do
     {ENV["DIGEST_AUTH_USERNAME"] => ENV["DIGEST_AUTH_PASSWORD"]}[username]
   end if ENV["DIGEST_AUTH_SECRET_KEY"]
 
-  allowd_ips = ENV["ADMIN_IP_ADDRESSES"].split(",")
+  allowd_ips = ENV["ADMIN_IP_ADDRESSES"]&.split(",") || %w(127.0.0.1)
   config.middleware.use Rack::Access, "/admin" => allowd_ips, "/users" => allowd_ips, "/editor" => allowd_ips
 
   config.middleware.insert_before 0, "Rack::Cors" do
