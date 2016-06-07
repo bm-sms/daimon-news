@@ -55,6 +55,7 @@ Rails.application.routes.draw do
 
       resources :posts, only: %i(index show)
       resources :categories, only: :show, param: :slug
+      resources :fixed_pages, param: :slug, only: :show
     end
   end
 end
