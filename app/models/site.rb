@@ -27,6 +27,10 @@ class Site < ActiveRecord::Base
     participants.exists? && credit_roles.exists?
   end
 
+  def recent_posts
+    posts.published.order_by_recently.limit(5)
+  end
+
   private
 
   def validate_category_title_format

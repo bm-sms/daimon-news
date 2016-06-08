@@ -22,4 +22,11 @@ class SiteSerializer < ActiveModel::Serializer
 
   has_many :categories
   has_many :links
+
+  has_many :recent_posts do
+    link :related do
+      api_site_posts_path(object.fqdn, page: {size: 5})
+    end
+    include_data false
+  end
 end
