@@ -115,6 +115,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       click_on "検索"
 
       assert_equal "aの検索結果(0件) | #{@current_site.name}", title
+      assert_equal "aの検索結果(0件) | #{@current_site.name}", find('meta[property="og:title"]', visible: false)["content"]
       assert_equal "「a」を含む記事は見つかりませんでした。", find("meta[name=description]", visible: false)["content"]
       assert_equal({"page" => "1", "query" => {"keywords" => "a"}}, canonical_params)
       assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
@@ -130,6 +131,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       click_on "検索"
 
       assert_equal "#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", title
+      assert_equal "#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", find('meta[property="og:title"]', visible: false)["content"]
       assert_equal "「#{keywords}」を含む記事は51件見つかりました。(1〜50/51件)", find("meta[name=description]", visible: false)["content"]
       assert_equal({"page" => "1", "query" => {"keywords" => keywords}}, canonical_params)
       assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
