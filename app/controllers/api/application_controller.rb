@@ -10,4 +10,10 @@ class Api::ApplicationController < ActionController::Base
   def current_site
     @current_site ||= Site.where(opened: true).find_by!(fqdn: params[:site_fqdn])
   end
+
+  def pagination_meta(object)
+    {
+      total_count: object.total_count
+    }
+  end
 end

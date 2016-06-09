@@ -6,7 +6,7 @@ class Api::SearchController < Api::ApplicationController
     posts.each do |post|
       post.snippet = search_result.excerpt(post)
     end
-    render json: search_result.posts, include: "category"
+    render json: posts, include: "category", meta: pagination_meta(posts)
   end
 
   private
