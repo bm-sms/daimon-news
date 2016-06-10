@@ -26,7 +26,7 @@
         %li
           = link_to post.title, post_url(post), class: 'post-summary__url'
 
-    - if @posts.total_pages > 1
-      %nav.pagination
-        = paginate @posts
-        %p.pagination__entries= page_entries_info @posts
+  - if @posts.total_pages > 1
+    %nav.pagination
+      = paginate @posts
+      %p.pagination__entries= page_entries_info @posts
