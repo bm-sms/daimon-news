@@ -35,11 +35,10 @@
             = content_for?(:content) ? yield(:content) : yield
         %aside.wrappable__content.promotions
           %section.promotion{ style: 'margin-top: 20px;'}
-            - if current_site.ad_client.present? && current_site.ad_slot.present?
-              %section.promotion
+            %div.ad
+              - if current_site.ad_client.present? && current_site.ad_slot.present?
                 = render 'application/adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
-            - elsif current_site.promotion_tag.present?
-              %section.promotion
+              - elsif current_site.promotion_tag.present?
                 = raw current_site.promotion_tag
 
           %section.promotion
