@@ -58,3 +58,7 @@ Style/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 Style/BlockDelimiters:
   EnforcedStyle: braces_for_chaining
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/EmptyCaseCondition:
+  Enabled: false
