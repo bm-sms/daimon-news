@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/bm-sms/daimon_news-layout.git
-  revision: c4c55c335256c6c4e50ec2ee4e356d3c2ceeb038
+  revision: 4f25913c5f6907f4a002984c4fb2d09782d52005
   specs:
     daimon_news-layout (0.1.0)
       bourbon
@@ -57,7 +57,7 @@ GEM
     addressable (2.4.0)
     airbrake (5.4.0)
       airbrake-ruby (~> 1.4)
-    airbrake-ruby (1.4.1)
+    airbrake-ruby (1.4.3)
     archive-zip (0.8.0)
       io-like (~> 0.3.0)
     arel (6.0.3)
@@ -389,7 +389,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
-    rake (11.1.2)
+    rake (11.2.2)
     rambulance (0.3.1)
       actionpack
       activesupport
@@ -403,7 +403,7 @@ GEM
       railties (>= 4.2.0, < 5.1)
     rouge (1.11.0)
     rr (1.2.0)
-    rroonga (6.0.2)
+    rroonga (6.0.4)
       archive-zip
       groonga-client (>= 0.0.3)
       json
@@ -443,7 +443,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    test-unit (3.1.9)
+    test-unit (3.2.0)
       power_assert
     test-unit-activesupport (1.0.6)
       activesupport
