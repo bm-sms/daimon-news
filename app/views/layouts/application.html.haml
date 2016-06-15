@@ -34,11 +34,13 @@
               = render 'application/breadcrumbs'
             = content_for?(:content) ? yield(:content) : yield
         %aside.wrappable__content.promotions
-          %section.promotion
-            %div.promotion--ad
-              - if current_site.ad_client.present? && current_site.ad_slot.present?
+          - if current_site.ad_client.present? && current_site.ad_slot.present?
+            %section.promotion
+              %div.promotion--ad
                 = render 'application/adsense', ad_client: current_site.ad_client, ad_slot: current_site.ad_slot
-              - elsif current_site.promotion_tag.present?
+          - elsif current_site.promotion_tag.present?
+            %section.promotion
+              %div.promotion--ad
                 = raw current_site.promotion_tag
 
           %section.promotion
