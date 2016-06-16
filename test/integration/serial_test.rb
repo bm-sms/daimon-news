@@ -3,7 +3,7 @@ require "test_helper"
 class SerialTest < ActionDispatch::IntegrationTest
   setup do
     @site = create(:site)
-    create_list(:serial, 3, :with_posts, title: "Serial #{i}", site: @site)
+    @serials = create_list(:serial, 3, :with_posts, :with_unpublished_posts, site: @site)
 
     switch_domain(@site.fqdn)
   end
@@ -19,7 +19,7 @@ class SerialTest < ActionDispatch::IntegrationTest
       visit "/serials"
 
       serial_titles = find_all ".serial-summary__title"
-      assert_equal(["Serial 3", "Serial 2", "Serial 1"], serial_titles.map(&:text))
+      assert_equal(@serials.map(&:title).reverse, serial_titles.map(&:text))
     end
 
     test "number of posts" do
@@ -34,18 +34,18 @@ class SerialTest < ActionDispatch::IntegrationTest
     test "page title" do
       visit "/serials"
 
-      click_on "Serial 3"
+      click_on @serials.last.title
 
-      assert_equal("Serial 3 | #{@site.name}", title)
+      assert_equal("#{@serials.last.title} | #{@site.name}", title)
     end
 
     test "serial title" do
       visit "/serials"
 
-      click_on "Serial 3"
+      click_on @serials.last.title
 
       title = find ".serial-content__title"
-      assert_equal("Serial 3", title.text)
+      assert_equal(@serials.last.title, title.text)
     end
   end
 end
