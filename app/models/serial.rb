@@ -3,5 +3,7 @@ class Serial < ActiveRecord::Base
   has_many :posts, dependent: :nullify
   validates :thumbnail, presence: true
 
+  scope :published, -> { joins(:posts).merge(Post.published).uniq }
+
   mount_uploader :thumbnail, ImageUploader
 end
