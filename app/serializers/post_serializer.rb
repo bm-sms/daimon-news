@@ -1,6 +1,7 @@
 class PostSerializer < ActiveModel::Serializer
   attributes(
     :id,
+    :public_id,
     :title,
     :body,
     :created_at,
