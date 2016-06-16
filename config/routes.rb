@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     get "search", controller: "search"
 
     resources :posts, only: %i(show), param: :public_id, constraints: {public_id: /\d+/}, path: "/"
-    resources :categories, only: %i(show), path: "category"
+    resources :categories, only: %i(show), path: "category", param: :slug
     resources :serials, only: %i(index show)
     resources :participants, only: %i(index show)
 

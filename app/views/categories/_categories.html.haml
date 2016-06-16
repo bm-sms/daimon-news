@@ -1,17 +1,17 @@
 %ul.category-summary-list
   - categories.select {|category| category.post_count > 0 }.each do |category|
     %li.category-summary-list__item.category-summary
-      = link_to "#{category.name} (#{category.post_count})", category_url(category.slug), class: "category-summary__title"
+      = link_to "#{category.name} (#{category.post_count})", category_url(slug: category.slug), class: "category-summary__title"
 
       %ul.category-summary__content-titles
         - if category.has_children?
           - category.children.each do |sub_category|
             %li.category-summary__content-title
-              = link_to "#{sub_category.name} (#{sub_category.post_count})", category_url(category.slug)
+              = link_to "#{sub_category.name} (#{sub_category.post_count})", category_url(slug: category.slug)
 
         - else
           - category.posts.published.order_by_recent.limit(7).each do |post|
             %li.category-summary__content-title
               = link_to post.title, post_url(post.public_id)
 
-      = link_to "もっと見る", category_url(category.slug), class: "category-summary__more-link"
+      = link_to "もっと見る", category_url(slug: category.slug), class: "category-summary__more-link"
