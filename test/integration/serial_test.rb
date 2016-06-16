@@ -3,9 +3,7 @@ require "test_helper"
 class SerialTest < ActionDispatch::IntegrationTest
   setup do
     @site = create(:site)
-    1.upto(3) do |i|
-      create(:serial, :with_posts, title: "Serial #{i}", site: @site)
-    end
+    create_list(:serial, 3, :with_posts, title: "Serial #{i}", site: @site)
 
     switch_domain(@site.fqdn)
   end
