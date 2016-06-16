@@ -4,6 +4,7 @@ class SerialTest < ActionDispatch::IntegrationTest
   setup do
     @site = create(:site)
     @serials = create_list(:serial, 3, :with_posts, :with_unpublished_posts, site: @site)
+    create(:serial, :with_unpublished_posts, title: "Unpublished serial", site: @site)
 
     switch_domain(@site.fqdn)
   end
