@@ -10,6 +10,10 @@ FactoryGirl.define do
       category { create(:category, site: site) }
     end
 
+    trait :unpublished do
+      published_at { nil }
+    end
+
     trait :with_pages do
       body <<~BODY
         # title

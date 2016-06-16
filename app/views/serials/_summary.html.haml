@@ -5,6 +5,6 @@
       %p.serial-summary__title
         = serial.title
       %p.number-of-posts
-        = serial.number_of_posts(serial.posts)
+        = serial.number_of_posts(serial.posts.published)
       %p.serial-summary__content
         = serial.description

@@ -1,6 +1,6 @@
 class SerialsController < ApplicationController
   def index
-    @serials = current_site.serials.order(id: :desc).page(params[:page])
+    @serials = current_site.serials.published.order(id: :desc).page(params[:page])
   end
 
   def show
