@@ -9,5 +9,11 @@ FactoryGirl.define do
         serial.posts << build(:post, :whatever, site: serial.site)
       end
     end
+
+    trait :with_unpublished_posts do
+      after :create do |serial, _evaluator|
+        serial.posts << build(:post, :whatever, :unpublished, site: serial.site)
+      end
+    end
   end
 end
