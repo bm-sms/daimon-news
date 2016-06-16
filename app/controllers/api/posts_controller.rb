@@ -12,7 +12,7 @@ class Api::PostsController < Api::ApplicationController
   end
 
   def show
-    post = current_site.posts.published.find(params[:id])
+    post = current_site.posts.published.find_by(public_id: params[:public_id])
 
     render json: post, include: "related_posts.category, next_post.category, previous_post.category, category"
   end
