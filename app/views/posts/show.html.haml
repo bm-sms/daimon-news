@@ -37,17 +37,4 @@
     - if @post.serial
       %p.post__serial--index= link_to 'この連載の記事一覧へ', serial_url(@post.serial)
 
-    %ul
-      - if @post.next_post.present?
-        %li.page-navi
-          = link_to post_url(@post.next_post), class: 'page-navi__link' do
-            %p.page-navi__label.next 次の記事へ
-            %p.page-navi__title= @post.next_post.title
-
-      - if @post.previous_post.present?
-        %li.page-navi
-          = link_to post_url(@post.previous_post), class: 'page-navi__link' do
-            %p.page-navi__label.prev 前の記事へ
-            %p.page-navi__title= @post.previous_post.title
-
     = render 'posts/short_collection', posts: @post.related_posts

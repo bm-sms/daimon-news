@@ -37,29 +37,11 @@ class Post < ActiveRecord::Base
     Post.published.where(id: ids).order_by_recently
   end
 
-  def next_post
-    @next_post ||= around_posts_candidates
-      .order(id: :desc)
-      .where("id > ?", id)
-      .first
-  end
-
-  def previous_post
-    @previous_post ||= around_posts_candidates
-      .order(:id)
-      .where("id < ?", id)
-      .first
-  end
-
   def to_param
     public_id.to_s
   end
 
   private
-
-  def around_posts_candidates
-    site.posts.published.order_by_recently
-  end
 
   def assign_public_id
     self.public_id ||= (self.class.maximum(:public_id) || 0) + 1
