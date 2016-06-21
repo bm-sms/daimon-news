@@ -18,7 +18,7 @@
   %div.serial-content
     = image_tag @serial.thumbnail_url, class: 'serial-content__thumbnail'
     %h1.serial-content__title= @serial.title
-    %div.serial-content__description= raw render_markdown(@serial.description)
+    %div.serial-content__description= render_markdown(@serial.description)
 
     = render 'banner', position: :press_articles_top
     %ul.serial-titles

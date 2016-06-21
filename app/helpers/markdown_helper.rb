@@ -2,7 +2,7 @@ module MarkdownHelper
   def render_markdown(markdown_text)
     processor = Daimon::Markdown::Processor.new
     result = processor.call(markdown_text)
-    result[:output].to_html
+    result[:output].to_html.html_safe
   end
 
   def extract_plain_text(markdown_text)
