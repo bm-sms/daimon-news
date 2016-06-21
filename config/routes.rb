@@ -54,7 +54,7 @@ Rails.application.routes.draw do
       get "sites/current" => "current_sites#show"
       get "search", controller: "search"
 
-      resources :posts, only: %i(index show)
+      resources :posts, only: %i(index show), param: :public_id
       resources :categories, only: :show, param: :slug
       resources :fixed_pages, param: :slug, only: :show
     end
