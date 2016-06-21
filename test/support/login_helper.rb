@@ -12,7 +12,7 @@ module LoginHelper
   def login_as_editor(site:, editor:)
     switch_domain(site.fqdn)
 
-    visit "/editor"
+    visit "/sites/#{site.id}/editor"
 
     fill_in "Email",    with: editor.email
     fill_in "Password", with: DEFAULT_PASSWORD
