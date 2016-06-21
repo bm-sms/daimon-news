@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta{charset: 'utf-8'}
+    %title Daimon Admin
+    = javascript_include_tag 'editor/application'
+    = stylesheet_link_tag 'editor/application', media: 'all'
+    = csrf_meta_tag
+
+  %body
+    .container
+      - if notice
+        .alert.alert-success(role='alert')= notice
+
+      - if alert
+        .alert.alert-warning(role='alert')= alert
+
+      - if browser.ie?
+        = render 'application/modern_browser'
+
+      %main
+        = yield
