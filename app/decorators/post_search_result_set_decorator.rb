@@ -37,7 +37,7 @@ module PostSearchResultSetDecorator
     {
       locale: "ja_JP",
       type: "article",
-      title: to_meta_title,
+      title: :title,
       description: to_meta_description,
       url: canonical_url,
       site_name: site.name,
