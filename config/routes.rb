@@ -29,6 +29,25 @@ Rails.application.routes.draw do
     resources :credit_roles
   end
 
+  resources :sites, only: %i(index) do
+    namespace :editor do
+      root "welcome#index"
+
+      resources :fixed_pages
+      resources :links
+      resources :categories
+      resources :serials
+      resources :posts, param: :public_id, constraints: {public_id: /\d+/} do
+        member do
+          get :preview
+        end
+      end
+      resources :images, only: :create
+      resources :participants
+      resources :credit_roles
+    end
+  end
+
   concern :site do
     get "search", controller: "search"
 
