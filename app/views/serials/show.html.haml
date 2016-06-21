@@ -24,7 +24,7 @@
     %ul.serial-titles
       - @posts.each do |post|
         %li
-          = link_to post.title, post_url(post), class: 'post-summary__url'
+          = link_to post.title, post_url(public_id: post.public_id), class: 'post-summary__url'
 
   - if @posts.total_pages > 1
     %nav.pagination
