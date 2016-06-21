@@ -5,8 +5,8 @@ ruby "2.3.1"
 gem "rails", "~> 4.2.6"
 
 gem "active_decorator"
-gem "active_model_serializers"
 gem "active_link_to"
+gem "active_model_serializers"
 gem "bootstrap-sass"
 gem "bootstrap_form"
 gem "bourbon"
@@ -44,16 +44,16 @@ source "https://rails-assets.org" do
 end
 
 group :development, :test do
-  gem "pry-byebug"
   gem "factory_girl"
+  gem "pry-byebug"
 end
 
 group :development do
-  gem "web-console", "~> 2.0"
   gem "launchy"
   gem "pry-rails"
   gem "rails-erd", require: false
   gem "rubocop", require: false
+  gem "web-console", "~> 2.0"
 end
 
 group :test do
