@@ -12,22 +12,11 @@ Rails.application.routes.draw do
     resources :users, except: :show
   end
 
-  namespace :editor do
-    root 'welcome#index'
-
-    resources :fixed_pages
-    resources :links
-    resources :categories
-    resources :serials
-    resources :posts, param: :public_id do
-      member do
-        get :preview
-      end
-    end
-    resources :images, only: :create
-    resources :participants
-    resources :credit_roles
-  end
+  get "/editor/(*rest)", to: redirect {|params, request|
+    site = Site.find_by!(fqdn: request.host)
+    base_url = "#{request.scheme}://#{request.host_with_port}/sites/#{site.id}/editor"
+    [base_url, params[:rest]].compact.join("/")
+  }
 
   resources :sites, only: %i(index) do
     namespace :editor do
