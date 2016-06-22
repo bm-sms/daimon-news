@@ -8,6 +8,6 @@
   %b Thumbnail:
   = image_tag @serial.thumbnail_url, height: 80 if @serial.thumbnail.present?
 
-= link_to 'Edit', edit_editor_serial_url
+= link_to 'Edit', edit_site_editor_serial_url(@serial, site_id: current_site)
 \|
-= link_to 'Back', editor_serials_url
+= link_to 'Back', site_editor_serials_url(site_id: current_site)

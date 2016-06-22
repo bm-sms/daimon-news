@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', [:editor, @participant]
+= link_to 'Show', site_editor_participant_url(@participant, site_id: current_site)
 \|
-= link_to 'Back', editor_participants_url
+= link_to 'Back', site_editor_participants_url(site_id: current_site)

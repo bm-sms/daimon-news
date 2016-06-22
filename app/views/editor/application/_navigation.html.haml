@@ -3,7 +3,7 @@
     .container-fluid
       .navbar-header
         .navbar-brand
-          = link_to editor_root_url do
+          = link_to site_editor_root_url(site_id: current_site) do
             = image_tag current_site.logo_image_url, height: 24
             Editor for
           %span.dropdown
@@ -13,16 +13,16 @@
 
             %ul.dropdown-menu(aria-labelledby='change-site')
               - current_user.sites.each do |site|
-                %li= link_to site.name, editor_root_url(host: site.fqdn)
+                %li= link_to site.name, site_editor_root_url(site_id: current_site)
 
       %ul.nav.navbar-nav.navbar-right
-        = active_link_to 'カテゴリ', editor_categories_url, wrap_tag: 'li'
-        = active_link_to '連載', editor_serials_url, wrap_tag: 'li'
-        = active_link_to '記事', editor_posts_url, wrap_tag: 'li'
-        = active_link_to '役割', editor_credit_roles_url, wrap_tag: 'li'
-        = active_link_to '執筆関係者', editor_participants_url, wrap_tag: 'li'
-        = active_link_to '固定ページ', editor_fixed_pages_url, wrap_tag: 'li'
-        = active_link_to 'リンク', editor_links_url, wrap_tag: 'li'
+        = active_link_to 'カテゴリ', site_editor_categories_url(site_id: current_site), wrap_tag: 'li'
+        = active_link_to '連載', site_editor_serials_url(site_id: current_site), wrap_tag: 'li'
+        = active_link_to '記事', site_editor_posts_url(site_id: current_site), wrap_tag: 'li'
+        = active_link_to '役割', site_editor_credit_roles_url(site_id: current_site), wrap_tag: 'li'
+        = active_link_to '執筆関係者', site_editor_participants_url(site_id: current_site), wrap_tag: 'li'
+        = active_link_to '固定ページ', site_editor_fixed_pages_url(site_id: current_site), wrap_tag: 'li'
+        = active_link_to 'リンク', site_editor_links_url(site_id: current_site), wrap_tag: 'li'
 
         %li
           = link_to 'ログアウト', destroy_user_session_url, method: :delete

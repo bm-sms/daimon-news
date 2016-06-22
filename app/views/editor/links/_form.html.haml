@@ -1,4 +1,6 @@
-= bootstrap_form_for [:editor, @link], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+- url = polymorphic_url([:site, :editor, @link], site_id: current_site)
+
+= bootstrap_form_for @link, url: url, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :text
   = f.url_field :url, help: "絶対URLを指定します"
   = f.number_field :order, help: "画面に表示する順序を指定します"

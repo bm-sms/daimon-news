@@ -8,6 +8,6 @@
   %b Order:
   = @link.order
 
-= link_to 'Edit', edit_editor_link_url
+= link_to 'Edit', edit_site_editor_link_url(@link, site_id: current_site)
 \|
-= link_to 'Back', editor_links_url
+= link_to 'Back', site_editor_links_url(site_id: current_site)

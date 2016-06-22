@@ -8,6 +8,6 @@
   %b Slug:
   = @fixed_page.slug
 
-= link_to 'Edit', edit_editor_fixed_page_url
+= link_to 'Edit', edit_site_editor_fixed_page_url(@fixed_page, site_id: current_site)
 \|
-= link_to 'Back', editor_fixed_pages_url
+= link_to 'Back', site_editor_fixed_pages_url(site_id: current_site)

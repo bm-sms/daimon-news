@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', [:editor, @fixed_page]
+= link_to 'Show', site_editor_fixed_page_url(@fixed_page, site_id: current_site)
 \|
-= link_to 'Back', editor_fixed_pages_url
+= link_to 'Back', site_editor_fixed_pages_url(site_id: current_site)

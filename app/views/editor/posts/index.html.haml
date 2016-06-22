@@ -2,7 +2,7 @@
 
 %p 記事とは、読者に有用な情報を届けるための文章です。markdown記法を使用することができます。
 
-= link_to 'New Post', new_editor_post_url, class: 'btn btn-default'
+= link_to 'New Post', new_site_editor_post_url(site_id: current_site), class: 'btn btn-default'
 
 %table.table.post
   %thead
@@ -26,10 +26,10 @@
         %td= l post.published_at if post.published_at
         %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
         %td= post.published? ? icon('check-square-o') : icon('square-o')
-        %td= link_to 'Show', editor_post_url(public_id: post.public_id)
-        %td= link_to 'Preview', preview_editor_post_url(public_id: post.public_id), target: '_blank'
-        %td= link_to 'Edit', edit_editor_post_url(public_id: post.public_id)
-        %td= link_to 'Destroy', editor_post_url(public_id: post.public_id), method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', site_editor_post_url(public_id: post.public_id, site_id: current_site)
+        %td= link_to 'Preview', preview_site_editor_post_url(public_id: post.public_id, site_id: current_site), target: '_blank'
+        %td= link_to 'Edit', edit_site_editor_post_url(public_id: post.public_id, site_id: current_site)
+        %td= link_to 'Destroy', site_editor_post_url(public_id: post.public_id, site_id: current_site), method: :delete, data: { confirm: 'Are you sure?' }
 
 - if @posts.total_pages > 1
   .text-center

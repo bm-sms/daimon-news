@@ -2,7 +2,7 @@
 
 %p リンクとは、フッターに表示するリンクのことです。絶対URLで登録します。
 
-= link_to 'New Link', new_editor_link_url, class: 'btn btn-default'
+= link_to 'New Link', new_site_editor_link_url(site_id: current_site), class: 'btn btn-default'
 
 %table.table
   %thead
@@ -20,6 +20,6 @@
         %td= link.text
         %td= link.url
         %td= link.order
-        %td= link_to 'Show', editor_link_url(id: link)
-        %td= link_to 'Edit', edit_editor_link_url(id: link)
-        %td= link_to 'Destroy', editor_link_url(id: link), method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', site_editor_link_url(link, site_id: current_site)
+        %td= link_to 'Edit', edit_site_editor_link_url(link, site_id: current_site)
+        %td= link_to 'Destroy', site_editor_link_url(link, site_id: current_site), method: :delete, data: { confirm: 'Are you sure?' }

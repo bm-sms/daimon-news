@@ -11,7 +11,7 @@
       - @post.credits.with_ordered.each do |credit|
         %li
           [#{credit.role.name}]
-          = link_to credit.participant.name, [:editor, credit.participant]
+          = link_to credit.participant.name, [:site, :editor, credit.participant, {site_id: current_site}]
 %p
   %b Category:
   = @post.category&.name
@@ -23,8 +23,8 @@
   %b Thumbnail:
   = image_tag @post.thumbnail_url, height: 80 if @post.thumbnail.present?
 
-= link_to 'Preview', preview_editor_post_url(public_id: @post.public_id), target: '_blank'
+= link_to 'Preview', preview_site_editor_post_url(public_id: @post.public_id, site_id: current_site), target: '_blank'
 \|
-= link_to 'Edit', edit_editor_post_url(public_id: @post.public_id)
+= link_to 'Edit', edit_site_editor_post_url(public_id: @post.public_id, site_id: current_site)
 \|
-= link_to 'Back', editor_posts_url
+= link_to 'Back', site_editor_posts_url(site_id: current_site)

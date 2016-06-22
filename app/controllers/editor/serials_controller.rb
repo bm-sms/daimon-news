@@ -15,7 +15,7 @@ class Editor::SerialsController < Editor::ApplicationController
     @serial = serials.build(serial_params)
 
     if @serial.save
-      redirect_to [:editor, @serial], notice: "連載が作成されました"
+      redirect_to [:site, :editor, @serial, {site_id: current_site}], notice: "連載が作成されました"
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Editor::SerialsController < Editor::ApplicationController
     @serial = serials.find(params[:id])
 
     if @serial.update(serial_params)
-      redirect_to [:editor, @serial], notice: "連載が更新されました"
+      redirect_to [:site, :editor, @serial, {site_id: current_site}], notice: "連載が更新されました"
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Editor::SerialsController < Editor::ApplicationController
 
     @serial.destroy
 
-    redirect_to editor_serials_url, notice: "連載が削除されました"
+    redirect_to site_editor_serials_url(site_id: current_site), notice: "連載が削除されました"
   end
 
   private

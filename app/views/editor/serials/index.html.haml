@@ -2,7 +2,7 @@
 
 %p 連載とは、続きものとして続けて掲載することです。一つの記事は一つの連載に所属することができます。
 
-= link_to 'New Serials', new_editor_serial_url, class: 'btn btn-default'
+= link_to 'New Serials', new_site_editor_serial_url(site_id: current_site), class: 'btn btn-default'
 
 %table.table
   %thead
@@ -18,6 +18,6 @@
       %tr
         %td= serial.title
         %td= serial.description
-        %td= link_to 'Show', editor_serial_url(serial)
-        %td= link_to 'Edit', edit_editor_serial_url(serial)
-        %td= link_to 'Destroy', editor_serial_url(serial), method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', site_editor_serial_url(serial, site_id: current_site)
+        %td= link_to 'Edit', edit_site_editor_serial_url(serial, site_id: current_site)
+        %td= link_to 'Destroy', site_editor_serial_url(serial, site_id: current_site), method: :delete, data: { confirm: 'Are you sure?' }

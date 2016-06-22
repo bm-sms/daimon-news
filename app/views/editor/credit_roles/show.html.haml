@@ -5,6 +5,6 @@
   %b Order
   = @credit_role.order
 
-= link_to 'Edit', edit_editor_credit_role_url
+= link_to 'Edit', edit_site_editor_credit_role_url(@credit_role, site_id: current_site)
 \|
-= link_to 'Back', editor_credit_roles_url
+= link_to 'Back', site_editor_credit_roles_url(site_id: current_site)

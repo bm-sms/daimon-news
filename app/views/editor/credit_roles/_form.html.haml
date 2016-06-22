@@ -1,4 +1,6 @@
-= bootstrap_form_for [:editor, @credit_role], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+- url = polymorphic_url([:site, :editor, @credit_role], site_id: current_site)
+
+= bootstrap_form_for @credit_role, url: url, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :name
   = f.number_field :order, help: "執筆関係者を画面に表示するときの順序を指定します"
 

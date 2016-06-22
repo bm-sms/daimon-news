@@ -15,7 +15,7 @@ class Editor::CreditRolesController < Editor::ApplicationController
     @credit_role = credit_roles.build(credit_role_params)
 
     if @credit_role.save
-      redirect_to [:editor, @credit_role], notice: "役割が作成されました"
+      redirect_to [:site, :editor, @credit_role, {site_id: current_site}], notice: "役割が作成されました"
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Editor::CreditRolesController < Editor::ApplicationController
     @credit_role = credit_roles.find(params[:id])
 
     if @credit_role.update(credit_role_params)
-      redirect_to [:editor, @credit_role], notice: "役割が更新されました"
+      redirect_to [:site, :editor, @credit_role, {site_id: current_site}], notice: "役割が更新されました"
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Editor::CreditRolesController < Editor::ApplicationController
 
     @credit_role.destroy
 
-    redirect_to editor_credit_roles_url, notice: "役割が削除されました"
+    redirect_to site_editor_credit_roles_url(site_id: current_site), notice: "役割が削除されました"
   end
 
   private

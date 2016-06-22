@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', editor_category_url
+= link_to 'Show', site_editor_category_url(@category, site_id: current_site)
 \|
-= link_to 'Back', editor_categories_url
+= link_to 'Back', site_editor_categories_url(site_id: current_site)

@@ -15,7 +15,7 @@ class Editor::PostsController < Editor::ApplicationController
     @post = posts.build(post_params)
 
     if @post.save
-      redirect_to editor_post_url(public_id: @post.public_id), notice: "記事が作成されました。"
+      redirect_to [:site, :editor, @post, {site_id: current_site, public_id: @post.public_id}], notice: "記事が作成されました。"
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Editor::PostsController < Editor::ApplicationController
     @post = posts.find_by!(public_id: params[:public_id])
 
     if @post.update(post_params)
-      redirect_to editor_post_url(public_id: @post.public_id), notice: "記事が更新されました。"
+      redirect_to [:site, :editor, @post, {site_id: current_site, public_id: @post.public_id}], notice: "記事が更新されました。"
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Editor::PostsController < Editor::ApplicationController
 
     @post.destroy
 
-    redirect_to editor_posts_url, notice: "記事が削除されました。"
+    redirect_to site_editor_posts_url, notice: "記事が削除されました。"
   end
 
   def preview

@@ -2,7 +2,7 @@
 
 %p 固定ページとは「利用規約」などの記事以外の固定された情報を表示するためのページです。markdown記法を使用することができます。
 
-= link_to 'New Fixed page', new_editor_fixed_page_url, class: 'btn btn-default'
+= link_to 'New Fixed page', new_site_editor_fixed_page_url(site_id: current_site), class: 'btn btn-default'
 
 %table.table
   %thead
@@ -18,6 +18,6 @@
       %tr
         %td= fixed_page.title
         %td= fixed_page.slug
-        %td= link_to 'Show', [:editor, fixed_page]
-        %td= link_to 'Edit', edit_editor_fixed_page_url(id: fixed_page)
-        %td= link_to 'Destroy', [:editor, fixed_page], method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', site_editor_fixed_page_url(fixed_page, site_id: current_site)
+        %td= link_to 'Edit', edit_site_editor_fixed_page_url(fixed_page, site_id: current_site)
+        %td= link_to 'Destroy', site_editor_fixed_page_url(fixed_page, site_id: current_site), method: :delete, data: { confirm: 'Are you sure?' }
