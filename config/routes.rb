@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :links
     resources :categories
     resources :serials
-    resources :posts, param: :public_id do
+    resources :posts do
       member do
         get :preview
       end
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   concern :site do
     get "search", controller: "search"
 
-    resources :posts, only: %i(show), param: :public_id, constraints: {public_id: /\d+/}, path: "/"
+    resources :posts, only: %i(show), constraints: {id: /\d+/}, path: "/"
     resources :categories, only: %i(show), path: "category"
     resources :serials, only: %i(index show)
 

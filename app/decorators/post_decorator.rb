@@ -13,7 +13,7 @@ module PostDecorator
       type: "article",
       title: title,
       description: MetaTags::TextNormalizer.normalize_description(render_markdown(body)),
-      url: post_url(public_id: public_id, all: true),
+      url: post_url(self, all: true),
       site_name: site.name,
       modified_time: updated_at.iso8601,
       image: thumbnail_url
@@ -42,12 +42,12 @@ module PostDecorator
   end
 
   def canonical_url(pages)
-    return post_url(public_id: public_id, all: true) if current_site.view_all?
+    return post_url(all: true) if current_site.view_all?
 
     if pages.current_page > 1
-      post_url(public_id: public_id, page: pages.current_page)
+      post_url(page: pages.current_page)
     else
-      post_url(public_id: public_id)
+      post_url
     end
   end
 

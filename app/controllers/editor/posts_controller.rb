@@ -4,7 +4,7 @@ class Editor::PostsController < Editor::ApplicationController
   end
 
   def show
-    @post = posts.find_by!(public_id: params[:public_id])
+    @post = posts.find_by!(public_id: params[:id])
   end
 
   def new
@@ -15,28 +15,28 @@ class Editor::PostsController < Editor::ApplicationController
     @post = posts.build(post_params)
 
     if @post.save
-      redirect_to editor_post_url(public_id: @post.public_id), notice: "記事が作成されました。"
+      redirect_to [:editor, @post], notice: "記事が作成されました。"
     else
       render :new
     end
   end
 
   def edit
-    @post = posts.find_by!(public_id: params[:public_id])
+    @post = posts.find_by!(public_id: params[:id])
   end
 
   def update
-    @post = posts.find_by!(public_id: params[:public_id])
+    @post = posts.find_by!(public_id: params[:id])
 
     if @post.update(post_params)
-      redirect_to editor_post_url(public_id: @post.public_id), notice: "記事が更新されました。"
+      redirect_to [:editor, @post], notice: "記事が更新されました。"
     else
       render :edit
     end
   end
 
   def destroy
-    @post = posts.find_by!(public_id: params[:public_id])
+    @post = posts.find_by!(public_id: params[:id])
 
     @post.destroy
 
@@ -44,7 +44,7 @@ class Editor::PostsController < Editor::ApplicationController
   end
 
   def preview
-    @post = posts.find_by!(public_id: params[:public_id])
+    @post = posts.find_by!(public_id: params[:id])
 
     @pages =
       if params[:all]

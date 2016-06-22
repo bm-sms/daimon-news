@@ -37,6 +37,10 @@ class Post < ActiveRecord::Base
     Post.published.where(id: ids).order_by_recently
   end
 
+  def to_param
+    public_id.to_s
+  end
+
   private
 
   def assign_public_id
