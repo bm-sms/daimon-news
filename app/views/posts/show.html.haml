@@ -32,7 +32,7 @@
   = render 'application/banner', position: :press_article_bottom
 
   %aside
-    = render 'application/sns_share', title: @post.title, url: post_url(public_id: @post.public_id), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
+    = render 'application/sns_share', title: @post.title, url: post_url(@post), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
 
     - if @post.serial
       %p.post__serial--index= link_to 'この連載の記事一覧へ', serial_url(@post.serial)
