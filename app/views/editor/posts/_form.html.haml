@@ -1,4 +1,4 @@
-= bootstrap_form_for [:editor, @post], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+= bootstrap_form_for [:editor, @post], url: editor_post_url(@post.public_id), layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :title
   = f.text_area :body, class: "markdown-editor", data: {upload_path: editor_images_url}
   - if current_site.credit_enabled?
