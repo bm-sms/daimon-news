@@ -3,6 +3,8 @@ class Api::PostsController < Api::ApplicationController
     scope =
       if params.dig(:filter, :category_slug)
         current_site.categories.find_by!(slug: params[:filter][:category_slug]).posts
+      elsif params.dig(:filter, :serial_id)
+        current_site.serials.find(params[:filter][:serial_id]).posts
       else
         current_site.posts
       end
