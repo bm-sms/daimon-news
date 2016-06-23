@@ -1,5 +1,5 @@
 %li.article-summary.article-summary--with-thumbnail
-  = link_to post_url(post), class: 'article-summary__url' do
+  = link_to post_url(public_id: post.public_id), class: 'article-summary__url' do
     = image_tag post.thumbnail_url, class: 'article-summary__thumbnail'
     .article-summary__body
       %p.article-summary__data
