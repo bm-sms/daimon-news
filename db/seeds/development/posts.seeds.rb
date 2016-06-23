@@ -8,7 +8,7 @@ after "development:sites", "development:categories" do
 
       This is first post for site 1!
     EOS
-    thumbnail: open(Rails.root.join("db/data/thumbnail.jpg")),
+    thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: Time.current,
     category: site1.categories.find_by!(slug: "category1"),
   )
@@ -23,7 +23,7 @@ after "development:sites", "development:categories" do
 
       This post will appear at #{published_at}
     EOS
-    thumbnail: open(Rails.root.join("db/data/thumbnail.jpg")),
+    thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: published_at,
     category: site1.categories.find_by!(slug: "category2"),
   )
@@ -44,7 +44,7 @@ after "development:sites", "development:categories" do
 
         page 3
       EOS
-      thumbnail: open(Rails.root.join("db/data/thumbnail.jpg")),
+      thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
       category: site1.categories.find_by!(slug: "category1"),
     )
@@ -60,7 +60,7 @@ after "development:sites", "development:categories" do
       This is post `id != public_id`!
     EOS
     public_id: 100_000,
-    thumbnail: open(Rails.root.join("db/data/thumbnail.jpg")),
+    thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: Time.current,
     category: site1.categories.find_by!(slug: "category2"),
   )
@@ -81,7 +81,7 @@ after "development:sites", "development:categories" do
 
         page 3
       EOS
-      thumbnail: open(Rails.root.join("db/data/thumbnail.jpg")),
+      thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
       category: site1.categories.find_by!(slug: "category2"),
     )
