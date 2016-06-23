@@ -14,6 +14,6 @@ class Api::PostsController < Api::ApplicationController
   def show
     post = current_site.posts.published.find_by!(public_id: params[:public_id])
 
-    render json: post, include: "related_posts.category, category"
+    render json: post, include: "related_posts.category, category, serial"
   end
 end
