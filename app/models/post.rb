@@ -19,7 +19,7 @@ class Post < ActiveRecord::Base
   before_save :assign_public_id
 
   scope :published, -> { where("published_at <= ?", Time.current) }
-  scope :order_by_recently, -> { order(published_at: :desc, id: :asc) }
+  scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
 
@@ -34,7 +34,7 @@ class Post < ActiveRecord::Base
   def related_posts
     searcher = PostSearcher.new
     ids = searcher.related_post_ids(self)
-    Post.published.where(id: ids).order_by_recently
+    Post.published.where(id: ids).order_by_recent
   end
 
   def to_param
