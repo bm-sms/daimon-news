@@ -34,4 +34,13 @@ module SiteDecorator
       tagline
     end
   end
+
+  def serials_page_title(serials)
+    base_title = "すべての連載"
+    if serials.current_page > 1
+      "#{base_title} (#{serials.page_entries_info})"
+    else
+      base_title
+    end
+  end
 end
