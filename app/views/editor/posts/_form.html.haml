@@ -1,4 +1,18 @@
-= bootstrap_form_for [:editor, @post], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+:ruby
+  # We cannot use polymorphic_url here.
+  # Because:
+  #   * form_for cannot handle polymorphic parameter properly.
+  #     * See https://github.com/rails/rails/issues/25472
+  #   * url_for([:editor, post, {public_id: post.public_id}])
+  #       # => "http://www.example.com/editor/posts/10000.1"
+  # So we use :url option and url helper methods instead of polymorphic url.
+  if @post.persisted?
+    url = editor_post_url(public_id: @post.public_id)
+  else
+    url = editor_posts_url
+  end
+
+= bootstrap_form_for @post, url: url, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :title
   = f.text_area :body, class: "markdown-editor", data: {upload_path: editor_images_url}
   - if current_site.credit_enabled?

@@ -186,4 +186,52 @@ class EditorTest < ActionDispatch::IntegrationTest
       assert_equal("title", find("h1").text)
     end
   end
+
+  sub_test_case "Post: post.id != post.public_id" do
+    test "edit and destroy existing post" do
+      post = create(:post, :whatever, site: @site, public_id: 100_000, title: "title")
+      click_on "記事"
+      within :row, post.title do
+        click_on "Edit"
+      end
+
+      fill_in "Title", with: "updated title"
+
+      click_on "更新する"
+
+      assert(page.has_css?("p", text: "Title: updated title"))
+
+      click_on "Back"
+
+      within :row, "updated title" do
+        click_on "Destroy"
+      end
+
+      assert_equal("/editor/posts", page.current_path)
+      assert_not(page.has_css?("td", text: "updated title"))
+    end
+
+    test "edit and destroy existing post with credit" do
+      post = create(:post, :whatever, :with_credit, site: @site, public_id: 100_000, title: "title")
+      click_on "記事"
+      within :row, post.title do
+        click_on "Edit"
+      end
+
+      fill_in "Title", with: "updated title"
+
+      click_on "更新する"
+
+      assert(page.has_css?("p", text: "Title: updated title"))
+
+      click_on "Back"
+
+      within :row, "updated title" do
+        click_on "Destroy"
+      end
+
+      assert_equal("/editor/posts", page.current_path)
+      assert_not(page.has_css?("td", text: "updated title"))
+    end
+  end
 end
