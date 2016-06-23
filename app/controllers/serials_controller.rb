@@ -1,6 +1,6 @@
 class SerialsController < ApplicationController
   def index
-    @serials = current_site.serials.published.order_by_recently.page(params[:page])
+    @serials = current_site.serials.published.order_by_recent.page(params[:page])
     @serials.extend(SerialsDecorator)
   end
 
