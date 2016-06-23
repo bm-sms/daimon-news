@@ -38,7 +38,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on "Destroy"
     end
 
-    assert_equal("/editor/categories", page.current_path)
+    assert_equal("/sites/#{@site.id}/editor/categories", page.current_path)
     assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
@@ -72,7 +72,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on "Destroy"
     end
 
-    assert_equal("/editor/serials", page.current_path)
+    assert_equal("/sites/#{@site.id}/editor/serials", page.current_path)
     assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
@@ -105,7 +105,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on "Destroy"
     end
 
-    assert_equal("/editor/participants", page.current_path)
+    assert_equal("/sites/#{@site.id}/editor/participants", page.current_path)
     assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
@@ -140,7 +140,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on "Destroy"
     end
 
-    assert_equal("/editor/fixed_pages", page.current_path)
+    assert_equal("/sites/#{@site.id}/editor/fixed_pages", page.current_path)
     assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
@@ -175,13 +175,13 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on "Destroy"
     end
 
-    assert_equal("/editor/links", page.current_path)
+    assert_equal("/sites/#{@site.id}/editor/links", page.current_path)
     assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
   test "preview post" do
     @post = create(:post, :whatever, :with_credit, site: @site, body: '# title')
-    visit "/editor/posts/#{@post.public_id}/preview"
+    visit "/sites/#{@site.id}/editor/posts/#{@post.public_id}/preview"
     within ".post__body" do
       assert_equal("title", find("h1").text)
     end
@@ -233,7 +233,7 @@ class EditorTest < ActionDispatch::IntegrationTest
         click_on "Destroy"
       end
 
-      assert_equal("/editor/posts", page.current_path)
+      assert_equal("/sites/#{@site.id}/editor/posts", page.current_path)
       assert_not(page.has_css?("td", text: "Ruby lang"))
     end
 
@@ -276,7 +276,7 @@ class EditorTest < ActionDispatch::IntegrationTest
         click_on "Destroy"
       end
 
-      assert_equal("/editor/posts", page.current_path)
+      assert_equal("/sites/#{@site.id}/editor/posts", page.current_path)
       assert_not(page.has_css?("td", text: "Ruby lang"))
     end
   end
@@ -301,7 +301,7 @@ class EditorTest < ActionDispatch::IntegrationTest
         click_on "Destroy"
       end
 
-      assert_equal("/editor/posts", page.current_path)
+      assert_equal("/sites/#{@site.id}/editor/posts", page.current_path)
       assert_not(page.has_css?("td", text: "updated title"))
     end
 
@@ -324,7 +324,7 @@ class EditorTest < ActionDispatch::IntegrationTest
         click_on "Destroy"
       end
 
-      assert_equal("/editor/posts", page.current_path)
+      assert_equal("/sites/#{@site.id}/editor/posts", page.current_path)
       assert_not(page.has_css?("td", text: "updated title"))
     end
   end
