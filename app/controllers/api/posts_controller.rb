@@ -7,7 +7,7 @@ class Api::PostsController < Api::ApplicationController
         current_site.posts
       end
 
-    posts = scope.published.order_by_recently.page(params.dig(:page, :number)).per(params.dig(:page, :size))
+    posts = scope.published.order_by_recent.page(params.dig(:page, :number)).per(params.dig(:page, :size))
     render json: posts, include: "category", meta: pagination_meta(posts)
   end
 

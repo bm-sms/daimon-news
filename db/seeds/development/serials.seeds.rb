@@ -1,7 +1,7 @@
 after "development:posts" do
   site1 = Site.find_by!(name: "site1")
 
-  posts = site1.posts.published.order_by_recently.cycle
+  posts = site1.posts.published.order_by_recent.cycle
 
   serials_per_page = 25
   (serials_per_page + 1).times do |i|

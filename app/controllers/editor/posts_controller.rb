@@ -1,6 +1,6 @@
 class Editor::PostsController < Editor::ApplicationController
   def index
-    @posts = posts.preload(:category).order_by_recently.page(params[:page]).per(50)
+    @posts = posts.preload(:category).order_by_recent.page(params[:page]).per(50)
   end
 
   def show
