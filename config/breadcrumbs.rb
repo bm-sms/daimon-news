@@ -16,7 +16,7 @@ crumb :serial do |serial|
 end
 
 crumb :post do |post|
-  link post.title, post_url(post)
+  link post.title, post_url(public_id: post.public_id)
   parent :category, post.category
 end
 
