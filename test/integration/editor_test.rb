@@ -179,6 +179,40 @@ class EditorTest < ActionDispatch::IntegrationTest
     assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
+  test "Credit role" do
+    click_on "役割"
+
+    click_on "New Credit role"
+
+    fill_in "Name",  with: "Author"
+    fill_in "Order", with: "1"
+
+    click_on "登録する"
+
+    assert(page.has_css?("p", text: "Name: Author"))
+
+    click_on "Back"
+
+    within :row, "Author" do
+      click_on "Edit"
+    end
+
+    fill_in "Name", with: "Reviewer"
+
+    click_on "更新する"
+
+    assert(page.has_css?("p", text: "Name: Reviewer"))
+
+    click_on "Back"
+
+    within :row, "Reviewer" do
+      click_on "Destroy"
+    end
+
+    assert_equal("/sites/#{@site.id}/editor/credit_roles", page.current_path)
+    assert_not(page.has_css?("td", text: "Reviewer"))
+  end
+
   test "preview post" do
     @post = create(:post, :whatever, :with_credit, site: @site, body: '# title')
     visit "/sites/#{@site.id}/editor/posts/#{@post.public_id}/preview"
