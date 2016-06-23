@@ -1,6 +1,6 @@
 :ruby
   canonical_url = current_site.serials_canonical_url(@serials)
-  page_title = "すべての連載"
+  page_title = @serials.page_title
 
 - content_for(:canonical_tag) do
   %link{rel: :canonical, href: canonical_url}

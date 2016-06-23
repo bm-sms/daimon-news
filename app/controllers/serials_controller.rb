@@ -1,6 +1,7 @@
 class SerialsController < ApplicationController
   def index
     @serials = current_site.serials.published.order(id: :desc).page(params[:page])
+    @serials.extend(SerialsDecorator)
   end
 
   def show

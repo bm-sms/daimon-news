@@ -16,6 +16,14 @@ class SerialTest < ActionDispatch::IntegrationTest
       assert_equal("すべての連載 | #{@site.name}", title)
     end
 
+    test "page title with pagination" do
+      create_list(:serial, 50, :with_posts, site: @site)
+
+      visit "/serials?page=2"
+
+      assert_equal("すべての連載 (26〜50/#{Serial.published.count}件) | #{@site.name}", title)
+    end
+
     test "serial titles" do
       visit "/serials"
 
