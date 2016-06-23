@@ -4,6 +4,7 @@ class Serial < ActiveRecord::Base
   validates :thumbnail, presence: true
 
   scope :published, -> { joins(:posts).merge(Post.published).uniq }
+  scope :order_by_recently, -> { order(id: :desc) }
 
   mount_uploader :thumbnail, ImageUploader
 end
