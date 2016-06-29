@@ -7,6 +7,15 @@ class EditorTest < ActionDispatch::IntegrationTest
     login_as_editor(site: @site, editor: editor)
   end
 
+  test "/sites" do
+    visit "/sites"
+
+    within "ul" do
+      li = find("li")
+      assert_equal(@site.name, li.text)
+    end
+  end
+
   test "Category" do
     click_on "カテゴリ"
     click_on "New Category"

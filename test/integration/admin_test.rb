@@ -8,6 +8,15 @@ class AdminTest < ActionDispatch::IntegrationTest
     login_as_admin(site: site, admin: admin)
   end
 
+  test "/sites" do
+    visit "/sites"
+
+    # admin is not member(editor) of site
+    within "ul" do
+      assert_false(page.has_css?("li"))
+    end
+  end
+
   test "Site" do
     click_on "サイト情報"
     click_on "New site"
