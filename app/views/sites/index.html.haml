@@ -1,5 +1,7 @@
 %h1 サイト一覧
 
+%p ログイン中のユーザーが編集可能なサイトのみを表示しています。
+
 %ul
   - current_user.sites.each do |site|
     %li= link_to site.name, site_editor_root_url(site_id: site.id)
