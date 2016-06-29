@@ -2,4 +2,4 @@
 
 %ul
   - current_user.sites.each do |site|
-    %li= link_to site.name, site_editor_root_url(site_fqdn: site.fqdn)
+    %li= link_to site.name, site_editor_root_url(site_id: site.id)
