@@ -8,43 +8,43 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "/sites" do
-    visit "/sites"
+    visit("/sites")
 
-    within "ul" do
+    within("ul") do
       li = find("li")
       assert_equal(@site.name, li.text)
     end
   end
 
   test "Category" do
-    click_on "カテゴリ"
-    click_on "New Category"
+    click_on("カテゴリ")
+    click_on("New Category")
 
-    fill_in "Name",        with: "Ruby"
-    fill_in "Description", with: "Ruby is a programming language."
-    fill_in "Slug",        with: "ruby"
-    fill_in "Order",       with: "1"
+    fill_in("Name",        with: "Ruby")
+    fill_in("Description", with: "Ruby is a programming language.")
+    fill_in("Slug",        with: "ruby")
+    fill_in("Order",       with: "1")
 
-    click_on "登録する"
+    click_on("登録する")
 
     assert(page.has_css?("p", text: "Name: Ruby"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby" do
-      click_on "Edit"
+    within(:row, "Ruby") do
+      click_on("Edit")
     end
 
-    fill_in "Name", with: "Ruby lang"
+    fill_in("Name", with: "Ruby lang")
 
-    click_on "更新する"
+    click_on("更新する")
 
     assert(page.has_css?("p", text: "Name: Ruby lang"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby lang" do
-      click_on "Destroy"
+    within(:row, "Ruby lang") do
+      click_on("Destroy")
     end
 
     assert_equal("/sites/#{@site.id}/editor/categories", page.current_path)
@@ -52,33 +52,33 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "Serial" do
-    click_on "連載"
-    click_on "New Serial"
+    click_on("連載")
+    click_on("New Serial")
 
-    fill_in "Title", with: "Ruby"
-    fill_in "Description", with: "Ruby is a programming language."
-    attach_file "Thumbnail", Rails.root.join("test/fixtures/images/thumbnail.jpg")
+    fill_in("Title", with: "Ruby")
+    fill_in("Description", with: "Ruby is a programming language.")
+    attach_file("Thumbnail", Rails.root.join("test/fixtures/images/thumbnail.jpg"))
 
-    click_on "登録する"
+    click_on("登録する")
 
     assert(page.has_css?("p", text: "Title: Ruby"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby" do
-      click_on "Edit"
+    within(:row, "Ruby") do
+      click_on("Edit")
     end
 
-    fill_in "Title", with: "Ruby lang"
+    fill_in("Title", with: "Ruby lang")
 
-    click_on "更新する"
+    click_on("更新する")
 
     assert(page.has_css?("p", text: "Title: Ruby lang"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby lang" do
-      click_on "Destroy"
+    within(:row, "Ruby lang") do
+      click_on("Destroy")
     end
 
     assert_equal("/sites/#{@site.id}/editor/serials", page.current_path)
@@ -86,32 +86,32 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "Participant" do
-    click_on "執筆関係者"
-    click_on "New Participant"
+    click_on("執筆関係者")
+    click_on("New Participant")
 
-    fill_in "Name", with: "Ruby"
-    fill_in "Description", with: "Ruby is a programing language."
+    fill_in("Name", with: "Ruby")
+    fill_in("Description", with: "Ruby is a programing language.")
 
-    click_on "登録する"
+    click_on("登録する")
 
     assert(page.has_css?("p", text: "Name: Ruby"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby" do
-      click_on "Edit"
+    within(:row, "Ruby") do
+      click_on("Edit")
     end
 
-    fill_in "Name", with: "Ruby lang"
+    fill_in("Name", with: "Ruby lang")
 
-    click_on "更新する"
+    click_on("更新する")
 
     assert(page.has_css?("p", text: "Name: Ruby lang"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby lang" do
-      click_on "Destroy"
+    within(:row, "Ruby lang") do
+      click_on("Destroy")
     end
 
     assert_equal("/sites/#{@site.id}/editor/participants", page.current_path)
@@ -119,34 +119,34 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "Fixed Page" do
-    click_on "固定ページ"
+    click_on("固定ページ")
 
-    click_on "New Fixed page"
+    click_on("New Fixed page")
 
-    fill_in "Title", with: "Ruby"
-    fill_in "Body",  with: "Ruby is a programming language."
-    fill_in "Slug",  with: "ruby"
+    fill_in("Title", with: "Ruby")
+    fill_in("Body",  with: "Ruby is a programming language.")
+    fill_in("Slug",  with: "ruby")
 
-    click_on "登録する"
+    click_on("登録する")
 
     assert(page.has_css?("p", text: "Title: Ruby"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby" do
-      click_on "Edit"
+    within(:row, "Ruby") do
+      click_on("Edit")
     end
 
-    fill_in "Title", with: "Ruby lang"
+    fill_in("Title", with: "Ruby lang")
 
-    click_on "更新する"
+    click_on("更新する")
 
     assert(page.has_css?("p", text: "Title: Ruby lang"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby lang" do
-      click_on "Destroy"
+    within(:row, "Ruby lang") do
+      click_on("Destroy")
     end
 
     assert_equal("/sites/#{@site.id}/editor/fixed_pages", page.current_path)
@@ -154,34 +154,34 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "Link" do
-    click_on "リンク"
+    click_on("リンク")
 
-    click_on "New Link"
+    click_on("New Link")
 
-    fill_in "Text",  with: "Ruby"
-    fill_in "Url",   with: "http://example.com"
-    fill_in "Order", with: "1"
+    fill_in("Text",  with: "Ruby")
+    fill_in("Url",   with: "http://example.com")
+    fill_in("Order", with: "1")
 
-    click_on "登録する"
+    click_on("登録する")
 
     assert(page.has_css?("p", text: "Text: Ruby"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby" do
-      click_on "Edit"
+    within(:row, "Ruby") do
+      click_on("Edit")
     end
 
-    fill_in "Text", with: "Ruby lang"
+    fill_in("Text", with: "Ruby lang")
 
-    click_on "更新する"
+    click_on("更新する")
 
     assert(page.has_css?("p", text: "Text: Ruby lang"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Ruby lang" do
-      click_on "Destroy"
+    within(:row, "Ruby lang") do
+      click_on("Destroy")
     end
 
     assert_equal("/sites/#{@site.id}/editor/links", page.current_path)
@@ -189,33 +189,33 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "Credit role" do
-    click_on "役割"
+    click_on("役割")
 
-    click_on "New Credit role"
+    click_on("New Credit role")
 
-    fill_in "Name",  with: "Author"
-    fill_in "Order", with: "1"
+    fill_in("Name",  with: "Author")
+    fill_in("Order", with: "1")
 
-    click_on "登録する"
+    click_on("登録する")
 
     assert(page.has_css?("p", text: "Name: Author"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Author" do
-      click_on "Edit"
+    within(:row, "Author") do
+      click_on("Edit")
     end
 
-    fill_in "Name", with: "Reviewer"
+    fill_in("Name", with: "Reviewer")
 
-    click_on "更新する"
+    click_on("更新する")
 
     assert(page.has_css?("p", text: "Name: Reviewer"))
 
-    click_on "Back"
+    click_on("Back")
 
-    within :row, "Reviewer" do
-      click_on "Destroy"
+    within(:row, "Reviewer") do
+      click_on("Destroy")
     end
 
     assert_equal("/sites/#{@site.id}/editor/credit_roles", page.current_path)
@@ -224,8 +224,8 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   test "preview post" do
     @post = create(:post, :whatever, :with_credit, site: @site, body: '# title')
-    visit "/sites/#{@site.id}/editor/posts/#{@post.public_id}/preview"
-    within ".post__body" do
+    visit("/sites/#{@site.id}/editor/posts/#{@post.public_id}/preview")
+    within(".post__body") do
       assert_equal("title", find("h1").text)
     end
   end
@@ -239,41 +239,41 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     test "Post" do
-      click_on "記事"
+      click_on("記事")
 
-      click_on "New Post"
+      click_on("New Post")
 
-      fill_in "Title", with: "Ruby"
-      fill_in "Body",  with: "Ruby is a programming language."
-      select @category.name, from: "post_category_id"
-      attach_file "Thumbnail", File.join(fixture_path, "images/daimon.png")
+      fill_in("Title", with: "Ruby")
+      fill_in("Body",  with: "Ruby is a programming language.")
+      select(@category.name, from: "post_category_id")
+      attach_file("Thumbnail", File.join(fixture_path, "images/daimon.png"))
 
-      click_on "登録する"
+      click_on("登録する")
 
       assert(page.has_css?("p", text: "Title: Ruby"))
       # Participants
-      within "main ul" do
+      within("main ul") do
         assert(find_all("li").empty?)
       end
       assert(page.has_css?("p", text: "Category: #{@category.name}"))
       assert(page.has_css?("p", text: "Serial:"))
 
-      click_on "Back"
+      click_on("Back")
 
-      within :row, "Ruby" do
-        click_on "Edit"
+      within(:row, "Ruby") do
+        click_on("Edit")
       end
 
-      fill_in "Title", with: "Ruby lang"
+      fill_in("Title", with: "Ruby lang")
 
-      click_on "更新する"
+      click_on("更新する")
 
       assert(page.has_css?("p", text: "Title: Ruby lang"))
 
-      click_on "Back"
+      click_on("Back")
 
-      within :row, "Ruby lang" do
-        click_on "Destroy"
+      within(:row, "Ruby lang") do
+        click_on("Destroy")
       end
 
       assert_equal("/sites/#{@site.id}/editor/posts", page.current_path)
@@ -281,42 +281,42 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     test "Post with serial" do
-      click_on "記事"
+      click_on("記事")
 
-      click_on "New Post"
+      click_on("New Post")
 
-      fill_in "Title", with: "Ruby"
-      fill_in "Body",  with: "Ruby is a programming language."
-      select @category.name, from: "post_category_id"
-      select @serial.title, from: "post_serial_id"
-      attach_file "Thumbnail", File.join(fixture_path, "images/daimon.png")
+      fill_in("Title", with: "Ruby")
+      fill_in("Body",  with: "Ruby is a programming language.")
+      select(@category.name, from: "post_category_id")
+      select(@serial.title, from: "post_serial_id")
+      attach_file("Thumbnail", File.join(fixture_path, "images/daimon.png"))
 
-      click_on "登録する"
+      click_on("登録する")
 
       assert(page.has_css?("p", text: "Title: Ruby"))
       # Participants
-      within "main ul" do
+      within("main ul") do
         assert(find_all("li").empty?)
       end
       assert(page.has_css?("p", text: "Category: #{@category.name}"))
       assert(page.has_css?("p", text: "Serial: #{@serial.title}"))
 
-      click_on "Back"
+      click_on("Back")
 
-      within :row, "Ruby" do
-        click_on "Edit"
+      within(:row, "Ruby") do
+        click_on("Edit")
       end
 
-      fill_in "Title", with: "Ruby lang"
+      fill_in("Title", with: "Ruby lang")
 
-      click_on "更新する"
+      click_on("更新する")
 
       assert(page.has_css?("p", text: "Title: Ruby lang"))
 
-      click_on "Back"
+      click_on("Back")
 
-      within :row, "Ruby lang" do
-        click_on "Destroy"
+      within(:row, "Ruby lang") do
+        click_on("Destroy")
       end
 
       assert_equal("/sites/#{@site.id}/editor/posts", page.current_path)
@@ -327,21 +327,21 @@ class EditorTest < ActionDispatch::IntegrationTest
   sub_test_case "Post: post.id != post.public_id" do
     test "edit and destroy existing post" do
       post = create(:post, :whatever, site: @site, public_id: 100_000, title: "title")
-      click_on "記事"
-      within :row, post.title do
-        click_on "Edit"
+      click_on("記事")
+      within(:row, post.title) do
+        click_on("Edit")
       end
 
-      fill_in "Title", with: "updated title"
+      fill_in("Title", with: "updated title")
 
-      click_on "更新する"
+      click_on("更新する")
 
       assert(page.has_css?("p", text: "Title: updated title"))
 
-      click_on "Back"
+      click_on("Back")
 
-      within :row, "updated title" do
-        click_on "Destroy"
+      within(:row, "updated title") do
+        click_on("Destroy")
       end
 
       assert_equal("/sites/#{@site.id}/editor/posts", page.current_path)
@@ -350,21 +350,21 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     test "edit and destroy existing post with credit" do
       post = create(:post, :whatever, :with_credit, site: @site, public_id: 100_000, title: "title")
-      click_on "記事"
-      within :row, post.title do
-        click_on "Edit"
+      click_on("記事")
+      within(:row, post.title) do
+        click_on("Edit")
       end
 
-      fill_in "Title", with: "updated title"
+      fill_in("Title", with: "updated title")
 
-      click_on "更新する"
+      click_on("更新する")
 
       assert(page.has_css?("p", text: "Title: updated title"))
 
-      click_on "Back"
+      click_on("Back")
 
-      within :row, "updated title" do
-        click_on "Destroy"
+      within(:row, "updated title") do
+        click_on("Destroy")
       end
 
       assert_equal("/sites/#{@site.id}/editor/posts", page.current_path)
