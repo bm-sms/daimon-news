@@ -24,7 +24,7 @@ class EditorRoutesTest < ActionDispatch::IntegrationTest
   data do
     hash = {}
     hash["/editor"] = [nil, "/editor", "/sites/%{site_id}/editor"]
-    @target_map.keys.each do |target|
+    %w(post category fixed_page link credit_role participant serial).each do |target|
       base_path = "/editor/#{target.pluralize}"
       hash[base_path] = [target, base_path, "/sites/%{site_id}#{base_path}"]
       hash["#{base_path}/new"] = [target, "#{base_path}/new", "/sites/%{site_id}#{base_path}/new"]
