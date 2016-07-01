@@ -100,7 +100,7 @@ GEM
     cocoon (1.2.9)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
-    daimon-markdown (0.3.0)
+    daimon-markdown (0.4.0)
       html-pipeline
       redcarpet
       rouge
@@ -404,7 +404,7 @@ GEM
     redcarpet (3.3.4)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
-    rouge (2.0.1)
+    rouge (2.0.2)
     rr (1.2.0)
     rroonga (6.0.4)
       archive-zip
@@ -546,6 +546,9 @@ DEPENDENCIES
   test-unit-rails
   uglifier
   web-console (~> 2.0)
+
+RUBY VERSION
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.12.5
