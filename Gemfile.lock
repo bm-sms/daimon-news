@@ -59,6 +59,8 @@ GEM
     airbrake (5.4.2)
       airbrake-ruby (~> 1.4)
     airbrake-ruby (1.4.4)
+    ancestry (2.1.0)
+      activerecord (>= 3.0.0)
     archive-zip (0.8.0)
       io-like (~> 0.3.0)
     arel (6.0.3)
@@ -499,6 +501,7 @@ DEPENDENCIES
   active_link_to
   active_model_serializers
   airbrake
+  ancestry
   bootstrap-sass
   bootstrap_form
   bourbon

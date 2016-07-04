@@ -17,7 +17,12 @@ Rails.application.routes.draw do
 
     resources :fixed_pages
     resources :links
-    resources :categories
+    resources :categories do
+      member do
+        get :move_higher
+        get :move_lower
+      end
+    end
     resources :serials
     resources :posts, param: :public_id do
       member do
