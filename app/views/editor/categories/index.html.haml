@@ -4,25 +4,4 @@
 
 = link_to 'New Category', new_editor_category_url, class: 'btn btn-default'
 
-%table.table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th Slug
-      %th Order
-      %th
-      %th
-      %th
-
-  %tbody
-    - @categories.each do |category|
-      %tr
-        %td= category.name
-        %td= category.description
-        %td= category.slug
-        %td= category.order
-        %td= link_to 'Show', editor_category_url(category)
-        %td= link_to 'Edit', edit_editor_category_url(category)
-        %td= link_to 'Destroy', editor_category_url(category), method: :delete, data: { confirm: 'Are you sure?' }
-        %td= ▲▼
+= render partial: 'table', locals: {categories: @categories}
