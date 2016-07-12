@@ -10,11 +10,11 @@ module PostSearchResultSetDecorator
   def message
     return nil if keywords.empty?
 
-    message = "".dup
+    message = []
     message << "「#{keywords}」を含む"
     message << (posts.empty? ?  "記事は見つかりませんでした。" : "記事が#{paginator.total_count}件見つかりました。")
     message << "(#{page_entries_info})" if paginator.total_pages > 1
-    message
+    message.join
   end
 
   def posts

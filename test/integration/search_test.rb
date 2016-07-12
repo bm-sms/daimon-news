@@ -21,11 +21,11 @@ class SearchTest < ActionDispatch::IntegrationTest
                 title: "the post of the other site",
                 body: "contents...")
 
-    visit "/"
+    visit("/")
 
-    fill_in "query[keywords]", with: "contents"
+    fill_in("query[keywords]", with: "contents")
 
-    click_on "検索"
+    click_on("検索")
 
     within("main") do
       assert_equal "「contents」を含む記事が1件見つかりました。", find(".message").text
@@ -35,7 +35,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
 
     within("aside") do
-      assert_equal "contents", find("#query_keywords").value
+      assert_equal("contents", find("#query_keywords").value)
     end
   end
 
@@ -53,12 +53,11 @@ class SearchTest < ActionDispatch::IntegrationTest
     stopped_publishing_post = create_post(site: @current_site,
                                           title: "post4 is stopped publishing",
                                           body: "body...")
-    stopped_publishing_post.published_at = nil
-    stopped_publishing_post.save!
+    stopped_publishing_post.update!(published_at: nil)
 
-    visit "/"
+    visit("/")
 
-    fill_in "query[keywords]", with: "body"
+    fill_in("query[keywords]", with: "body")
 
     click_on "検索"
 
@@ -67,9 +66,9 @@ class SearchTest < ActionDispatch::IntegrationTest
       # ref: https://github.com/bm-sms/daimon-news/pull/365#issuecomment-200634038
 
       within("ul.search-result-list") do
-        assert has_content?("post1 is published")
-        assert has_no_content?("post2 is not published")
-        assert has_content?("post3 is published")
+        assert(has_content?("post1 is published"))
+        assert(has_no_content?("post2 is not published"))
+        assert(has_content?("post3 is published"))
       end
     end
   end
@@ -88,14 +87,14 @@ class SearchTest < ActionDispatch::IntegrationTest
                 body: "BBB...",
                 published_at: 3.hours.ago)
 
-    visit "/"
+    visit("/")
 
-    fill_in "query[keywords]", with: "AAA"
+    fill_in("query[keywords]", with: "AAA")
 
-    click_on "検索"
+    click_on("検索")
 
     within("main") do
-      assert_equal "「AAA」を含む記事が3件見つかりました。", find(".message").text
+      assert_equal("「AAA」を含む記事が3件見つかりました。", find(".message").text)
       within("ul.search-result-list") do
         assert_equal([
                        "post2 AAA", # The highest score post; title and body has the keyword "AAA".
@@ -113,14 +112,14 @@ class SearchTest < ActionDispatch::IntegrationTest
                 title: "post1",
                 body: "contents...")
 
-    visit "/"
+    visit("/")
 
-    fill_in "query[keywords]", with: ""
+    fill_in("query[keywords]", with: "")
 
-    click_on "検索"
+    click_on("検索")
 
     within("main") do
-      assert_equal "", find(".message").text
+      assert_equal("", find(".message").text)
       within(".search-result-list") do
         assert page.has_css?(".article-summary__title", text: "post1")
       end
@@ -133,61 +132,61 @@ class SearchTest < ActionDispatch::IntegrationTest
                 title: "post1",
                 body: "contents...")
 
-    visit "/"
+    visit("/")
 
-    fill_in "query[keywords]", with: "post contents author description"
+    fill_in("query[keywords]", with: "post contents author description")
 
-    click_on "検索"
+    click_on("検索")
 
     within("main") do
-      assert_equal "「post contents author description」を含む記事が1件見つかりました。", find(".message").text
+      assert_equal("「post contents author description」を含む記事が1件見つかりました。", find(".message").text)
     end
   end
 
   sub_test_case "meta data" do
     test "no result" do
-      visit "/"
+      visit("/")
 
-      fill_in "query[keywords]", with: "a"
+      fill_in("query[keywords]", with: "a")
 
-      click_on "検索"
+      click_on("検索")
 
-      assert_equal "aの検索結果(0件) | #{@current_site.name}", title
-      assert_equal "aの検索結果(0件) | #{@current_site.name}", find('meta[property="og:title"]', visible: false)["content"]
-      assert_equal "「a」を含む記事は見つかりませんでした。", find("meta[name=description]", visible: false)["content"]
+      assert_equal("aの検索結果(0件) | #{@current_site.name}", title)
+      assert_equal("aの検索結果(0件) | #{@current_site.name}", find('meta[property="og:title"]', visible: false)["content"])
+      assert_equal("「a」を含む記事は見つかりませんでした。", find("meta[name=description]", visible: false)["content"])
       assert_equal({"page" => "1", "query" => {"keywords" => "a"}}, canonical_params)
-      assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
+      assert_equal("noindex", find("meta[name=robots]", visible: false)["content"])
     end
 
     test "with pagenation" do
       keywords = 51.times.map { create_post(site: @current_site) }.first.title
 
-      visit "/"
+      visit("/")
 
-      fill_in "query[keywords]", with: keywords
+      fill_in("query[keywords]", with: keywords)
 
-      click_on "検索"
+      click_on("検索")
 
-      assert_equal "#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", title
-      assert_equal "#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", find('meta[property="og:title"]', visible: false)["content"]
-      assert_equal "「#{keywords}」を含む記事が51件見つかりました。(1〜50/51件)", find("meta[name=description]", visible: false)["content"]
+      assert_equal("#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", title)
+      assert_equal("#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", find('meta[property="og:title"]', visible: false)["content"])
+      assert_equal("「#{keywords}」を含む記事が51件見つかりました。(1〜50/51件)", find("meta[name=description]", visible: false)["content"])
       assert_equal({"page" => "1", "query" => {"keywords" => keywords}}, canonical_params)
-      assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
+      assert_equal("noindex", find("meta[name=robots]", visible: false)["content"])
     end
 
     test "without pagenation" do
       keywords = create_post(site: @current_site).title
 
-      visit "/"
+      visit("/")
 
-      fill_in "query[keywords]", with: keywords
+      fill_in("query[keywords]", with: keywords)
 
-      click_on "検索"
+      click_on("検索")
 
-      assert_equal "#{keywords}の検索結果(1件) | #{@current_site.name}", title
-      assert_equal "「#{keywords}」を含む記事が1件見つかりました。", find("meta[name=description]", visible: false)["content"]
+      assert_equal("#{keywords}の検索結果(1件) | #{@current_site.name}", title)
+      assert_equal("「#{keywords}」を含む記事が1件見つかりました。", find("meta[name=description]", visible: false)["content"])
       assert_equal({"page" => "1", "query" => {"keywords" => keywords}}, canonical_params)
-      assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
+      assert_equal("noindex", find("meta[name=robots]", visible: false)["content"])
     end
   end
 
@@ -225,14 +224,14 @@ class SearchTest < ActionDispatch::IntegrationTest
          "unmatch1 -unmatch2" => "unmatch1 -unmatch2",
          "unmatch1 - unmatch2" => "unmatch1 - unmatch2")
     test "markdown characters should not be matched" do |data|
-      visit "/"
+      visit("/")
 
-      fill_in "query[keywords]", with: data
+      fill_in("query[keywords]", with: data)
 
-      click_on "検索"
+      click_on("検索")
 
       within("main") do
-        assert_equal "「#{data}」を含む記事は見つかりませんでした。", find(".message").text
+        assert_equal("「#{data}」を含む記事は見つかりませんでした。", find(".message").text)
       end
     end
   end
@@ -257,14 +256,14 @@ class SearchTest < ActionDispatch::IntegrationTest
          "<" => "<",
          ">" => ">")
     test "operators should be as-is" do |data|
-      visit "/"
+      visit("/")
 
-      fill_in "query[keywords]", with: data
+      fill_in("query[keywords]", with: data)
 
-      click_on "検索"
+      click_on("検索")
 
       within("main") do
-        assert_equal "「#{data}」を含む記事が1件見つかりました。", find(".message").text
+        assert_equal("「#{data}」を含む記事が1件見つかりました。", find(".message").text)
       end
     end
   end
@@ -300,16 +299,17 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
 
     test "display truncated body when snippets is empty" do
-      visit "/"
+      visit("/")
 
-      fill_in "query[keywords]", with: "post1"
+      fill_in("query[keywords]", with: "post1")
 
-      click_on "検索"
+      click_on("検索")
 
       within("main") do
-        assert_equal "「post1」を含む記事が1件見つかりました。", find(".message").text
-        expected = "This is a title contents contents contents contents contents contents contents contents contents contents contents contents contents cont..."
-        assert_equal expected, find(".search-result").text
+        assert_equal("「post1」を含む記事が1件見つかりました。", find(".message").text)
+        assert_equal(<<~TEXT.strip, find(".search-result").text)
+          This is a title contents contents contents contents contents contents contents contents contents contents contents contents contents cont...
+        TEXT
       end
     end
 
@@ -326,14 +326,13 @@ class SearchTest < ActionDispatch::IntegrationTest
     test "display snippets when snippets is not empty" do |data|
       query = data[:query]
       highlighted = data[:highlighted]
-      visit "/"
 
-      fill_in "query[keywords]", with: query
-
-      click_on "検索"
+      visit("/")
+      fill_in("query[keywords]", with: query)
+      click_on("検索")
 
       within("main") do
-        assert_equal "「#{query}」を含む記事が1件見つかりました。", find(".message").text
+        assert_equal("「#{query}」を含む記事が1件見つかりました。", find(".message").text)
         within(".search-result") do
           assert_equal(highlighted, all(".search-result__keyword").map(&:text))
         end
