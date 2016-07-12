@@ -3,6 +3,7 @@ class Category < ActiveRecord::Base
   has_many :posts
 
   has_ancestry
+  acts_as_list scope: [:ancestry], column: :order
 
   validates :slug, format: /\A\w+\z/, uniqueness: {scope: :site_id}
   validates :order, numericality: :only_integer
