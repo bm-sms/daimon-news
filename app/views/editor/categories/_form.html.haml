@@ -2,7 +2,7 @@
   = f.text_field :name
   = f.text_area :description, class: "markdown-editor", data: {upload_path: editor_images_url}
   = f.text_field :slug, help: "URLの一部に使うこのカテゴリを表すわかりやすい英単語を指定します"
-  = f.collection_select :parent_id, current_site.categories, :id, :name, include_blank: true
+  = f.collection_select :parent_id, current_site.categories, :id, :name, {include_blank: true}, {class: "select2", "data-select2-allow-clear": false}
 
   = f.form_group do
     = f.submit
