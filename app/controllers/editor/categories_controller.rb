@@ -1,6 +1,6 @@
 class Editor::CategoriesController < Editor::ApplicationController
   def index
-    @categories = categories.order(:order)
+    @categories = categories.roots.ordered
   end
 
   def show
