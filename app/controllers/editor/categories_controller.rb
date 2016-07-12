@@ -43,6 +43,24 @@ class Editor::CategoriesController < Editor::ApplicationController
     redirect_to editor_categories_url, notice: "カテゴリが削除されました"
   end
 
+  # move to left
+  def move_higher
+    category = categories.find(params[:id])
+    target_category = category.higher_items.last
+    category.move_to_left_of(target_category) if target_category
+
+    redirect_to editor_categories_url, notice: "カテゴリが移動されました"
+  end
+
+  # move to right
+  def move_lower
+    category = categories.find(params[:id])
+    target_category = category.lower_items.tap{|s| p s}.first
+    category.move_to_right_of(target_category) if target_category
+
+    redirect_to editor_categories_url, notice: "カテゴリが移動されました"
+  end
+
   private
 
   def categories
