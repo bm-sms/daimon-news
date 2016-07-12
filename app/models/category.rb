@@ -55,6 +55,6 @@ class Category < ActiveRecord::Base
         add_to_list_bottom
         save!
       end
-    end   
-  end  
+    end
+  end
 end
