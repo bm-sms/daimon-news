@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :participant do
     sequence(:name) {|n| "Author #{n}" }
-    description { "#{name}: Awesome description" }
+    summary { "#{name}: Awesome summary" }
 
     trait :whatever do
       site

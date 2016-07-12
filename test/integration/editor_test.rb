@@ -80,7 +80,7 @@ class EditorTest < ActionDispatch::IntegrationTest
     click_on("New Participant")
 
     fill_in("Name", with: "Ruby")
-    fill_in("Description", with: "Ruby is a programing language.")
+    fill_in("Summary", with: "Ruby is a programing language.")
 
     click_on("登録する")
 

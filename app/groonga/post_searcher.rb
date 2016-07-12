@@ -49,7 +49,7 @@ class PostSearcher
         full_text_search = keywords.map {|keyword|
           (match_target =~ keyword) |
             (record.participants.name =~ keyword) |
-            (record.participants.description =~ keyword)
+            (record.participants.summary =~ keyword)
         }.inject(&:&)
         conditions << full_text_search
       end

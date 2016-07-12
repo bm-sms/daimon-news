@@ -3,10 +3,10 @@ after "development:sites" do
 
   site1.participants.create!(
     name: "name11",
-    description: "description11"
+    summary: "summary11"
   )
   site1.participants.create!(
     name: "name12",
-    description: "description12"
+    summary: "summary12"
   )
 end
