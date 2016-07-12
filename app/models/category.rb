@@ -37,7 +37,7 @@ class Category < ActiveRecord::Base
       reference_instance.reload # Things have possibly changed in this list
       update_attributes!(parent_id: reference_instance.parent_id)
       reference_item_order = reference_instance.order
-      increment_orders_on_lower_items(reference_item_order)
+      increment_positions_on_lower_items(reference_item_order)
       update_attribute(:order, reference_item_order)
     end
   end
@@ -49,7 +49,7 @@ class Category < ActiveRecord::Base
       update_attributes!(parent_id: reference_instance.parent_id)
       if reference_instance.lower_item
         lower_item_order = reference_instance.lower_item.order
-        increment_orders_on_lower_items(lower_item_order)
+        increment_positions_on_lower_items(lower_item_order)
         update_attribute(:order, lower_item_order)
       else
         add_to_list_bottom
