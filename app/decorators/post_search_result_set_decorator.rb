@@ -8,15 +8,13 @@ module PostSearchResultSetDecorator
   end
 
   def message
-    if keywords.empty?
-      "検索キーワードを入力してください。"
-    elsif posts.empty?
-      "「#{keywords}」を含む記事は見つかりませんでした。"
-    elsif paginator.total_pages > 1
-      "「#{keywords}」を含む記事は#{paginator.total_count}件見つかりました。(#{page_entries_info})"
-    else
-      "「#{keywords}」を含む記事は#{paginator.total_count}件見つかりました。"
-    end
+    return nil if keywords.empty?
+
+    message = "".dup
+    message << "「#{keywords}」を含む"
+    message << (posts.empty? ?  "記事は見つかりませんでした。" : "記事が#{paginator.total_count}件見つかりました。")
+    message << "(#{page_entries_info})" if paginator.total_pages > 1
+    message
   end
 
   def posts
@@ -26,7 +24,11 @@ module PostSearchResultSetDecorator
   end
 
   def to_meta_title
-    "#{keywords}の検索結果(#{page_entries_info})"
+    if keywords.empty?
+      "検索結果(#{page_entries_info})"
+    else
+      "#{keywords}の検索結果(#{page_entries_info})"
+    end
   end
 
   def to_meta_description

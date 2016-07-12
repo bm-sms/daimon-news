@@ -28,7 +28,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on "検索"
 
     within("main") do
-      assert_equal "「contents」を含む記事は1件見つかりました。", find(".message").text
+      assert_equal "「contents」を含む記事が1件見つかりました。", find(".message").text
       within("ul") do
         assert find_link("the post of the current site")
       end
@@ -94,15 +94,15 @@ class SearchTest < ActionDispatch::IntegrationTest
 
     click_on '検索'
 
-    within('main') do
-      assert_equal '「AAA」を含む記事は3件見つかりました。', find('.message').text
-      within('ul.search-result-list') do
+    within("main") do
+      assert_equal '「AAA」を含む記事が3件見つかりました。', find('.message').text
+      within("ul.search-result-list") do
         assert_equal([
                        "post2 AAA", # The highest score post; title and body has the keyword "AAA".
                        "post3 AAA", # The second highest score post; title has the keyword "AAA".
                        "post1 BBB", # The third highest score post; body has the keyword "AAA".
                      ],
-                     all('.article-summary__title').map(&:text))
+                     all(".article-summary__title").map(&:text))
       end
     end
   end
@@ -120,8 +120,10 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on "検索"
 
     within("main") do
-      assert_equal "検索キーワードを入力してください。", find(".message").text
-      assert has_no_css?(".search-result-list")
+      assert_equal "", find(".message").text
+      within(".search-result-list") do
+        assert page.has_css?(".article-summary__title", text: "post1")
+      end
     end
   end
 
@@ -138,7 +140,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on "検索"
 
     within("main") do
-      assert_equal "「post contents author description」を含む記事は1件見つかりました。", find(".message").text
+      assert_equal "「post contents author description」を含む記事が1件見つかりました。", find(".message").text
     end
   end
 
@@ -168,7 +170,7 @@ class SearchTest < ActionDispatch::IntegrationTest
 
       assert_equal "#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", title
       assert_equal "#{keywords}の検索結果(1〜50/51件) | #{@current_site.name}", find('meta[property="og:title"]', visible: false)["content"]
-      assert_equal "「#{keywords}」を含む記事は51件見つかりました。(1〜50/51件)", find("meta[name=description]", visible: false)["content"]
+      assert_equal "「#{keywords}」を含む記事が51件見つかりました。(1〜50/51件)", find("meta[name=description]", visible: false)["content"]
       assert_equal({"page" => "1", "query" => {"keywords" => keywords}}, canonical_params)
       assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
     end
@@ -183,7 +185,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       click_on "検索"
 
       assert_equal "#{keywords}の検索結果(1件) | #{@current_site.name}", title
-      assert_equal "「#{keywords}」を含む記事は1件見つかりました。", find("meta[name=description]", visible: false)["content"]
+      assert_equal "「#{keywords}」を含む記事が1件見つかりました。", find("meta[name=description]", visible: false)["content"]
       assert_equal({"page" => "1", "query" => {"keywords" => keywords}}, canonical_params)
       assert_equal "noindex", find("meta[name=robots]", visible: false)["content"]
     end
@@ -262,7 +264,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       click_on "検索"
 
       within("main") do
-        assert_equal "「#{data}」を含む記事は1件見つかりました。", find(".message").text
+        assert_equal "「#{data}」を含む記事が1件見つかりました。", find(".message").text
       end
     end
   end
@@ -305,7 +307,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       click_on "検索"
 
       within("main") do
-        assert_equal "「post1」を含む記事は1件見つかりました。", find(".message").text
+        assert_equal "「post1」を含む記事が1件見つかりました。", find(".message").text
         expected = "This is a title contents contents contents contents contents contents contents contents contents contents contents contents contents cont..."
         assert_equal expected, find(".search-result").text
       end
@@ -331,7 +333,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       click_on "検索"
 
       within("main") do
-        assert_equal "「#{query}」を含む記事は1件見つかりました。", find(".message").text
+        assert_equal "「#{query}」を含む記事が1件見つかりました。", find(".message").text
         within(".search-result") do
           assert_equal(highlighted, all(".search-result__keyword").map(&:text))
         end

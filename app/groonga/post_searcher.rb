@@ -34,8 +34,6 @@ class PostSearcher
   end
 
   def search(query)
-    return @posts.select unless query.present?
-
     posts = @posts.select do |record|
       conditions = []
       conditions << (record.published_at > 0)
