@@ -28,22 +28,24 @@ after "development:sites", "development:categories" do
     category: site1.categories.find_by!(slug: "category2"),
   )
 
+  paginate_body = <<~EOS
+    page 1
+
+    <!--nextpage-->
+
+    page 2
+
+    <!--nextpage-->
+
+    page 3
+  EOS
+
   50.times do |i|
     i += 100
 
     site1.posts.create!(
       title: "Post #{i}",
-      body: <<~EOS,
-        page 1
-
-        <!--nextpage-->
-
-        page 2
-
-        <!--nextpage-->
-
-        page 3
-      EOS
+      body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
       category: site1.categories.find_by!(slug: "category1"),
@@ -70,17 +72,7 @@ after "development:sites", "development:categories" do
 
     site1.posts.create!(
       title: "Post #{i}",
-      body: <<~EOS,
-        page 1
-
-        <!--nextpage-->
-
-        page 2
-
-        <!--nextpage-->
-
-        page 3
-      EOS
+      body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
       category: site1.categories.find_by!(slug: "category2"),
