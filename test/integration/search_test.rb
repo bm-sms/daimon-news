@@ -35,7 +35,7 @@ class SearchTest < ActionDispatch::IntegrationTest
     end
 
     within("aside") do
-      assert_equal "contents", find('#query_keywords').value
+      assert_equal "contents", find("#query_keywords").value
     end
   end
 
@@ -62,40 +62,40 @@ class SearchTest < ActionDispatch::IntegrationTest
 
     click_on "検索"
 
-    within('main') do
+    within("main") do
       # NOTE: 記事が公開されてから非公開になった場合、Groongaのデータベースが更新されるまでは件数がずれる。
       # ref: https://github.com/bm-sms/daimon-news-multi-tenant/pull/365#issuecomment-200634038
 
-      within('ul.search-result-list') do
-        assert has_content?('post1 is published')
-        assert has_no_content?('post2 is not published')
-        assert has_content?('post3 is published')
+      within("ul.search-result-list") do
+        assert has_content?("post1 is published")
+        assert has_no_content?("post2 is not published")
+        assert has_content?("post3 is published")
       end
     end
   end
 
-  test 'the highest score post should appear in the top' do
+  test "the highest score post should appear in the top" do
     create_post(site: @current_site,
-                title: 'post1 BBB',
-                body: 'AAA...',
+                title: "post1 BBB",
+                body: "AAA...",
                 published_at: 1.hour.ago)
     create_post(site: @current_site,
-                title: 'post2 AAA',
-                body: 'AAA...',
+                title: "post2 AAA",
+                body: "AAA...",
                 published_at: 2.hour.ago)
     create_post(site: @current_site,
-                title: 'post3 AAA',
-                body: 'BBB...',
+                title: "post3 AAA",
+                body: "BBB...",
                 published_at: 3.hour.ago)
 
-    visit '/'
+    visit "/"
 
-    fill_in 'query[keywords]', with: 'AAA'
+    fill_in "query[keywords]", with: "AAA"
 
-    click_on '検索'
+    click_on "検索"
 
     within("main") do
-      assert_equal '「AAA」を含む記事が3件見つかりました。', find('.message').text
+      assert_equal "「AAA」を含む記事が3件見つかりました。", find(".message").text
       within("ul.search-result-list") do
         assert_equal([
                        "post2 AAA", # The highest score post; title and body has the keyword "AAA".
