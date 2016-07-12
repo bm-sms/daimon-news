@@ -34,7 +34,7 @@ class PostSearchResultSet
   private
 
   def searched_post_ids
-    @groonga_posts.sort([['_score', :desc]]).map(&:_key)
+    @groonga_posts.sort([["_score", :desc], ["published_at", :desc]]).map(&:_key)
   end
 
   def paginated_post_ids
