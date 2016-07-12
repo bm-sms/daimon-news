@@ -63,8 +63,8 @@ class SearchTest < ActionDispatch::IntegrationTest
     click_on "検索"
 
     within("main") do
-      # NOTE: 記事が公開されてから非公開になった場合、Groongaのデータベースが更新されるまでは件数がずれる。
-      # ref: https://github.com/bm-sms/daimon-news-multi-tenant/pull/365#issuecomment-200634038
+      # NOTE: When indexed posts become unpublished, the count of searched posts is mismatch with correct count until Groonga index is updated.
+      # ref: https://github.com/bm-sms/daimon-news/pull/365#issuecomment-200634038
 
       within("ul.search-result-list") do
         assert has_content?("post1 is published")
