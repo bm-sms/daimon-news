@@ -27,7 +27,6 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
       [Ruby](https://www.ruby-lang.org/) is a programming language.
     EOS
     fill_in "Slug", with: "ruby"
-    fill_in "Order", with: "1"
 
     click_on "登録する"
 

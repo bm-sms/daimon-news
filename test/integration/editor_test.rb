@@ -14,7 +14,6 @@ class EditorTest < ActionDispatch::IntegrationTest
     fill_in "Name",        with: "Ruby"
     fill_in "Description", with: "Ruby is a programming language."
     fill_in "Slug",        with: "ruby"
-    fill_in "Order",       with: "1"
 
     click_on "登録する"
 
