@@ -6,7 +6,7 @@ class Category < ActiveRecord::Base
   acts_as_list scope: [:ancestry], column: :order
 
   validates :slug, format: /\A\w+\z/, uniqueness: {scope: :site_id}
-  validates :order, numericality: :only_integer
+  validates :order, numericality: {only_integer: true, allow_nil: true}
 
   scope :ordered, -> { order(:order) }
 
