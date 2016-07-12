@@ -81,6 +81,10 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     fill_in("Name", with: "Ruby")
     fill_in("Summary", with: "Ruby is a programing language.")
+    fill_in("Description", with: <<~EOS)
+      # Ruby is...
+      A programing language.
+    EOS
 
     click_on("登録する")
 

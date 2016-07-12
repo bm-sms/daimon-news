@@ -53,6 +53,7 @@ class Editor::ParticipantsController < Editor::ApplicationController
     params.require(:participant).permit(
       :name,
       :summary,
+      :description,
       :photo,
       :remove_photo
     )

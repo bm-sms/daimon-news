@@ -279,7 +279,8 @@ CREATE TABLE participants (
     summary text,
     photo character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    description text
 );
 
 
@@ -1121,6 +1122,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160629022837');
 INSERT INTO schema_migrations (version) VALUES ('20160712005001');
 
 INSERT INTO schema_migrations (version) VALUES ('20160712070026');
+
+INSERT INTO schema_migrations (version) VALUES ('20160712074703');
 
 INSERT INTO schema_migrations (version) VALUES ('20160719080821');
 
