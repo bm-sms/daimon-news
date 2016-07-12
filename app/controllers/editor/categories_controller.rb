@@ -72,7 +72,8 @@ class Editor::CategoriesController < Editor::ApplicationController
       :name,
       :description,
       :slug,
-      :order
+      :order,
+      :parent_id
     )
   end
 end
