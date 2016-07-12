@@ -17,5 +17,5 @@
 
   - if @search_result.paginator.total_pages > 1
     %nav.pagination
-      = paginate @search_result.paginator
+      = paginate @search_result.paginator, window: 2
       %p.pagination__entries= page_entries_info @search_result.paginator
