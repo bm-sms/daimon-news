@@ -78,4 +78,47 @@ after "development:sites", "development:categories" do
       category: site1.categories.find_by!(slug: "category2"),
     )
   end
+
+  20.times do |i|
+    i += site1.posts.maximum(:id)
+    site1.posts.create!(
+      title: "Post #{i}",
+      body: paginate_body,
+      thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
+      published_at: Time.current,
+      category: site1.categories.find_by!(slug: "category3_1_1"),
+    )
+    i += 1
+    site1.posts.create!(
+      title: "Post #{i}",
+      body: paginate_body,
+      thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
+      published_at: Time.current,
+      category: site1.categories.find_by!(slug: "category3_1_2"),
+    )
+    i += 1
+    site1.posts.create!(
+      title: "Post #{i}",
+      body: paginate_body,
+      thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
+      published_at: Time.current,
+      category: site1.categories.find_by!(slug: "category3_1_3"),
+    )
+    i += 1
+    site1.posts.create!(
+      title: "Post #{i}",
+      body: paginate_body,
+      thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
+      published_at: Time.current,
+      category: site1.categories.find_by!(slug: "category3_2"),
+    )
+    i += 1
+    site1.posts.create!(
+      title: "Post #{i}",
+      body: paginate_body,
+      thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
+      published_at: Time.current,
+      category: site1.categories.find_by!(slug: "category3_3"),
+    )
+  end
 end
