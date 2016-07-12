@@ -82,11 +82,11 @@ class SearchTest < ActionDispatch::IntegrationTest
     create_post(site: @current_site,
                 title: "post2 AAA",
                 body: "AAA...",
-                published_at: 2.hour.ago)
+                published_at: 2.hours.ago)
     create_post(site: @current_site,
                 title: "post3 AAA",
                 body: "BBB...",
-                published_at: 3.hour.ago)
+                published_at: 3.hours.ago)
 
     visit "/"
 
