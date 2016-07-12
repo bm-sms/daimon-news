@@ -1,7 +1,14 @@
 %ul.category-summary
   - categories.each do |category|
+    - if category.has_children?
+      - count = category.children.inject(0) do |memo, child|
+        - memo + child.posts.published.count
+      - count = "(#{count})"
+    - else
+      - count = "(#{category.posts.published.count})"
     %li
-      = link_to category.name, category_url(category.slug)
+      = link_to "#{category.name} #{count}", category_url(category.slug)
+      %p= extract_plain_text(category.description).truncate(100)
       - if depth < 2
         - if category.has_children?
           = render 'categories', categories: category.children, depth: depth + 1
