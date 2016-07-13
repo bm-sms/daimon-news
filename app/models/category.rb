@@ -13,6 +13,14 @@ class Category < ActiveRecord::Base
   # See https://github.com/stefankroes/ancestry/pull/238
   scope :leaves, -> { joins("LEFT JOIN #{table_name} AS c ON c.#{ancestry_column} = CAST(#{table_name}.id AS text) OR c.#{ancestry_column} = #{table_name}.#{ancestry_column} || '/' || #{table_name}.id").group("#{table_name}.id").having("COUNT(c.id) = 0").order("#{table_name}.ancestry NULLS FIRST").order(:order) }
 
+  def full_name
+    if ancestry.present?
+      ancestors.map(&:name).join("/") + "/#{name}"
+    else
+      name
+    end
+  end
+
   # https://github.com/stefankroes/ancestry/wiki/awesome_nested_set-like-methods-for-scriptaculous-and-acts_as_list
   # Accepts the typical array of ids from a scriptaculous sortable. It is called on the instance being moved
   #
