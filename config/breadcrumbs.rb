@@ -4,6 +4,7 @@ end
 
 crumb :category do |category|
   link category.name, category_url(category.slug)
+  parent :category, category.parent if category.parent
 end
 
 crumb :serials do
