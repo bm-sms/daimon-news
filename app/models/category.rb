@@ -74,6 +74,8 @@ class Category < ActiveRecord::Base
       move_to_left_of(reference_instance)
     when :right
       move_to_right_of(reference_instance)
+    else
+      raise "Unknown direction: #{direction}"
     end
   end
 end
