@@ -57,4 +57,17 @@ class PostTest < ActiveSupport::TestCase
       assert_equal @credits.map(&:participant).map(&:name), ["Participant: 1", "Participant: 2", "Participant: 3"]
     end
   end
+
+  sub_test_case "category" do
+    setup do
+      @parent_category = create(:category, site: @site)
+      @child_category = create(:category, site: @site, parent: @parent_category)
+    end
+
+    test "validate_with PostCategoryValidator" do
+      post = build(:post, category: @parent_category, site: @site)
+      assert { !post.valid? }
+      assert_equal(["子カテゴリを持つカテゴリ「#{@parent_category.full_name}」に記事を登録することはできません。"], post.errors[:category_id])
+    end
+  end
 end
