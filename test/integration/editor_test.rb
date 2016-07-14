@@ -47,7 +47,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     fill_in("Title", with: "Ruby")
     fill_in("Description", with: "Ruby is a programming language.")
-    attach_file "Thumbnail", Rails.root.join("test/fixtures/images/thumbnail.jpg")
+    attach_file("Thumbnail", Rails.root.join("test/fixtures/images/thumbnail.jpg"))
 
     click_on("登録する")
 
@@ -180,7 +180,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   test "preview post" do
     @post = create(:post, :whatever, :with_credit, site: @site, body: '# title')
-    visit "/editor/posts/#{@post.public_id}/preview"
+    visit("/editor/posts/#{@post.public_id}/preview")
     within(".post__body") do
       assert_equal("title", find("h1").text)
     end
@@ -201,8 +201,8 @@ class EditorTest < ActionDispatch::IntegrationTest
 
       fill_in("Title", with: "Ruby")
       fill_in("Body",  with: "Ruby is a programming language.")
-      select @category.name, from: "post_category_id"
-      attach_file "Thumbnail", File.join(fixture_path, "images/daimon.png")
+      select(@category.name, from: "post_category_id")
+      attach_file("Thumbnail", File.join(fixture_path, "images/daimon.png"))
 
       click_on("登録する")
 
@@ -243,9 +243,9 @@ class EditorTest < ActionDispatch::IntegrationTest
 
       fill_in("Title", with: "Ruby")
       fill_in("Body",  with: "Ruby is a programming language.")
-      select @category.name, from: "post_category_id"
-      select @serial.title, from: "post_serial_id"
-      attach_file "Thumbnail", File.join(fixture_path, "images/daimon.png")
+      select(@category.name, from: "post_category_id")
+      select(@serial.title, from: "post_serial_id")
+      attach_file("Thumbnail", File.join(fixture_path, "images/daimon.png"))
 
       click_on("登録する")
 
