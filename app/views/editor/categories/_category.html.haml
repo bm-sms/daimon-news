@@ -8,4 +8,4 @@
   %td= link_to_unless category.first?, '▲', move_higher_editor_category_url(category)
   %td= link_to_unless category.last?, '▼', move_lower_editor_category_url(category)
 - category.children.ordered.each do |c|
-  = render partial: 'category', locals: {category: c}
+  = render 'category', category: c

@@ -4,4 +4,4 @@
 
 = link_to 'New Category', new_editor_category_url, class: 'btn btn-default'
 
-= render partial: 'table', locals: {categories: @categories}
+= render 'table', categories: @categories

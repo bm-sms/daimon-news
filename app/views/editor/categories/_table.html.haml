@@ -12,4 +12,4 @@
 
   %tbody
     - categories.each do |category|
-      = render partial: 'category', locals: {category: category}
+      = render 'category', category: category

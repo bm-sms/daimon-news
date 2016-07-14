@@ -8,7 +8,7 @@
   %b Slug:
   = @category.slug
 
-= render partial: 'table', locals: {categories: @category.children.ordered}
+= render 'table', categories: @category.children.ordered
 
 = link_to 'Edit', edit_editor_category_url
 \|
