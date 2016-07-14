@@ -1,1 +1,5 @@
-%p.pagination__item= link_to_unless current_page.first?, raw(t 'views.pagination.previous'), url, rel: 'prev', remote: remote, class: 'pagination__link pagination__link--prev', data: defined?(data) ? data : nil
+- text = capture do
+  %span.pagination__text
+    = raw(t 'views.pagination.previous')
+
+%p.pagination__item= link_to_unless current_page.first?, text, url, rel: 'prev', remote: remote, class: 'pagination__link pagination__link--prev', data: defined?(data) ? data : nil
