@@ -79,7 +79,7 @@ after "development:sites", "development:categories" do
     )
   end
 
-  20.times do |i|
+  25.times do |i|
     i += site1.posts.maximum(:id)
     site1.posts.create!(
       title: "Post #{i}",
