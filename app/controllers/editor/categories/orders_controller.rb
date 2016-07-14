@@ -1,16 +1,9 @@
 class Editor::Categories::OrdersController < Editor::ApplicationController
-  def update
+  def create
     category = categories.find(params[:category_id])
-    target_category = case params[:direction]
-                      when "left"
-                        category.higher_items.last
-                      when "right"
-                        category.lower_items.first
-                      else
-                        raise "Unknown direction: #{params[:direction]}"
-                      end
+    target_category = categories.find(params[:target])
     if target_category
-      category.move_to(target_category, direction: params[:direction])
+      category.move_to(target_category, direction: params[:move_to])
       message = "カテゴリ「#{category.name}」を移動しました"
     else
       message = "カテゴリ「#{category.name}」を移動できませんでした"
