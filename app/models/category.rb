@@ -15,11 +15,7 @@ class Category < ActiveRecord::Base
   scope :parental, -> { includes(:posts).where("posts.id" => nil).order("#{table_name}.#{ancestry_column} NULLS FIRST").order(:order) }
 
   def full_name
-    if ancestry.present?
-      ancestors.map(&:name).join("/") + "/#{name}"
-    else
-      name
-    end
+    (ancestors.pluck(:name) + [name]).join("/")
   end
 
   # https://github.com/stefankroes/ancestry/wiki/awesome_nested_set-like-methods-for-scriptaculous-and-acts_as_list
