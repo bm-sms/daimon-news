@@ -12,8 +12,6 @@ module DatabaseCleanerHelper
     setup before: :prepend
     def setup_database_cleaner(&test)
       if self[:js]
-        self.use_transactional_fixtures = false
-
         DatabaseCleaner.strategy = :truncation
 
         DatabaseCleaner.cleaning do
@@ -21,9 +19,14 @@ module DatabaseCleanerHelper
         end
 
         DatabaseCleaner.strategy = DatabaseCleaner.default_strategy
+      else
+        DatabaseCleaner.cleaning do
+          test.call
+        end
       end
     end
   end
 end
 
+ActiveSupport::TestCase.include(DatabaseCleanerHelper)
 ActionDispatch::IntegrationTest.include(DatabaseCleanerHelper)

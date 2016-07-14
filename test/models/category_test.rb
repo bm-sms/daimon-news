@@ -2,13 +2,8 @@ require "test_helper"
 
 class CategoryTest < ActiveSupport::TestCase
   def setup
-    DatabaseCleaner.start
     site = create(:site)
     @categories = create_list(:category, 5, site: site)
-  end
-
-  def teardown
-    DatabaseCleaner.clean
   end
 
   def test_move_to_child_of

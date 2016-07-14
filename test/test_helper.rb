@@ -13,4 +13,5 @@ Capybara.javascript_driver = :poltergeist
 class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   include FactoryGirl::Syntax::Methods
+  self.use_transactional_fixtures = false
 end
