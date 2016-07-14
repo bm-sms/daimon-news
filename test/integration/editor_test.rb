@@ -327,4 +327,101 @@ class EditorTest < ActionDispatch::IntegrationTest
       assert_not(page.has_css?("td", text: "updated title"))
     end
   end
+
+  sub_test_case "Category hierarchy" do
+    setup do
+      @categories = create_list(:category, 5, site: @site)
+    end
+
+    test "move to higher" do
+      click_on("カテゴリ")
+      within(:row, @categories[4].name) do
+        click_on("▲")
+      end
+      names = find_all("tr.depth0").map do |tr|
+        tr.first("td").text
+      end
+      expected = @categories.values_at(0, 1, 2, 4, 3).map(&:name)
+      assert_equal(expected, names)
+    end
+
+    test "move to lower" do
+      click_on("カテゴリ")
+      within(:row, @categories[1].name) do
+        click_on("▼")
+      end
+      names = find_all("tr.depth0").map do |tr|
+        tr.first("td").text
+      end
+      expected = @categories.values_at(0, 2, 1, 3, 4).map(&:name)
+      assert_equal(expected, names)
+    end
+
+    test "append children" do
+      click_on("カテゴリ")
+      click_on("New Category")
+
+      fill_in("Name",        with: "Ruby")
+      fill_in("Description", with: "Ruby is a programming language.")
+      fill_in("Slug",        with: "ruby")
+      select(@categories[0].name, from: "category_parent_id")
+
+      click_on("登録する")
+
+      click_on("Back")
+
+      assert_equal("depth1", find("tr", text: "Ruby")[:class])
+      within(:row, "Ruby") do
+        assert_false(find("td", text: "▲").has_css?("a"))
+        assert_false(find("td", text: "▼").has_css?("a"))
+      end
+
+      click_on("New Category")
+
+      fill_in("Name",        with: "Python")
+      fill_in("Description", with: "Python is a programming language.")
+      fill_in("Slug",        with: "python")
+      select(@categories[0].name, from: "category_parent_id")
+
+      click_on("登録する")
+
+      click_on("Back")
+
+      assert_equal("depth1", find("tr", text: "Python")[:class])
+      within(:row, "Ruby") do
+        assert_false(find("td", text: "▲").has_css?("a"))
+        assert_true(find("td", text: "▼").has_css?("a"))
+      end
+      within(:row, "Python") do
+        assert_true(find("td", text: "▲").has_css?("a"))
+        assert_false(find("td", text: "▼").has_css?("a"))
+        click_on("▲")
+      end
+
+      within(:row, "Ruby") do
+        assert_true(find("td", text: "▲").has_css?("a"))
+        assert_false(find("td", text: "▼").has_css?("a"))
+      end
+      within(:row, "Python") do
+        assert_false(find("td", text: "▲").has_css?("a"))
+        assert_true(find("td", text: "▼").has_css?("a"))
+      end
+
+      click_on("New Category")
+
+      fill_in("Name",        with: "JRuby")
+      fill_in("Description", with: "JRuby is a one of Ruby implementation.")
+      fill_in("Slug",        with: "jruby")
+      select("Ruby", from: "category_parent_id")
+      click_on("登録する")
+
+      click_on("Back")
+
+      assert_equal("depth2", find("tr", text: "JRuby")[:class])
+      within(:row, "JRuby") do
+        assert_false(find("td", text: "▲").has_css?("a"))
+        assert_false(find("td", text: "▼").has_css?("a"))
+      end
+    end
+  end
 end
