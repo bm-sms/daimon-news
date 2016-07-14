@@ -55,7 +55,7 @@ class Editor::CategoriesController < Editor::ApplicationController
   # move to right
   def move_lower
     category = categories.find(params[:id])
-    target_category = category.lower_items.tap{|s| p s}.first
+    target_category = category.lower_items.first
     category.move_to_right_of(target_category) if target_category
 
     redirect_to editor_categories_url, notice: "カテゴリが移動されました"
