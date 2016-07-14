@@ -19,7 +19,7 @@ $(() => {
     $element.find('.credit-order-value').val(maxOrder + 1);
   }
 
-  applySelect2('select.select2', {});
+  applySelect2('select.select2');
 
   $(document).on('cocoon:after-insert', (e, inserted) => {
     let $element = $(inserted[0]);
