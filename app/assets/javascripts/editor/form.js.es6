@@ -1,12 +1,11 @@
 $(() => {
-  function applySelect2(selector, options) {
+  function applySelect2(selector) {
     let $element = $(selector);
-    let defaultOptions = {
+    let options = {
       placeholder: '選択してください',
       allowClear: $element.data("select2-allow-clear")
     };
-    let mergedOptions = $.extend(defaultOptions, options);
-    $element.select2(mergedOptions);
+    $element.select2(options);
   }
 
   function setupCreditOrder($element) {
