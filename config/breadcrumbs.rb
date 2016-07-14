@@ -21,6 +21,10 @@ crumb :post do |post|
   parent :category, post.category
 end
 
+crumb :participant do |participant|
+  link participant.name, participant_url(participant)
+end
+
 crumb :page_num do |page_num, options|
   link "#{page_num}ページ目"
 
