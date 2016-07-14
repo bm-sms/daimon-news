@@ -65,4 +65,15 @@ class Category < ActiveRecord::Base
       end
     end
   end
+
+  def move_to(reference_instance, direction:)
+    case direction.to_sym
+    when :child
+      move_to_child_of(reference_instance)
+    when :left
+      move_to_left_of(reference_instance)
+    when :right
+      move_to_right_of(reference_instance)
+    end
+  end
 end

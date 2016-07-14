@@ -18,10 +18,7 @@ Rails.application.routes.draw do
     resources :fixed_pages
     resources :links
     resources :categories do
-      member do
-        get :move_higher
-        get :move_lower
-      end
+      resources :orders, module: :categories, only: %i(update), param: :direction, constraints: {direction: /left|right/}
     end
     resources :serials
     resources :posts, param: :public_id do
