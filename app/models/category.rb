@@ -11,8 +11,8 @@ class Category < ActiveRecord::Base
   scope :ordered, -> { order(:order) }
   # For PostgreSQL, doesn't work on MySQL
   # See https://github.com/stefankroes/ancestry/pull/238
-  scope :leaves, -> { joins("LEFT JOIN #{table_name} AS c ON c.#{ancestry_column} = CAST(#{table_name}.id AS text) OR c.#{ancestry_column} = #{table_name}.#{ancestry_column} || '/' || #{table_name}.id").group("#{table_name}.id").having("COUNT(c.id) = 0").order("#{table_name}.#{ancestry_column} NULLS FIRST").order(:order) }
-  scope :parental, -> { includes(:posts).where("posts.id" => nil).order("#{table_name}.#{ancestry_column} NULLS FIRST").order(:order) }
+  scope :leaves, -> { joins("LEFT JOIN #{quoted_table_name} AS c ON c.#{ancestry_column} = CAST(#{quoted_table_name}.id AS text) OR c.#{ancestry_column} = #{quoted_table_name}.#{ancestry_column} || '/' || #{quoted_table_name}.id").group("#{quoted_table_name}.id").having("COUNT(c.id) = 0").order("#{quoted_table_name}.#{ancestry_column} NULLS FIRST").order(:order) }
+  scope :parental, -> { includes(:posts).where("posts.id" => nil).order("#{quoted_table_name}.#{ancestry_column} NULLS FIRST").order(:order) }
 
   def full_name
     (ancestors.pluck(:name) + [name]).join("/")
