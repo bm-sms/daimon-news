@@ -1,11 +1,11 @@
 .nested-fields
   .field.form-inline
     %span{class: f.send(:has_error?, :credit_role_id) ? 'has-error' : nil }
-      = f.collection_select_without_bootstrap :credit_role_id, current_site.credit_roles, :id, :name, {prompt: '選択してください'}, class: 'form-control'
+      = f.collection_select_without_bootstrap :credit_role_id, current_site.credit_roles, :id, :name, {prompt: '選択してください'}, {class: 'form-control select2', "data-select2-allow-clear": false}
       = f.send :generate_help, :credit_role_id, nil
 
     %span{class: f.send(:has_error?, :participant_id) ? 'has-error' : nil }
-      = f.collection_select_without_bootstrap :participant_id, current_site.participants, :id, :name, {prompt: '選択してください'}, class: 'form-control'
+      = f.collection_select_without_bootstrap :participant_id, current_site.participants, :id, :name, {prompt: '選択してください'}, {class: 'form-control select2', "data-select2-allow-clear": false}
       = f.send :generate_help, :participant_id, nil
 
     = f.hidden_field :order, class: 'credit-order-value'

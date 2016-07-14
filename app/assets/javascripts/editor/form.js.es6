@@ -25,7 +25,7 @@ $(() => {
   $(document).on('cocoon:after-insert', (e, inserted) => {
     let $element = $(inserted[0]);
 
-    applySelect2($element.find('select'), {allowClear: false});
+    applySelect2($element.find('select.select2'));
     setupCreditOrder($element);
   });
 });
