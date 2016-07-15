@@ -18,7 +18,7 @@ end
 
 SitemapGenerator::Sitemap.create do
   site.posts.published.find_each do |post|
-    add post_path(post), changefreq: "weekly", priority: 0.8
+    add post_path(post.public_id), changefreq: "weekly", priority: 0.8
   end
 
   site.categories.find_each do |category|
