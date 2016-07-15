@@ -5,7 +5,7 @@
   %td= link_to 'Show', editor_category_url(category)
   %td= link_to 'Edit', edit_editor_category_url(category)
   %td= link_to 'Destroy', editor_category_url(category), method: :delete, data: { confirm: 'Are you sure?' }
-  %td= link_to_unless category.first?, '▲', editor_category_orders_url(category_id: category, move_to: "left", target: category.higher_item&.id), method: :post
-  %td= link_to_unless category.last?, '▼', editor_category_orders_url(category_id: category, move_to: "right", target: category.lower_item&.id), method: :post
+  %td= link_to_unless category.first?, '▲', editor_category_order_url(category_id: category, move_to: "left", target: category.higher_item&.id), method: :post
+  %td= link_to_unless category.last?, '▼', editor_category_order_url(category_id: category, move_to: "right", target: category.lower_item&.id), method: :post
 - category.children.ordered.each do |c|
   = render 'category', category: c
