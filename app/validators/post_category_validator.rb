@@ -1,7 +1,9 @@
 class PostCategoryValidator < ActiveModel::Validator
   def validate(record)
-    if record.categories.all?(&:has_children?)
-      record.errors[:category_id] << "子カテゴリを持つカテゴリ「#{record.category.full_name}」に記事を登録することはできません。"
+    record.categories.each do |category|
+      if category.has_children?
+        record.errors[:categorizations] << "子カテゴリを持つカテゴリ「#{category.full_name}」に記事を登録することはできません。"
+      end
     end
   end
 end
