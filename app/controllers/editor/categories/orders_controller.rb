@@ -1,5 +1,5 @@
 class Editor::Categories::OrdersController < Editor::ApplicationController
-  def create
+  def update
     category = categories.find(params[:category_id])
     target_category = categories.find(params[:target])
     if target_category
