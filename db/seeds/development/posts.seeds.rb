@@ -80,7 +80,7 @@ after "development:sites", "development:categories" do
   end
 
   25.times do |i|
-    i += site1.posts.maximum(:id)
+    i += site1.posts.maximum(:public_id)
     site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
