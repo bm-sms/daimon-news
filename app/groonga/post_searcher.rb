@@ -22,8 +22,8 @@ class PostSearcher
       post.credits.each do |credit|
         conditions |= (record.participants._key =~ credit.participant_id)
       end
-      if post.category
-        conditions |= (record.category._key == post.category.id)
+      post.categories.each do |category|
+        conditions |= (record.categories._key =~ category.id)
       end
       conditions &
         (record.published_at <= Time.now) &
