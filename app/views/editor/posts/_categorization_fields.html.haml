@@ -4,7 +4,7 @@
       = f.collection_select_without_bootstrap :category_id, current_site.categories.leaves, :id, :full_name, {prompt: '選択してください'}, {class: "form-control select2", "data-select2-allow-clear": false}
       = f.send :generate_help, :category_id, nil
 
-    = f.hidden_field :order, class: 'category-order-value'
+    = f.hidden_field :order, class: 'categorization-order-value'
 
     = link_to_remove_association 'Remove category', f, class: 'btn btn-default pull-right'
 

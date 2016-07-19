@@ -79,7 +79,6 @@ class Editor::PostsController < Editor::ApplicationController
       categorizations_attributes: [
         :id,
         :category_id,
-        :post_id,
         :order,
         :_destroy
       ]
