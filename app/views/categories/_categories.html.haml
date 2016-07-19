@@ -1,15 +1,7 @@
 %ul.category-summary
   - categories.each do |category|
-    :ruby
-      count = if category.has_children?
-                # Use `to_a` to call `Enumerable#sum` here.
-                # We can remove `to_a` after Rails 5. http://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-sum
-                category.children.to_a.sum {|child| child.posts.published.count }
-              else
-                category.posts.published.count
-              end
     %li
-      = link_to "#{category.name} (#{count})", category_url(category.slug)
+      = link_to "#{category.name} (#{category.post_count})", category_url(category.slug)
       %p= extract_plain_text(category.description).truncate(100)
       - if depth < 2
         - if category.has_children?

@@ -18,6 +18,16 @@ class Category < ActiveRecord::Base
     (ancestors.pluck(:name) + [name]).join("/")
   end
 
+  def post_count
+    if has_children?
+      # Use `to_a` to call `Enumerable#sum` here.
+      # We can remove `to_a` after Rails 5. http://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-sum
+      children.to_a.sum {|child| child.posts.published.count }
+    else
+      posts.published.count
+    end
+  end
+
   # https://github.com/stefankroes/ancestry/wiki/awesome_nested_set-like-methods-for-scriptaculous-and-acts_as_list
   # Accepts the typical array of ids from a scriptaculous sortable. It is called on the instance being moved
   #
