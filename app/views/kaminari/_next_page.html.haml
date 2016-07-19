@@ -1,1 +1,5 @@
-%p.pagination__item= link_to_unless current_page.last?, raw(t 'views.pagination.next'), url, rel: 'next', remote: remote, class: 'pagination__link pagination__link--next', data: defined?(data) ? data : nil
+- text = capture do
+  %span.pagination__text
+    = raw(t 'views.pagination.next')
+
+%p.pagination__item= link_to_unless current_page.last?, text, url, rel: 'next', remote: remote, class: 'pagination__link pagination__link--next', data: defined?(data) ? data : nil
