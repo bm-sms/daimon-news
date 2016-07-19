@@ -1,8 +1,8 @@
 %ul.category-summary
   - categories.each do |category|
     - if category.has_children?
-      - count = category.children.inject(0) do |memo, child|
-        - memo + child.posts.published.count
+      - count = category.children.sum do |child|
+        - child.posts.published.count
       - count = "(#{count})"
     - else
       - count = "(#{category.posts.published.count})"
