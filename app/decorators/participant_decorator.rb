@@ -26,4 +26,8 @@ module ParticipantDecorator
       name
     end
   end
+
+  def number_of_posts(posts)
+    "記事数：#{posts.size}"
+  end
 end
