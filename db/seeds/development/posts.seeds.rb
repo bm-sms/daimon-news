@@ -10,7 +10,7 @@ after "development:sites", "development:categories" do
     EOS
     thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: Time.current,
-    category: site1.categories.find_by!(slug: "category1"),
+    categories: [site1.categories.find_by!(slug: "category1")],
   )
 
   published_at = 3.minutes.from_now
@@ -25,7 +25,7 @@ after "development:sites", "development:categories" do
     EOS
     thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: published_at,
-    category: site1.categories.find_by!(slug: "category2"),
+    categories: [site1.categories.find_by!(slug: "category2")],
   )
 
   paginate_body = <<~EOS
@@ -48,7 +48,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category1"),
+      categories: [site1.categories.find_by!(slug: "category1")],
     )
   end
 
@@ -64,7 +64,7 @@ after "development:sites", "development:categories" do
     public_id: 100_000,
     thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: Time.current,
-    category: site1.categories.find_by!(slug: "category2"),
+    categories: [site1.categories.find_by!(slug: "category2")],
   )
 
   50.times do |i|
@@ -75,7 +75,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category2"),
+      categories: [site1.categories.find_by!(slug: "category2")],
     )
   end
 
@@ -86,7 +86,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_1_1"),
+      categories: [site1.categories.find_by!(slug: "category3_1_1")],
     )
     i += 1
     site1.posts.create!(
@@ -94,7 +94,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_1_2"),
+      categories: [site1.categories.find_by!(slug: "category3_1_2")],
     )
     i += 1
     site1.posts.create!(
@@ -102,7 +102,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_1_3"),
+      categories: [site1.categories.find_by!(slug: "category3_1_3")],
     )
     i += 1
     site1.posts.create!(
@@ -110,7 +110,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_2"),
+      categories: [site1.categories.find_by!(slug: "category3_2")],
     )
     i += 1
     site1.posts.create!(
@@ -118,7 +118,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_3"),
+      categories: [site1.categories.find_by!(slug: "category3_3")],
     )
   end
 end
