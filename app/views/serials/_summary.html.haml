@@ -7,4 +7,4 @@
       %p.number-of-posts
         = serial.number_of_posts(serial.posts.published)
       %p.serial-summary__content
-        = serial.description
+        = extract_plain_text(serial.description)
