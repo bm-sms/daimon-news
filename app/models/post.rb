@@ -11,7 +11,7 @@ class Post < ActiveRecord::Base
 
   belongs_to :site
   belongs_to :serial
-  has_many :categorizations, dependent: :destroy
+  has_many :categorizations,-> { ordered }, dependent: :destroy
   has_many :categories, through: :categorizations
 
   validates :public_id, uniqueness: { scope: :site_id }
@@ -25,6 +25,7 @@ class Post < ActiveRecord::Base
   scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :categorizations, reject_if: :all_blank, allow_destroy: true
 
   paginates_per 20
 
