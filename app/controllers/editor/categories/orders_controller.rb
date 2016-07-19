@@ -16,11 +16,4 @@ class Editor::Categories::OrdersController < Editor::ApplicationController
   def categories
     current_site.categories
   end
-
-  def category_params
-    params.require(:category).permit(
-      :category_id,
-      :direction
-    )
-  end
 end
