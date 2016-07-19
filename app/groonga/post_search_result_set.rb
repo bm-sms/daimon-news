@@ -17,7 +17,7 @@ class PostSearchResultSet
 
   def posts
     @posts ||= @site.posts
-      .includes(:category, credits: [:participant])
+      .includes(categorizations: [:category], credits: [:participant])
       .published
       .where(id: paginated_post_ids)
       .order_as_specified(id: paginated_post_ids)
