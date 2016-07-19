@@ -24,7 +24,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equal(expected, Category.ordered.pluck(:name))
   end
 
-  def test_move_to_left_of_2
+  def test_move_to_left_of_shifted_2
     @categories[4].move_to_left_of(@categories[2])
     expected = @categories.map(&:name).values_at(0, 1, 4, 2, 3)
     assert_equal(expected, Category.ordered.pluck(:name))
@@ -36,7 +36,7 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equal(expected, Category.ordered.pluck(:name))
   end
 
-  def test_move_to_right_of_2
+  def test_move_to_right_of_shifted_2
     @categories[0].move_to_right_of(@categories[2])
     expected = @categories.map(&:name).values_at(1, 2, 0, 3, 4)
     assert_equal(expected, Category.ordered.pluck(:name))
