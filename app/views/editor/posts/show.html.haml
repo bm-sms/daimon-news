@@ -13,8 +13,10 @@
           [#{credit.role.name}]
           = link_to credit.participant.name, [:editor, credit.participant]
 %p
-  %b Category:
-  = @post.category&.name
+  %b Categories
+  %ul
+    - @post.categories.each do |category|
+      %li= category.full_name
 %p
   %b Serial:
   = @post.serial&.title
