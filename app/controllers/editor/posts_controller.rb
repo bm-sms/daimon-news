@@ -1,6 +1,6 @@
 class Editor::PostsController < Editor::ApplicationController
   def index
-    @posts = posts.preload(:category).order_by_recent.page(params[:page]).per(50)
+    @posts = posts.preload(:categories).order_by_recent.page(params[:page]).per(50)
   end
 
   def show
@@ -66,7 +66,6 @@ class Editor::PostsController < Editor::ApplicationController
     params.require(:post).permit(
       :title,
       :body,
-      :category_id,
       :serial_id,
       :thumbnail,
       :published_at,
@@ -75,6 +74,13 @@ class Editor::PostsController < Editor::ApplicationController
         :order,
         :participant_id,
         :credit_role_id,
+        :_destroy
+      ],
+      categorizations_attributes: [
+        :id,
+        :category_id,
+        :post_id,
+        :order,
         :_destroy
       ]
     )
