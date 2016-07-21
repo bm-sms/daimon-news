@@ -17,11 +17,11 @@ class ApiTest < ActionDispatch::IntegrationTest
       serial_id:     @serial.id
     }
 
-    get "/api/#{@site.fqdn}/posts?#{{filter: filter}.to_query}"
+    get("/api/#{@site.fqdn}/posts?#{{filter: filter}.to_query}")
 
     result = JSON.parse(response.body, symbolize_names: true)
 
-    assert_equal 1, result.dig(:data).count
-    assert_equal @post.id, result.dig(:data, 0, :id).to_i
+    assert_equal(1, result.dig(:data).count)
+    assert_equal(@post.id, result.dig(:data, 0, :id).to_i)
   end
 end
