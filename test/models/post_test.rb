@@ -16,7 +16,7 @@ class PostTest < ActiveSupport::TestCase
       category = create(:category, site: @site)
       role = create(:credit_role, site: @site)
       @participant = create(:participant, site: @site)
-      post = create(:post, site: @site, category: category)
+      post = create(:post, site: @site, categories: [category])
       post.credits.create!(participant: @participant, role: role, order: 1)
     end
 
@@ -65,9 +65,9 @@ class PostTest < ActiveSupport::TestCase
     end
 
     test "validate_with PostCategoryValidator" do
-      post = build(:post, category: @parent_category, site: @site)
+      post = build(:post, categories: [@parent_category], site: @site)
       assert { !post.valid? }
-      assert_equal(["子カテゴリを持つカテゴリ「#{@parent_category.full_name}」に記事を登録することはできません。"], post.errors[:category_id])
+      assert_equal(["子カテゴリを持つカテゴリ「#{@parent_category.full_name}」に記事を登録することはできません。"], post.errors[:categorizations])
     end
   end
 end
