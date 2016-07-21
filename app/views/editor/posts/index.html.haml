@@ -22,7 +22,10 @@
       %tr{ class: post.published? ? nil : 'post--unpublished' }
         %td= post.public_id
         %td= post.title
-        %td= post.categories.pluck(:name).join('<br>')
+        %td
+          %ul
+            - post.categories.pluck(:name).each do |name|
+              %li= name
         %td= l post.published_at if post.published_at
         %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
         %td= post.published? ? icon('check-square-o') : icon('square-o')
