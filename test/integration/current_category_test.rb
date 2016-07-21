@@ -31,25 +31,25 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
   end
 
   test "mark current category" do
-    visit "/category/ruby"
+    visit("/category/ruby")
 
     assert_equal("Ruby | #{@site.name}", title)
 
-    within ".menu__items" do
+    within(".menu__items") do
       assert_equal("Ruby", find(".menu__item[data-menu-item-state=current]").text)
     end
 
-    within ".main-pane" do
+    within(".main-pane") do
       click_on "Ruby x.x.x Released"
     end
 
-    within ".menu__items" do
+    within(".menu__items") do
       assert_equal("Ruby", find(".menu__item[data-menu-item-state=current]").text)
     end
   end
 
   test "render description as Markdown" do
-    visit "/category/ruby"
+    visit("/category/ruby")
 
     assert_equal("https://www.ruby-lang.org/", find(".category-description a")[:href])
   end
