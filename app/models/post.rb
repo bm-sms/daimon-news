@@ -23,6 +23,7 @@ class Post < ActiveRecord::Base
 
   scope :published, -> { where("published_at <= ?", Time.current) }
   scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
+  scope :categorized, ->(category) { joins(:categories).where("categories.id" => category.id) }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :categorizations, reject_if: :all_blank, allow_destroy: true
