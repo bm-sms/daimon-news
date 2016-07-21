@@ -15,7 +15,7 @@ class Editor::CategoriesController < Editor::ApplicationController
     @category = categories.build(category_params)
 
     if @category.save
-      redirect_to [:editor, @category], notice: "カテゴリが作成されました"
+      redirect_to [:site, :editor, @category, {site_id: current_site}], notice: "カテゴリが作成されました"
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Editor::CategoriesController < Editor::ApplicationController
     @category = categories.find(params[:id])
 
     if @category.update(category_params)
-      redirect_to [:editor, @category], notice: "カテゴリが更新されました"
+      redirect_to [:site, :editor, @category, {site_id: current_site}], notice: "カテゴリが更新されました"
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Editor::CategoriesController < Editor::ApplicationController
 
     @category.destroy
 
-    redirect_to editor_categories_url, notice: "カテゴリが削除されました"
+    redirect_to site_editor_categories_url(site_id: current_site), notice: "カテゴリが削除されました"
   end
 
   private

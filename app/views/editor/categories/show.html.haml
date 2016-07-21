@@ -11,6 +11,6 @@
   %b Order
   = @category.order
 
-= link_to 'Edit', edit_editor_category_url
+= link_to 'Edit', edit_site_editor_category_url(@category, site_id: current_site)
 \|
-= link_to 'Back', editor_categories_url
+= link_to 'Back', site_editor_categories_url(site_id: current_site)

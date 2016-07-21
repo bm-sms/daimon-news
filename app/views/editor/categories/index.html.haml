@@ -2,7 +2,7 @@
 
 %p カテゴリとは、同じテーマについて書かれた記事をまとめるためのものです。一つの記事は必ず一つのカテゴリに所属します。
 
-= link_to 'New Category', new_editor_category_url, class: 'btn btn-default'
+= link_to 'New Category', new_site_editor_category_url(site_id: current_site), class: 'btn btn-default'
 
 %table.table
   %thead
@@ -22,6 +22,6 @@
         %td= category.description
         %td= category.slug
         %td= category.order
-        %td= link_to 'Show', editor_category_url(category)
-        %td= link_to 'Edit', edit_editor_category_url(category)
-        %td= link_to 'Destroy', editor_category_url(category), method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', site_editor_category_url(category, site_id: current_site)
+        %td= link_to 'Edit', edit_site_editor_category_url(category, site_id: current_site)
+        %td= link_to 'Destroy', site_editor_category_url(category, site_id: current_site), method: :delete, data: { confirm: 'Are you sure?' }

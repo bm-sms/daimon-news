@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', editor_post_url(public_id: @post.public_id)
+= link_to 'Show', site_editor_post_url(public_id: @post.public_id, site_id: current_site)
 \|
-= link_to 'Back', editor_posts_url
+= link_to 'Back', site_editor_posts_url(site_id: current_site)

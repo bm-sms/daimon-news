@@ -15,7 +15,7 @@ class Editor::LinksController < Editor::ApplicationController
     @link = links.build(link_params)
 
     if @link.save
-      redirect_to [:editor, @link], notice: "リンクが作成されました"
+      redirect_to [:site, :editor, @link, {site_id: current_site}], notice: "リンクが作成されました"
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Editor::LinksController < Editor::ApplicationController
     @link = links.find(params[:id])
 
     if @link.update(link_params)
-      redirect_to [:editor, @link], notice: "リンクが更新されました"
+      redirect_to [:site, :editor, @link, {site_id: current_site}], notice: "リンクが更新されました"
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class Editor::LinksController < Editor::ApplicationController
 
     @link.destroy
 
-    redirect_to editor_links_url, notice: "リンクが削除されました"
+    redirect_to site_editor_links_url(site_id: current_site), notice: "リンクが削除されました"
   end
 
   private

@@ -2,7 +2,7 @@
 
 %p 執筆関係者とは、記事の執筆に関わる人や組織のことです。執筆関係者を記事に設定するときは役割と共に設定します。
 
-= link_to 'New Participant', new_editor_participant_url, class: 'btn btn-default'
+= link_to 'New Participant', new_site_editor_participant_url(site_id: current_site), class: 'btn btn-default'
 
 %table.table
   %thead
@@ -20,6 +20,6 @@
         %td= participant.name
         %td= participant.description
         %td= image_tag participant.photo_url, height: 80 if participant.photo.present?
-        %td= link_to 'Show', [:editor, participant]
-        %td= link_to 'Edit', edit_editor_participant_url(participant)
-        %td= link_to 'Destroy', [:editor, participant], method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', site_editor_participant_url(participant, site_id: current_site)
+        %td= link_to 'Edit', edit_site_editor_participant_url(participant, site_id: current_site)
+        %td= link_to 'Destroy', site_editor_participant_url(participant, site_id: current_site), method: :delete, data: { confirm: 'Are you sure?' }

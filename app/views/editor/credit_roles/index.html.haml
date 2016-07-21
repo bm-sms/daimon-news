@@ -2,7 +2,7 @@
 
 %p 役割とは、執筆関係者に付けるラベルです。役割には例えば、「執筆」、「編集」、「スポンサー」などがあります。
 
-= link_to 'New Credit role', new_editor_credit_role_url, class: 'btn btn-default'
+= link_to 'New Credit role', new_site_editor_credit_role_url(site_id: current_site), class: 'btn btn-default'
 
 %table.table
   %thead
@@ -18,6 +18,6 @@
       %tr
         %td= credit_role.name
         %td= credit_role.order
-        %td= link_to 'Show', editor_credit_role_url(credit_role)
-        %td= link_to 'Edit', edit_editor_credit_role_url(credit_role)
-        %td= link_to 'Destroy', editor_credit_role_url(credit_role), method: :delete, data: { confirm: 'Are you sure?' }
+        %td= link_to 'Show', site_editor_credit_role_url(credit_role, site_id: current_site)
+        %td= link_to 'Edit', edit_site_editor_credit_role_url(credit_role, site_id: current_site)
+        %td= link_to 'Destroy', site_editor_credit_role_url(credit_role, site_id: current_site), method: :delete, data: { confirm: 'Are you sure?' }
