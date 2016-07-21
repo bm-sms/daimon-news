@@ -7,14 +7,14 @@
 - if current_site.credit_enabled?
   %p
     %b Partcipants
-    %ul
+    %ul#participants
       - @post.credits.with_ordered.each do |credit|
         %li
           [#{credit.role.name}]
           = link_to credit.participant.name, [:editor, credit.participant]
 %p
   %b Categories
-  %ul
+  %ul#categories
     - @post.categories.each do |category|
       %li= category.full_name
 %p
