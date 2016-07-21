@@ -7,7 +7,7 @@ FactoryGirl.define do
 
     trait :whatever do
       site
-      category { create(:category, site: site) }
+      categories { create_list(:category, 1, site: site) }
     end
 
     trait :unpublished do
