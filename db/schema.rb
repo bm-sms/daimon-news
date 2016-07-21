@@ -23,9 +23,11 @@ ActiveRecord::Schema.define(version: 20160719080821) do
     t.datetime "updated_at",  null: false
     t.integer  "site_id"
     t.string   "slug",        null: false
-    t.integer  "order",       null: false
+    t.integer  "order"
+    t.string   "ancestry"
   end
 
+  add_index "categories", ["ancestry"], name: "index_categories_on_ancestry", using: :btree
   add_index "categories", ["slug", "site_id"], name: "index_categories_on_slug_and_site_id", unique: true, using: :btree
 
   create_table "credit_roles", force: :cascade do |t|
