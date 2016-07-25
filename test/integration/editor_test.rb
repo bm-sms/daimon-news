@@ -410,7 +410,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on("New Category")
 
       fill_in("Name",        with: "JRuby")
-      fill_in("Description", with: "JRuby is a one of Ruby implementation.")
+      fill_in("Description", with: "JRuby is an implementation of Ruby.")
       fill_in("Slug",        with: "jruby")
       select("Ruby", from: "category_parent_id")
       click_on("登録する")
