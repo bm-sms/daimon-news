@@ -4,7 +4,10 @@ class BreadcrumbsTest < ActionDispatch::IntegrationTest
   setup do
     @site = create(:site)
     @category = create(:category, site: @site)
-    create_list(:post, 21, categories: [@category], site: @site)
+    posts = create_list(:post, 21, site: @site)
+    posts.each do |post|
+      post.categorizations.create!(category: @category, order: 1)
+    end
 
     switch_domain(@site.fqdn)
 

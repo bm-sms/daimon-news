@@ -2,7 +2,8 @@ class PostRouteTest < ActionDispatch::IntegrationTest
   def setup
     @site = create(:site)
     @category = create(:category, site: @site)
-    @post = create(:post, :with_pages, site: @site, categories: [@category])
+    @post = create(:post, :with_pages, site: @site)
+    @post.categorizations.create!(category: @category, order: 1)
     https!
     host!(@site.fqdn)
   end
