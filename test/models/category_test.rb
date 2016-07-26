@@ -3,13 +3,12 @@ require "test_helper"
 class CategoryTest < ActiveSupport::TestCase
   def setup
     site = create(:site)
-    @categories = [
-      create(:category, name: "Ruby", order: 1, site: site),
-      create(:category, name: "Opal", order: 2, site: site),
-      create(:category, name: "mruby", order: 3, site: site),
-      create(:category, name: "JRuby", order: 4, site: site),
-      create(:category, name: "Rubinius", order: 5, site: site)
-    ]
+    @categories = []
+    @categories << create(:category, name: "Ruby", order: 1, site: site)
+    @categories << create(:category, name: "Opal", order: 2, site: site)
+    @categories << create(:category, name: "mruby", order: 3, site: site)
+    @categories << create(:category, name: "JRuby", order: 4, site: site)
+    @categories << create(:category, name: "Rubinius", order: 5, site: site)
   end
 
   def test_move_to_child_of
