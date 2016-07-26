@@ -11,7 +11,7 @@ $(() => {
   function setupOrder($element, target) {
     let orders = $(target).map((_i, el) => {
       return Number($(el).val());
-    });
+    }).toArray();
 
     orders.push(0); // Minimum value
 
