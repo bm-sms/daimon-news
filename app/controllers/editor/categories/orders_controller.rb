@@ -8,7 +8,8 @@ class Editor::Categories::OrdersController < Editor::ApplicationController
     else
       message = "カテゴリ「#{category.name}」を移動できませんでした"
     end
-    redirect_to editor_categories_url, notice: message
+
+    redirect_to :back, notice: message
   end
 
   private
