@@ -54,7 +54,8 @@ class Editor::CategoriesController < Editor::ApplicationController
       :name,
       :description,
       :slug,
-      :parent_id
+      # TODO: release this feature
+      # :parent_id
     )
   end
 end

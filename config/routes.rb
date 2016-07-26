@@ -18,7 +18,8 @@ Rails.application.routes.draw do
     resources :fixed_pages
     resources :links
     resources :categories do
-      resource :order, module: :categories, only: %i(update)
+      # TODO: release this feature
+      # resource :order, module: :categories, only: %i(update)
     end
     resources :serials
     resources :posts, param: :public_id do
