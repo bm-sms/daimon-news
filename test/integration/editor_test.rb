@@ -425,6 +425,38 @@ class EditorTest < ActionDispatch::IntegrationTest
         assert_false(find("td", text: "▼").has_css?("a"))
       end
     end
+
+    sub_test_case "parent category" do
+      setup do
+        # 0
+        # └── 1
+        #     ├── 2
+        #     └── 3
+        #         └── 4
+        @categories[1].update!(parent_id: @categories[0].id)
+        @categories[2].update!(parent_id: @categories[1].id)
+        @categories[3].update!(parent_id: @categories[1].id)
+        @categories[4].update!(parent_id: @categories[3].id)
+
+        click_on("カテゴリ")
+      end
+
+      test "doesn't appear its subtree" do
+        within(:row, @categories[3].name) do
+          click_on("Edit")
+        end
+
+        assert_equal(
+          [
+            "",
+            @categories[0].full_name,
+            @categories[1].full_name,
+            @categories[2].full_name
+          ],
+          find(:select, "Parent").all(:option).map(&:text)
+        )
+      end
+    end
   end
 
   sub_test_case "category hierarchy multiple sites" do
