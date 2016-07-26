@@ -424,4 +424,46 @@ class EditorTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  sub_test_case "category hierarchy multiple sites" do
+    setup do
+      site2 = create(:site)
+      @categories1 = []
+      @categories2 = []
+      @categories1 << create(:category, name: "Ruby", order: 1, site: @site)
+      @categories2 << create(:category, name: "Perl", order: 1, site: site2)
+      @categories1 << create(:category, name: "mruby", order: 2, site: @site)
+      @categories2 << create(:category, name: "PHP", order: 2, site: site2)
+      @categories1 << create(:category, name: "Opal", order: 3, site: @site)
+      @categories2 << create(:category, name: "Python", order: 3, site: site2)
+      @categories1 << create(:category, name: "JRuby", order: 4, site: @site)
+      @categories2 << create(:category, name: "Cython", order: 4, site: site2)
+      @categories1 << create(:category, name: "Rubinius", order: 5, site: @site)
+      @categories2 << create(:category, name: "Jython", order: 5, site: site2)
+    end
+
+    test "move to higher" do
+      click_on("カテゴリ")
+      within(:row, @categories1[4].name) do
+        click_on("▲")
+      end
+      names = find_all("tr.depth0").map do |tr|
+        tr.first("td").text
+      end
+      expected = @categories1.values_at(0, 1, 2, 4, 3).map(&:name)
+      assert_equal(expected, names)
+    end
+
+    test "move to lower" do
+      click_on("カテゴリ")
+      within(:row, @categories1[1].name) do
+        click_on("▼")
+      end
+      names = find_all("tr.depth0").map do |tr|
+        tr.first("td").text
+      end
+      expected = @categories1.values_at(0, 2, 1, 3, 4).map(&:name)
+      assert_equal(expected, names)
+    end
+  end
 end
