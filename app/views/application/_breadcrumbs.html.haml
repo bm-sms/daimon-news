@@ -1,4 +1,4 @@
-- breadcrumbs.tap do |links|
+- breadcrumbs(options).tap do |links|
   - if links.any?
     %nav.breadcrumbs
       %ol.breadcrumbs__list
@@ -7,4 +7,8 @@
             %a.breadcrumbs__link(itemprop='url'){href: link.url}
               %span(itemprop='title')= link.text
         %li.breadcrumbs__fragment(itemscope itemtype='http://data-vocabulary.org/Breadcrumb')
-          %span(itemprop='title')= links.last.text
+          - if links.options[:link_current]
+            %a.breadcrumbs__link(itemprop='url'){href: links.last.url}
+              %span(itemprop='title')= links.last.text
+          - else
+            %span(itemprop='title')= links.last.text
