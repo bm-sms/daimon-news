@@ -1,0 +1,15 @@
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th Slug
+      %th
+      %th
+      %th
+      %th
+      %th
+
+  %tbody
+    - categories.each do |category|
+      = render 'category', category: category

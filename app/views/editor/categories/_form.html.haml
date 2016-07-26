@@ -2,7 +2,8 @@
   = f.text_field :name
   = f.text_area :description, class: "markdown-editor", data: {upload_path: editor_images_url}
   = f.text_field :slug, help: "URLの一部に使うこのカテゴリを表すわかりやすい英単語を指定します"
-  = f.number_field :order, help: "ナビゲーションバーに表示する順序を指定します"
+  - help_text = "親カテゴリを指定します。指定しない場合はトップレベルのカテゴリになります"
+  = f.collection_select :parent_id, current_site.categories.parental(@category), :id, :full_name, {include_blank: true, help: help_text}, {class: "select2", "data-select2-allow-clear": true}
 
   = f.form_group do
     = f.submit

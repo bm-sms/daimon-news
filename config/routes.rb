@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
     resources :fixed_pages
     resources :links
-    resources :categories
+    resources :categories do
+      resource :order, module: :categories, only: %i(update)
+    end
     resources :serials
     resources :posts, param: :public_id do
       member do

@@ -17,6 +17,7 @@ class Post < ActiveRecord::Base
   validates :category_id, presence: true
   validates :body, presence: true
   validates :thumbnail, presence: true
+  validates_with PostCategoryValidator
 
   before_save :assign_public_id
 

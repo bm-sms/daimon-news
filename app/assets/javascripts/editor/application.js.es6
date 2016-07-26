@@ -4,4 +4,4 @@
 //= require cocoon
 //= require select2
 //= require ./editor
-//= require ./post_form
+//= require ./form

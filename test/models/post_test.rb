@@ -11,24 +11,6 @@ class PostTest < ActiveSupport::TestCase
     I18n.locale = @default_locale
   end
 
-  sub_test_case "order" do
-    data({
-      null: nil,
-      blank: "",
-      alphabet: "a",
-    })
-    def test_only_integer(data)
-      category = @site.categories.create(
-        name:        "category 1",
-        description: "category 1",
-        slug:        "category1",
-        order:       data
-      )
-      assert_false(category.valid?)
-      assert_equal(["は数値で入力してください"], category.errors[:order])
-    end
-  end
-
   sub_test_case "relation" do
     setup do
       category = create(:category, site: @site)
@@ -73,6 +55,19 @@ class PostTest < ActiveSupport::TestCase
 
     def test_participants_should_ordered_by_role_order
       assert_equal @credits.map(&:participant).map(&:name), ["Participant: 1", "Participant: 2", "Participant: 3"]
+    end
+  end
+
+  sub_test_case "category" do
+    setup do
+      @parent_category = create(:category, site: @site)
+      @child_category = create(:category, site: @site, parent: @parent_category)
+    end
+
+    test "validate_with PostCategoryValidator" do
+      post = build(:post, category: @parent_category, site: @site)
+      assert { !post.valid? }
+      assert_equal(["子カテゴリを持つカテゴリ「#{@parent_category.full_name}」に記事を登録することはできません。"], post.errors[:category_id])
     end
   end
 end

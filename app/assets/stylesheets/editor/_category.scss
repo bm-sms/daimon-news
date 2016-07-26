@@ -1,0 +1,10 @@
+$max-depth: 10;
+$left-margin: 2rem;
+
+@for $i from 0 to $max-depth {
+  .depth#{$i} {
+    td:first-child {
+      text-indent: $left-margin * $i;
+    }
+  }
+}
