@@ -10,7 +10,7 @@
       .wrappable
         .wrappable__content.wrappable__content--flex.main-pane
           %main
-            = render 'application/breadcrumbs'
+            = render 'application/breadcrumbs', options: {}
             = yield
             %p.link-from-error-page= link_to t('.link_to_top', site_name: current_site.name), current_site.home_url.presence || root_url
 
