@@ -16,7 +16,8 @@ class PostTest < ActiveSupport::TestCase
       category = create(:category, site: @site)
       role = create(:credit_role, site: @site)
       @participant = create(:participant, site: @site)
-      post = create(:post, site: @site, categories: [category])
+      post = create(:post, site: @site)
+      post.categorizations.create!(category: category, order: 1)
       post.credits.create!(participant: @participant, role: role, order: 1)
     end
 
