@@ -54,7 +54,6 @@ class Editor::CategoriesController < Editor::ApplicationController
       :name,
       :description,
       :slug,
-      :order,
       :parent_id
     )
   end
