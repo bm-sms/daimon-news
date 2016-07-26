@@ -40,15 +40,6 @@ class Category < ActiveRecord::Base
     end
   end
 
-  def move_to_child_of(reference_instance)
-    transaction do
-      remove_from_list
-      update!(parent: reference_instance)
-      add_to_list_bottom
-      save!
-    end
-  end
-
   def move_to_left_of(reference_instance)
     transaction do
       remove_from_list
@@ -78,8 +69,6 @@ class Category < ActiveRecord::Base
 
   def move_to(reference_instance, direction:)
     case direction.to_sym
-    when :child
-      move_to_child_of(reference_instance)
     when :left
       move_to_left_of(reference_instance)
     when :right
