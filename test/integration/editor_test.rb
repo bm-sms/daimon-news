@@ -209,7 +209,6 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     attribute :js, true
     test "Post" do
-      page.driver.browser.js_errors = false
       click_on("記事")
 
       click_on("New Post")
@@ -254,12 +253,10 @@ class EditorTest < ActionDispatch::IntegrationTest
 
       assert_equal("/editor/posts", page.current_path)
       assert_not(page.has_css?("td", text: "Ruby lang"))
-      page.driver.browser.js_errors = true
     end
 
     attribute :js, true
     test "Post with serial" do
-      page.driver.browser.js_errors = false
       click_on("記事")
 
       click_on("New Post")
@@ -305,7 +302,6 @@ class EditorTest < ActionDispatch::IntegrationTest
 
       assert_equal("/editor/posts", page.current_path)
       assert_not(page.has_css?("td", text: "Ruby lang"))
-      page.driver.browser.js_errors = true
     end
   end
 
