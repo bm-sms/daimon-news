@@ -1,6 +1,8 @@
 after "development:sites", "development:categories" do
   site1 = Site.find_by!(name: "site1")
-  site1.posts.create!(
+  category1 = site1.categories.find_by!(slug: "category1")
+  category2 = site1.categories.find_by!(slug: "category2")
+  post = site1.posts.create!(
     title: "Hello",
     body: <<-EOS.strip_heredoc,
       # Hello
@@ -10,12 +12,12 @@ after "development:sites", "development:categories" do
     EOS
     thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: Time.current,
-    categories: [site1.categories.find_by!(slug: "category1")],
   )
+  post.categorizations.create!(category: category1, order: 1)
 
   published_at = 3.minutes.from_now
 
-  site1.posts.create!(
+  post = site1.posts.create!(
     title: "This post will appear at #{published_at}",
     body: <<-EOS.strip_heredoc,
       # Hello
@@ -25,8 +27,8 @@ after "development:sites", "development:categories" do
     EOS
     thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: published_at,
-    categories: [site1.categories.find_by!(slug: "category2")],
   )
+  post.categorizations.create!(category: category2, order: 1)
 
   paginate_body = <<~EOS
     page 1
@@ -43,17 +45,18 @@ after "development:sites", "development:categories" do
   50.times do |i|
     i += 100
 
-    site1.posts.create!(
+    post = site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      categories: [site1.categories.find_by!(slug: "category1")],
+      categories: [],
     )
+    post.categorizations.create!(category: category2, order: 1)
   end
 
   # below records: id != public_id
-  site1.posts.create!(
+  post = site1.posts.create!(
     title: "Hello",
     body: <<-EOS.strip_heredoc,
       # Hello
@@ -64,61 +67,61 @@ after "development:sites", "development:categories" do
     public_id: 100_000,
     thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: Time.current,
-    categories: [site1.categories.find_by!(slug: "category2")],
   )
+  post.categorizations.create!(category: category2, order: 1)
 
   50.times do |i|
     i += 100
 
-    site1.posts.create!(
+    post = site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      categories: [site1.categories.find_by!(slug: "category2")],
     )
+    post.categorizations.create!(category: category2, order: 1)
   end
 
   25.times do |i|
     i += site1.posts.maximum(:public_id)
-    site1.posts.create!(
+    post = site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      categories: [site1.categories.find_by!(slug: "category3_1_1")],
     )
+    post.categorizations.create!(category: site1.categories.find_by!(slug: "category3_1_1"), order: 1)
     i += 1
-    site1.posts.create!(
+    post = site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      categories: [site1.categories.find_by!(slug: "category3_1_2")],
     )
+    post.categorizations.create!(category: site1.categories.find_by!(slug: "category3_1_2"), order: 1)
     i += 1
-    site1.posts.create!(
+    post = site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      categories: [site1.categories.find_by!(slug: "category3_1_3")],
     )
+    post.categorizations.create!(category: site1.categories.find_by!(slug: "category3_1_3"), order: 1)
     i += 1
-    site1.posts.create!(
+    post = site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      categories: [site1.categories.find_by!(slug: "category3_2")],
     )
+    post.categorizations.create!(category: site1.categories.find_by!(slug: "category3_2"), order: 1)
     i += 1
-    site1.posts.create!(
+    post = site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      categories: [site1.categories.find_by!(slug: "category3_3")],
     )
+    post.categorizations.create!(category: site1.categories.find_by!(slug: "category3_3"), order: 1)
   end
 end
