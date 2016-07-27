@@ -52,6 +52,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "daimon-deka", require: false
   gem "launchy"
   gem "pry-rails"
   gem "rails-erd", require: false
