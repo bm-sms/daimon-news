@@ -104,6 +104,7 @@ GEM
     cocoon (1.2.9)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
+    daimon-deka (1.0.0)
     daimon-markdown (0.4.0)
       html-pipeline
       redcarpet
@@ -511,6 +512,7 @@ DEPENDENCIES
   browser
   carrierwave
   cocoon
+  daimon-deka
   daimon-markdown
   daimon_news-layout!
   database_cleaner
