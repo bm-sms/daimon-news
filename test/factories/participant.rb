@@ -11,5 +11,12 @@ FactoryGirl.define do
     trait :with_photo do
       photo { Rails.root.join("test/fixtures/images/face.png").open }
     end
+
+    trait :with_posts do
+      after :create do |participant, _evaluator|
+        post = create(:post, :whatever, site: participant.site)
+        post.credits << build(:credit, :whatever, site: participant.site, participant: participant)
+      end
+    end
   end
 end
