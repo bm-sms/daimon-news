@@ -27,7 +27,7 @@ module ParticipantDecorator
     end
   end
 
-  def number_of_posts(posts)
-    "記事数：#{posts.size}"
+  def number_of_posts
+    "記事数：#{posts.published.size}"
   end
 end
