@@ -31,15 +31,18 @@
 
   = render 'application/banner', position: :press_article_bottom
 
-  %div.related-categories
-    - @post.categories[1..-1].each do |category|
-      - with_breadcrumb :category, category do
-        = render 'application/breadcrumbs', options: {link_current: true}
-
   %aside
     = render 'application/sns_share', title: @post.title, url: post_url(public_id: @post.public_id), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
 
     - if @post.serial
       %p.post__serial--index= link_to 'この連載の記事一覧へ', serial_url(@post.serial)
+
+
+    - if @post.categories[1..-1].present?
+      %h3 関連カテゴリ
+      %div.related-categories
+        - @post.categories[1..-1].each do |category|
+          - with_breadcrumb :category, category do
+            = render 'application/breadcrumbs', options: {link_current: true}
 
     = render 'posts/short_collection', posts: @post.related_posts
