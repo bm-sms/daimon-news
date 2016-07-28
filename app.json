@@ -57,6 +57,6 @@
     }
   ],
   "scripts": {
-    "postdeploy": "bundle exec rake db:schema:load && bundle exec rake db:seed:development"
+    "postdeploy": "bundle exec rake db:structure:load && bundle exec rake db:seed:development"
   }
 }

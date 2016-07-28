@@ -5,9 +5,7 @@
   %td= link_to 'Show', editor_category_url(category)
   %td= link_to 'Edit', edit_editor_category_url(category)
   %td= link_to 'Destroy', editor_category_url(category), method: :delete, data: { confirm: 'Are you sure?' }
-  - if false
-    - # TODO release this feature
-    %td= link_to_if category.higher_item, '▲', editor_category_order_url(category_id: category, move_to: "left", target: category.higher_item), method: :put
-    %td= link_to_if category.lower_item, '▼', editor_category_order_url(category_id: category, move_to: "right", target: category.lower_item), method: :put
+  %td= link_to_if category.higher_item, '▲', editor_category_order_url(category_id: category, target: category.higher_item, move_to: "higher"), method: :put
+  %td= link_to_if category.lower_item, '▼', editor_category_order_url(category_id: category, target: category.lower_item, move_to: "lower"), method: :put
 - category.children.ordered.each do |c|
   = render 'category', category: c
