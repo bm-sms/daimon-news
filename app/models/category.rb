@@ -11,7 +11,12 @@ class Category < ActiveRecord::Base
   # For PostgreSQL, doesn't work on MySQL
   # See https://github.com/stefankroes/ancestry/pull/238
   scope :leaves, -> { joins("LEFT JOIN #{quoted_table_name} AS c ON c.#{ancestry_column} = CAST(#{quoted_table_name}.id AS text) OR c.#{ancestry_column} = #{quoted_table_name}.#{ancestry_column} || '/' || #{quoted_table_name}.id").group("#{quoted_table_name}.id").having("COUNT(c.id) = 0").order("#{quoted_table_name}.#{ancestry_column} NULLS FIRST", :order) }
-  scope :parental, ->(category = nil) { includes(:posts).where("posts.id" => nil).where.not(id: category&.id).order("#{quoted_table_name}.#{ancestry_column} NULLS FIRST", :order) }
+  scope :parental, lambda {|category|
+    categories = includes(:posts).where("posts.id" => nil).order("#{quoted_table_name}.#{ancestry_column} NULLS FIRST", :order)
+    categories = categories.where.not(id: category.subtree.select(:id).to_sql) if category.persisted?
+
+    categories
+  }
 
   before_validation do
     self.order = (siblings.maximum(:order) || 0) + 1 if !order || ancestry_changed?
