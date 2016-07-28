@@ -5,7 +5,7 @@ class ParticipantsController < ApplicationController
   end
 
   def show
-    @participant = current_site.participants.find(params[:id])
+    @participant = current_site.participants.with_published_posts.find(params[:id])
     @posts = @participant.posts.published.order_by_recent.page(params[:page])
 
     @posts.extend(PaginationInfoDecorator)
