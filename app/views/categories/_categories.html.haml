@@ -1,4 +1,4 @@
-%ul.category-summary
+%ul{class: depth <= 1 ? "category-summary" : "sub-category-summary"}
   - categories.each do |category|
     %li
       = link_to "#{category.name} (#{category.post_count})", category_url(category.slug)
@@ -6,6 +6,6 @@
         - if category.has_children?
           = render 'categories', categories: category.children, depth: depth + 1
         - else
-          %ul
+          %ul.posts-title
             - category.posts.published.order_by_recent.limit(7).each do |post|
               = render 'posts/title', post: post
