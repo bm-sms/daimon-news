@@ -47,9 +47,10 @@ class Category < ActiveRecord::Base
 
   def post_count
     if has_children?
-      # Use `to_a` to call `Enumerable#sum` here.
-      # We can remove `to_a` after Rails 5. http://api.rubyonrails.org/classes/ActiveRecord/Calculations.html#method-i-sum
-      children.to_a.sum {|child| child.posts.published.count }
+      ids = subtree.inject([]) do |memo, category|
+        memo + category.posts.published.select(:id)
+      end
+      ids.uniq.size
     else
       posts.published.count
     end
