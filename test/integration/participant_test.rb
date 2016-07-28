@@ -20,14 +20,14 @@ class ParticipantTest < ActionDispatch::IntegrationTest
 
       visit("/participants?page=2")
 
-      assert_equal("すべての執筆関係者 (26〜50/#{Participant.published.count}件) | #{@site.name}", title)
+      assert_equal("すべての執筆関係者 (26〜50/#{Participant.with_published_posts.count}件) | #{@site.name}", title)
     end
 
     test "participant titles" do
       visit "/participants"
 
       participant_titles = find_all(".participant-summary__title")
-      assert_equal(@participants.map(&:name).reverse, participant_titles.map(&:text))
+      assert_equal(@participants.map(&:name).sort, participant_titles.map(&:text))
     end
 
     test "number of posts" do
@@ -41,7 +41,7 @@ class ParticipantTest < ActionDispatch::IntegrationTest
       create(:participant, :with_posts, site: @site, summary: "This is a summary")
       visit("/participants")
 
-      description = first(".participant-summary__content")
+      description = find_all(".participant-summary__content").last
       assert_equal("This is a summary", description.text)
     end
   end
