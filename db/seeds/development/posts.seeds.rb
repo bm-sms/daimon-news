@@ -107,6 +107,7 @@ after "development:sites", "development:categories" do
       published_at: Time.current,
     )
     post.categorizations.create!(category: site1.categories.find_by!(slug: "category3_1_3"), order: 1)
+    post.categorizations.create!(category: site1.categories.find_by!(slug: "category3_1_4"), order: 2)
     i += 1
     post = site1.posts.create!(
       title: "Post #{i}",
