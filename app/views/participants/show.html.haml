@@ -26,7 +26,7 @@
         %li
           = link_to post.title, post_url(public_id: post.public_id)
           %strong
-            = post.credits.find_by(participant: @participant).role.name
+            = post.participant_role(@participant).name
 
   - if @posts.total_pages > 1
     %nav.pagination

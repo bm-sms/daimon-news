@@ -40,6 +40,10 @@ class Post < ActiveRecord::Base
     Post.published.where(id: ids).order_by_recent
   end
 
+  def participant_role(participant)
+    credits.find {|credit| credit.participant == participant }.role
+  end
+
   private
 
   def assign_public_id

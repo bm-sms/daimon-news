@@ -6,7 +6,7 @@ class ParticipantsController < ApplicationController
 
   def show
     @participant = current_site.participants.with_published_posts.find(params[:id])
-    @posts = @participant.posts.published.order_by_recent.page(params[:page])
+    @posts = @participant.posts.published.eager_load(credits: :role).order_by_recent.page(params[:page])
 
     @posts.extend(PaginationInfoDecorator)
   end
