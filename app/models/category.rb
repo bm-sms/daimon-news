@@ -52,4 +52,18 @@ class Category < ActiveRecord::Base
   def lower_item
     siblings.where('"order" > ?', order).ordered.first
   end
+
+  def move_to(direction:, target:)
+    return false unless valid_target?(direction: direction, target: target)
+
+    Category.swap_order(self, target)
+
+    true
+  end
+
+  private
+
+  def valid_target?(direction:, target:)
+    (direction == "higher" && higher_item == target) || (direction == "lower" && lower_item == target)
+  end
 end
