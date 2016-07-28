@@ -6,8 +6,8 @@ class Participant < ActiveRecord::Base
 
   validates :name, presence: true
 
-  scope :published, -> { joins(:posts).merge(Post.published).uniq }
-  scope :order_by_recent, -> { order(id: :desc) }
+  scope :with_published_posts, -> { joins(:posts).merge(Post.published).uniq }
+  scope :sorted, -> { order(:name) }
 
   mount_uploader :photo, ImageUploader
 end
