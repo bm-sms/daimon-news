@@ -330,8 +330,6 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   sub_test_case "Category hierarchy" do
     setup do
-      pend "TODO: release this feature"
-
       @categories = create_list(:category, 5, site: @site)
     end
 
@@ -360,6 +358,8 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     test "append children" do
+      pend "TODO: release this feature"
+
       click_on("カテゴリ")
       click_on("New Category")
 

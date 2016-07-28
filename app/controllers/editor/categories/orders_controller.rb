@@ -2,7 +2,7 @@ class Editor::Categories::OrdersController < Editor::ApplicationController
   def update
     category = categories.find(params[:category_id])
     target_category = categories.find(params[:target])
-    category.move_to(target_category, direction: params[:move_to])
+    Category.swap_order(category, target_category)
 
     redirect_to :back, notice: "カテゴリ「#{category.name}」を移動しました"
   end
