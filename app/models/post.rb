@@ -23,7 +23,14 @@ class Post < ActiveRecord::Base
 
   scope :published, -> { where("published_at <= ?", Time.current) }
   scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
-  scope :categorized_by, ->(category) { joins(:categories).where("categories.id" => category.id) }
+  scope :categorized_by, ->(category) {
+    if category.has_children?
+      category_ids = category.subtree_ids
+    else
+      category_ids = category.id
+    end
+    joins(:categories).where("categories.id" => category_ids)
+  }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :categorizations, reject_if: :all_blank, allow_destroy: true
