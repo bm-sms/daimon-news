@@ -24,8 +24,8 @@
         %td= post.title
         %td
           %ul
-            - post.categories.pluck(:name).each do |name|
-              %li= name
+            - post.categories.each do |category|
+              %li= category.name
         %td= l post.published_at if post.published_at
         %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
         %td= post.published? ? icon('check-square-o') : icon('square-o')
