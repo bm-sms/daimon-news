@@ -55,6 +55,10 @@ class Category < ActiveRecord::Base
     end
   end
 
+  def children_or_posts?
+    children? || posts.published.count.nonzero?
+  end
+
   def higher_item
     siblings.where('"order" < ?', order).ordered.last
   end
