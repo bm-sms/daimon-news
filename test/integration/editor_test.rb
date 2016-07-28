@@ -442,6 +442,8 @@ class EditorTest < ActionDispatch::IntegrationTest
       end
 
       test "doesn't appear its subtree" do
+        pend "TODO: release this feature"
+
         within(:row, @categories[3].name) do
           click_on("Edit")
         end
