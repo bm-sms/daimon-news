@@ -27,6 +27,10 @@ class Site < ActiveRecord::Base
     participants.exists? && credit_roles.exists?
   end
 
+  def participant_enabled?
+    view_participants? && participants.having_published_posts.present?
+  end
+
   private
 
   def validate_category_title_format

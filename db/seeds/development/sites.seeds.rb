@@ -1,11 +1,13 @@
 Site.create!(
   name: "site1",
   fqdn: ENV["HEROKU_APP_NAME"].present? ? "#{ENV['HEROKU_APP_NAME']}.herokuapp.com" : "localhost",
-  opened: true
+  opened: true,
+  view_participants: true
 )
 
 Site.create!(
   name:   "site2",
   fqdn:   "lvh.me",
-  opened: false
+  opened: false,
+  view_participants: true
 )
