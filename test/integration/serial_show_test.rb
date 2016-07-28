@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SerialTest < ActionDispatch::IntegrationTest
+class SerialShowTest < ActionDispatch::IntegrationTest
   setup do
     @site = create(:site)
     @serials = create_list(:serial, 3, :with_posts, :with_unpublished_posts, site: @site)
