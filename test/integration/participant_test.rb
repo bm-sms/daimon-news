@@ -20,7 +20,7 @@ class ParticipantTest < ActionDispatch::IntegrationTest
 
       visit("/participants?page=2")
 
-      assert_equal("すべての執筆関係者 (26〜50/#{Participant.with_published_posts.count}件) | #{@site.name}", title)
+      assert_equal("すべての執筆関係者 (26〜50/#{Participant.having_published_posts.count}件) | #{@site.name}", title)
     end
 
     test "participant titles" do
