@@ -1,0 +1,6 @@
+- if categories.present?
+  %h3 関連カテゴリ
+  %div.related-categories
+    - categories.each do |category|
+      - with_breadcrumb :category, category do
+        = render 'application/breadcrumbs', options: {link_current: true}
