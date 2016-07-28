@@ -670,6 +670,13 @@ CREATE INDEX index_categories_on_ancestry ON categories USING btree (ancestry);
 
 
 --
+-- Name: index_categories_on_site_id_and_coalesce_ancestry_and_order; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_categories_on_site_id_and_coalesce_ancestry_and_order ON categories USING btree (site_id, (COALESCE(ancestry, 'NULL'::character varying)), "order");
+
+
+--
 -- Name: index_categories_on_slug_and_site_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1114,4 +1121,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160629022837');
 INSERT INTO schema_migrations (version) VALUES ('20160712005001');
 
 INSERT INTO schema_migrations (version) VALUES ('20160719080821');
+
+INSERT INTO schema_migrations (version) VALUES ('20160726082451');
 
