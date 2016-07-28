@@ -1,9 +1,9 @@
 %ul
-  - @posts.each do |post|
+  - posts.each do |post|
     = render 'posts/summary_with_content', post: post, thumbnail: true
   = render 'native_ad', position: :press_articles_bottom
 
-- if @posts.total_pages > 1
+- if posts.total_pages > 1
   %nav.pagination
     = paginate @posts, window: 2
     %p.pagination__entries= page_entries_info @posts
