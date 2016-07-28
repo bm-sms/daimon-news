@@ -36,6 +36,10 @@ class Category < ActiveRecord::Base
     end
   end
 
+  def siblings
+    super.where(site_id: site_id)
+  end
+
   def full_name
     (ancestors.pluck(:name) + [name]).join("/")
   end
