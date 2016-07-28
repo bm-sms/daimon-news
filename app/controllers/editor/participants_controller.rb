@@ -1,6 +1,6 @@
 class Editor::ParticipantsController < Editor::ApplicationController
   def index
-    @participants = participants.order(:name)
+    @participants = participants.sorted
   end
 
   def show

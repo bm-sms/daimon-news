@@ -2,6 +2,8 @@
   = link_to participant_url(participant), class: 'participant-summary__url' do
     - if participant.photo.present?
       = image_tag participant.photo_url, class: 'participant-summary__thumbnail'
+    - else
+      .participant-summary__thumbnail
     .participant-summary__body
       %p.participant-summary__title
         = participant.name
