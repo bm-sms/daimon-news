@@ -41,6 +41,8 @@ crumb :page_num do |page_num, options|
       parent :serial, options[:serial]
     when options[:serials]
       parent :serials
+    when options[:participant]
+      parent :participant, options[:participant]
     when options[:participants]
       parent :participants
     end
