@@ -31,7 +31,9 @@ SitemapGenerator::Sitemap.create do
     end
   end
 
-  site.participants.having_published_posts.find_each do |participant|
-    add participant_path(participant), changefreq: "weekly", priority: 0.6
+  if site.public_participant_page_accessible?
+    site.participants.having_published_posts.find_each do |participant|
+      add participant_path(participant), changefreq: "weekly", priority: 0.6
+    end
   end
 end

@@ -4,7 +4,7 @@
       .content
         %h2
           %strong= credit.role.name
-          = link_to credit.participant.name, credit.participant
+          = link_to_if current_site.public_participant_page_enabled?, credit.participant.name, credit.participant
         %p
           = credit.participant.summary
       - if credit.participant.photo.present?
