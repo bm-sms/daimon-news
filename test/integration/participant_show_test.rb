@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ParticipantTest < ActionDispatch::IntegrationTest
+class ParticipantShowTest < ActionDispatch::IntegrationTest
   setup do
     @site = create(:site)
     @participants = create_list(:participant, 3, :with_photo, :with_posts, site: @site)
