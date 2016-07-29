@@ -276,10 +276,11 @@ CREATE TABLE participants (
     id integer NOT NULL,
     site_id integer NOT NULL,
     name character varying NOT NULL,
-    description text,
+    summary text,
     photo character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    description text
 );
 
 
@@ -417,7 +418,8 @@ CREATE TABLE sites (
     category_title_format character varying,
     view_all boolean DEFAULT false NOT NULL,
     base_hue integer,
-    custom_hue_css character varying
+    custom_hue_css character varying,
+    public_participant_page_enabled boolean DEFAULT false NOT NULL
 );
 
 
@@ -1120,7 +1122,13 @@ INSERT INTO schema_migrations (version) VALUES ('20160629022837');
 
 INSERT INTO schema_migrations (version) VALUES ('20160712005001');
 
+INSERT INTO schema_migrations (version) VALUES ('20160712070026');
+
+INSERT INTO schema_migrations (version) VALUES ('20160712074703');
+
 INSERT INTO schema_migrations (version) VALUES ('20160719080821');
 
 INSERT INTO schema_migrations (version) VALUES ('20160726082451');
+
+INSERT INTO schema_migrations (version) VALUES ('20160728110235');
 
