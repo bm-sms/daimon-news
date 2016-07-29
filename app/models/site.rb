@@ -28,7 +28,7 @@ class Site < ActiveRecord::Base
   end
 
   def public_participant_page_accessible?
-    public_participant_page_enabled? && participants.having_published_posts.present?
+    public_participant_page_enabled? && participants.having_published_posts.exists?
   end
 
   private
