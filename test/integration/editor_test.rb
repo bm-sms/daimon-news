@@ -113,17 +113,26 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on("New Fixed page")
 
-    fill_in("Title", with: "Ruby")
-    fill_in("Body",  with: "Ruby is a programming language.")
+    fill_in("Title", with: "What is Ruby?")
+    fill_in("Body",  with: <<~MD)
+      ## Ruby is a programming language.
+    MD
     fill_in("Slug",  with: "ruby")
 
     click_on("登録する")
 
-    assert(page.has_css?("p", text: "Title: Ruby"))
+    assert(page.has_css?("p", text: "Title: What is Ruby?"))
 
-    click_on("Back")
+    visit "/ruby"
 
-    within(:row, "Ruby") do
+    assert(page.has_css?("h1.post__title", text: "What is Ruby?"))
+    within ".post__body" do
+      assert(page.has_css?("h2", text: "Ruby is a programming language"))
+    end
+
+    visit "/editor/fixed_pages"
+
+    within(:row, "What is Ruby?") do
       click_on("Edit")
     end
 
