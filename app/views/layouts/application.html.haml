@@ -56,6 +56,11 @@
               %p.to-serials
                 = link_to 'すべての連載を見る', serials_url
 
+            - if current_site.participants.having_published_posts.present?
+              %h2.subheading.subheading--aside.subheading--press-articles 執筆関係者
+              %p.to-participants
+                = link_to 'すべての執筆関係者を見る', participants_url
+
             %h2.subheading.subheading--aside カテゴリ
             %ul.category-list
               - current_site.categories.roots.ordered.each do |category|

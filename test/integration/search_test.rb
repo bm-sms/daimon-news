@@ -134,12 +134,12 @@ class SearchTest < ActionDispatch::IntegrationTest
 
     visit("/")
 
-    fill_in("query[keywords]", with: "post contents author description")
+    fill_in("query[keywords]", with: "post contents author summary")
 
     click_on("検索")
 
     within("main") do
-      assert_equal("「post contents author description」を含む記事が1件見つかりました。", find(".message").text)
+      assert_equal("「post contents author summary」を含む記事が1件見つかりました。", find(".message").text)
     end
   end
 

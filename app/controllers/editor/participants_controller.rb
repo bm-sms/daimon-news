@@ -3,7 +3,7 @@ class Editor::ParticipantsController < Editor::ApplicationController
   before_action :force_redirect_to_show_action, only: %i(edit update)
 
   def index
-    @participants = participants.order(:name)
+    @participants = participants.sorted
   end
 
   def show
@@ -55,6 +55,7 @@ class Editor::ParticipantsController < Editor::ApplicationController
   def participant_params
     params.require(:participant).permit(
       :name,
+      :summary,
       :description,
       :photo,
       :remove_photo

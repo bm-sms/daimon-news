@@ -21,6 +21,15 @@ crumb :post do |post|
   parent :category, post.category
 end
 
+crumb :participant do |participant|
+  link participant.name, participant_url(participant)
+  parent :participants
+end
+
+crumb :participants do
+  link "すべての執筆関係者", participants_url
+end
+
 crumb :page_num do |page_num, options|
   link "#{page_num}ページ目"
 
@@ -32,6 +41,8 @@ crumb :page_num do |page_num, options|
       parent :serial, options[:serial]
     when options[:serials]
       parent :serials
+    when options[:participants]
+      parent :participants
     end
   else
     parent :root

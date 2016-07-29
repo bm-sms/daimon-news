@@ -1,0 +1,35 @@
+:ruby
+  canonical_url = @participant.canonical_url(@posts)
+  page_title = @participant.page_title(@posts)
+
+- content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@posts) }
+- content_for(:canonical_tag) do
+  %link{rel: :canonical, href: canonical_url}
+- if @posts.current_page > 1
+  - breadcrumb :page_num, @posts.current_page, participant: @participant
+- else
+  - breadcrumb :participant, @participant
+- set_meta_tags title: page_title, og: @participant.to_og_params
+- set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
+
+%section
+  %div.participant-content
+    - if @participant.photo.present?
+      = image_tag @participant.photo_url, class: "participant-content__photo"
+    %h1.participant-content__title
+      = @participant.name
+    %div.participant-content__description
+      = render_markdown @participant.description
+
+    %ul.participant-titles
+      - @posts.each do |post|
+        %li
+          = link_to post.title, post_url(public_id: post.public_id)
+          %strong
+            = post.participant_role(@participant).name
+
+  - if @posts.total_pages > 1
+    %nav.pagination
+      = paginate @posts, window: 2
+      %p.pagination__entries
+        = page_entries_info @posts

@@ -52,7 +52,7 @@ module PostSearchResultSetDecorator
     snippets = []
     post.credits.each do |credit|
       snippets.concat(snippet(credit.participant.name, class: "search-result__keyword"))
-      snippets.concat(snippet(credit.participant.description, class: "search-result__keyword"))
+      snippets.concat(snippet(credit.participant.summary, class: "search-result__keyword"))
     end
     snippets.concat(snippet(post.plain_text_body, class: "search-result__keyword"))
     if snippets.empty?

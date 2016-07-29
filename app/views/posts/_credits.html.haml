@@ -4,8 +4,8 @@
       .content
         %h2
           %strong= credit.role.name
-          = credit.participant.name
+          = link_to credit.participant.name, credit.participant
         %p
-          = credit.participant.description
+          = credit.participant.summary
       - if credit.participant.photo.present?
         .participant__photo= image_tag credit.participant.photo_url, height: 80
