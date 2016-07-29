@@ -74,6 +74,8 @@ class AdminTest < ActionDispatch::IntegrationTest
     end
   end
 
+  private
+
   def try_login_as_admin(email:, password:)
     using_session SecureRandom.uuid do
       visit "/admin"

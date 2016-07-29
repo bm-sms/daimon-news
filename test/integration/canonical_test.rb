@@ -153,6 +153,8 @@ class CanonicalTest < ActionDispatch::IntegrationTest
     end
   end
 
+  private
+
   def assert_canonical_url(url)
     assert_equal url, find("link[rel=canonical]", visible: false)[:href]
   end

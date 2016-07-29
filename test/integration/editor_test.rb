@@ -76,6 +76,8 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "Participant" do
+    pend "Editing participants is disabled until https://github.com/bm-sms/daimon-news/pull/565 merged"
+
     click_on("執筆関係者")
     click_on("New Participant")
 
@@ -117,17 +119,26 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     click_on("New Fixed page")
 
-    fill_in("Title", with: "Ruby")
-    fill_in("Body",  with: "Ruby is a programming language.")
+    fill_in("Title", with: "What is Ruby?")
+    fill_in("Body",  with: <<~MD)
+      ## Ruby is a programming language.
+    MD
     fill_in("Slug",  with: "ruby")
 
     click_on("登録する")
 
-    assert(page.has_css?("p", text: "Title: Ruby"))
+    assert(page.has_css?("p", text: "Title: What is Ruby?"))
 
-    click_on("Back")
+    visit "/ruby"
 
-    within(:row, "Ruby") do
+    assert(page.has_css?("h1.post__title", text: "What is Ruby?"))
+    within ".post__body" do
+      assert(page.has_css?("h2", text: "Ruby is a programming language"))
+    end
+
+    visit "/editor/fixed_pages"
+
+    within(:row, "What is Ruby?") do
       click_on("Edit")
     end
 
@@ -427,6 +438,40 @@ class EditorTest < ActionDispatch::IntegrationTest
       within(:row, "JRuby") do
         assert_false(find("td", text: "▲").has_css?("a"))
         assert_false(find("td", text: "▼").has_css?("a"))
+      end
+    end
+
+    sub_test_case "parent category" do
+      setup do
+        # 0
+        # └── 1
+        #     ├── 2
+        #     └── 3
+        #         └── 4
+        @categories[1].update!(parent_id: @categories[0].id)
+        @categories[2].update!(parent_id: @categories[1].id)
+        @categories[3].update!(parent_id: @categories[1].id)
+        @categories[4].update!(parent_id: @categories[3].id)
+
+        click_on("カテゴリ")
+      end
+
+      test "doesn't appear its subtree" do
+        pend "TODO: release this feature"
+
+        within(:row, @categories[3].name) do
+          click_on("Edit")
+        end
+
+        assert_equal(
+          [
+            "",
+            @categories[0].full_name,
+            @categories[1].full_name,
+            @categories[2].full_name
+          ],
+          find(:select, "Parent").all(:option).map(&:text)
+        )
       end
     end
   end

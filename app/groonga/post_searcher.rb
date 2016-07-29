@@ -1,4 +1,6 @@
 class PostSearcher
+  include MarkdownHelper
+
   class << self
     def search(query_params:, page:, site:)
       query = Query.new(query_params.merge(site_id: site.id))
@@ -16,7 +18,7 @@ class PostSearcher
 
     related_posts = @posts.select do |record|
       conditions = record.index("Words.Posts_title").similar_search(post.title)
-      conditions |= record.index("Words.Posts_content").similar_search(post.body)
+      conditions |= record.index("Words.Posts_content").similar_search(extract_content(post))
       post.credits.each do |credit|
         conditions |= (record.participants._key =~ credit.participant_id)
       end
@@ -57,5 +59,11 @@ class PostSearcher
     end
 
     posts
+  end
+
+  private
+
+  def extract_content(post)
+    extract_plain_text(post.body)
   end
 end

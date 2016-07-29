@@ -1,4 +1,7 @@
 class Editor::ParticipantsController < Editor::ApplicationController
+  # TODO: Remove https://github.com/bm-sms/daimon-news/pull/565 deplyed
+  before_action :force_redirect_to_show_action, only: %i(edit update)
+
   def index
     @participants = participants.sorted
   end
@@ -57,5 +60,10 @@ class Editor::ParticipantsController < Editor::ApplicationController
       :photo,
       :remove_photo
     )
+  end
+
+  # TODO: Remove https://github.com/bm-sms/daimon-news/pull/565 deplyed
+  def force_redirect_to_show_action
+    redirect_to({action: :show}, alert: "現在調整中につき執筆関係者の編集機能は利用できません。しばらく時間を置いてご利用ください。")
   end
 end
