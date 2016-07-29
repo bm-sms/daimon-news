@@ -56,7 +56,7 @@
               %p.to-serials
                 = link_to 'すべての連載を見る', serials_url
 
-            - if current_site.participant_enabled?
+            - if current_site.public_participant_page_accessible?
               %h2.subheading.subheading--aside.subheading--press-articles 執筆関係者
               %p.to-participants
                 = link_to 'すべての執筆関係者を見る', participants_url

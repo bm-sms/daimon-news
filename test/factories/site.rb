@@ -3,6 +3,6 @@ FactoryGirl.define do
     sequence(:name) {|n| "daimon-news#{n}" }
     sequence(:fqdn) {|n| "daimon-news-#{n}.example.com" }
     opened true
-    view_participants true
+    public_participant_page_enabled true
   end
 end

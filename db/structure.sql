@@ -419,7 +419,7 @@ CREATE TABLE sites (
     view_all boolean DEFAULT false NOT NULL,
     base_hue integer,
     custom_hue_css character varying,
-    view_participants boolean DEFAULT false NOT NULL
+    public_participant_page_enabled boolean DEFAULT false NOT NULL
 );
 
 

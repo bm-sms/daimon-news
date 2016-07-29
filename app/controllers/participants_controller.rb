@@ -1,7 +1,7 @@
 class ParticipantsController < ApplicationController
-  before_action :require_view_participants
+  before_action :require_accessibility
 
-  class NotAllowed < StandardError
+  class NotAccessible < StandardError
   end
 
   def index
@@ -18,7 +18,7 @@ class ParticipantsController < ApplicationController
 
   private
 
-  def require_view_participants
-    raise NotAllowed unless current_site.view_participants?
+  def require_accessibility
+    raise NotAccessible unless current_site.public_participant_page_accessible?
   end
 end
