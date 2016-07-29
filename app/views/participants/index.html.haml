@@ -1,0 +1,27 @@
+:ruby
+  canonical_url = current_site.participants_canonical_url(@participants)
+  page_title = @participants.page_title
+
+- content_for(:canonical_tag) do
+  %link{rel: :canonical, href: canonical_url}
+- content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@participants) }
+- if @participants.current_page > 1
+  - breadcrumb :page_num, @participants.current_page, participants: true
+- else
+  - breadcrumb :participants
+- set_meta_tags title: page_title
+- set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
+- @class_page_name = "participants"
+
+%h1.participants-header
+  すべての執筆関係者
+
+%ul.participants-list
+  - @participants.each do |participant|
+    = render "participants/summary", participant: participant
+
+- if @participants.total_pages > 1
+  %nav.pagination
+    = paginate @participants, window: 2
+    %p.pagination__entries
+      = page_entries_info @participants

@@ -78,7 +78,7 @@ class PostBodyWithAuthorTest < ActionDispatch::IntegrationTest
       visit "/#{@post.public_id}"
 
       within ".post .credits" do
-        assert page.has_content?("Awesome description")
+        assert page.has_content?("Awesome summary")
 
         within ".participant__photo" do
           image = find("img").native

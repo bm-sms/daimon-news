@@ -1,6 +1,7 @@
 = bootstrap_form_for [:editor, @participant], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
   = f.text_field :name
-  = f.text_area :description, help: "執筆関係者の所属や肩書を指定します"
+  = f.text_area :summary, help: "執筆関係者の所属や肩書を指定します"
+  = f.text_area :description, class: "markdown-editor", help: "執筆関係者の詳細な所属や肩書を指定します"
   = f.file_field :photo, help: "200px x 200px 程度の正方形の画像を使用してください"
   - if @participant.photo.present?
     = f.form_group do

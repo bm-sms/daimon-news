@@ -27,6 +27,14 @@ module SiteDecorator
     end
   end
 
+  def participants_canonical_url(participants)
+    if participants.current_page > 1
+      participants_url(page: participants.current_page)
+    else
+      participants_url
+    end
+  end
+
   def page_title(posts)
     if posts.current_page > 1
       "#{tagline} (#{posts.page_entries_info})"

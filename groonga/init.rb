@@ -17,7 +17,7 @@ Groonga::Schema.define do |schema|
                       type: :hash,
                       key_type: :uint32) do |table|
     table.short_text "name"
-    table.text "description"
+    table.text "summary"
   end
 
   schema.create_table("Posts",
@@ -58,7 +58,7 @@ Groonga::Schema.define do |schema|
     table.index "Posts.title"
     table.index "Posts.content"
     table.index "Participants.name"
-    table.index "Participants.description"
+    table.index "Participants.summary"
   end
 
   schema.create_table("Times",

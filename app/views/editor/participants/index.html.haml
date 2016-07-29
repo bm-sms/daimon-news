@@ -8,7 +8,7 @@
   %thead
     %tr
       %th Name
-      %th Description
+      %th Summary
       %th Photo
       %th
       %th
@@ -18,7 +18,7 @@
     - @participants.each do |participant|
       %tr
         %td= participant.name
-        %td= participant.description
+        %td= participant.summary
         %td= image_tag participant.photo_url, height: 80 if participant.photo.present?
         %td= link_to 'Show', [:editor, participant]
         %td= link_to 'Edit', edit_editor_participant_url(participant)

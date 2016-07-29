@@ -76,13 +76,15 @@ class EditorTest < ActionDispatch::IntegrationTest
   end
 
   test "Participant" do
-    pend "Editing participants is disabled until https://github.com/bm-sms/daimon-news/pull/565 merged"
-
     click_on("執筆関係者")
     click_on("New Participant")
 
     fill_in("Name", with: "Ruby")
-    fill_in("Description", with: "Ruby is a programing language.")
+    fill_in("Summary", with: "Ruby is a programing language.")
+    fill_in("Description", with: <<~EOS)
+      # Ruby is...
+      A programing language.
+    EOS
 
     click_on("登録する")
 

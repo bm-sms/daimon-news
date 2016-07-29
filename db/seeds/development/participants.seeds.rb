@@ -3,10 +3,18 @@ after "development:sites" do
 
   site1.participants.create!(
     name: "name11",
-    description: "description11"
+    summary: "summary11",
+    description: <<~EOS
+      # Hello
+      description11
+    EOS
   )
   site1.participants.create!(
     name: "name12",
-    description: "description12"
+    summary: "summary12",
+    description: <<~EOS
+      # Hello
+      description12
+    EOS
   )
 end
