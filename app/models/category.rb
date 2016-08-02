@@ -41,6 +41,11 @@ class Category < ActiveRecord::Base
     super.where(site_id: site_id)
   end
 
+  # This is stolen from ancestry master HEAD
+  def root_of?(node)
+    id == node.root_id
+  end
+
   def full_name
     (ancestors.pluck(:name) + [name]).join("/")
   end
