@@ -10,11 +10,11 @@ class Post < ActiveRecord::Base
   end
 
   belongs_to :site
-  belongs_to :category
   belongs_to :serial
+  has_many :categorizations, dependent: :destroy
+  has_many :categories, through: :categorizations
 
   validates :public_id, uniqueness: { scope: :site_id }
-  validates :category_id, presence: true
   validates :body, presence: true
   validates :thumbnail, presence: true
   validates_with PostCategoryValidator
