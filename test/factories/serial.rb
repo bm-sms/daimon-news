@@ -5,14 +5,14 @@ FactoryGirl.define do
     thumbnail { Rails.root.join("test/fixtures/images/thumbnail.jpg").open }
 
     trait :with_posts do
-      after :create do |serial, _evaluator|
-        serial.posts << build(:post, :whatever, site: serial.site)
+      before :create do |serial, _evaluator|
+        serial.posts << create(:post, :whatever, site: serial.site)
       end
     end
 
     trait :with_unpublished_posts do
-      after :create do |serial, _evaluator|
-        serial.posts << build(:post, :whatever, :unpublished, site: serial.site)
+      before :create do |serial, _evaluator|
+        serial.posts << create(:post, :whatever, :unpublished, site: serial.site)
       end
     end
   end

@@ -7,15 +7,16 @@ FactoryGirl.define do
 
     trait :whatever do
       site
+      before :create do |post, _evaluator|
+        post.categorizations.build(attributes_for(:categorization, :whatever, site: post.site))
+      end
       after :create do |post, _evaluator|
-        post.categorizations << build(:categorization, :whatever, site: post.site)
-        post.save!
-        post.reload
+        post.reload # To refresh `post.categories`
       end
     end
 
     trait :unpublished do
-      published_at { nil }
+      published_at nil
     end
 
     trait :with_pages do
@@ -39,7 +40,7 @@ FactoryGirl.define do
     end
 
     trait :with_credit do
-      after :create do |post, evaluator|
+      before :create do |post, _evaluator|
         post.credits << build(:credit, :whatever, site: post.site)
       end
     end

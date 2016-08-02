@@ -5,14 +5,11 @@ class ApiTest < ActionDispatch::IntegrationTest
     @site     = create(:site)
     @category = create(:category, site: @site)
     @serial   = create(:serial,   site: @site)
-    @post     = create(:post,     site: @site, serial: @serial)
-    @post.categorizations.create!(category: @category, order: 1)
-    post = create(:post, site: @site)
-    post.categorizations.create!(category: @category, order: 1)
-    post = create(:post, site: @site, serial: @serial)
-    post.categorizations.create!(category: create(:category, site: @site), order: 1)
-    post = create(:post, site: @site, serial: create(:serial, site: @site))
-    post.categorizations.create!(category: create(:category, site: @site), order: 1)
+    @post     = create(:post,     site: @site, serial: @serial, categorizations_attributes: [{category: @category, order: 1}])
+
+    create(:post, site: @site, categorizations_attributes: [{category: @category, order: 1}])
+    create(:post, site: @site, serial: @serial, categorizations_attributes: [{category: create(:category, site: @site), order: 1}])
+    create(:post, site: @site, serial: create(:serial, site: @site), categorizations_attributes: [category: create(:category, site: @site), order: 1])
   end
 
   test "category and serial filter should be applied to /api/posts" do
