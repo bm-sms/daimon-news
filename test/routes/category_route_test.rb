@@ -1,3 +1,5 @@
+require "test_helper"
+
 class CategoryRouteTest < ActionDispatch::IntegrationTest
   def setup
     @site = create(:site)
