@@ -24,7 +24,7 @@ class Post < ActiveRecord::Base
   scope :published, -> { where("published_at <= ?", Time.current) }
   scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
   scope :categorized_by, lambda {|category|
-    category_ids = category.has_children? ? category.subtree_ids : category.id
+    category_ids = category.has_children? ? category.subtree_ids : [category.id]
     joins(:categories).where("categories.id" => category_ids)
   }
 
