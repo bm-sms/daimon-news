@@ -23,12 +23,8 @@ class Post < ActiveRecord::Base
 
   scope :published, -> { where("published_at <= ?", Time.current) }
   scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
-  scope :categorized_by, ->(category) {
-    if category.has_children?
-      category_ids = category.subtree_ids
-    else
-      category_ids = category.id
-    end
+  scope :categorized_by, lambda {|category|
+    category_ids = category.has_children? ? category.subtree_ids : category.id
     joins(:categories).where("categories.id" => category_ids)
   }
 
