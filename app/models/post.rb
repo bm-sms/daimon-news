@@ -17,6 +17,7 @@ class Post < ActiveRecord::Base
   validates :public_id, uniqueness: {scope: :site_id}
   validates :body, presence: true
   validates :thumbnail, presence: true
+  validates :categorizations, presence: true
   validates_with PostCategoryValidator
 
   before_save :assign_public_id
