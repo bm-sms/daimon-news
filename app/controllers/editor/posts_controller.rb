@@ -1,4 +1,6 @@
 class Editor::PostsController < Editor::ApplicationController
+  helper_method :current_category
+
   def index
     @posts = posts.preload(:categories).order_by_recent.page(params[:page]).per(50)
   end
@@ -83,5 +85,9 @@ class Editor::PostsController < Editor::ApplicationController
         :_destroy
       ]
     )
+  end
+
+  def currenr_category
+    @post.categories.first
   end
 end
