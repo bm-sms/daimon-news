@@ -47,8 +47,8 @@ class Category < ActiveRecord::Base
 
   def post_count
     if has_children?
-      ids = subtree.inject([]) do |memo, category|
-        memo + category.posts.published.select(:id)
+      ids = subtree.flat_map do |category|
+        category.posts.published.pluck(:id)
       end
       ids.uniq.size
     else
