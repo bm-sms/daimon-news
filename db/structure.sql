@@ -70,6 +70,39 @@ ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
 
 
 --
+-- Name: categorizations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE categorizations (
+    id integer NOT NULL,
+    category_id integer NOT NULL,
+    post_id integer NOT NULL,
+    "order" integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: categorizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE categorizations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: categorizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE categorizations_id_seq OWNED BY categorizations.id;
+
+
+--
 -- Name: credit_roles; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -495,6 +528,13 @@ ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY categorizations ALTER COLUMN id SET DEFAULT nextval('categorizations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY credit_roles ALTER COLUMN id SET DEFAULT nextval('credit_roles_id_seq'::regclass);
 
 
@@ -574,6 +614,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY categories
     ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: categorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY categorizations
+    ADD CONSTRAINT categorizations_pkey PRIMARY KEY (id);
 
 
 --
@@ -683,6 +731,20 @@ CREATE UNIQUE INDEX index_categories_on_site_id_and_coalesce_ancestry_and_order 
 --
 
 CREATE UNIQUE INDEX index_categories_on_slug_and_site_id ON categories USING btree (slug, site_id);
+
+
+--
+-- Name: index_categorizations_on_post_id_and_category_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_categorizations_on_post_id_and_category_id ON categorizations USING btree (post_id, category_id);
+
+
+--
+-- Name: index_categorizations_on_post_id_and_order; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_categorizations_on_post_id_and_order ON categorizations USING btree (post_id, "order");
 
 
 --
@@ -857,6 +919,14 @@ ALTER TABLE ONLY fixed_pages
 
 
 --
+-- Name: fk_rails_5a40b79a1d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY categorizations
+    ADD CONSTRAINT fk_rails_5a40b79a1d FOREIGN KEY (category_id) REFERENCES categories(id);
+
+
+--
 -- Name: fk_rails_5b5330057c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -902,6 +972,14 @@ ALTER TABLE ONLY serials
 
 ALTER TABLE ONLY credits
     ADD CONSTRAINT fk_rails_ab9555028f FOREIGN KEY (post_id) REFERENCES posts(id);
+
+
+--
+-- Name: fk_rails_c3f4777003; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY categorizations
+    ADD CONSTRAINT fk_rails_c3f4777003 FOREIGN KEY (post_id) REFERENCES posts(id);
 
 
 --
@@ -1125,6 +1203,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160712005001');
 INSERT INTO schema_migrations (version) VALUES ('20160712070026');
 
 INSERT INTO schema_migrations (version) VALUES ('20160712074703');
+
+INSERT INTO schema_migrations (version) VALUES ('20160719005841');
 
 INSERT INTO schema_migrations (version) VALUES ('20160719080821');
 
