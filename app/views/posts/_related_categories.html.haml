@@ -4,4 +4,4 @@
     - categories.each do |category|
       - with_breadcrumb :category, category do
         %li
-          = render 'application/breadcrumbs', options: {link_current: true}
+          = render 'application/breadcrumbs', options: {link_current: true, microdata: false}
