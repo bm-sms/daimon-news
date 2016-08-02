@@ -1,6 +1,7 @@
 class Category < ActiveRecord::Base
   belongs_to :site
-  has_many :posts
+  has_many :categorizations, dependent: :destroy
+  has_many :posts, through: :categorizations
 
   has_ancestry
 
