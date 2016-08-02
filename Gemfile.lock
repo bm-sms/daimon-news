@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/bm-sms/daimon_news-layout.git
-  revision: 34292091d9494b1ef66e544fc7f850c922f4fecd
+  revision: 7e7daf3bfe1567a76ed93d2a575f2fc85eddd834
   branch: category-related-design
   specs:
     daimon_news-layout (0.1.0)
