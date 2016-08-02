@@ -23,7 +23,7 @@
       .links
         = link_to_add_association 'Add credit', f, :credits, class: 'btn btn-default pull-right'
 
-  = f.form_group label: {text: :categorizations}, help: "カテゴリを追加します" do
+  = f.form_group label: {text: "Categories"}, help: "カテゴリを追加します" do
     = f.fields_for :categorizations do |ff|
       = render 'categorization_fields', f: ff
 
