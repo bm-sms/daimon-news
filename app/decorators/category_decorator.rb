@@ -31,4 +31,9 @@ module CategoryDecorator
       title
     end
   end
+
+  def highlighted?(current_category)
+    return false unless current_category
+    root_of?(current_category)
+  end
 end
