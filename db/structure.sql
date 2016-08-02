@@ -348,7 +348,6 @@ CREATE TABLE posts (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     published_at timestamp without time zone,
-    category_id integer,
     thumbnail character varying NOT NULL,
     original_updated_at timestamp without time zone,
     public_id integer NOT NULL,
@@ -1214,6 +1213,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160726082451');
 INSERT INTO schema_migrations (version) VALUES ('20160728110235');
 
 INSERT INTO schema_migrations (version) VALUES ('20160802025651');
+
+INSERT INTO schema_migrations (version) VALUES ('20160802044216');
 
 INSERT INTO schema_migrations (version) VALUES ('20160804090315');
 
