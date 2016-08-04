@@ -6,6 +6,7 @@
 
     = f.hidden_field :order, class: 'categorization-order-value'
 
-    = link_to_remove_association 'Remove category', f, class: 'btn btn-default pull-right'
+    -if current_site.multiple_categories_enabled?
+      = link_to_remove_association 'Remove category', f, class: 'btn btn-default pull-right'
 
 .row
