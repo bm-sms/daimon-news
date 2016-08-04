@@ -1,6 +1,5 @@
 %ul{class: depth <= 1 ? "category-summary" : "sub-category-summary"}
-  - categories.each do |category|
-    - next if category.post_count.zero?
+  - categories.select {|category| category.post_count > 0 }.each do |category|
     %li
       = link_to "#{category.name} (#{category.post_count})", category_url(category.slug)
       - if depth < 2
