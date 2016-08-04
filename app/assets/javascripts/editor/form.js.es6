@@ -13,9 +13,7 @@ $(() => {
       return Number($(el).val());
     }).toArray();
 
-    orders.push(0); // Minimum value
-
-    let maxOrder = Math.max(...orders);
+    let maxOrder = Math.max(0, ...orders);
     $element.find(target).val(maxOrder + 1);
   }
 
