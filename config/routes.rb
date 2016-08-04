@@ -54,13 +54,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :sites, only: %i(), path: "/", param: :fqdn, fqdn: %r{[^/]+} do
-      get "sites/current" => "current_sites#show"
-      get "search", controller: "search"
-
       resources :posts, only: %i(index show), param: :public_id
-      resources :categories, only: :show, param: :slug
-      resources :serials, only: %i(index show)
-      resources :fixed_pages, param: :slug, only: :show
     end
   end
 end
