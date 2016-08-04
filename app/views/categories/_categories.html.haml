@@ -7,7 +7,7 @@
         - if category.has_children?
           - category.children.each do |sub_category|
             %li.category-summary__list-item
-              = link_to category.name, category_url(category.slug)
+              = link_to "#{sub_category.name} (#{sub_category.post_count})", category_url(category.slug)
 
         - else
           - category.posts.published.order_by_recent.limit(7).each do |post|
