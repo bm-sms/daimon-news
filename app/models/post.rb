@@ -26,7 +26,7 @@ class Post < ActiveRecord::Base
   scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
   scope :categorized_by, lambda {|category|
     category_ids = category.has_children? ? category.subtree_ids : [category.id]
-    joins(:categories).where("categories.id" => category_ids)
+    joins(:categories).where("categories.id" => category_ids).uniq
   }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
