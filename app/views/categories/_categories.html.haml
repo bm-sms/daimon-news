@@ -13,3 +13,5 @@
           - category.posts.published.order_by_recent.limit(7).each do |post|
             %li.category-summary__list-item
               = link_to post.title, post_url(post.public_id)
+
+      = link_to "もっと見る", category_url(category.slug), class: "more-link"
