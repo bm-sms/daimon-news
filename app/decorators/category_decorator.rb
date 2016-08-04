@@ -32,8 +32,9 @@ module CategoryDecorator
     end
   end
 
-  def highlighted?(current_category)
-    return false unless current_category
-    root_of?(current_category)
+  def root_of?(other)
+    return false unless other
+
+    super
   end
 end
