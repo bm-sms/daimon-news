@@ -2,7 +2,7 @@ after "development:sites", "development:categories" do
   site1 = Site.find_by!(name: "site1")
   category1 = site1.categories.find_by!(slug: "category1")
   category2 = site1.categories.find_by!(slug: "category2")
-  post = site1.posts.create!(
+  site1.posts.create!(
     title: "Hello",
     body: <<-EOS.strip_heredoc,
       # Hello
@@ -17,7 +17,7 @@ after "development:sites", "development:categories" do
 
   published_at = 3.minutes.from_now
 
-  post = site1.posts.create!(
+  site1.posts.create!(
     title: "This post will appear at #{published_at}",
     body: <<-EOS.strip_heredoc,
       # Hello
@@ -45,7 +45,7 @@ after "development:sites", "development:categories" do
   50.times do |i|
     i += 100
 
-    post = site1.posts.create!(
+    site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
@@ -55,7 +55,7 @@ after "development:sites", "development:categories" do
   end
 
   # below records: id != public_id
-  post = site1.posts.create!(
+  site1.posts.create!(
     title: "Hello",
     body: <<-EOS.strip_heredoc,
       # Hello
@@ -72,7 +72,7 @@ after "development:sites", "development:categories" do
   50.times do |i|
     i += 100
 
-    post = site1.posts.create!(
+    site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
@@ -83,7 +83,7 @@ after "development:sites", "development:categories" do
 
   25.times do |i|
     i += site1.posts.maximum(:public_id)
-    post = site1.posts.create!(
+    site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
@@ -91,7 +91,7 @@ after "development:sites", "development:categories" do
       categorizations_attributes: [{category: site1.categories.find_by!(slug: "category3_1_1"), order: 1}],
     )
     i += 1
-    post = site1.posts.create!(
+    site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
@@ -99,7 +99,7 @@ after "development:sites", "development:categories" do
       categorizations_attributes: [{category: site1.categories.find_by!(slug: "category3_1_2"), order: 1}],
     )
     i += 1
-    post = site1.posts.create!(
+    site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
@@ -110,7 +110,7 @@ after "development:sites", "development:categories" do
       ],
     )
     i += 1
-    post = site1.posts.create!(
+    site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
@@ -118,7 +118,7 @@ after "development:sites", "development:categories" do
       categorizations_attributes: [{category: site1.categories.find_by!(slug: "category3_2"), order: 1}],
     )
     i += 1
-    post = site1.posts.create!(
+    site1.posts.create!(
       title: "Post #{i}",
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
