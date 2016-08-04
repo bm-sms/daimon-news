@@ -14,13 +14,10 @@
   - if links.any?
     %nav.breadcrumbs
       %ol.breadcrumbs__list
-        - links[0..-2].each do |link|
+        - links.each do |link|
           %li.breadcrumbs__fragment{microdata_fragment}
-            %a.breadcrumbs__link{**microdata_link, href: link.url}
+            - if links.options[:link_current] || link != links.last
+              %a.breadcrumbs__link{**microdata_link, href: link.url}
+                %span{microdata_title}= link.text
+            - else
               %span{microdata_title}= link.text
-        %li.breadcrumbs__fragment{microdata_fragment}
-          - if links.options[:link_current]
-            %a.breadcrumbs__link{**microdata_link, href: links.last.url}
-              %span{microdata_title}= links.last.text
-          - else
-            %span{microdata_title}= links.last.text
