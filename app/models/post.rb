@@ -50,6 +50,10 @@ class Post < ActiveRecord::Base
     credits.find {|credit| credit.participant == participant }.role
   end
 
+  def main_category
+    categories.first!
+  end
+
   private
 
   def assign_public_id

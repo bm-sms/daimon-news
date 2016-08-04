@@ -19,7 +19,7 @@ end
 crumb :post do |post|
   link post.title, post_url(public_id: post.public_id)
   if post.categories.present?
-    parent :category, post.categories.first
+    parent :category, post.main_category
   else
     parent :root
   end
