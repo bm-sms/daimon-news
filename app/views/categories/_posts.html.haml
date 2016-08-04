@@ -1,3 +1,6 @@
+%h2.category-titles__title
+  記事一覧
+
 %ul
   - posts.each do |post|
     = render 'posts/summary_with_content', post: post, thumbnail: true
