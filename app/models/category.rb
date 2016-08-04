@@ -41,7 +41,8 @@ class Category < ActiveRecord::Base
     super.where(site_id: site_id)
   end
 
-  # This is stolen from ancestry master HEAD
+  # This is stolen from ancestry master HEAD: https://github.com/stefankroes/ancestry/blob/f8a75226a9d18696f29c440bac6995ab1efc24b4/lib/ancestry/instance_methods.rb#L193-L195
+  # This it not included in v2.1.0 (It is current latest release)
   def root_of?(node)
     id == node.root_id
   end
