@@ -88,6 +88,6 @@ class Editor::PostsController < Editor::ApplicationController
   end
 
   def currenr_category
-    @post.categories.first
+    @post.main_category
   end
 end
