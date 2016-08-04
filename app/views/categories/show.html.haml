@@ -21,6 +21,6 @@
 
   = render 'banner', position: :press_articles_top
   - if @category.has_children?
-    = render 'categories', categories: @category.children, depth: 1
+    = render 'categories', categories: @category.children
 
   = render 'posts', posts: @posts
