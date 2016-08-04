@@ -5,10 +5,8 @@
       .article-summary__data
         %time.article-summary__data-item
           = l post.published_at.to_date if post.published_at?
-        .category
-          %ul
-            - post.categories.each do |category|
-              %li.category-list__item= category.name
+        - post.categories.each do |category|
+          %span.category= category.name
       %p.article-summary__title
         = post.title
 
