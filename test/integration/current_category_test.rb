@@ -16,16 +16,16 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
     body = <<~EOS
       Ruby x.x.x released just now!
     EOS
-    post = create(:post,
-                  site: @site,
-                  title: "Ruby x.x.x Released",
-                  body: body,
-                  thumbnail: Rails.root.join("test/fixtures/images/thumbnail.jpg").open,
-                  published_at: Time.zone.parse("2000/01/01 00:00"),
-                  categorizations_attributes: [{
-                    category: category, order: 1
-                  }]
-                 )
+    create(:post,
+           site: @site,
+           title: "Ruby x.x.x Released",
+           body: body,
+           thumbnail: Rails.root.join("test/fixtures/images/thumbnail.jpg").open,
+           published_at: Time.zone.parse("2000/01/01 00:00"),
+           categorizations_attributes: [{
+             category: category, order: 1
+           }]
+          )
     switch_domain(@site.fqdn)
   end
 
