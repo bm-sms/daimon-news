@@ -10,11 +10,7 @@ class Editor::PostsController < Editor::ApplicationController
   end
 
   def new
-    if current_site.multiple_categories_enabled?
-      @post = posts.build
-    else
-      @post = posts.build(categorizations_attributes: [{order: 1}])
-    end
+    @post = posts.build
   end
 
   def create

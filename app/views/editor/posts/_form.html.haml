@@ -30,9 +30,8 @@
     %span{class: f.send(:has_error?, :categorizations) ? 'has-error' : nil}
       = f.send :generate_help, :categorizations, nil
 
-    - if current_site.multiple_categories_enabled?
-      .links
-        = link_to_add_association 'Add category', f, :categorizations, class: 'btn btn-default pull-right'
+    .links
+      = link_to_add_association 'Add category', f, :categorizations, class: 'btn btn-default pull-right'
 
   = f.collection_select :serial_id, current_site.serials, :id, :title, {include_blank: true}, {class: "select2", "data-select2-allow-clear": true}
   = f.file_field :thumbnail, help: "300px x 300px 程度の正方形の画像を指定します"
