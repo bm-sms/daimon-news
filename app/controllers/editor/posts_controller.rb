@@ -8,10 +8,12 @@ class Editor::PostsController < Editor::ApplicationController
   end
 
   def new
-    @post = posts.build
+    redirect_to editor_posts_url, notice: "現在記事の作成・編集はできません。しばらく時間を置いてアクセスしてください。"
   end
 
   def create
+    redirect_to editor_posts_url, notice: "現在記事の作成・編集はできません。しばらく時間を置いてアクセスしてください。"
+    return
     @post = posts.build(post_params)
 
     if @post.save
@@ -22,10 +24,12 @@ class Editor::PostsController < Editor::ApplicationController
   end
 
   def edit
-    @post = posts.find_by!(public_id: params[:public_id])
+    redirect_to editor_posts_url, notice: "現在記事の作成・編集はできません。しばらく時間を置いてアクセスしてください。"
   end
 
   def update
+    redirect_to editor_posts_url, notice: "現在記事の作成・編集はできません。しばらく時間を置いてアクセスしてください。"
+    return
     @post = posts.find_by!(public_id: params[:public_id])
 
     if @post.update(post_params)
