@@ -7,6 +7,13 @@ GIT
       font-awesome-sass
       neat
 
+GIT
+  remote: git://github.com/lassebunk/gretel.git
+  revision: 025419b59188835537930a463b7c6e779cdd2f4b
+  specs:
+    gretel (3.0.8)
+      rails (>= 3.1.0)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -254,8 +261,6 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     gqtp (1.0.6)
-    gretel (3.0.8)
-      rails (>= 3.2.0)
     groonga-client (0.2.6)
       gqtp (>= 1.0.4)
       groonga-command (>= 1.2.0)
@@ -515,7 +520,7 @@ DEPENDENCIES
   factory_girl
   fog
   font-awesome-sass
-  gretel
+  gretel!
   haml-rails
   jquery-rails
   kaminari
