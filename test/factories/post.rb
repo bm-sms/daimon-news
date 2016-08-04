@@ -7,7 +7,11 @@ FactoryGirl.define do
 
     trait :whatever do
       site
-      category { create(:category, site: site) }
+      after :create do |post, _evaluator|
+        post.categorizations << build(:categorization, :whatever, site: post.site)
+        post.save!
+        post.reload
+      end
     end
 
     trait :unpublished do

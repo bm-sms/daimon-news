@@ -18,7 +18,7 @@ end
 
 crumb :post do |post|
   link post.title, post_url(public_id: post.public_id)
-  parent :category, post.category
+  parent :category, post.categories.first
 end
 
 crumb :participant do |participant|

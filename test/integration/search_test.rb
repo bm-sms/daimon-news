@@ -29,7 +29,7 @@ class SearchTest < ActionDispatch::IntegrationTest
 
     within("main") do
       assert_equal "「contents」を含む記事が1件見つかりました。", find(".message").text
-      within("ul") do
+      within(".search-result-list") do
         assert find_link("the post of the current site")
       end
     end
@@ -65,7 +65,7 @@ class SearchTest < ActionDispatch::IntegrationTest
       # NOTE: When indexed posts become unpublished, the count of searched posts is mismatch with correct count until Groonga index is updated.
       # ref: https://github.com/bm-sms/daimon-news/pull/365#issuecomment-200634038
 
-      within("ul.search-result-list") do
+      within(".search-result-list") do
         assert(has_content?("post1 is published"))
         assert(has_no_content?("post2 is not published"))
         assert(has_content?("post3 is published"))

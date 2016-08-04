@@ -9,7 +9,7 @@
     %tr
       %th Public ID
       %th Title
-      %th Category
+      %th Categories
       %th Published at
       %th Thumbnail
       %th Published
@@ -22,7 +22,10 @@
       %tr{ class: post.published? ? nil : 'post--unpublished' }
         %td= post.public_id
         %td= post.title
-        %td= post.category&.name
+        %td
+          %ul
+            - post.categories.each do |category|
+              %li= category.name
         %td= l post.published_at if post.published_at
         %td= image_tag post.thumbnail_url, height: 80 if post.thumbnail.present?
         %td= post.published? ? icon('check-square-o') : icon('square-o')

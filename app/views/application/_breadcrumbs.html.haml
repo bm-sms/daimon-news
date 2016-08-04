@@ -1,10 +1,26 @@
-- breadcrumbs.tap do |links|
+:ruby
+  options = local_assigns[:options] || {microdata: true}
+  if options[:microdata]
+    microdata_fragment = {itemscope: true, itemtype: 'http://data-vocabulary.org/Breadcrumb'}
+    microdata_link = {itemprop: 'url'}
+    microdata_title = {itemprop: 'title'}
+  else
+    microdata_fragment = {}
+    microdata_link = {}
+    microdata_title = {}
+  end
+
+- breadcrumbs(options).tap do |links|
   - if links.any?
     %nav.breadcrumbs
       %ol.breadcrumbs__list
         - links[0..-2].each do |link|
-          %li.breadcrumbs__fragment(itemscope itemtype='http://data-vocabulary.org/Breadcrumb')
-            %a.breadcrumbs__link(itemprop='url'){href: link.url}
-              %span(itemprop='title')= link.text
-        %li.breadcrumbs__fragment(itemscope itemtype='http://data-vocabulary.org/Breadcrumb')
-          %span(itemprop='title')= links.last.text
+          %li.breadcrumbs__fragment{microdata_fragment}
+            %a.breadcrumbs__link{**microdata_link, href: link.url}
+              %span{microdata_title}= link.text
+        %li.breadcrumbs__fragment{microdata_fragment}
+          - if links.options[:link_current]
+            %a.breadcrumbs__link{**microdata_link, href: links.last.url}
+              %span{microdata_title}= links.last.text
+          - else
+            %span{microdata_title}= links.last.text

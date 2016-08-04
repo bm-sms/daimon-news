@@ -10,11 +10,11 @@ class Post < ActiveRecord::Base
   end
 
   belongs_to :site
-  belongs_to :category
   belongs_to :serial
+  has_many :categorizations, -> { ordered }, dependent: :destroy
+  has_many :categories, through: :categorizations
 
-  validates :public_id, uniqueness: { scope: :site_id }
-  validates :category_id, presence: true
+  validates :public_id, uniqueness: {scope: :site_id}
   validates :body, presence: true
   validates :thumbnail, presence: true
   validates_with PostCategoryValidator
@@ -23,8 +23,10 @@ class Post < ActiveRecord::Base
 
   scope :published, -> { where("published_at <= ?", Time.current) }
   scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
+  scope :categorized_by, ->(category) { joins(:categories).where("categories.id" => category.id) }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :categorizations, reject_if: :all_blank, allow_destroy: true
 
   paginates_per 20
 

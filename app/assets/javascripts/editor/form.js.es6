@@ -8,15 +8,15 @@ $(() => {
     $element.select2(options);
   }
 
-  function setupCreditOrder($element) {
-    let orders = $('.credit-order-value').map((_i, el) => {
+  function setupOrder($element, target) {
+    let orders = $(target).map((_i, el) => {
       return Number($(el).val());
-    });
+    }).toArray();
 
     orders.push(0); // Minimum value
 
     let maxOrder = Math.max(...orders);
-    $element.find('.credit-order-value').val(maxOrder + 1);
+    $element.find(target).val(maxOrder + 1);
   }
 
   applySelect2('select.select2');
@@ -25,6 +25,7 @@ $(() => {
     let $element = $(inserted[0]);
 
     applySelect2($element.find('select.select2'));
-    setupCreditOrder($element);
+    setupOrder($element, '.credit-order-value');
+    setupOrder($element, '.categorization-order-value')
   });
 });
