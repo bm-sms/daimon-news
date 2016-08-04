@@ -3,11 +3,13 @@
   microdata = options.delete(:microdata)
 
   if microdata
-    microdata_fragment = {itemscope: true, itemtype: 'http://data-vocabulary.org/Breadcrumb'}
-    microdata_link = {itemprop: 'url'}
-    microdata_title = {itemprop: 'title'}
+    microdata_list = {itemtype: 'http://schema.org/BreadcrumbList', itemscope: true}
+    microdata_item = {itemtype: 'http://schema.org/ListItem', itemscope: true, itemprop: 'itemListElement'}
+    microdata_link = {itemprop: 'item'}
+    microdata_title = {itemprop: 'name'}
   else
-    microdata_fragment = {}
+    microdata_list = {}
+    microdata_item = {}
     microdata_link = {}
     microdata_title = {}
   end
@@ -15,11 +17,13 @@
 - breadcrumbs(options).tap do |links|
   - if links.any?
     %nav.breadcrumbs
-      %ol.breadcrumbs__list
-        - links.each do |link|
-          %li.breadcrumbs__fragment{microdata_fragment}
+      %ol.breadcrumbs__list{microdata_list}
+        - links.each.with_index(1) do |link, index|
+          %li.breadcrumbs__fragment{microdata_item}
             - if links.options[:link_current] || link != links.last
               %a.breadcrumbs__link{**microdata_link, href: link.url}
                 %span{microdata_title}= link.text
+                - if microdata
+                  %meta(itemprop="position" content=index)
             - else
               %span{microdata_title}= link.text
