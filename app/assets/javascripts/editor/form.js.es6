@@ -26,6 +26,6 @@ $(() => {
 
     applySelect2($element.find('select.select2'));
     setupOrder($element, '.credit-order-value');
-    setupOrder($element, '.categorization-order-value')
+    setupOrder($element, '.categorization-order-value');
   });
 });
