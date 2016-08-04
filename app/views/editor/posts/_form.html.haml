@@ -27,6 +27,9 @@
     = f.fields_for :categorizations do |ff|
       = render 'categorization_fields', f: ff
 
+    %span{class: f.send(:has_error?, :categorizations) ? 'has-error' : nil}
+      = f.send :generate_help, :categorizations, nil
+
     .links
       = link_to_add_association 'Add category', f, :categorizations, class: 'btn btn-default pull-right'
 
