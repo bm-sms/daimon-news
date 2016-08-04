@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = current_site.categories.find_by!(slug: params[:id])
-    @posts = current_site.posts.categorized_by(@category).published.order_by_recent.page(params[:page])
+    @posts = current_site.posts.categorized_by(@category).published.uniq.order_by_recent.page(params[:page])
 
     @posts.extend(PaginationInfoDecorator)
   end
