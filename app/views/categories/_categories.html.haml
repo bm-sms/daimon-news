@@ -8,4 +8,5 @@
         - else
           %ul.posts-title
             - category.posts.published.order_by_recent.limit(7).each do |post|
-              = render 'posts/title', post: post
+              %li
+                = link_to post.title, post_url(post.public_id)
