@@ -1,6 +1,8 @@
 :ruby
   options = local_assigns[:options] || {microdata: true}
-  if options[:microdata]
+  microdata = options.delete(:microdata)
+
+  if microdata
     microdata_fragment = {itemscope: true, itemtype: 'http://data-vocabulary.org/Breadcrumb'}
     microdata_link = {itemprop: 'url'}
     microdata_title = {itemprop: 'title'}
