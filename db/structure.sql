@@ -452,7 +452,8 @@ CREATE TABLE sites (
     view_all boolean DEFAULT false NOT NULL,
     base_hue integer,
     custom_hue_css character varying,
-    public_participant_page_enabled boolean DEFAULT false NOT NULL
+    public_participant_page_enabled boolean DEFAULT false NOT NULL,
+    multiple_categories_enabled boolean DEFAULT false NOT NULL
 );
 
 
@@ -1213,4 +1214,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160726082451');
 INSERT INTO schema_migrations (version) VALUES ('20160728110235');
 
 INSERT INTO schema_migrations (version) VALUES ('20160802025651');
+
+INSERT INTO schema_migrations (version) VALUES ('20160804072008');
 
