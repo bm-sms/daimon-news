@@ -5,5 +5,6 @@ FactoryGirl.define do
     opened true
     public_participant_page_enabled true
     multiple_categories_enabled true
+    hierarchical_categories_enabled true
   end
 end

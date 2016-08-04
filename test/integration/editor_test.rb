@@ -383,8 +383,6 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     test "append children" do
-      pend "TODO: release this feature"
-
       click_on("カテゴリ")
       click_on("New Category")
 
@@ -467,8 +465,6 @@ class EditorTest < ActionDispatch::IntegrationTest
       end
 
       test "doesn't appear its subtree" do
-        pend "TODO: release this feature"
-
         within(:row, @categories[3].name) do
           click_on("Edit")
         end
@@ -488,8 +484,6 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   sub_test_case "category hierarchy multiple sites" do
     setup do
-      pend "TODO: release this feature"
-
       site2 = create(:site)
       @categories1 = []
       @categories2 = []
