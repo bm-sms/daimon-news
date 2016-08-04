@@ -21,12 +21,15 @@
     %div.participant-content__description
       = render_markdown @participant.description
 
-    %ul.participant-titles
-      - @posts.each do |post|
-        %li
-          = link_to post.title, post_url(public_id: post.public_id)
-          %strong
-            = post.participant_role(@participant).name
+    %div.participant-titles
+      %h2.participant-titles__title
+        記事一覧
+      %ul.participant-titles__list
+        - @posts.each do |post|
+          %li
+            = link_to post.title, post_url(public_id: post.public_id)
+            %strong
+              = post.participant_role(@participant).name
 
   - if @posts.total_pages > 1
     %nav.pagination
