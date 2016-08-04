@@ -62,4 +62,4 @@ Style/ClassAndModuleChildren:
 Style/EmptyCaseCondition:
   Enabled: false
 Style/ConditionalAssignment:
-  Enables: false
+  Enabled: false
