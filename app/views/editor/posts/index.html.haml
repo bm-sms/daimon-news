@@ -2,6 +2,8 @@
 
 %p 記事とは、読者に有用な情報を届けるための文章です。markdown記法を使用することができます。
 
+= link_to 'New Post', new_editor_post_url, class: 'btn btn-default'
+
 %table.table.post
   %thead
     %tr
@@ -26,7 +28,7 @@
         %td= post.published? ? icon('check-square-o') : icon('square-o')
         %td= link_to 'Show', editor_post_url(public_id: post.public_id)
         %td= link_to 'Preview', preview_editor_post_url(public_id: post.public_id), target: '_blank'
-        %td Edit
+        %td= link_to 'Edit', edit_editor_post_url(public_id: post.public_id)
         %td= link_to 'Destroy', editor_post_url(public_id: post.public_id), method: :delete, data: { confirm: 'Are you sure?' }
 
 - if @posts.total_pages > 1
