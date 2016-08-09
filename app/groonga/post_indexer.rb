@@ -11,23 +11,22 @@ class PostIndexer
   def add(post)
     return if @posts.nil?
     site = @sites.add(post.site_id)
-    if post.category
-      category = @categories.add(post.category_id,
-                                 name: post.category.name)
-    else
-      category = nil
+    categories = []
+    post.categories.each do |category|
+      categories << @categories.add(category.id, name: category.name)
     end
-    participants = post.credits.map do |credit|
-      @participants.add(credit.participant_id,
-                        name: credit.participant.name,
-                        summary: credit.participant.summary)
+    participants = []
+    post.credits.each do |credit|
+      participants << @participants.add(credit.participant_id,
+                                        name: credit.participant.name,
+                                        summary: credit.participant.summary)
     end
     @posts.add(post.id,
                title: post.title,
                content: extract_content(post),
                published_at: post.published_at,
                site: site,
-               category: category,
+               categories: categories,
                participants: participants,
                public_id: post.public_id)
   end

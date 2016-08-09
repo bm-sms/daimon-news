@@ -11,8 +11,8 @@ class PostSerializer < ActiveModel::Serializer
     :snippet
   )
 
-  belongs_to :category
   belongs_to :serial
+  has_many :categories
   has_many :related_posts
 
   def thumbnail_url

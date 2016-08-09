@@ -10,21 +10,27 @@ class Post < ActiveRecord::Base
   end
 
   belongs_to :site
-  belongs_to :category
   belongs_to :serial
+  has_many :categorizations, -> { ordered }, dependent: :destroy
+  has_many :categories, through: :categorizations
 
-  validates :public_id, uniqueness: { scope: :site_id }
-  validates :category_id, presence: true
+  validates :public_id, uniqueness: {scope: :site_id}
   validates :body, presence: true
   validates :thumbnail, presence: true
+  validates :categorizations, presence: true
   validates_with PostCategoryValidator
 
   before_save :assign_public_id
 
   scope :published, -> { where("published_at <= ?", Time.current) }
   scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
+  scope :categorized_by, lambda {|category|
+    category_ids = category.has_children? ? category.subtree_ids : [category.id]
+    joins(:categories).where("categories.id" => category_ids).uniq
+  }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :categorizations, reject_if: :all_blank, allow_destroy: true
 
   paginates_per 20
 
@@ -42,6 +48,10 @@ class Post < ActiveRecord::Base
 
   def participant_role(participant)
     credits.find {|credit| credit.participant == participant }.role
+  end
+
+  def main_category
+    categories.first!
   end
 
   private

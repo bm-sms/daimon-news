@@ -16,7 +16,7 @@ class PostTest < ActiveSupport::TestCase
       category = create(:category, site: @site)
       role = create(:credit_role, site: @site)
       @participant = create(:participant, site: @site)
-      post = create(:post, site: @site, category: category)
+      post = create(:post, site: @site, categorizations_attributes: [{category: category, order: 1}])
       post.credits.create!(participant: @participant, role: role, order: 1)
     end
 
@@ -64,10 +64,18 @@ class PostTest < ActiveSupport::TestCase
       @child_category = create(:category, site: @site, parent: @parent_category)
     end
 
-    test "validate_with PostCategoryValidator" do
-      post = build(:post, category: @parent_category, site: @site)
-      assert { !post.valid? }
-      assert_equal(["子カテゴリを持つカテゴリ「#{@parent_category.full_name}」に記事を登録することはできません。"], post.errors[:category_id])
+    sub_test_case "validate_with PostCategoryValidator" do
+      test "category has children" do
+        post = build(:post, categories: [@parent_category], site: @site)
+        assert { !post.valid? }
+        assert_equal(["子カテゴリを持つカテゴリ「#{@parent_category.full_name}」に記事を登録することはできません。"], post.errors[:categorizations])
+      end
+
+      test "same category twice" do
+        post = build(:post, categorizations_attributes: [{category: @child_category, order: 1}, {category: @child_category, order: 2}], site: @site)
+        assert { !post.valid? }
+        assert_equal(["同一カテゴリを複数選択することはできません。"], post.errors[:categorizations])
+      end
     end
   end
 end

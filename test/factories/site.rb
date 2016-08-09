@@ -4,5 +4,6 @@ FactoryGirl.define do
     sequence(:fqdn) {|n| "daimon-news-#{n}.example.com" }
     opened true
     public_participant_page_enabled true
+    hierarchical_categories_enabled true
   end
 end

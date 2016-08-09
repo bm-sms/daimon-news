@@ -18,7 +18,11 @@ end
 
 crumb :post do |post|
   link post.title, post_url(public_id: post.public_id)
-  parent :category, post.category
+  if post.categories.present?
+    parent :category, post.main_category
+  else
+    parent :root
+  end
 end
 
 crumb :participant do |participant|

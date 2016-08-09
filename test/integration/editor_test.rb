@@ -2,7 +2,7 @@ require "test_helper"
 
 class EditorTest < ActionDispatch::IntegrationTest
   setup do
-    @site = create(:site)
+    @site = create(:site, fqdn: "127.0.0.1")
     editor = create(:user, sites: [@site])
     login_as_editor(site: @site, editor: editor)
   end
@@ -207,24 +207,30 @@ class EditorTest < ActionDispatch::IntegrationTest
       @credit_role = create(:credit_role, site: @site)
     end
 
+    attribute :js, true
     test "Post" do
       click_on("記事")
 
       click_on("New Post")
 
       fill_in("Title", with: "Ruby")
-      fill_in("Body",  with: "Ruby is a programming language.")
-      select(@category.name, from: "post_category_id")
+      fill_in_markdown_editor("Ruby is a programming language.")
+      click_on("Add category")
+      within(".nested-fields") do
+        element = find_all("select").last
+        select(@category.name, from: element["id"])
+      end
       attach_file("Thumbnail", File.join(fixture_path, "images/daimon.png"))
 
       click_on("登録する")
 
       assert(page.has_css?("p", text: "Title: Ruby"))
-      # Participants
-      within("main ul") do
+      within("main #participants") do
         assert(find_all("li").empty?)
       end
-      assert(page.has_css?("p", text: "Category: #{@category.name}"))
+      within("main #categories") do
+        assert_equal(@category.name, find("li").text)
+      end
       assert(page.has_css?("p", text: "Serial:"))
 
       click_on("Back")
@@ -249,25 +255,31 @@ class EditorTest < ActionDispatch::IntegrationTest
       assert_not(page.has_css?("td", text: "Ruby lang"))
     end
 
+    attribute :js, true
     test "Post with serial" do
       click_on("記事")
 
       click_on("New Post")
 
       fill_in("Title", with: "Ruby")
-      fill_in("Body",  with: "Ruby is a programming language.")
-      select(@category.name, from: "post_category_id")
+      fill_in_markdown_editor("Ruby is a programming language.")
+      click_on("Add category")
+      within(".nested-fields") do
+        element = find_all("select").last
+        select(@category.name, from: element["id"])
+      end
       select(@serial.title, from: "post_serial_id")
       attach_file("Thumbnail", File.join(fixture_path, "images/daimon.png"))
 
       click_on("登録する")
 
       assert(page.has_css?("p", text: "Title: Ruby"))
-      # Participants
-      within("main ul") do
+      within("main #participants") do
         assert(find_all("li").empty?)
       end
-      assert(page.has_css?("p", text: "Category: #{@category.name}"))
+      within("main #categories") do
+        assert_equal(@category.name, find("li").text)
+      end
       assert(page.has_css?("p", text: "Serial: #{@serial.title}"))
 
       click_on("Back")
@@ -371,8 +383,6 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     test "append children" do
-      pend "TODO: release this feature"
-
       click_on("カテゴリ")
       click_on("New Category")
 
@@ -455,8 +465,6 @@ class EditorTest < ActionDispatch::IntegrationTest
       end
 
       test "doesn't appear its subtree" do
-        pend "TODO: release this feature"
-
         within(:row, @categories[3].name) do
           click_on("Edit")
         end
@@ -476,8 +484,6 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   sub_test_case "category hierarchy multiple sites" do
     setup do
-      pend "TODO: release this feature"
-
       site2 = create(:site)
       @categories1 = []
       @categories2 = []
