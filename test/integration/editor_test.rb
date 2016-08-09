@@ -201,7 +201,6 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   sub_test_case "Post" do
     setup do
-      pend "Disable until #597 and #598 deployed"
       @category = create(:category, site: @site)
       @serial = create(:serial, site: @site)
       @participant = create(:participant, site: @site)
@@ -296,7 +295,6 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   sub_test_case "Post: post.id != post.public_id" do
     test "edit and destroy existing post" do
-      pend "Disable until #597 and #598 deployed"
       post = create(:post, :whatever, site: @site, public_id: 100_000, title: "title")
       click_on("記事")
       within(:row, post.title) do
@@ -320,7 +318,6 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
 
     test "edit and destroy existing post with credit" do
-      pend "Disable until #597 and #598 deployed"
       post = create(:post, :whatever, :with_credit, site: @site, public_id: 100_000, title: "title")
       click_on("記事")
       within(:row, post.title) do

@@ -9,7 +9,6 @@ class UploadImagesTest < ActionDispatch::IntegrationTest
 
   attribute :js, true
   test "Upload images" do
-    pend "Disable until #597 and #598 deployed"
     click_on "記事"
 
     click_on "New Post"
