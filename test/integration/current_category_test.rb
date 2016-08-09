@@ -5,6 +5,8 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
   include ActiveSupport::Testing::TimeHelpers
 
   setup do
+    pend "Disable until #597 and #598 deployed"
+
     travel_to Time.zone.parse("2000-01-01 00:00:00")
 
     @site = Site.create!(name: "daimon-news", fqdn: "www.example.com")
