@@ -31,4 +31,10 @@ module CategoryDecorator
       title
     end
   end
+
+  def root_of?(other)
+    return false unless other
+
+    super
+  end
 end

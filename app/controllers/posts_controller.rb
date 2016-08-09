@@ -15,6 +15,6 @@ class PostsController < ApplicationController
   private
 
   def current_category
-    @post.category
+    @post.main_category
   end
 end

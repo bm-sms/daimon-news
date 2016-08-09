@@ -62,4 +62,10 @@ after "development:sites" do
     site:        site1,
     order:       3
   )
+  category3_1.children.create!(
+    name:        "category 3-1-4",
+    description: "category 3-1-4",
+    slug:        "category3_1_4",
+    site:        site1,
+  )
 end

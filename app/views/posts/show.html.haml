@@ -37,4 +37,6 @@
     - if @post.serial
       %p.post__serial--index= link_to 'この連載の記事一覧へ', serial_url(@post.serial)
 
+    = render 'posts/related_categories', categories: @post.categories[1..-1]
+
     = render 'posts/short_collection', posts: @post.related_posts

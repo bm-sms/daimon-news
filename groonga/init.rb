@@ -27,7 +27,7 @@ Groonga::Schema.define do |schema|
     table.text "content"
     table.time "published_at"
     table.reference "site", "Sites"
-    table.reference "category", "Categories"
+    table.reference "categories", "Categories", type: :vector
     table.reference "participants", "Participants", type: :vector
     table.uint32 "public_id"
   end
@@ -35,7 +35,7 @@ end
 
 if Post.table_exists?
   indexer = PostIndexer.new
-  Post.includes(:category, credits: [:participant]).find_each do |post|
+  Post.includes(categorizations: [:category], credits: [:participant]).find_each do |post|
     indexer.add(post)
   end
 end

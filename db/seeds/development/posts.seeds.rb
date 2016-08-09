@@ -1,5 +1,7 @@
 after "development:sites", "development:categories" do
   site1 = Site.find_by!(name: "site1")
+  category1 = site1.categories.find_by!(slug: "category1")
+  category2 = site1.categories.find_by!(slug: "category2")
   site1.posts.create!(
     title: "Hello",
     body: <<-EOS.strip_heredoc,
@@ -10,7 +12,7 @@ after "development:sites", "development:categories" do
     EOS
     thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: Time.current,
-    category: site1.categories.find_by!(slug: "category1"),
+    categorizations_attributes: [{category: category1, order: 1}],
   )
 
   published_at = 3.minutes.from_now
@@ -25,7 +27,7 @@ after "development:sites", "development:categories" do
     EOS
     thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: published_at,
-    category: site1.categories.find_by!(slug: "category2"),
+    categorizations_attributes: [{category: category2, order: 1}],
   )
 
   paginate_body = <<~EOS
@@ -48,7 +50,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category1"),
+      categorizations_attributes: [{category: category2, order: 1}],
     )
   end
 
@@ -64,7 +66,7 @@ after "development:sites", "development:categories" do
     public_id: 100_000,
     thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
     published_at: Time.current,
-    category: site1.categories.find_by!(slug: "category2"),
+    categorizations_attributes: [{category: category2, order: 1}],
   )
 
   50.times do |i|
@@ -75,7 +77,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category2"),
+      categorizations_attributes: [{category: category2, order: 1}],
     )
   end
 
@@ -86,7 +88,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_1_1"),
+      categorizations_attributes: [{category: site1.categories.find_by!(slug: "category3_1_1"), order: 1}],
     )
     i += 1
     site1.posts.create!(
@@ -94,7 +96,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_1_2"),
+      categorizations_attributes: [{category: site1.categories.find_by!(slug: "category3_1_2"), order: 1}],
     )
     i += 1
     site1.posts.create!(
@@ -102,7 +104,10 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_1_3"),
+      categorizations_attributes: [
+        {category: site1.categories.find_by!(slug: "category3_1_3"), order: 1},
+        {category: site1.categories.find_by!(slug: "category3_1_4"), order: 2},
+      ],
     )
     i += 1
     site1.posts.create!(
@@ -110,7 +115,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_2"),
+      categorizations_attributes: [{category: site1.categories.find_by!(slug: "category3_2"), order: 1}],
     )
     i += 1
     site1.posts.create!(
@@ -118,7 +123,7 @@ after "development:sites", "development:categories" do
       body: paginate_body,
       thumbnail: Rails.root.join("db/data/thumbnail.jpg").open,
       published_at: Time.current,
-      category: site1.categories.find_by!(slug: "category3_3"),
+      categorizations_attributes: [{category: site1.categories.find_by!(slug: "category3_3"), order: 1}],
     )
   end
 end

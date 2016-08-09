@@ -31,7 +31,7 @@ class SidebarTest < ActionDispatch::IntegrationTest
       assert(page.has_selector?("h2", text: "新着記事"))
     end
 
-    visit "/category/#{@post.category.slug}"
+    visit "/category/#{@post.main_category.slug}"
 
     within ".wrappable__content.promotions" do
       assert(page.has_selector?("h2", text: "新着記事"))

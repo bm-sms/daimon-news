@@ -1,11 +1,19 @@
 GIT
   remote: git://github.com/bm-sms/daimon_news-layout.git
-  revision: 410b0f1d8a88c1085c2d5d4162621c5f98cf562a
+  revision: 267fe1c29427370e3582e250156f5470904ade9f
+  branch: category-related-design
   specs:
     daimon_news-layout (0.1.0)
       bourbon
       font-awesome-sass
       neat
+
+GIT
+  remote: git://github.com/lassebunk/gretel.git
+  revision: 025419b59188835537930a463b7c6e779cdd2f4b
+  specs:
+    gretel (3.0.8)
+      rails (>= 3.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -254,8 +262,6 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     gqtp (1.0.6)
-    gretel (3.0.8)
-      rails (>= 3.2.0)
     groonga-client (0.2.6)
       gqtp (>= 1.0.4)
       groonga-command (>= 1.2.0)
@@ -515,7 +521,7 @@ DEPENDENCIES
   factory_girl
   fog
   font-awesome-sass
-  gretel
+  gretel!
   haml-rails
   jquery-rails
   kaminari
