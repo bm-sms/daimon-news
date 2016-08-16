@@ -269,6 +269,7 @@ class EditorTest < ActionDispatch::IntegrationTest
         select(@category.name, from: element["id"])
       end
       select(@serial.title, from: "post_serial_id")
+      page.has_css?(".select2-selection__clear", text: "×")
       attach_file("Thumbnail", File.join(fixture_path, "images/daimon.png"))
 
       click_on("登録する")
