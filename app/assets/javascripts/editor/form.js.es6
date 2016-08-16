@@ -1,11 +1,14 @@
 $(() => {
   function applySelect2(selector) {
-    let $element = $(selector);
-    let options = {
-      placeholder: '選択してください',
-      allowClear: $element.data("select2-allow-clear")
-    };
-    $element.select2(options);
+    let $elements = $(selector);
+    $elements.each((i, e) => {
+      let $element = $(e);
+      let options = {
+        placeholder: '選択してください',
+        allowClear: $element.data('select2-allow-clear')
+      };
+      $element.select2(options);
+    })
   }
 
   function setupOrder($element, target) {
