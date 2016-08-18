@@ -14,6 +14,13 @@ GIT
     gretel (3.0.8)
       rails (>= 3.1.0)
 
+GIT
+  remote: git://github.com/mtsmfm/cocoon.git
+  revision: 4a14bb3ae46a465c0385477eacab48385b9ddb59
+  branch: fix-on-ready-for-jquery-3
+  specs:
+    cocoon (1.2.9)
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -106,7 +113,6 @@ GEM
       mimemagic (>= 0.3.0)
     choice (0.2.0)
     cliver (0.3.2)
-    cocoon (1.2.9)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
     daimon-markdown (0.4.0)
@@ -510,7 +516,7 @@ DEPENDENCIES
   bourbon
   browser
   carrierwave
-  cocoon
+  cocoon!
   daimon-markdown
   daimon_news-layout!
   database_cleaner
