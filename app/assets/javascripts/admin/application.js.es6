@@ -1,5 +1,5 @@
 //= require jquery
-//= require jquery_ujs
+//= require jquery-ujs
 //= require bootstrap
 //= require spectrum
 //= require ./base-hue-selector

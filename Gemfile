@@ -13,7 +13,7 @@ gem "bootstrap_form"
 gem "bourbon"
 gem "browser"
 gem "carrierwave"
-gem "cocoon"
+gem "cocoon", github: "mtsmfm/cocoon", branch: "fix-on-ready-for-jquery-3" # cocoon doesn't work well with jQuery 3 (https://github.com/nathanvda/cocoon/pull/379)
 gem "daimon-markdown"
 gem "daimon_news-layout", github: "bm-sms/daimon_news-layout"
 gem "devise", ">= 3.5.4"
@@ -21,7 +21,6 @@ gem "fog"
 gem "font-awesome-sass"
 gem "gretel", github: "lassebunk/gretel" # To use https://github.com/lassebunk/gretel/commit/b1dd8659 (it is unreleased until 3.0.8)
 gem "haml-rails"
-gem "jquery-rails"
 gem "kaminari"
 gem "meta-tags", require: "meta_tags"
 gem "order_as_specified"
@@ -41,6 +40,8 @@ gem "uglifier"
 
 source "https://rails-assets.org" do
   gem "rails-assets-bootstrap-markdown-editor"
+  gem "rails-assets-jquery"
+  gem "rails-assets-jquery-ujs"
   gem "rails-assets-marked"
   gem "rails-assets-spectrum"
 end

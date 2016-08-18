@@ -1,7 +1,7 @@
 class PostCategoryValidator < ActiveModel::Validator
   def validate(record)
     category_ids = []
-    record.categorizations.each do |categorization|
+    record.categorizations.reject(&:marked_for_destruction?).each do |categorization|
       category = Category.find(categorization.category_id)
       category_ids << categorization.category_id
       if category.has_children?
