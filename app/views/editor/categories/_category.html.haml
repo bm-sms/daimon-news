@@ -1,4 +1,4 @@
-%tr{class: "depth#{category.depth}"}
+%tr
   %td= category.name
   %td= category.description
   %td= category.slug
@@ -7,5 +7,3 @@
   %td= link_to 'Destroy', editor_category_url(category), method: :delete, data: { confirm: 'Are you sure?' }
   %td= link_to_if category.higher_item, '▲', editor_category_order_url(category_id: category, target: category.higher_item, move_to: "higher"), method: :put
   %td= link_to_if category.lower_item, '▼', editor_category_order_url(category_id: category, target: category.lower_item, move_to: "lower"), method: :put
-- category.children.ordered.each do |c|
-  = render 'category', category: c
