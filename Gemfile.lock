@@ -546,7 +546,7 @@ DEPENDENCIES
   rack-contrib
   rack-cors
   rack-timeout
-  rails (~> 4.2.6)
+  rails (~> 4.2.7.1)
   rails-assets-bootstrap-markdown-editor!
   rails-assets-jquery!
   rails-assets-jquery-ujs!
