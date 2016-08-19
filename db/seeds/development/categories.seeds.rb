@@ -1,25 +1,17 @@
 after "development:sites" do
   site1 = Site.find_by!(name: "site1")
 
-  site1.categories.create!(
-    name:        "category 1",
-    description: "category 1",
-    slug:        "category1",
-    order:       1
-  )
-  site1.categories.create!(
-    name:        "category 2",
-    description: "category 2",
-    slug:        "category2",
-    order:       2
-  )
+  (1..100).each do |n|
+    site1.categories.create!(
+      name:        "category #{n}",
+      description: "category #{n}",
+      slug:        "category#{n}",
+      order:       n
+    )
+  end
 
-  category3 = site1.categories.create!(
-    name:        "category 3",
-    description: "category 3",
-    slug:        "category3",
-    order:       3
-  )
+  category3 = site1.categories.find_by!(slug: "category3")
+
   category3_1 = category3.children.create!(
     name:        "category 3-1",
     description: "category 3-1",

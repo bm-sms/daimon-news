@@ -52,6 +52,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "active_record_query_trace"
   gem "bullet"
   gem "launchy"
   gem "pry-rails"
