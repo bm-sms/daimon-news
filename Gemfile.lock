@@ -110,6 +110,9 @@ GEM
       thor (~> 0.19)
     browser (2.2.0)
     builder (3.2.2)
+    bullet (5.1.1)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.0.5)
     carrierwave (0.11.2)
       activemodel (>= 3.2.0)
@@ -494,6 +497,7 @@ GEM
     uglifier (3.0.1)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.1.0)
+    uniform_notifier (1.10.0)
     warden (1.2.6)
       rack (>= 1.0)
     web-console (2.3.0)
@@ -521,6 +525,7 @@ DEPENDENCIES
   bootstrap_form
   bourbon
   browser
+  bullet
   capybara!
   carrierwave
   cocoon!
