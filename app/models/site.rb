@@ -31,6 +31,11 @@ class Site < ActiveRecord::Base
     public_participant_page_enabled? && participants.having_published_posts.exists?
   end
 
+  def posted_root_categories
+    ids = categories.select(:id, :ancestry).joins(:categorizations).uniq.map {|c| c.root_id || c.id }.uniq
+    categories.where(id: ids)
+  end
+
   private
 
   def validate_category_title_format

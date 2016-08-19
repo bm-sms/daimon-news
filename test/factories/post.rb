@@ -5,13 +5,22 @@ FactoryGirl.define do
     thumbnail { Rails.root.join("test/fixtures/images/thumbnail.jpg").open }
     published_at { DateTime.parse("2016-01-01") }
 
+    transient do
+      categories []
+    end
+
+    after :build do |post, evaluator|
+      evaluator.categories.each do |category|
+        post.categorizations.build(attributes_for(:categorization, :whatever, category: category))
+      end
+    end
+
+    after(:create, &:reload) # To refresh `post.categories`
+
     trait :whatever do
       site
       before :create do |post, _evaluator|
         post.categorizations.build(attributes_for(:categorization, :whatever, site: post.site))
-      end
-      after :create do |post, _evaluator|
-        post.reload # To refresh `post.categories`
       end
     end
 

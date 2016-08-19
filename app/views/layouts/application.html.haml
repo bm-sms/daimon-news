@@ -21,7 +21,7 @@
           %p.menu__item.menu__item--press.menu__section.yyy{data: {menu_item_state: current_category.nil? ? 'current' : nil}}
             = link_to 'Press', root_url, class: 'menu__label'
 
-          = render partial: 'application/categories', locals: {categories: current_site.categories.roots.ordered.select(&:children_or_posts?), current_category: current_category}
+          = render partial: 'application/categories', locals: {categories: current_site.posted_root_categories.ordered, current_category: current_category}
 
       = content_for(:welcome_content)
 
@@ -63,7 +63,7 @@
 
             %h2.subheading.subheading--aside カテゴリ
             %ul.category-list
-              - current_site.categories.roots.ordered.select(&:children_or_posts?).each do |category|
+              - current_site.posted_root_categories.ordered.each do |category|
                 %li.category-list__item
                   = link_to category.name, category_url(category.slug)
           - if current_site.promotion_url.present?

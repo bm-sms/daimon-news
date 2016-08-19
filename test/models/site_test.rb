@@ -136,4 +136,31 @@ class SiteTest < ActiveSupport::TestCase
       assert_not_equal(before_content, after_content)
     end
   end
+
+  sub_test_case "#posted_root_categories" do
+    setup do
+      @site = create(:site)
+      @root_category_with_grandchild = create(:category, site: @site)
+      @root_category_without_child = create(:category, site: @site)
+      @grandchild_category = create(:category, site: @site, parent: create(:category, site: @site, parent: @root_category_with_grandchild))
+
+      create(:post, :whatever) # create another site has a category and a post
+    end
+
+    test "when the site has no posted categories" do
+      assert_equal([], @site.posted_root_categories.pluck(:id))
+    end
+
+    test "when the site has a posted category which doesn't have any child" do
+      create(:post, site: @site, categories: [@root_category_without_child])
+
+      assert_equal([@root_category_without_child.id], @site.posted_root_categories.pluck(:id))
+    end
+
+    test "when the site has a root category which has posted grandchild" do
+      create(:post, site: @site, categories: [@grandchild_category])
+
+      assert_equal([@root_category_with_grandchild.id], @site.posted_root_categories.pluck(:id))
+    end
+  end
 end
