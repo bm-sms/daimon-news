@@ -48,7 +48,7 @@
             - unless current_page?(root_path)
               %h2.subheading.subheading--aside.subheading--press-articles 新着記事
               %ul
-                - current_site.posts.published.order_by_recent.limit(5).each do |post|
+                - current_site.posts.includes(:categories).published.order_by_recent.limit(5).each do |post|
                   = render partial: 'posts/summary_with_content', locals: {post: post}
 
             - if current_site.serials.present?
