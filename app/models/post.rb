@@ -23,7 +23,7 @@ class Post < ActiveRecord::Base
   before_save :assign_public_id
 
   scope :published, -> { where("published_at <= ?", Time.current) }
-  scope :order_by_recent, -> { order(published_at: :desc, id: :asc) }
+  scope :order_by_recent, -> { order(["published_at DESC NULLS LAST", id: :asc]) }
   scope :categorized_by, lambda {|category|
     category_ids = category.has_children? ? category.subtree_ids : [category.id]
     joins(:categories).where("categories.id" => category_ids).uniq

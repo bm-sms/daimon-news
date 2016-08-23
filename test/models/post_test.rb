@@ -11,6 +11,19 @@ class PostTest < ActiveSupport::TestCase
     I18n.locale = @default_locale
   end
 
+  sub_test_case "order_by_recent" do
+    setup do
+      category = create(:category, site: @site)
+      create(:post, title: "older", published_at: "20160630", site: @site, categorizations_attributes: [{category: category, order: 1}])
+      create(:post, title: "NULL",  published_at: nil,        site: @site, categorizations_attributes: [{category: category, order: 1}])
+      create(:post, title: "newer", published_at: "20160701", site: @site, categorizations_attributes: [{category: category, order: 1}])
+    end
+
+    def test_null_should_not_recent
+      assert_equal Post.order_by_recent.pluck(:title), ["newer", "older", "NULL"]
+    end
+  end
+
   sub_test_case "relation" do
     setup do
       category = create(:category, site: @site)
