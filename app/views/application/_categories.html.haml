@@ -2,7 +2,7 @@
 %ul.menu__items.menu__items--first
   - categories1.each do |category|
     %li.menu__item{class: "menu__item--#{category.slug}", data: {menu_item_state: category.root_of?(current_category) ? 'current' : nil}}
-      = link_to category.name, category_url(category.slug), class: 'menu__label'
+      = link_to category.name, category_url(slug: category.slug), class: 'menu__label'
 - if categories2.present?
   %p.menu__item
     = link_to '#', class: 'menu__more' do
@@ -12,4 +12,4 @@
   %ul.menu__items.menu__items.menu__items--second
     - categories2.each do |category|
       %li.menu__item{class: "menu__item--#{category.slug}", data: {menu_item_state: category.root_of?(current_category) ? 'current' : nil}}
-        = link_to category.name, category_url(category.slug), class: 'menu__label'
+        = link_to category.name, category_url(slug: category.slug), class: 'menu__label'

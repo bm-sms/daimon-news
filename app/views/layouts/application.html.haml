@@ -65,7 +65,7 @@
             %ul.category-list
               - current_site.posted_root_categories.ordered.each do |category|
                 %li.category-list__item
-                  = link_to category.name, category_url(category.slug)
+                  = link_to category.name, category_url(slug: category.slug)
           - if current_site.promotion_url.present?
             .external-component{data: {external_src: current_site.promotion_url}}
 

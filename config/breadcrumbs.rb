@@ -3,7 +3,7 @@ crumb :root do
 end
 
 crumb :category do |category|
-  link category.name, category_url(category.slug)
+  link category.name, category_url(slug: category.slug)
   parent :category, category.parent if category.parent
 end
 

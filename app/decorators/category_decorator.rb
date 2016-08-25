@@ -5,7 +5,7 @@ module CategoryDecorator
       type: "object",
       title: [name, site.tagline, site.name].select(&:present?).join(" | "),
       description: MetaTags::TextNormalizer.normalize_description(render_markdown(description)),
-      url: category_url(slug),
+      url: category_url(slug: slug),
       site_name: site.name,
       image: site.logo_image_url
     }
@@ -13,9 +13,9 @@ module CategoryDecorator
 
   def canonical_url(posts)
     if posts.current_page > 1
-      category_url(page: posts.current_page)
+      category_url(slug: slug, page: posts.current_page)
     else
-      category_url
+      category_url(slug: slug)
     end
   end
 

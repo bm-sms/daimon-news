@@ -22,11 +22,11 @@ SitemapGenerator::Sitemap.create do
   end
 
   site.categories.find_each do |category|
-    add category_path(category.slug), changefreq: "daily", priority: 0.6
+    add category_path(slug: category.slug), changefreq: "daily", priority: 0.6
     posts = category.posts.page
     if posts.total_pages > 1
       2.upto(posts.total_pages) do |page|
-        add category_path(category.slug, page: page), changefreq: "daily", priority: 0.6
+        add category_path(slug: category.slug, page: page), changefreq: "daily", priority: 0.6
       end
     end
   end
