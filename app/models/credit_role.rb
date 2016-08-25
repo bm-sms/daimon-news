@@ -4,5 +4,5 @@ class CreditRole < ActiveRecord::Base
   belongs_to :site
 
   validates :name, presence: true, uniqueness: {scope: :site_id}
-  validates :order, numericality: :only_integer
+  validates :order, numericality: :only_integer, uniqueness: {scope: :site_id}
 end
