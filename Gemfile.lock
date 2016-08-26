@@ -9,9 +9,9 @@ GIT
 
 GIT
   remote: git://github.com/lassebunk/gretel.git
-  revision: 025419b59188835537930a463b7c6e779cdd2f4b
+  revision: 8038a7cdd73dd4cc04a2c4020035a57241bd56d7
   specs:
-    gretel (3.0.8)
+    gretel (3.0.9)
       rails (>= 3.1.0)
 
 GIT
@@ -84,7 +84,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    airbrake (5.4.4)
+    airbrake (5.4.5)
       airbrake-ruby (~> 1.4)
     airbrake-ruby (1.4.6)
     ancestry (2.1.0)
@@ -93,7 +93,7 @@ GEM
       io-like (~> 0.3.0)
     arel (6.0.3)
     ast (2.3.0)
-    autoprefixer-rails (6.4.0.2)
+    autoprefixer-rails (6.4.0.3)
       execjs
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -125,7 +125,7 @@ GEM
     cliver (0.3.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
-    daimon-markdown (0.4.0)
+    daimon-markdown (0.5.0)
       html-pipeline
       redcarpet
       rouge
@@ -138,7 +138,7 @@ GEM
       responders
       warden (~> 1.2.3)
     erubis (2.7.0)
-    excon (0.51.0)
+    excon (0.52.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
@@ -261,9 +261,9 @@ GEM
     fog-voxel (0.1.0)
       fog-core
       fog-xml
-    fog-vsphere (1.0.0)
+    fog-vsphere (1.0.1)
       fog-core
-      rbvmomi (~> 1.8)
+      rbvmomi (~> 1.8.0)
     fog-xenserver (0.2.3)
       fog-core
       fog-xml
@@ -277,7 +277,7 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     gqtp (1.0.6)
-    groonga-client (0.2.6)
+    groonga-client (0.2.7)
       gqtp (>= 1.0.4)
       groonga-command (>= 1.2.0)
       hashie
@@ -316,8 +316,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    meta-tags (2.1.0)
-      actionpack (>= 3.0.0)
+    meta-tags (2.2.0)
+      actionpack (>= 3.2.0)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -329,7 +329,7 @@ GEM
     neat (1.8.0)
       sass (>= 3.3)
       thor (~> 0.19)
-    newrelic_rpm (3.16.1.320)
+    newrelic_rpm (3.16.2.321)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -382,7 +382,7 @@ GEM
       rails-assets-ace-builds (~> 1.1.8)
       rails-assets-bootstrap (~> 3.3.1)
     rails-assets-jquery (3.1.0)
-    rails-assets-jquery-ujs (1.2.1)
+    rails-assets-jquery-ujs (1.2.2)
       rails-assets-jquery (> 1.8)
     rails-assets-marked (0.3.6)
     rails-assets-spectrum (1.8.0)
@@ -495,7 +495,7 @@ GEM
     trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.1)
+    uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)
     unicode-display_width (1.1.0)
     uniform_notifier (1.10.0)
