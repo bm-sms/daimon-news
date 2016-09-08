@@ -19,7 +19,7 @@ gem "daimon_news-layout", github: "bm-sms/daimon_news-layout"
 gem "devise", ">= 3.5.4"
 gem "fog"
 gem "font-awesome-sass"
-gem "gretel", github: "lassebunk/gretel" # To use https://github.com/lassebunk/gretel/commit/b1dd8659 (it is unreleased until 3.0.8)
+gem "gretel"
 gem "haml-rails"
 gem "kaminari"
 gem "meta-tags", require: "meta_tags"
@@ -62,7 +62,7 @@ group :development do
 end
 
 group :test do
-  gem "capybara", github: "tricknotes/capybara", branch: "escape-text-for-have-text" # To avoid Capybara's bug. see for detail: https://github.com/jnicklas/capybara/pull/1739
+  gem "capybara"
   gem "database_cleaner"
   gem "poltergeist"
   gem "test-unit-rails", require: false
