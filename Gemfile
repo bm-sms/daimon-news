@@ -62,7 +62,7 @@ group :development do
 end
 
 group :test do
-  gem "capybara", github: "tricknotes/capybara", branch: "escape-text-for-have-text" # To avoid Capybara's bug. see for detail: https://github.com/jnicklas/capybara/pull/1739
+  gem "capybara"
   gem "database_cleaner"
   gem "poltergeist"
   gem "test-unit-rails", require: false
