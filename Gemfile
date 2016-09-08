@@ -19,7 +19,7 @@ gem "daimon_news-layout", github: "bm-sms/daimon_news-layout"
 gem "devise", ">= 3.5.4"
 gem "fog"
 gem "font-awesome-sass"
-gem "gretel", github: "lassebunk/gretel" # To use https://github.com/lassebunk/gretel/commit/b1dd8659 (it is unreleased until 3.0.8)
+gem "gretel"
 gem "haml-rails"
 gem "kaminari"
 gem "meta-tags", require: "meta_tags"

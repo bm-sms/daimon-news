@@ -8,13 +8,6 @@ GIT
       neat
 
 GIT
-  remote: git://github.com/lassebunk/gretel.git
-  revision: 8038a7cdd73dd4cc04a2c4020035a57241bd56d7
-  specs:
-    gretel (3.0.9)
-      rails (>= 3.1.0)
-
-GIT
   remote: git://github.com/mtsmfm/cocoon.git
   revision: 4a14bb3ae46a465c0385477eacab48385b9ddb59
   branch: fix-on-ready-for-jquery-3
@@ -277,6 +270,8 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     gqtp (1.0.6)
+    gretel (3.0.9)
+      rails (>= 3.1.0)
     groonga-client (0.2.7)
       gqtp (>= 1.0.4)
       groonga-command (>= 1.2.0)
@@ -538,7 +533,7 @@ DEPENDENCIES
   factory_girl
   fog
   font-awesome-sass
-  gretel!
+  gretel
   haml-rails
   kaminari
   launchy
