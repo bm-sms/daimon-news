@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :categories do
       resource :order, module: :categories, only: %i(update)
     end
-    resources :redirects
+    resources :redirect_rules
     resources :serials
     resources :posts, param: :public_id do
       member do
@@ -33,8 +33,8 @@ Rails.application.routes.draw do
   end
 
   Site.all.each do |site|
-    Redirect.where(site_id: site.id).each do |redirect|
-      get redirect.request.to_s => redirect(redirect.destination.to_s, status: 301)
+    RedirectRule.where(site_id: site.id).each do |redirect_rule|
+      get redirect_rule.request.to_s => redirect(redirect_rule.destination.to_s, status: 301)
     end
   end
 

@@ -455,10 +455,10 @@ ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
 
 
 --
--- Name: redirects; Type: TABLE; Schema: public; Owner: -
+-- Name: redirect_rules; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE redirects (
+CREATE TABLE redirect_rules (
     id integer NOT NULL,
     request character varying,
     destination character varying,
@@ -469,10 +469,10 @@ CREATE TABLE redirects (
 
 
 --
--- Name: redirects_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: redirect_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE redirects_id_seq
+CREATE SEQUENCE redirect_rules_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -481,10 +481,10 @@ CREATE SEQUENCE redirects_id_seq
 
 
 --
--- Name: redirects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: redirect_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE redirects_id_seq OWNED BY redirects.id;
+ALTER SEQUENCE redirect_rules_id_seq OWNED BY redirect_rules.id;
 
 
 --
@@ -718,7 +718,7 @@ ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY redirects ALTER COLUMN id SET DEFAULT nextval('redirects_id_seq'::regclass);
+ALTER TABLE ONLY redirect_rules ALTER COLUMN id SET DEFAULT nextval('redirect_rules_id_seq'::regclass);
 
 
 --
@@ -839,11 +839,11 @@ ALTER TABLE ONLY posts
 
 
 --
--- Name: redirects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: redirect_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY redirects
-    ADD CONSTRAINT redirects_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY redirect_rules
+    ADD CONSTRAINT redirect_rules_pkey PRIMARY KEY (id);
 
 
 --
@@ -1032,17 +1032,17 @@ CREATE INDEX index_posts_on_updated_at ON posts USING btree (updated_at);
 
 
 --
--- Name: index_redirects_on_request_and_site_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_redirect_rules_on_request_and_site_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_redirects_on_request_and_site_id ON redirects USING btree (request, site_id);
+CREATE UNIQUE INDEX index_redirect_rules_on_request_and_site_id ON redirect_rules USING btree (request, site_id);
 
 
 --
--- Name: index_redirects_on_site_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_redirect_rules_on_site_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_redirects_on_site_id ON redirects USING btree (site_id);
+CREATE INDEX index_redirect_rules_on_site_id ON redirect_rules USING btree (site_id);
 
 
 --
@@ -1087,6 +1087,14 @@ ALTER TABLE ONLY credits
 
 ALTER TABLE ONLY posts
     ADD CONSTRAINT fk_rails_0d1e104012 FOREIGN KEY (serial_id) REFERENCES serials(id);
+
+
+--
+-- Name: fk_rails_153f1813ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY redirect_rules
+    ADD CONSTRAINT fk_rails_153f1813ed FOREIGN KEY (site_id) REFERENCES sites(id);
 
 
 --
@@ -1135,14 +1143,6 @@ ALTER TABLE ONLY memberships
 
 ALTER TABLE ONLY credits
     ADD CONSTRAINT fk_rails_6dc26c2c8d FOREIGN KEY (credit_role_id) REFERENCES credit_roles(id);
-
-
---
--- Name: fk_rails_9823f4fec7; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY redirects
-    ADD CONSTRAINT fk_rails_9823f4fec7 FOREIGN KEY (site_id) REFERENCES sites(id);
 
 
 --

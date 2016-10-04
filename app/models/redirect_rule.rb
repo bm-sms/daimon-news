@@ -1,4 +1,4 @@
-class Redirect < ActiveRecord::Base
+class RedirectRule < ActiveRecord::Base
   after_save :after_change
   after_destroy :after_change
 
@@ -23,9 +23,9 @@ class Redirect < ActiveRecord::Base
   end
 
   def redirect_loop?
-    redirect = Redirect.find_by(request: destination, destination: request)
-    if redirect.present?
-      errors.add(:destination, "リダイレクトループが発生する設定は追加できません") unless redirect.id == id
+    redirect_rule = RedirectRule.find_by(request: destination, destination: request)
+    if redirect_rule.present?
+      errors.add(:destination, "リダイレクトループが発生する設定は追加できません") unless redirect_rule.id == id
     end
   end
 

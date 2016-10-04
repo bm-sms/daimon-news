@@ -1,6 +1,6 @@
-class CreateRedirects < ActiveRecord::Migration
+class CreateRedirectRules < ActiveRecord::Migration
   def change
-    create_table :redirects do |t|
+    create_table :redirect_rules do |t|
       t.string :request
       t.string :destination
       t.references :site, index: true, foreign_key: true, null: false
