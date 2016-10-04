@@ -4,6 +4,7 @@ class CreateRedirects < ActiveRecord::Migration
       t.string :request
       t.string :destination
       t.references :site, index: true, foreign_key: true, null: false
+      t.index [:request, :site_id], unique: true
 
       t.timestamps null: false
     end

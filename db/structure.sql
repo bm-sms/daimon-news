@@ -1032,6 +1032,13 @@ CREATE INDEX index_posts_on_updated_at ON posts USING btree (updated_at);
 
 
 --
+-- Name: index_redirects_on_request_and_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_redirects_on_request_and_site_id ON redirects USING btree (request, site_id);
+
+
+--
 -- Name: index_redirects_on_site_id; Type: INDEX; Schema: public; Owner: -
 --
 
