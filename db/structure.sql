@@ -460,7 +460,7 @@ ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
 
 CREATE TABLE redirect_rules (
     id integer NOT NULL,
-    request character varying,
+    request_path character varying,
     destination character varying,
     site_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -1032,10 +1032,10 @@ CREATE INDEX index_posts_on_updated_at ON posts USING btree (updated_at);
 
 
 --
--- Name: index_redirect_rules_on_request_and_site_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_redirect_rules_on_request_path_and_site_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_redirect_rules_on_request_and_site_id ON redirect_rules USING btree (request, site_id);
+CREATE UNIQUE INDEX index_redirect_rules_on_request_path_and_site_id ON redirect_rules USING btree (request_path, site_id);
 
 
 --

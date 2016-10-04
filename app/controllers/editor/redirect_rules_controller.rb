@@ -53,7 +53,7 @@ class Editor::RedirectRulesController < Editor::ApplicationController
 
   def redirect_rule_params
     params.require(:redirect_rule).permit(
-      :request,
+      :request_path,
       :destination
     )
   end

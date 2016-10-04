@@ -34,7 +34,7 @@ Rails.application.routes.draw do
 
   Site.all.each do |site|
     RedirectRule.where(site_id: site.id).each do |redirect_rule|
-      get redirect_rule.request.to_s => redirect(redirect_rule.destination.to_s, status: 301)
+      get redirect_rule.request_path.to_s => redirect(redirect_rule.destination.to_s, status: 301)
     end
   end
 
