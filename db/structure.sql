@@ -27,6 +27,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -167,6 +181,72 @@ CREATE SEQUENCE credits_id_seq
 --
 
 ALTER SEQUENCE credits_id_seq OWNED BY credits.id;
+
+
+--
+-- Name: daimon_news_admin_posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE daimon_news_admin_posts (
+    id integer NOT NULL,
+    title character varying,
+    body text,
+    daimon_news_admin_site_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: daimon_news_admin_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE daimon_news_admin_posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: daimon_news_admin_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE daimon_news_admin_posts_id_seq OWNED BY daimon_news_admin_posts.id;
+
+
+--
+-- Name: daimon_news_admin_sites; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE daimon_news_admin_sites (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    js_url character varying NOT NULL,
+    css_url character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: daimon_news_admin_sites_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE daimon_news_admin_sites_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: daimon_news_admin_sites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE daimon_news_admin_sites_id_seq OWNED BY daimon_news_admin_sites.id;
 
 
 --
@@ -375,6 +455,39 @@ ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
 
 
 --
+-- Name: redirects; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE redirects (
+    id integer NOT NULL,
+    request character varying,
+    destination character varying,
+    site_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: redirects_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE redirects_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: redirects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE redirects_id_seq OWNED BY redirects.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -435,11 +548,11 @@ CREATE TABLE sites (
     promotion_url character varying,
     sns_share_caption character varying,
     twitter_account character varying,
-    menu_url character varying,
-    home_url character varying,
     ad_client character varying,
     ad_slot character varying,
     description character varying,
+    menu_url character varying,
+    home_url character varying,
     footer_url character varying,
     opened boolean DEFAULT false NOT NULL,
     logo_image character varying,
@@ -549,6 +662,20 @@ ALTER TABLE ONLY credits ALTER COLUMN id SET DEFAULT nextval('credits_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY daimon_news_admin_posts ALTER COLUMN id SET DEFAULT nextval('daimon_news_admin_posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY daimon_news_admin_sites ALTER COLUMN id SET DEFAULT nextval('daimon_news_admin_sites_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY fixed_pages ALTER COLUMN id SET DEFAULT nextval('fixed_pages_id_seq'::regclass);
 
 
@@ -585,6 +712,13 @@ ALTER TABLE ONLY participants ALTER COLUMN id SET DEFAULT nextval('participants_
 --
 
 ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY redirects ALTER COLUMN id SET DEFAULT nextval('redirects_id_seq'::regclass);
 
 
 --
@@ -641,6 +775,22 @@ ALTER TABLE ONLY credits
 
 
 --
+-- Name: daimon_news_admin_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY daimon_news_admin_posts
+    ADD CONSTRAINT daimon_news_admin_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: daimon_news_admin_sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY daimon_news_admin_sites
+    ADD CONSTRAINT daimon_news_admin_sites_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: fixed_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -686,6 +836,14 @@ ALTER TABLE ONLY participants
 
 ALTER TABLE ONLY posts
     ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: redirects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY redirects
+    ADD CONSTRAINT redirects_pkey PRIMARY KEY (id);
 
 
 --
@@ -790,6 +948,13 @@ CREATE UNIQUE INDEX index_credits_on_post_id_and_order ON credits USING btree (p
 
 
 --
+-- Name: index_daimon_news_admin_posts_on_daimon_news_admin_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daimon_news_admin_posts_on_daimon_news_admin_site_id ON daimon_news_admin_posts USING btree (daimon_news_admin_site_id);
+
+
+--
 -- Name: index_fixed_pages_on_site_id_and_slug; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -867,6 +1032,13 @@ CREATE INDEX index_posts_on_updated_at ON posts USING btree (updated_at);
 
 
 --
+-- Name: index_redirects_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_redirects_on_site_id ON redirects USING btree (site_id);
+
+
+--
 -- Name: index_serials_on_site_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -935,6 +1107,14 @@ ALTER TABLE ONLY credit_roles
 
 
 --
+-- Name: fk_rails_5f2af595cb; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY daimon_news_admin_posts
+    ADD CONSTRAINT fk_rails_5f2af595cb FOREIGN KEY (daimon_news_admin_site_id) REFERENCES daimon_news_admin_sites(id);
+
+
+--
 -- Name: fk_rails_6c24d54d2a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -948,6 +1128,14 @@ ALTER TABLE ONLY memberships
 
 ALTER TABLE ONLY credits
     ADD CONSTRAINT fk_rails_6dc26c2c8d FOREIGN KEY (credit_role_id) REFERENCES credit_roles(id);
+
+
+--
+-- Name: fk_rails_9823f4fec7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY redirects
+    ADD CONSTRAINT fk_rails_9823f4fec7 FOREIGN KEY (site_id) REFERENCES sites(id);
 
 
 --
@@ -1023,6 +1211,14 @@ SET search_path TO "$user", public;
 INSERT INTO schema_migrations (version) VALUES ('20151026011256');
 
 INSERT INTO schema_migrations (version) VALUES ('20151026011918');
+
+INSERT INTO schema_migrations (version) VALUES ('20151202081744');
+
+INSERT INTO schema_migrations (version) VALUES ('20151202081745');
+
+INSERT INTO schema_migrations (version) VALUES ('20151207052918');
+
+INSERT INTO schema_migrations (version) VALUES ('20151207052919');
 
 INSERT INTO schema_migrations (version) VALUES ('20151209012747');
 
@@ -1217,4 +1413,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160802025651');
 INSERT INTO schema_migrations (version) VALUES ('20160802044216');
 
 INSERT INTO schema_migrations (version) VALUES ('20160804090315');
+
+INSERT INTO schema_migrations (version) VALUES ('20161003075535');
 

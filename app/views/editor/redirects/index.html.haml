@@ -1,0 +1,21 @@
+%h1 リダイレクト一覧
+
+= link_to 'New Redirect', new_editor_redirect_path, class: 'btn btn-default'
+
+%table.table
+  %thead
+    %tr
+      %th リダイレクト元
+      %th リダイレクト先
+      %th
+      %th
+      %th
+
+  %tbody
+    - @redirects.each do |redirect|
+      %tr
+        %td= redirect.request
+        %td= redirect.destination
+        %td= link_to 'Show', editor_redirect_path(redirect)
+        %td= link_to 'Edit', edit_editor_redirect_path(redirect)
+        %td= link_to 'Destroy', editor_redirect_path(redirect), :method => :delete, :data => { :confirm => 'Are you sure?' }

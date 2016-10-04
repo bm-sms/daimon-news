@@ -1,0 +1,6 @@
+= bootstrap_form_for [:editor, @redirect], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+  = f.text_field :request, help: "相対URLを指定します"
+  = f.text_field :destination, help: "相対URL、または絶対URLを指定します"
+
+  = f.form_group do
+    = f.submit
