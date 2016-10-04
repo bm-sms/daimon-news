@@ -25,7 +25,7 @@ class Redirect < ActiveRecord::Base
   def redirect_loop?
     redirect = Redirect.find_by(request: destination, destination: request)
     if redirect.present?
-      errors.add(:destination, "リダイレクト ループが発生する設定は追加できません") unless redirect.id == id
+      errors.add(:destination, "リダイレクトループが発生する設定は追加できません") unless redirect.id == id
     end
   end
 
