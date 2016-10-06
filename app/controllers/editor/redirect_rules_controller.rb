@@ -37,9 +37,7 @@ class Editor::RedirectRulesController < Editor::ApplicationController
   end
 
   def destroy
-    @redirect_rule = redirect_rules.find(params[:id])
-
-    @redirect_rule.destroy
+    redirect_rules.find(params[:id]).destroy
 
     redirect_to editor_redirect_rules_url, notice: "リダイレクトが削除されました"
   end
