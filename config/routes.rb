@@ -32,12 +32,6 @@ Rails.application.routes.draw do
     resources :credit_roles
   end
 
-  Site.all.each do |site|
-    RedirectRule.where(site_id: site.id).each do |redirect_rule|
-      get redirect_rule.request_path.to_s => redirect(redirect_rule.destination.to_s, status: 301)
-    end
-  end
-
   concern :site do
     get "search", controller: "search"
 
