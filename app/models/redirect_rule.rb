@@ -12,7 +12,7 @@ class RedirectRule < ActiveRecord::Base
   private
 
   def request_path_is_relative_path?
-    errors.add(:request_path, "/ から始まる相対パスのみ設定できます") unless request_path =~ %r{^/(?!/).*}
+    errors.add(:request_path, "/ から始まる相対パスのみ設定できます") unless request_path.start_with?("/")
   end
 
   def request_path_has_query_string?
