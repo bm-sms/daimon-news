@@ -1,7 +1,4 @@
 class RedirectRule < ActiveRecord::Base
-  after_save :after_change
-  after_destroy :after_change
-
   belongs_to :site
 
   validates :request_path, presence: true
@@ -32,9 +29,5 @@ class RedirectRule < ActiveRecord::Base
     if redirect_rule.present?
       errors.add(:destination, "リダイレクトループが発生する設定は追加できません") unless redirect_rule.id == id
     end
-  end
-
-  def after_change
-    Rails.application.reload_routes!
   end
 end
