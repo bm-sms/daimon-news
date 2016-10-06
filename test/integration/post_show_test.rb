@@ -46,4 +46,19 @@ class PostShowTest < ActionDispatch::IntegrationTest
       assert page.has_no_selector?("section.credits")
     end
   end
+
+  test "should have correct meta tags" do
+    visit "/#{@post.public_id}"
+
+    assert meta_content_for("og:url"), "https://example.com/#{@post.public_id}"
+    assert meta_content_for("article:section"), @post.main_category.name
+  end
+
+  private
+
+  def meta_content_for(name)
+    within("head", visible: false) do
+      find("meta[property='article:section']", visible: false)["content"]
+    end
+  end
 end
