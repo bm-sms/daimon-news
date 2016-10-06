@@ -5,14 +5,23 @@ class RedirectRule < ActiveRecord::Base
   validates :request_path, uniqueness: {scope: :site_id}
   validates :destination, presence: true
   validate :request_path_is_relative_path?
+  validate :request_path_has_fragment_string?
   validate :request_path_has_query_string?
   validate :request_equal_destination?
   validate :redirect_loop?
 
   private
 
+  def add_error_request_path(key)
+    errors.add(:request_path, I18n.t(key, scope: [:activerecord, :errors, :models, :redirect_rule, :request_path]))
+  end
+
   def request_path_is_relative_path?
     errors.add(:request_path, "/ から始まる相対パスのみ設定できます") unless request_path.start_with?("/")
+  end
+
+  def request_path_has_fragment_string?
+    add_error_request_path(:has_fragment_string) if URI.parse(request_path).fragment.present?
   end
 
   def request_path_has_query_string?

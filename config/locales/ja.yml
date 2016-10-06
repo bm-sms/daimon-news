@@ -1,4 +1,10 @@
 ja:
+  activerecord:
+    errors:
+      models:
+        redirect_rule:
+          request_path:
+            has_fragment_string: フラグメント識別子は含めることができません
   time:
     formats:
       short: "%Y/%m/%d %H:%M"
