@@ -27,8 +27,8 @@ class Redirector
     private
 
     def redirect_rule
-      site = Site.find_by(fqdn: request_host)
-      RedirectRule.find_by(site_id: site.id, request_path: request_path) if site.present?
+      site = Site.find_by!(fqdn: request_host)
+      site.redirect_rules.find_by(request_path: request_path)
     end
 
     def request_host
