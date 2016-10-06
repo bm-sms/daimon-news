@@ -22,7 +22,7 @@ module PostDecorator
 
   def to_article_params
     {
-      section: main_category,
+      section: main_category.name,
       published_time: published_at&.iso8601
     }
   end
