@@ -29,10 +29,9 @@ class RedirectRule < ActiveRecord::Base
   end
 
   def request_equal_destination?
-    if request_path == URI.parse(destination).path
-      if URI.parse(destination).hostname == site.fqdn || URI.parse(destination).relative?
-        add_error_request_path(:not_equal_destination)
-      end
+    destination_uri = URI.parse(destination).freeze
+    if request_path == destination_uri.path && (destination_uri.hostname == site.fqdn || destination_uri.relative?)
+      add_error_request_path(:not_equal_destination)
     end
   end
 
