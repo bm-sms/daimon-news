@@ -51,7 +51,7 @@ module DaimonNews
     end
 
     config.middleware.insert_before Rack::MethodOverride, UnknownErrorHandler
-    require "Redirector"
+    require "redirector"
     config.middleware.insert_before Rack::Runtime, Redirector
   end
 end
