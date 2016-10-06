@@ -16,8 +16,6 @@ class Redirector
     end
 
     def response
-      site = Site.find_by(fqdn: request_host)
-      redirect_rule = RedirectRule.find_by(site_id: site.id, request_path: request_path)
       if redirect_rule.present?
         [301, {"Location" => redirect_rule.destination}, [%Q(You are being redirected <a href="#{redirect_rule.destination}">#{redirect_rule.destination}</a>)]]
       else
@@ -26,6 +24,11 @@ class Redirector
     end
 
     private
+
+    def redirect_rule
+      site = Site.find_by(fqdn: request_host)
+      RedirectRule.find_by(site_id: site.id, request_path: request_path) if site.present?
+    end
 
     def request_host
       env["HTTP_HOST"].split(":").first
