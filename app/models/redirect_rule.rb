@@ -17,7 +17,7 @@ class RedirectRule < ActiveRecord::Base
   end
 
   def request_path_is_relative_path?
-    errors.add(:request_path, "/ から始まる相対パスのみ設定できます") unless request_path.start_with?("/")
+    add_error_request_path(:not_relative_path) unless request_path.start_with?("/")
   end
 
   def request_path_has_fragment_string?
@@ -25,18 +25,21 @@ class RedirectRule < ActiveRecord::Base
   end
 
   def request_path_has_query_string?
-    uri = URI.parse(request_path)
-    errors.add(:request_path, "クエリパラメーターは含めることができません") if uri.query.present?
+    add_error_request_path(:has_query_string) if URI.parse(request_path).query.present?
   end
 
   def request_equal_destination?
-    errors.add(:destination, "リダイレクト元とリダイレクト先は同じにできません") if request_path == destination
+    if request_path == URI.parse(destination).path
+      if URI.parse(destination).hostname == site.fqdn || URI.parse(destination).relative?
+        add_error_request_path(:not_equal_destination)
+      end
+    end
   end
 
   def redirect_loop?
     redirect_rule = RedirectRule.find_by(site_id: site.id, request_path: destination, destination: request_path)
     if redirect_rule.present?
-      errors.add(:destination, "リダイレクトループが発生する設定は追加できません") unless redirect_rule.id == id
+      errors.add(:destination, I18n.t(:redirect_loop, scope: [:activerecord, :errors, :models, :redirect_rule])) unless redirect_rule.id == id
     end
   end
 end
