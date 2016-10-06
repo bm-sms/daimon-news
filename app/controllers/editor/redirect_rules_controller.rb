@@ -1,5 +1,4 @@
 class Editor::RedirectRulesController < Editor::ApplicationController
-
   def index
     @redirect_rules = redirect_rules
   end
