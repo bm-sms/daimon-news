@@ -23,7 +23,7 @@ class RedirectRule < ActiveRecord::Base
   end
 
   def redirect_loop?
-    redirect_rule = RedirectRule.find_by(request_path: destination, destination: request_path)
+    redirect_rule = RedirectRule.find_by(site_id: site.id, request_path: destination, destination: request_path)
     if redirect_rule.present?
       errors.add(:destination, "リダイレクトループが発生する設定は追加できません") unless redirect_rule.id == id
     end
