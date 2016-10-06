@@ -51,7 +51,7 @@ class Post < ActiveRecord::Base
   end
 
   def main_category
-    categories.first!
+    categories.loaded? ? categories.fetch(0) : categories.first!
   end
 
   private
