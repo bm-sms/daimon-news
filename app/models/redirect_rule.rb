@@ -7,11 +7,16 @@ class RedirectRule < ActiveRecord::Base
   validates :request_path, presence: true
   validates :request_path, uniqueness: {scope: :site_id}
   validates :destination, presence: true
+  validate :request_path_is_relative_path?
   validate :request_path_has_query_string?
   validate :request_equal_destination?
   validate :redirect_loop?
 
   private
+
+  def request_path_is_relative_path?
+    errors.add(:request_path, "/ から始まる相対パスのみ設定できます") unless request_path =~ %r{^/(?!/).*}
+  end
 
   def request_path_has_query_string?
     uri = URI.parse(request_path)
