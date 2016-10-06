@@ -19,8 +19,7 @@ class Redirector
       site = Site.find_by(fqdn: request_host)
       redirect_rule = RedirectRule.find_by(site_id: site.id, request_path: request_path)
       if redirect_rule.present?
-        [301, {"Location" => redirect_rule.destination},
-          [%{You are being redirected <a href="#{redirect_rule.destination}">#{redirect_rule.destination}</a>}]]
+        [301, {"Location" => redirect_rule.destination}, [%Q(You are being redirected <a href="#{redirect_rule.destination}">#{redirect_rule.destination}</a>)]]
       else
         app.call(env)
       end
