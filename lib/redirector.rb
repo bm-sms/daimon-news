@@ -16,8 +16,9 @@ class Redirector
     end
 
     def response
-      if redirect_rule.present?
-        [301, {"Location" => redirect_rule.destination}, [%Q(You are being redirected <a href="#{redirect_rule.destination}">#{redirect_rule.destination}</a>)]]
+      rule = redirect_rule.freeze
+      if rule.present?
+        [301, {"Location" => rule.destination}, [%Q(You are being redirected <a href="#{rule.destination}">#{rule.destination}</a>)]]
       else
         app.call(env)
       end
