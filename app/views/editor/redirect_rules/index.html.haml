@@ -14,8 +14,8 @@
   %tbody
     - @redirect_rules.each do |redirect_rule|
       %tr
-        %td= redirect_rule.request_path
-        %td= redirect_rule.destination
+        %td= link_to redirect_rule.request_path, redirect_rule.request_path
+        %td= link_to redirect_rule.destination, redirect_rule.destination
         %td= link_to 'Show', editor_redirect_rule_path(redirect_rule)
         %td= link_to 'Edit', edit_editor_redirect_rule_path(redirect_rule)
         %td= link_to 'Destroy', editor_redirect_rule_path(redirect_rule), :method => :delete, :data => { :confirm => 'Are you sure?' }
