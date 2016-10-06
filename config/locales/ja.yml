@@ -3,11 +3,12 @@ ja:
     errors:
       models:
         redirect_rule:
-          request_path:
-            not_relative_path: / から始まる相対パスのみ設定できます
-            has_fragment_string: フラグメント識別子は含めることができません
-            has_query_string: クエリパラメーターは含めることができません
-            not_equal_destination: リダイレクト元とリダイレクト先は同じにできません
+          attributes:
+            request_path:
+              not_relative_path: / から始まる相対パスのみ設定できます
+              has_fragment_string: フラグメント識別子は含めることができません
+              has_query_string: クエリパラメーターは含めることができません
+              not_equal_destination: リダイレクト元とリダイレクト先は同じにできません
           redirect_loop: リダイレクトループが発生する設定は追加できません
   time:
     formats:

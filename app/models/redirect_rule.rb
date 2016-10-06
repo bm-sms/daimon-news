@@ -13,7 +13,7 @@ class RedirectRule < ActiveRecord::Base
   private
 
   def add_error_request_path(key)
-    errors.add(:request_path, I18n.t(key, scope: [:activerecord, :errors, :models, :redirect_rule, :request_path]))
+    errors.add(:request_path, key)
   end
 
   def request_path_is_relative_path?
@@ -39,7 +39,7 @@ class RedirectRule < ActiveRecord::Base
   def redirect_loop?
     redirect_rule = RedirectRule.find_by(site_id: site.id, request_path: destination, destination: request_path)
     if redirect_rule.present?
-      errors.add(:destination, I18n.t(:redirect_loop, scope: [:activerecord, :errors, :models, :redirect_rule])) unless redirect_rule.id == id
+      errors.add(:destination, :redirect_loop) unless redirect_rule.id == id
     end
   end
 end
