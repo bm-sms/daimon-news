@@ -1,4 +1,5 @@
-require 'uri'
+require "uri"
+
 class Redirector
   def initialize(application)
     @application = application

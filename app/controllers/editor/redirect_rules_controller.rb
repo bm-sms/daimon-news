@@ -20,10 +20,10 @@ class Editor::RedirectRulesController < Editor::ApplicationController
   end
 
   def decode(params)
-    params["redirect_rules_attributes"].map {|rule|
+    params["redirect_rules_attributes"].map do |rule|
       rule[1]["request_path"] = URI.decode_www_form_component(rule[1]["request_path"])
       rule
-    }
+    end
     params
   end
 end
