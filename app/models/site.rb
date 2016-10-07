@@ -24,6 +24,8 @@ class Site < ActiveRecord::Base
   mount_uploader :mobile_favicon_image, ImageUploader
   mount_uploader :custom_hue_css, AssetUploader
 
+  accepts_nested_attributes_for :redirect_rules, allow_destroy: true
+
   def credit_enabled?
     participants.exists? && credit_roles.exists?
   end

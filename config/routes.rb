@@ -20,7 +20,10 @@ Rails.application.routes.draw do
     resources :categories do
       resource :order, module: :categories, only: %i(update)
     end
-    resources :redirect_rules
+
+    get "redirect_rules", controller: "redirect_rules", action: :edit
+    post "redirect_rules", controller: "redirect_rules", action: :update
+
     resources :serials
     resources :posts, param: :public_id do
       member do
