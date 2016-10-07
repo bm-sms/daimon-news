@@ -1,3 +1,4 @@
+require 'uri'
 class Redirector
   def initialize(application)
     @application = application
@@ -32,11 +33,11 @@ class Redirector
     end
 
     def request_host
-      env["HTTP_HOST"].split(":").first
+      URI.decode_www_form_component(env["HTTP_HOST"].split(":").first)
     end
 
     def request_path
-      env["PATH_INFO"]
+      URI.decode_www_form_component(env["PATH_INFO"])
     end
   end
 end
