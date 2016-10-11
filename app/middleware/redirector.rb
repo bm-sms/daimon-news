@@ -1,4 +1,5 @@
 require "uri"
+require_relative "../models/site.rb"
 
 class Redirector
   def initialize(application)
@@ -6,6 +7,7 @@ class Redirector
   end
 
   def call(environment)
+    binding.pry unless Site.find_by(fqdn: URI.decode_www_form_component(environment["HTTP_HOST"].split(":").first))
     Responder.new(@application, environment).response
   end
 
