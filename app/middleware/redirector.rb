@@ -1,6 +1,3 @@
-require "uri"
-require_relative "../models/site.rb"
-
 class Redirector
   def initialize(application)
     @application = application
