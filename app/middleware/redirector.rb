@@ -32,7 +32,7 @@ class Redirector
     end
 
     def request_host
-      URI.decode_www_form_component(env["HTTP_HOST"].split(":").first)
+      SimpleIDN.to_unicode(env["HTTP_HOST"].split(":").first)
     end
 
     def request_path
