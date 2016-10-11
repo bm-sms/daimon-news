@@ -1,6 +1,5 @@
-require "addressable/uri"
-
 class RedirectRule < ActiveRecord::Base
+  before_validation :decode_request_path
   belongs_to :site
 
   validates :request_path, presence: true
@@ -13,6 +12,10 @@ class RedirectRule < ActiveRecord::Base
   validate :redirect_loop?
 
   private
+
+  def decode_request_path
+    self.request_path = URI.decode_www_form_component(self.request_path)
+  end
 
   def add_error_request_path(key)
     errors.add(:request_path, key)
