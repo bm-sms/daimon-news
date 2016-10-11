@@ -50,15 +50,15 @@ class PostShowTest < ActionDispatch::IntegrationTest
   test "should have correct meta tags" do
     visit "/#{@post.public_id}"
 
-    assert meta_content_for("og:url"), "https://example.com/#{@post.public_id}"
-    assert meta_content_for("article:section"), @post.main_category.name
+    assert_equal meta_content_for("og:url"), "http://#{@post.site.fqdn}/#{@post.public_id}"
+    assert_equal meta_content_for("article:section"), @post.main_category.name
   end
 
   private
 
   def meta_content_for(name)
     within("head", visible: false) do
-      find("meta[property='article:section']", visible: false)["content"]
+      find("meta[property='#{name}']", visible: false)["content"]
     end
   end
 end
