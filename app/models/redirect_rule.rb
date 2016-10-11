@@ -1,5 +1,6 @@
 class RedirectRule < ActiveRecord::Base
   before_validation :decode_request_path
+  before_validation :decode_destination
   belongs_to :site
 
   validates :request_path, presence: true
@@ -15,6 +16,16 @@ class RedirectRule < ActiveRecord::Base
 
   def decode_request_path
     self.request_path = URI.decode_www_form_component(self.request_path)
+  end
+
+  def decode_destination
+    destination = Addressable::URI.parse(URI.decode_www_form_component(self.destination))
+    if destination.host
+      destination.host = SimpleIDN.to_unicode(destination.host)
+      self.destination = destination.to_s
+    else
+      true
+    end
   end
 
   def add_error_request_path(key)
