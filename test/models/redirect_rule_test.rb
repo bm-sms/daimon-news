@@ -43,7 +43,7 @@ class RedirectRuleTest < ActiveSupport::TestCase
 
     test "redirect loop is invalid" do
       rule = create(:redirect_rule)
-      loop_rule = RedirectRule.create(site: rule.site, request_path: rule.destination, destination: rule.request_path)
+      loop_rule = RedirectRule.create(site_id: rule.site.id, request_path: rule.destination, destination: rule.request_path)
       assert loop_rule.invalid?
     end
   end

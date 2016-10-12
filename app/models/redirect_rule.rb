@@ -6,6 +6,7 @@ class RedirectRule < ActiveRecord::Base
   validates :request_path, presence: true
   validates :request_path, uniqueness: {scope: :site_id}
   validates :destination, presence: true
+  validates :site, presence: true
   validate :request_path_is_relative_path?
   validate :request_path_has_fragment_string?
   validate :request_path_has_query_string?
@@ -52,7 +53,7 @@ class RedirectRule < ActiveRecord::Base
   end
 
   def redirect_loop?
-    redirect_loop_rule = Site.find(site.id).redirect_rules.find do |redirect_rule|
+    redirect_loop_rule = site.redirect_rules.find do |redirect_rule|
       redirect_rule.request_path == destination && redirect_rule.destination == request_path
     end
     errors.add(:destination, :redirect_loop) if redirect_loop_rule.present?
