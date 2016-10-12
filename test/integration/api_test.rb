@@ -10,6 +10,7 @@ class ApiTest < ActionDispatch::IntegrationTest
     create(:post, site: @site, categorizations_attributes: [{category: @category, order: 1}])
     create(:post, site: @site, serial: @serial, categorizations_attributes: [{category: create(:category, site: @site), order: 1}])
     create(:post, site: @site, serial: create(:serial, site: @site), categorizations_attributes: [category: create(:category, site: @site), order: 1])
+    host!(@site.fqdn)
   end
 
   test "category and serial filter should be applied to /api/posts" do
