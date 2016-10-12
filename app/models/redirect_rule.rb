@@ -16,14 +16,14 @@ class RedirectRule < ActiveRecord::Base
   private
 
   def decode_request_path
-    self.request_path = URI.decode_www_form_component(self.request_path)
+    self.request_path = URI.decode_www_form_component(request_path)
   end
 
   def decode_destination
-    destination = Addressable::URI.parse(URI.decode_www_form_component(self.destination))
-    if destination.host
-      destination.host = SimpleIDN.to_unicode(destination.host)
-      self.destination = destination.to_s
+    destination_uri = Addressable::URI.parse(URI.decode_www_form_component(destination))
+    if destination_uri.host
+      destination_uri.host = SimpleIDN.to_unicode(destination_uri.host)
+      self.destination = destination_uri.to_s
     else
       true
     end
