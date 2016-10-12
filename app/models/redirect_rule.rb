@@ -1,7 +1,7 @@
 class RedirectRule < ActiveRecord::Base
   before_validation :decode_request_path
   before_validation :decode_destination
-  belongs_to :site
+  belongs_to :site, inverse_of: :redirect_rules
 
   validates :request_path, presence: true
   validates :request_path, uniqueness: {scope: :site_id}

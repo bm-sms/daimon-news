@@ -18,6 +18,7 @@ class Site < ActiveRecord::Base
   validates :name, presence: true
   validates :fqdn, presence: true, uniqueness: true
   validate :validate_category_title_format
+  validate :redirect_loop
 
   mount_uploader :logo_image, ImageUploader
   mount_uploader :favicon_image, ImageUploader
@@ -51,5 +52,14 @@ class Site < ActiveRecord::Base
     category_title_format.scan(/%([^{% ])/) do
       errors.add(:category_title_format, :invalid)
     end
+  end
+
+  def redirect_loop
+    redirect_loop = redirect_rules.find do |redirect_rule|
+      redirect_rules.find do |item|
+        redirect_rule.destination == item.request_path && redirect_rule.request_path == item.destination
+      end
+    end
+    errors.add(:redirect_rules, I18n.t("activerecord.errors.models.redirect_rule.redirect_loop")) if redirect_loop
   end
 end
