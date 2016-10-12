@@ -52,7 +52,7 @@ class RedirectRule < ActiveRecord::Base
   end
 
   def redirect_loop?
-    redirect_loop_rule = site.redirect_rules.find do |redirect_rule|
+    redirect_loop_rule = Site.find(site.id).redirect_rules.find do |redirect_rule|
       redirect_rule.request_path == destination && redirect_rule.destination == request_path
     end
     errors.add(:destination, :redirect_loop) if redirect_loop_rule.present?
