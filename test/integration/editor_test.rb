@@ -191,80 +191,82 @@ class EditorTest < ActionDispatch::IntegrationTest
     assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
-  attribute :js, true
-  test "既に追加されているリダイレクト元の場合" do
-    visit("/editor/redirect_rules")
-    find_all_input_by_row_number = lambda do |num|
-      find_all(:xpath, "//tbody[@id='detail-association-insertion-point']//tr[#{num}]//td//input")
+  sub_test_case "Redirect Rule" do
+    attribute :js, true
+    test "既に追加されているリダイレクト元の場合" do
+      visit("/editor/redirect_rules")
+      find_all_input_by_row_number = lambda do |num|
+        find_all(:xpath, "//tbody[@id='detail-association-insertion-point']//tr[#{num}]//td//input")
+      end
+
+      click_on("Add redirect rule")
+      inputs = find_all_input_by_row_number.call(1)
+      inputs[0].set("/1")
+      inputs[1].set("/2")
+      click_on("更新する")
+
+      click_on("Add redirect rule")
+      inputs = find_all_input_by_row_number.call(2)
+      inputs[0].set("/1")
+      inputs[1].set("/3")
+      click_on("更新する")
+
+      page.save_screenshot "screenshot.png"
+      assert(page.has_text?("リダイレクトルールが更新されませんでした"))
+      assert(page.has_text?("はすでに存在します"))
     end
 
-    click_on("Add redirect rule")
-    inputs = find_all_input_by_row_number.call(1)
-    inputs[0].set("/1")
-    inputs[1].set("/2")
-    click_on("更新する")
-
-    click_on("Add redirect rule")
-    inputs = find_all_input_by_row_number.call(2)
-    inputs[0].set("/1")
-    inputs[1].set("/3")
-    click_on("更新する")
-
-    page.save_screenshot "screenshot.png"
-    assert(page.has_text?("リダイレクトルールが更新されませんでした"))
-    assert(page.has_text?("はすでに存在します"))
-  end
-
-  attribute :js, true
-  test "日本語のリダイレクト元とリダイレクト先を登録する場合" do
-    visit("/editor/redirect_rules")
-    find_all_input_by_row_number = lambda do |num|
-      find_all(:xpath, "//tbody[@id='detail-association-insertion-point']//tr[#{num}]//td//input")
-    end
-    click_on("Add redirect rule")
-    inputs = find_all_input_by_row_number.call(1)
-    inputs[0].set("/日本語")
-    inputs[1].set("http://日本語.jp")
-    click_on("更新する")
-    assert(page.has_text?("リダイレクトルールが更新されました"))
-  end
-
-  attribute :js, true
-  test "リダレイクと元とリダイレクト先が同じ場合" do
-    visit("/editor/redirect_rules")
-    find_all_input_by_row_number = lambda do |num|
-      find_all(:xpath, "//tbody[@id='detail-association-insertion-point']//tr[#{num}]//td//input")
+    attribute :js, true
+    test "日本語のリダイレクト元とリダイレクト先を登録する場合" do
+      visit("/editor/redirect_rules")
+      find_all_input_by_row_number = lambda do |num|
+        find_all(:xpath, "//tbody[@id='detail-association-insertion-point']//tr[#{num}]//td//input")
+      end
+      click_on("Add redirect rule")
+      inputs = find_all_input_by_row_number.call(1)
+      inputs[0].set("/日本語")
+      inputs[1].set("http://日本語.jp")
+      click_on("更新する")
+      assert(page.has_text?("リダイレクトルールが更新されました"))
     end
 
-    click_on("Add redirect rule")
-    inputs = find_all_input_by_row_number.call(1)
-    inputs[0].set("/1")
-    inputs[1].set("/1")
-    click_on("更新する")
-    assert(page.has_text?("リダイレクトルールが更新されませんでした"))
-    assert(page.has_text?("リダイレクト元とリダイレクト先は同じにできません"))
-  end
+    attribute :js, true
+    test "リダレイクと元とリダイレクト先が同じ場合" do
+      visit("/editor/redirect_rules")
+      find_all_input_by_row_number = lambda do |num|
+        find_all(:xpath, "//tbody[@id='detail-association-insertion-point']//tr[#{num}]//td//input")
+      end
 
-  attribute :js, true
-  test "リダイレクトループが発生する設定の場合" do
-    visit("/editor/redirect_rules")
-    find_all_input_by_row_number = lambda do |num|
-      find_all(:xpath, "//tbody[@id='detail-association-insertion-point']//tr[#{num}]//td//input")
+      click_on("Add redirect rule")
+      inputs = find_all_input_by_row_number.call(1)
+      inputs[0].set("/1")
+      inputs[1].set("/1")
+      click_on("更新する")
+      assert(page.has_text?("リダイレクトルールが更新されませんでした"))
+      assert(page.has_text?("リダイレクト元とリダイレクト先は同じにできません"))
     end
 
-    click_on("Add redirect rule")
-    inputs = find_all_input_by_row_number.call(1)
-    inputs[0].set("/1")
-    inputs[1].set("/2")
+    attribute :js, true
+    test "リダイレクトループが発生する設定の場合" do
+      visit("/editor/redirect_rules")
+      find_all_input_by_row_number = lambda do |num|
+        find_all(:xpath, "//tbody[@id='detail-association-insertion-point']//tr[#{num}]//td//input")
+      end
 
-    click_on("Add redirect rule")
-    inputs = find_all_input_by_row_number.call(2)
-    inputs[0].set("/2")
-    inputs[1].set("/1")
+      click_on("Add redirect rule")
+      inputs = find_all_input_by_row_number.call(1)
+      inputs[0].set("/1")
+      inputs[1].set("/2")
 
-    click_on("更新する")
-    assert(page.has_text?("リダイレクトルールが更新されませんでした"))
-    assert(page.has_text?("リダイレクトループが発生する設定は追加できません"))
+      click_on("Add redirect rule")
+      inputs = find_all_input_by_row_number.call(2)
+      inputs[0].set("/2")
+      inputs[1].set("/1")
+
+      click_on("更新する")
+      assert(page.has_text?("リダイレクトルールが更新されませんでした"))
+      assert(page.has_text?("リダイレクトループが発生する設定は追加できません"))
+    end
   end
 
   test "preview post" do
