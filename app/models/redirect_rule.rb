@@ -29,26 +29,22 @@ class RedirectRule < ActiveRecord::Base
     end
   end
 
-  def add_error_request_path(key)
-    errors.add(:request_path, key)
-  end
-
   def request_path_is_relative_path?
-    add_error_request_path(:not_relative_path) unless request_path.start_with?("/")
+    errors.add(:request_path, :not_relative_path) unless request_path.start_with?("/")
   end
 
   def request_path_has_fragment_string?
-    add_error_request_path(:has_fragment_string) if Addressable::URI.parse(request_path).fragment.present?
+    errors.add(:request_path, :has_fragment_string) if Addressable::URI.parse(request_path).fragment.present?
   end
 
   def request_path_has_query_string?
-    add_error_request_path(:has_query_string) if Addressable::URI.parse(request_path).query.present?
+    errors.add(:request_path, :has_query_string) if Addressable::URI.parse(request_path).query.present?
   end
 
   def request_equal_destination?
     destination_uri = Addressable::URI.parse(destination).freeze
     if request_path == destination_uri.path && (destination_uri.hostname == site.fqdn || destination_uri.relative?)
-      add_error_request_path(:not_equal_destination)
+      errors.add(:request_path, :not_equal_destination)
     end
   end
 
