@@ -7,6 +7,10 @@ class RedirectRuleTest < ActiveSupport::TestCase
     @site = create(:site)
   end
 
+  teardown do
+    I18n.locale = @default_locale
+  end
+
   test "create" do
     assert build(:redirect_rule).valid?
   end
