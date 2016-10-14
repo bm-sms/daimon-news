@@ -30,7 +30,7 @@ Rambulance.setup do |config|
     # "Pundit::NotAuthorizedError"    => :forbidden,
     # "YourCustomException"           => :not_found
     "ParticipantsController::NotAccessible" => :not_found,
-    "PostsController::PageNotFound" => :not_found
+    "ApplicationController::PageNotFound" => :not_found
   }
 
   # The template name for the layout of the error pages. The default value is

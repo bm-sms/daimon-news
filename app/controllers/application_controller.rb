@@ -8,12 +8,18 @@ class ApplicationController < ActionController::Base
     before_action :authorize_user!, if: :current_user
   end
 
+  class PageNotFound < StandardError; end
+
   include CurrentResourceHelper
 
   private
 
   def routing_error!
     raise ActionController::RoutingError, %|(No route matches [GET] "#{request.path}")|
+  end
+
+  def page_not_found_error!
+    raise PageNotFound
   end
 
   def authorize_user!
