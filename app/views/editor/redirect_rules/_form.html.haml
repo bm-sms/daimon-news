@@ -1,17 +1,6 @@
-= bootstrap_form_for @site, url: [:editor, :redirect_rules], method: "post" do |f|
-  %table.table.table-list
-    %thead
-      %tr
-        %th
-          Request
-          %span.help-block 相対URLを指定します
-        %th
-          Destination
-          %span.help-block 相対URL、または絶対URLを指定します
-    %tbody#detail-association-insertion-point
-      %div.form-group
-        = f.fields_for :redirect_rules do |redirect_rule|
-          = render "redirect_rule_fields", f: redirect_rule
-  %div.form-controll
-    = f.submit class: 'btn btn-primary'
-    = link_to_add_association 'Add redirect rule', f, :redirect_rules, data: { association_insertion_node: '#detail-association-insertion-point', association_insertion_method: 'append' }, class: 'btn btn-default'
+= bootstrap_form_for [:editor, @redirect_rule], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
+  = f.text_field :request_path, help: "相対URLを指定します"
+  = f.text_field :destination, help: "相対URL、または絶対URLを指定します"
+
+  = f.form_group do
+    = f.submit

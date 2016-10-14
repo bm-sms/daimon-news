@@ -21,8 +21,7 @@ Rails.application.routes.draw do
       resource :order, module: :categories, only: %i(update)
     end
 
-    get "redirect_rules", controller: "redirect_rules", action: :edit
-    post "redirect_rules", controller: "redirect_rules", action: :update
+    resources :redirect_rules
 
     resources :serials
     resources :posts, param: :public_id do

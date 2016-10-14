@@ -8,7 +8,7 @@ class Site < ActiveRecord::Base
   has_many :posts, dependent: :destroy
   has_many :fixed_pages, dependent: :destroy
   has_many :links, dependent: :destroy
-  has_many :redirect_rules, dependent: :destroy, inverse_of: :site
+  has_many :redirect_rules, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :participants, dependent: :destroy
   has_many :credit_roles, dependent: :destroy
@@ -23,8 +23,6 @@ class Site < ActiveRecord::Base
   mount_uploader :favicon_image, ImageUploader
   mount_uploader :mobile_favicon_image, ImageUploader
   mount_uploader :custom_hue_css, AssetUploader
-
-  accepts_nested_attributes_for :redirect_rules, allow_destroy: true
 
   def credit_enabled?
     participants.exists? && credit_roles.exists?
