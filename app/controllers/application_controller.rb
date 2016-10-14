@@ -18,8 +18,8 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError, %|(No route matches [GET] "#{request.path}")|
   end
 
-  def page_not_found_error!
-    raise PageNotFound
+  def validate_page_params(page_param, total_pages)
+    raise PageNotFound if page_param.to_i > total_pages
   end
 
   def authorize_user!
