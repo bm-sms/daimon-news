@@ -195,15 +195,15 @@ class EditorTest < ActionDispatch::IntegrationTest
     click_on("リダイレクト")
 
     click_on("New Redirect Rule")
-    fill_in("Request path", with: "/1")
-    fill_in("Destination", with: "/2")
+    fill_in("リダイレクト元", with: "/1")
+    fill_in("リダイレクト先", with: "/2")
     click_on("登録する")
 
     click_on("Back")
 
     find(:xpath, "//tbody/tr/td[1]/a[@href='/1']/../../td[2]/a[@href='/2']/../../td/a[text() = 'Edit']").click
 
-    fill_in("Destination", with: "/3")
+    fill_in("リダイレクト先", with: "/3")
 
     click_on("更新する")
 
