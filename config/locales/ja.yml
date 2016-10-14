@@ -1,5 +1,9 @@
 ja:
   activerecord:
+    attributes:
+      redirect_rule:
+        request_path: リダイレクト元
+        destination: リダイレクト先
     errors:
       models:
         redirect_rule:

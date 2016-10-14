@@ -1,10 +1,10 @@
 %p#notice= notice
 
 %p
-  %b Request:
+  %b #{t("activerecord.attributes.redirect_rule.request_path")}:
   = @redirect_rule.request_path
 %p
-  %b Destination:
+  %b #{t("activerecord.attributes.redirect_rule.destination")}:
   = @redirect_rule.destination
 
 = link_to 'Edit', edit_editor_redirect_rule_path(@redirect_rule)
