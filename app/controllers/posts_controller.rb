@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   helper_method :current_category
+  class PageNotFound < StandardError
+  end
 
   def show
     @post = current_site.posts.published.find_by!(public_id: params[:public_id])
@@ -10,6 +12,7 @@ class PostsController < ApplicationController
       else
         @post.pages.page(params[:page]).per(1)
       end
+    raise PostsController::PageNotFound if @pages.blank?
   end
 
   private
