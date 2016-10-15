@@ -38,15 +38,15 @@ class PageNotFoundTest < ActionDispatch::IntegrationTest
       switch_domain(@post.site.fqdn)
     end
 
-    sub_test_case 'view all true' do
+    sub_test_case "view all true" do
       setup do
         @post.site.update!(view_all: true)
       end
       data(
-          "view all parameter is passed"         => ["?all=true", 200, "h1", "title"],
-          "existed parameter is passed"          => ["?page=2", 200, "h2", "title 2"],
-          "not-exsisted parameter is passed"     => ["?page=1000", 404, "h1", "Hello! my name is 404"],
-          "parameter is not passed"              => ["", 200, "h1", "title"]
+        "view all parameter is passed"         => ["?all=true", 200, "h1", "title"],
+        "existed parameter is passed"          => ["?page=2", 200, "h2", "title 2"],
+        "not-exsisted parameter is passed"     => ["?page=1000", 404, "h1", "Hello! my name is 404"],
+        "parameter is not passed"              => ["", 200, "h1", "title"]
       )
       def test_page_parameter(data)
         path, status_code, tag_name, tag_value = data
@@ -56,14 +56,14 @@ class PageNotFoundTest < ActionDispatch::IntegrationTest
       end
     end
 
-    sub_test_case 'view all false' do
+    sub_test_case "view all false" do
       setup do
         @post.site.update!(view_all: false)
       end
       data(
-          "existed parameter is passed"          => ["?page=2", 200, "h2", "title 2"],
-          "not-exsisted parameter is passed"     => ["?page=1000", 404, "h1", "Hello! my name is 404"],
-          "parameter is not passed"              => ["", 200, "h1", "title"]
+        "existed parameter is passed"          => ["?page=2", 200, "h2", "title 2"],
+        "not-exsisted parameter is passed"     => ["?page=1000", 404, "h1", "Hello! my name is 404"],
+        "parameter is not passed"              => ["", 200, "h1", "title"]
       )
       def test_page_parameter(data)
         path, status_code, tag_name, tag_value = data
