@@ -34,9 +34,9 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       @post.site.update!(view_all: true)
     end
 
-    sub_test_case "category page" do
+    sub_test_case "category (with a post) page" do
       setup do
-        @category = create(:category, site: @post.site)
+        @category = @post.categories.first
       end
 
       data(
@@ -44,8 +44,23 @@ class CanonicalTest < ActionDispatch::IntegrationTest
         "unexpected"            => ["?aaa=123",        ""],
         "page=1"                => ["?page=1",         ""],
         "page=1 and unexpected" => ["?page=1&aaa=123", ""],
-        "page=2"                => ["?page=2",         "?page=2"],
-        "page=2 and unexpected" => ["?page=2&aaa=123", "?page=2"],
+      )
+      def test_normalize_parameter(data)
+        raw, expected = data
+
+        visit "/category/#{@category.slug}#{raw}"
+        assert_canonical_url "http://#{@post.site.fqdn}/category/#{@category.slug}#{expected}"
+      end
+    end
+
+    sub_test_case "category (with no posts) page" do
+      setup do
+        @category = create(:category, site: @post.site)
+      end
+
+      data(
+        "no parameter"          => ["",                ""],
+        "unexpected"            => ["?aaa=123",        ""],
       )
       def test_normalize_parameter(data)
         raw, expected = data
@@ -79,8 +94,6 @@ class CanonicalTest < ActionDispatch::IntegrationTest
         "unexpected"            => ["?aaa=123",        ""],
         "page=1"                => ["?page=1",         ""],
         "page=1 and unexpected" => ["?page=1&aaa=123", ""],
-        "page=2"                => ["?page=2",         "?page=2"],
-        "page=2 and unexpected" => ["?page=2&aaa=123", "?page=2"],
       )
       def test_normalize_parameter(data)
         raw, expected = data
@@ -90,14 +103,28 @@ class CanonicalTest < ActionDispatch::IntegrationTest
       end
     end
 
-    sub_test_case "serials page" do
+    sub_test_case "serials page (no serials)" do
+      data(
+        "no parameter"          => ["",                ""],
+        "unexpected"            => ["?aaa=123",        ""],
+      )
+      def test_normalize_parameter(data)
+        raw, expected = data
+
+        visit "/serials/#{raw}"
+        assert_canonical_url "http://#{@post.site.fqdn}/serials#{expected}"
+      end
+    end
+
+    sub_test_case "serials page (a serial exists)" do
+      setup do
+        create(:serial, site: @post.site, posts: [@post])
+      end
       data(
         "no parameter"          => ["",                ""],
         "unexpected"            => ["?aaa=123",        ""],
         "page=1"                => ["?page=1",         ""],
         "page=1 and unexpected" => ["?page=1&aaa=123", ""],
-        "page=2"                => ["?page=2",         "?page=2"],
-        "page=2 and unexpected" => ["?page=2&aaa=123", "?page=2"],
       )
       def test_normalize_parameter(data)
         raw, expected = data
@@ -117,8 +144,6 @@ class CanonicalTest < ActionDispatch::IntegrationTest
         "unexpected"            => ["?aaa=123",        ""],
         "page=1"                => ["?page=1",         ""],
         "page=1 and unexpected" => ["?page=1&aaa=123", ""],
-        "page=2"                => ["?page=2",         "?page=2"],
-        "page=2 and unexpected" => ["?page=2&aaa=123", "?page=2"],
       )
       def test_normalize_parameter(data)
         raw, expected = data
