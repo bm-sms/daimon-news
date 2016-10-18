@@ -10,6 +10,7 @@ class PostsController < ApplicationController
       else
         @post.pages.page(params[:page]).per(1)
       end
+    validate_page_params(params[:page], @pages.total_pages)
   end
 
   private

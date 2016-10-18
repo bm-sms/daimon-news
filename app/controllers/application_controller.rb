@@ -8,12 +8,20 @@ class ApplicationController < ActionController::Base
     before_action :authorize_user!, if: :current_user
   end
 
+  class PageNotFound < StandardError; end
+
   include CurrentResourceHelper
 
   private
 
   def routing_error!
     raise ActionController::RoutingError, %|(No route matches [GET] "#{request.path}")|
+  end
+
+  def validate_page_params(page_param, total_pages)
+    return if page_param.nil?
+    page_num = page_param.to_i
+    raise PageNotFound if page_num > total_pages || page_num <= 0
   end
 
   def authorize_user!
