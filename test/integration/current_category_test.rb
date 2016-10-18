@@ -61,9 +61,8 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
 
   sub_test_case "render meta description (in case category description is blank)" do
     setup do
-      @site.tagline = 'This is awesome sites!'
-      @site.save!
-      @category = create(:category, site: @site, name: "Python", slug: "python", description: '')
+      @site.update!(tagline: "This is awesome sites!")
+      @category = create(:category, site: @site, name: "Python", slug: "python", description: "")
       @post = create(:post, :with_pages, site: @site, categorizations_attributes: [{category: @category, order: 1}])
     end
 
