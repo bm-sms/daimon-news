@@ -1,4 +1,8 @@
 %p
+  %b Parent categories:
+  = safe_join(@category.ancestors.map {|parent| link_to(parent.name, editor_category_path(parent)) }, " > ").presence || "-"
+
+%p
   %b Name:
   = @category.name
 %p
