@@ -112,7 +112,7 @@ GEM
     cliver (0.3.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
-    daimon-markdown (0.5.0)
+    daimon_markdown (0.6.0)
       html-pipeline
       redcarpet
       rouge
@@ -521,7 +521,7 @@ DEPENDENCIES
   capybara
   carrierwave
   cocoon!
-  daimon-markdown
+  daimon_markdown
   daimon_news-layout!
   database_cleaner
   devise (>= 3.5.4)
