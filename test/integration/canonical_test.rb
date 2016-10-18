@@ -36,7 +36,7 @@ class CanonicalTest < ActionDispatch::IntegrationTest
 
     sub_test_case "category (with a post) page" do
       setup do
-        @category = @post.categories.first
+        @category = @post.categories.first!
       end
 
       data(
