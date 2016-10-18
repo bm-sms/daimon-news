@@ -12,7 +12,14 @@
   %b Slug:
   = @category.slug
 
-= render 'table', categories: @category.children.ordered
+%h3 Sub categories
+
+- sub_categories = @category.children.ordered
+- if sub_categories.present?
+  = render 'table', categories: sub_categories
+- else
+  %p
+    There are no sub categories.
 
 = link_to 'Edit', edit_editor_category_url
 \|
