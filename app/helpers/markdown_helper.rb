@@ -1,6 +1,6 @@
 module MarkdownHelper
   def render_markdown(markdown_text)
-    processor = Daimon::Markdown::Processor.new
+    processor = DaimonMarkdown::Processor.new
     result = processor.call(markdown_text)
     result[:output].to_html.html_safe
   end
