@@ -4,7 +4,7 @@ module CategoryDecorator
       locale: "ja_JP",
       type: "object",
       title: [name, site.tagline, site.name].select(&:present?).join(" | "),
-      description: MetaTags::TextNormalizer.normalize_description(render_markdown(description)),
+      description: meta_description,
       url: category_url(slug: slug),
       site_name: site.name,
       image: site.logo_image_url
@@ -36,5 +36,9 @@ module CategoryDecorator
     return false unless other
 
     super
+  end
+
+  def meta_description
+    MetaTags::TextNormalizer.normalize_description(render_markdown(description)).presence || current_site.tagline
   end
 end

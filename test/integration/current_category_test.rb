@@ -53,4 +53,23 @@ class CurrentCategoryTest < ActionDispatch::IntegrationTest
 
     assert_equal("https://www.ruby-lang.org/", find(".category-description a")[:href])
   end
+
+  test "render meta description" do
+    visit("/category/ruby")
+    assert_equal("Ruby is a programming language.", find("meta[name=description]", visible: false)["content"])
+  end
+
+  sub_test_case "render meta description (in case category description is blank)" do
+    setup do
+      @site.tagline = 'This is awesome sites!'
+      @site.save!
+      @category = create(:category, site: @site, name: "Python", slug: "python", description: '')
+      @post = create(:post, :with_pages, site: @site, categorizations_attributes: [{category: @category, order: 1}])
+    end
+
+    test "test execution" do
+      visit("/category/python")
+      assert_equal(@site.tagline, find("meta[name=description]", visible: false)["content"])
+    end
+  end
 end

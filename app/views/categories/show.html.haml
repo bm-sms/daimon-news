@@ -14,6 +14,7 @@
   - breadcrumb :category, @category
 - set_meta_tags title: page_title, og: @category.to_og_params
 - set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
+- set_meta_tags description: @category.meta_description
 
 %section
   %h1.category-header= @category.name
