@@ -33,8 +33,10 @@ class PageNotFoundTest < ActionDispatch::IntegrationTest
     end
 
     data(
+      "valid page parameter" => ["/?page=1", 200],
       "parameter is not integer" => ["/?page=foo", 404],
       "parameter is negative value" => ["/?page=-1", 404],
+      "parameter is float value" => ["/?page=1.1", 404],
     )
     def test_page_parameter(data)
       path, status_code = data
