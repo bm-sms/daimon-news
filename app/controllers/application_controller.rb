@@ -19,7 +19,9 @@ class ApplicationController < ActionController::Base
   end
 
   def validate_page_params(page_param, total_pages)
-    raise PageNotFound if page_param.to_i > total_pages
+    return if page_param.nil?
+    page_number = page_param.to_i
+    raise PageNotFound if page_number > total_pages || page_number <= 0
   end
 
   def authorize_user!

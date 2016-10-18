@@ -25,6 +25,24 @@ class PageNotFoundTest < ActionDispatch::IntegrationTest
     end
   end
 
+  sub_test_case "invalid page parameter test" do
+    setup do
+      @site = create(:site)
+      @post = create(:post, :whatever, site: @site)
+      switch_domain(@site.fqdn)
+    end
+
+    data(
+        "parameter is not integer"          => ["/?page=foo", 404],
+        "parameter is negative value"     => ["/?page=-1", 404],
+    )
+    def test_page_parameter(data)
+      path, status_code = data
+      visit path.to_s
+      assert_equal status_code, page.status_code
+    end
+  end
+
   test "404 error should not be occurred in case post does not exist." do
     @site = create(:site)
     switch_domain(@site.fqdn)
