@@ -10,7 +10,9 @@
   = @category.description
 %p
   %b Slug:
-  = @category.slug
+  = link_to category_path(@category.slug), target: '_blank' do
+    = @category.slug
+    %i.glyphicon.glyphicon-new-window
 
 %h3 Sub categories
 
