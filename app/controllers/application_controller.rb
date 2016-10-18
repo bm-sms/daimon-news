@@ -21,11 +21,7 @@ class ApplicationController < ActionController::Base
   def validate_page_params(page_param, total_pages)
     return if page_param.nil?
     page_num = page_param.to_i
-    raise PageNotFound if page_num > total_pages || page_num <= 0 || float_value?(page_param)
-  end
-
-  def float_value?(page_param)
-    page_param.to_f != page_param.to_i
+    raise PageNotFound if page_num > total_pages || page_num <= 0
   end
 
   def authorize_user!
