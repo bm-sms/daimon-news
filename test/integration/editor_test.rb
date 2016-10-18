@@ -364,7 +364,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       within(:row, @categories[4].name) do
         click_on("▲")
       end
-      names = find_all("tr.depth0").map do |tr|
+      names = find_all("tbody tr").map do |tr|
         tr.first("td").text
       end
       expected = @categories.values_at(0, 1, 2, 4, 3).map(&:name)
@@ -376,7 +376,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       within(:row, @categories[1].name) do
         click_on("▼")
       end
-      names = find_all("tr.depth0").map do |tr|
+      names = find_all("tbody tr").map do |tr|
         tr.first("td").text
       end
       expected = @categories.values_at(0, 2, 1, 3, 4).map(&:name)
@@ -396,12 +396,16 @@ class EditorTest < ActionDispatch::IntegrationTest
 
       click_on("Back")
 
-      assert_equal("depth1", find("tr", text: "Ruby")[:class])
+      within(:row, @categories[0].name) do
+        click_on("Show")
+      end
+
       within(:row, "Ruby") do
         assert_false(find("td", text: "▲").has_css?("a"))
         assert_false(find("td", text: "▼").has_css?("a"))
       end
 
+      click_on("カテゴリ")
       click_on("New Category")
 
       fill_in("Name",        with: "Python")
@@ -413,7 +417,10 @@ class EditorTest < ActionDispatch::IntegrationTest
 
       click_on("Back")
 
-      assert_equal("depth1", find("tr", text: "Python")[:class])
+      within(:row, @categories[0].name) do
+        click_on("Show")
+      end
+
       within(:row, "Ruby") do
         assert_false(find("td", text: "▲").has_css?("a"))
         assert_true(find("td", text: "▼").has_css?("a"))
@@ -433,6 +440,7 @@ class EditorTest < ActionDispatch::IntegrationTest
         assert_true(find("td", text: "▼").has_css?("a"))
       end
 
+      click_on("カテゴリ")
       click_on("New Category")
 
       fill_in("Name",        with: "JRuby")
@@ -442,8 +450,13 @@ class EditorTest < ActionDispatch::IntegrationTest
       click_on("登録する")
 
       click_on("Back")
+      within(:row, @categories[0].name) do
+        click_on("Show")
+      end
+      within(:row, "Ruby") do
+        click_on("Show")
+      end
 
-      assert_equal("depth2", find("tr", text: "JRuby")[:class])
       within(:row, "JRuby") do
         assert_false(find("td", text: "▲").has_css?("a"))
         assert_false(find("td", text: "▼").has_css?("a"))
@@ -466,6 +479,12 @@ class EditorTest < ActionDispatch::IntegrationTest
       end
 
       test "doesn't appear its subtree" do
+        within(:row, @categories[0].name) do
+          click_on("Show")
+        end
+        within(:row, @categories[1].name) do
+          click_on("Show")
+        end
         within(:row, @categories[3].name) do
           click_on("Edit")
         end
@@ -505,7 +524,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       within(:row, @categories1[4].name) do
         click_on("▲")
       end
-      names = find_all("tr.depth0").map do |tr|
+      names = find_all("tbody tr").map do |tr|
         tr.first("td").text
       end
       expected = @categories1.values_at(0, 1, 2, 4, 3).map(&:name)
@@ -517,7 +536,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       within(:row, @categories1[1].name) do
         click_on("▼")
       end
-      names = find_all("tr.depth0").map do |tr|
+      names = find_all("tbody tr").map do |tr|
         tr.first("td").text
       end
       expected = @categories1.values_at(0, 2, 1, 3, 4).map(&:name)
