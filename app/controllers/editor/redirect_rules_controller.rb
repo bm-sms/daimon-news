@@ -16,7 +16,6 @@ class Editor::RedirectRulesController < Editor::ApplicationController
 
     if @redirect_rule.save
       redirect_to [:editor, @redirect_rule], notice: "リダイレクトが作成されました"
-
     else
       render :new
     end
@@ -37,7 +36,7 @@ class Editor::RedirectRulesController < Editor::ApplicationController
   end
 
   def destroy
-    redirect_rules.find(params[:id]).destroy
+    redirect_rules.destroy(params[:id])
 
     redirect_to editor_redirect_rules_url, notice: "リダイレクトルールが削除されました"
   end
