@@ -3,10 +3,8 @@ class RedirectRule < ActiveRecord::Base
   before_validation :decode_destination
   belongs_to :site
 
-  validates :request_path, presence: true
-  validates :request_path, uniqueness: {scope: :site_id}
+  validates :request_path, presence: true, uniqueness: {scope: :site_id}
   validates :destination, presence: true
-  validates :site, presence: true
   validate :request_path_is_relative_path?
   validate :request_path_has_fragment_string?
   validate :request_path_has_query_string?
