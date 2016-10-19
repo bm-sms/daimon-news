@@ -4,7 +4,7 @@ class CreateRedirectRules < ActiveRecord::Migration
       t.string :request_path, null: false
       t.string :destination, null: false
       t.references :site, index: true, foreign_key: true, null: false
-      t.index [:request_path, :site_id], unique: true
+      t.index %i(request_path site_id), unique: true
 
       t.timestamps null: false
     end
