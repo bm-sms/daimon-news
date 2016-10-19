@@ -15,7 +15,7 @@ class Editor::RedirectRulesController < Editor::ApplicationController
     @redirect_rule = redirect_rules.build(redirect_rule_params)
 
     if @redirect_rule.save
-      redirect_to [:editor, @redirect_rule], notice: "リダイレクトが作成されました"
+      redirect_to [:editor, @redirect_rule], notice: "リダイレクトルールが作成されました"
     else
       render :new
     end
