@@ -1,11 +1,15 @@
 %p#notice= notice
 
 %p
-  %b #{RedirectRule.human_attribute_name(:request_path}:
-  = @redirect_rule.request_path
+  %b #{RedirectRule.human_attribute_name(:request_path)}:
+  = link_to @redirect_rule.request_path, target: "_blank" do
+    = @redirect_rule.request_path
+    %i.glyphicon.glyphicon-new-window
 %p
   %b #{RedirectRule.human_attribute_name(:destination)}:
-  = @redirect_rule.destination
+  = link_to @redirect_rule.destination, target: "_blank" do
+    = @redirect_rule.destination
+    %i.glyphicon.glyphicon-new-window
 
 = link_to "Edit", edit_editor_redirect_rule_path(@redirect_rule)
 \|

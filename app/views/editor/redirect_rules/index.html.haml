@@ -14,8 +14,14 @@
   %tbody
     - @redirect_rules.each do |redirect_rule|
       %tr
-        %td= link_to redirect_rule.request_path, redirect_rule.request_path
-        %td= link_to redirect_rule.destination, redirect_rule.destination
+        %td
+          = link_to redirect_rule.request_path, target: "_blank" do
+            = redirect_rule.request_path
+            %i.glyphicon.glyphicon-new-window
+        %td
+          = link_to redirect_rule.destination, target: "_blank" do
+            = redirect_rule.destination
+            %i.glyphicon.glyphicon-new-window
         %td= link_to "Show", editor_redirect_rule_path(redirect_rule)
         %td= link_to "Edit", edit_editor_redirect_rule_path(redirect_rule)
         %td= link_to "Destroy", editor_redirect_rule_path(redirect_rule), method: :delete, data: {confirm: "Are you sure?"}
