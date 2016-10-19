@@ -1,12 +1,12 @@
 %h1 リダイレクトルール一覧
 
-= link_to 'New Redirect Rule', new_editor_redirect_rule_path, class: 'btn btn-default'
+= link_to "New Redirect Rule", new_editor_redirect_rule_path, class: "btn btn-default"
 
 %table.table
   %thead
     %tr
-      %th= t("activerecord.attributes.redirect_rule.request_path")
-      %th= t("activerecord.attributes.redirect_rule.destination")
+      %th= RedirectRule.human_attribute_name(:request_path)
+      %th= RedirectRule.human_attribute_name(:destination)
       %th
       %th
       %th
@@ -16,12 +16,12 @@
       %tr
         %td= link_to redirect_rule.request_path, redirect_rule.request_path
         %td= link_to redirect_rule.destination, redirect_rule.destination
-        %td= link_to 'Show', editor_redirect_rule_path(redirect_rule)
-        %td= link_to 'Edit', edit_editor_redirect_rule_path(redirect_rule)
-        %td= link_to 'Destroy', editor_redirect_rule_path(redirect_rule), :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to "Show", editor_redirect_rule_path(redirect_rule)
+        %td= link_to "Edit", edit_editor_redirect_rule_path(redirect_rule)
+        %td= link_to "Destroy", editor_redirect_rule_path(redirect_rule), method: :delete, data: {confirm: "Are you sure?"}
 
 - if @redirect_rules.total_pages > 1
   .text-center
     %nav.pagination
-      = paginate @redirect_rules, views_prefix: 'editor'
+      = paginate @redirect_rules, views_prefix: "editor"
       %p.pagination__entries= page_entries_info @redirect_rules
