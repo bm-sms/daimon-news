@@ -31,7 +31,7 @@ class RedirectRuleTest < ActiveSupport::TestCase
     test "absolute path for request_path is invalid" do
       rule = build(:redirect_rule, :whatever, request_path: "http://example.com")
       assert rule.invalid?
-      assert_equal rule.errors.messages[:request_path], ["/ から始まる相対パスのみ設定できます"]
+      assert_equal rule.errors.messages[:request_path], ["/ から始まるパスのみ設定できます"]
     end
 
     test "request path with fragment string is invalid" do

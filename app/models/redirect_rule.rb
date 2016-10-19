@@ -5,11 +5,11 @@ class RedirectRule < ActiveRecord::Base
 
   validates :request_path, presence: true, uniqueness: {scope: :site_id}
   validates :destination, presence: true
-  validate :request_path_is_relative_path?
-  validate :request_path_has_fragment_string?
-  validate :request_path_has_query_string?
-  validate :request_equal_destination?
-  validate :redirect_loop?
+  validate :request_path_should_be_absolute_path
+  validate :request_path_should_not_have_fragment
+  validate :request_path_should_not_have_query_string
+  validate :request_path_should_not_be_the_same_as_destination
+  validate :should_not_loop
 
   private
 
@@ -27,29 +27,29 @@ class RedirectRule < ActiveRecord::Base
     end
   end
 
-  def request_path_is_relative_path?
-    errors.add(:request_path, :not_relative_path) unless request_path.start_with?("/")
+  def request_path_should_be_absolute_path
+    errors.add(:request_path, :not_absolute_path) unless request_path.start_with?("/")
   end
 
-  def request_path_has_fragment_string?
+  def request_path_should_not_have_fragment
     errors.add(:request_path, :has_fragment_string) if Addressable::URI.parse(request_path).fragment.present?
   end
 
-  def request_path_has_query_string?
+  def request_path_should_not_have_query_string
     errors.add(:request_path, :has_query_string) if Addressable::URI.parse(request_path).query.present?
   end
 
-  def request_equal_destination?
+  def request_path_should_not_be_the_same_as_destination
     destination_uri = Addressable::URI.parse(destination)
     if request_path == destination_uri.path && (destination_uri.hostname == site.fqdn || destination_uri.relative?)
       errors.add(:request_path, :not_equal_destination)
     end
   end
 
-  def redirect_loop?
-    redirect_loop_rule = site.redirect_rules.reload.find do |redirect_rule|
+  def should_not_loop
+    has_loop = site.redirect_rules.reload.any? do |redirect_rule|
       redirect_rule.request_path == destination && redirect_rule.destination == request_path
     end
-    errors.add(:destination, :redirect_loop) if redirect_loop_rule.present?
+    errors.add(:destination, :redirect_loop) if has_loop
   end
 end

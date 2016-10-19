@@ -9,7 +9,7 @@ ja:
         redirect_rule:
           attributes:
             request_path:
-              not_relative_path: / から始まる相対パスのみ設定できます
+              not_absolute_path: / から始まるパスのみ設定できます
               has_fragment_string: フラグメント識別子は含めることができません
               has_query_string: クエリパラメーターは含めることができません
               not_equal_destination: リダイレクト元とリダイレクト先は同じにできません
