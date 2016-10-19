@@ -2,9 +2,7 @@ require "test_helper"
 
 class RedirectRuleTest < ActiveSupport::TestCase
   setup do
-    @default_locale = I18n.locale
-    I18n.locale = :ja
-    @site = create(:site)
+    @default_locale, I18n.locale = I18n.locale, :ja
   end
 
   teardown do
@@ -12,48 +10,54 @@ class RedirectRuleTest < ActiveSupport::TestCase
   end
 
   test "create" do
-    assert build(:redirect_rule).valid?
+    assert build(:redirect_rule, :whatever, request_path: "/1", destination: "/2").valid?
   end
 
   sub_test_case "before_validation" do
     test "request_path" do
-      assert build(:redirect_rule_with_urlencoded_request_path).valid?
+      assert build(:redirect_rule, :whatever, request_path: "/%E6%97%A5%E6%9C%AC%E8%AA%9E").valid?
     end
 
     test "destination" do
-      assert build(:redirect_rule_punycode_destination).valid?
+      assert build(:redirect_rule, :whatever, destination: "http://xn--wgv71a119e.jp/%E6%97%A5%E6%9C%AC%E8%AA%9E").valid?
     end
   end
 
   sub_test_case "validation" do
-    test "relative absolute path is invalid" do
-      rule = build(:redirect_rule_absolute_request_path)
+    test "absolute path for request_path is invalid" do
+      rule = build(:redirect_rule, :whatever, request_path: "http://example.com")
       assert rule.invalid?
       assert_equal rule.errors.messages[:request_path], ["/ から始まる相対パスのみ設定できます"]
     end
 
     test "request path with fragment string is invalid" do
-      rule = build(:redirect_rule_request_path_has_fragment_string)
+      rule = build(:redirect_rule, :whatever, request_path: "/1#hoge")
       assert rule.invalid?
       assert_equal rule.errors.messages[:request_path], ["フラグメント識別子は含めることができません"]
     end
 
     test "request path with query string is invalid" do
-      rule = build(:redirect_rule_request_path_with_query_string)
+      rule = build(:redirect_rule, :whatever, request_path: "/1?page=1")
       assert rule.invalid?
       assert_equal rule.errors.messages[:request_path], ["クエリパラメーターは含めることができません"]
     end
-    test "redirect rule that has same value is invalid" do
-      rule = build(:redirect_rule_request_equal_destination)
+
+    test "request path == destination is invalid" do
+      rule = build(:redirect_rule, :whatever, request_path: "/1", destination: "/1")
       assert rule.invalid?
       assert_equal rule.errors.messages[:request_path], ["リダイレクト元とリダイレクト先は同じにできません"]
     end
 
     test "redirect loop is invalid" do
-      rule = create(:redirect_rule)
-      loop_rule = RedirectRule.create(site_id: rule.site.id, request_path: rule.destination, destination: rule.request_path)
+      site = create(:site)
+      create(:redirect_rule, request_path: "/a", destination: "/b", site: site)
+
+      loop_rule = build(:redirect_rule, request_path: "/b", destination: "/a", site: site)
+      loop_rule_for_other_site = create(:redirect_rule, :whatever, request_path: "/b", destination: "/a")
+
       assert loop_rule.invalid?
       assert_equal loop_rule.errors.messages[:destination], ["リダイレクトループが発生する設定は追加できません"]
+      assert loop_rule_for_other_site.valid?
     end
   end
 end

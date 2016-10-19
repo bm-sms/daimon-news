@@ -5,7 +5,7 @@ class RedirectRoutesTest < ActionDispatch::IntegrationTest
     @site = create(:site, fqdn: "127.0.0.1")
     @category = create(:category, site: @site)
     @post = create(:post, :with_pages, site: @site, categorizations_attributes: [{category: @category, order: 1}])
-    @redirect_rule = RedirectRule.create!(site: @site, request_path: "/page1", destination: "/#{@post.public_id}?page=1")
+    @redirect_rule = create(:redirect_rule, site: @site, request_path: "/page1", destination: "/#{@post.public_id}?page=1")
     https!
     host!(@site.fqdn)
   end
