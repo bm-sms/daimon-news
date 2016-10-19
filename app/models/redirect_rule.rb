@@ -22,9 +22,9 @@ class RedirectRule < ActiveRecord::Base
     if destination_uri.host
       destination_uri.host = SimpleIDN.to_unicode(destination_uri.host)
       self.destination = destination_uri.to_s
-    else
-      true
     end
+
+    true
   end
 
   def request_path_should_be_absolute_path
@@ -41,9 +41,9 @@ class RedirectRule < ActiveRecord::Base
 
   def request_path_should_not_be_the_same_as_destination
     destination_uri = Addressable::URI.parse(destination)
-    if request_path == destination_uri.path && (destination_uri.hostname == site.fqdn || destination_uri.relative?)
-      errors.add(:request_path, :not_equal_destination)
-    end
+    return unless request_path == destination_uri.path
+
+    errors.add(:request_path, :not_equal_destination) if destination_uri.hostname == site.fqdn || destination_uri.relative?
   end
 
   def should_not_loop

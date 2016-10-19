@@ -24,6 +24,8 @@ Rails:
 Rails/FindBy:
   Enabled: false
 
+Style/ParallelAssignment:
+  Enabled: true
 Style/AsciiComments:
   Enabled: false
 Style/HashSyntax:
