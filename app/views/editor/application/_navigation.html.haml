@@ -7,28 +7,28 @@
             = image_tag current_site.logo_image_url, height: 24
             Editor for
           %span.dropdown
-            %a#change-site.dropdown-toggle(href='#' role="button" data-toggle='dropdown' aria-expanded='false')
+            %a#change-site.dropdown-toggle(href="#" role="button" data-toggle="dropdown" aria-expanded="false")
               %b= current_site.name
               %span.caret
 
-            %ul.dropdown-menu(aria-labelledby='change-site')
+            %ul.dropdown-menu(aria-labelledby="change-site")
               - current_user.sites.each do |site|
                 %li= link_to site.name, editor_root_url(host: site.fqdn)
 
       %ul.nav.navbar-nav.navbar-right
-        = active_link_to '記事', editor_posts_url, wrap_tag: 'li'
-        = active_link_to '連載', editor_serials_url, wrap_tag: 'li'
+        = active_link_to "記事", editor_posts_url, wrap_tag: "li"
+        = active_link_to "連載", editor_serials_url, wrap_tag: "li"
         %li.dropdown(role="presentation")
           %a.dropdown-toggle(href="#" data-toggle="dropdown")
             サイト設定
             %span.caret
           %ul.dropdown-menu(role="menu")
-            = active_link_to 'カテゴリ', editor_categories_url, wrap_tag: 'li'
-            = active_link_to '役割', editor_credit_roles_url, wrap_tag: 'li'
-            = active_link_to '執筆関係者', editor_participants_url, wrap_tag: 'li'
-            = active_link_to '固定ページ', editor_fixed_pages_url, wrap_tag: 'li'
-            = active_link_to 'リンク', editor_links_url, wrap_tag: 'li'
-            = active_link_to 'リダイレクト', editor_redirect_rules_url, wrap_tag: 'li'
+            = active_link_to "カテゴリ", editor_categories_url, wrap_tag: "li"
+            = active_link_to "役割", editor_credit_roles_url, wrap_tag: "li"
+            = active_link_to "執筆関係者", editor_participants_url, wrap_tag: "li"
+            = active_link_to "固定ページ", editor_fixed_pages_url, wrap_tag: "li"
+            = active_link_to "リンク", editor_links_url, wrap_tag: "li"
+            = active_link_to "リダイレクト", editor_redirect_rules_url, wrap_tag: "li"
 
         %li
-          = link_to 'ログアウト', destroy_user_session_url, method: :delete
+          = link_to "ログアウト", destroy_user_session_url, method: :delete
