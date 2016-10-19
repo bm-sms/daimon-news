@@ -1,6 +1,6 @@
 require "test_helper"
 
-class RssTest < ActionDispatch::IntegrationTest
+class FeedTest < ActionDispatch::IntegrationTest
   setup do
     @post = create(:post, :whatever, body: <<~EOS)
       # Lorem ipsum dolor sit amet,
@@ -20,6 +20,7 @@ class RssTest < ActionDispatch::IntegrationTest
 
     within "item" do
       assert_equal @post.title, find("title").text
+      assert_equal @post.main_category.name, find("category").text
       assert_equal %|<img src="#{@post.thumbnail_url}" alt="Thumbnail" />|, find("description").text.scan(%r|<img.*/>|).first
       description = find("description").text.scan(%r|<p>(.*)</p>|).first.first
       assert_equal "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad mi...",

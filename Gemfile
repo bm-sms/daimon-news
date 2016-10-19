@@ -15,7 +15,7 @@ gem "bourbon"
 gem "browser"
 gem "carrierwave"
 gem "cocoon", github: "mtsmfm/cocoon", branch: "fix-on-ready-for-jquery-3" # cocoon doesn't work well with jQuery 3 (https://github.com/nathanvda/cocoon/pull/379)
-gem "daimon-markdown"
+gem "daimon_markdown"
 gem "daimon_news-layout", github: "bm-sms/daimon_news-layout"
 gem "devise", ">= 3.5.4"
 gem "fog"

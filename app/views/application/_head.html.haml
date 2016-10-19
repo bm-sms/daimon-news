@@ -6,7 +6,7 @@
 
   = javascript_include_tag 'application'
   = javascript_include_tag current_site.js_url.presence || "themes/default/application"
-  = Daimon::Markdown::Plugin::Math.script_tag
+  = DaimonMarkdown::Plugin::Math.script_tag
   = stylesheet_link_tag current_site.css_url.presence || current_site.custom_hue_css_url || "themes/default/application"
   = csrf_meta_tag
   = auto_discovery_link_tag :rss, feed_url
