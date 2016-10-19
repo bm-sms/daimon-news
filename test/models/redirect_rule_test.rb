@@ -37,7 +37,7 @@ class RedirectRuleTest < ActiveSupport::TestCase
     test "request path with fragment string is invalid" do
       rule = build(:redirect_rule, :whatever, request_path: "/1#hoge")
       assert rule.invalid?
-      assert_equal rule.errors.messages[:request_path], ["フラグメント識別子は含めることができません"]
+      assert_equal rule.errors.messages[:request_path], ["フラグメント識別子(#)は含めることができません"]
     end
 
     test "request path with query string is invalid" do
