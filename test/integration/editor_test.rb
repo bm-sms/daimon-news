@@ -199,22 +199,24 @@ class EditorTest < ActionDispatch::IntegrationTest
     fill_in("リダイレクト先", with: "/2")
     click_on("登録する")
 
-    click_on("Back")
+    click_link("Edit")
 
-    find(:xpath, "//tbody/tr/td[1]/a[@href='/1']/../../td[2]/a[@href='/2']/../../td/a[text() = 'Edit']").click
-
-    fill_in("リダイレクト先", with: "/3")
+    fill_in("リダイレクト元", with: "/3")
 
     click_on("更新する")
 
-    assert(page.has_css?("p", text: "/3"))
+    within ".alert-success" do
+      assert_equal(page.text, "「/3」へのリダイレクトルールが更新されました")
+    end
 
-    click_on("Back")
-
-    find(:xpath, "//tbody/tr/td[1]/a[@href='/1']/../../td[2]/a[@href='/3']/../../td/a[text() = 'Destroy']").click
+    click_link("Destroy")
 
     assert_equal("/editor/redirect_rules", page.current_path)
     assert_not(page.has_css?("td", text: "/3"))
+
+    within ".alert-success" do
+      assert_equal(page.text, "「/3」へのリダイレクトルールが削除されました")
+    end
   end
 
   test "preview post" do
