@@ -42,14 +42,14 @@ class RedirectRule < ActiveRecord::Base
   end
 
   def request_equal_destination?
-    destination_uri = Addressable::URI.parse(destination).freeze
+    destination_uri = Addressable::URI.parse(destination)
     if request_path == destination_uri.path && (destination_uri.hostname == site.fqdn || destination_uri.relative?)
       errors.add(:request_path, :not_equal_destination)
     end
   end
 
   def redirect_loop?
-    redirect_loop_rule = site.redirect_rules.find do |redirect_rule|
+    redirect_loop_rule = site.redirect_rules.reload.find do |redirect_rule|
       redirect_rule.request_path == destination && redirect_rule.destination == request_path
     end
     errors.add(:destination, :redirect_loop) if redirect_loop_rule.present?
