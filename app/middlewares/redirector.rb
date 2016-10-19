@@ -18,7 +18,9 @@ class Redirector
     def response
       rule = redirect_rule
       if rule.present?
-        [301, {"Location" => rule.destination}, [%Q(You are being redirected <a href="#{rule.destination}">#{rule.destination}</a>)]]
+        destination = ERB::Util.html_escape(rule.destination)
+
+        [301, {"Location" => destination}, [%Q(You are being redirected <a href="#{destination}">#{destination}</a>)]]
       else
         app.call(env)
       end
