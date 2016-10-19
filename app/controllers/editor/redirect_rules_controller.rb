@@ -1,6 +1,6 @@
 class Editor::RedirectRulesController < Editor::ApplicationController
   def index
-    @redirect_rules = redirect_rules.page(params[:page])
+    @redirect_rules = redirect_rules.page(params[:page]).per(200)
   end
 
   def show
