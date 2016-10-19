@@ -15,11 +15,15 @@ class RedirectRuleTest < ActiveSupport::TestCase
 
   sub_test_case "before_validation" do
     test "request_path" do
-      assert build(:redirect_rule, :whatever, request_path: "/%E6%97%A5%E6%9C%AC%E8%AA%9E").valid?
+      rule = build(:redirect_rule, :whatever, request_path: "/%E6%97%A5%E6%9C%AC%E8%AA%9E")
+      assert rule.valid?
+      assert_equal rule.request_path, "/日本語"
     end
 
     test "destination" do
-      assert build(:redirect_rule, :whatever, destination: "http://xn--wgv71a119e.jp/%E6%97%A5%E6%9C%AC%E8%AA%9E").valid?
+      rule = build(:redirect_rule, :whatever, destination: "http://xn--wgv71a119e.jp/%E6%97%A5%E6%9C%AC%E8%AA%9E")
+      assert rule.valid?
+      assert_equal rule.destination, "http://日本語.jp/日本語"
     end
   end
 
