@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :categories do
       resource :order, module: :categories, only: %i(update)
     end
-    resources :redirect_rules
+    resources :redirect_rules, except: %i(show)
     resources :participants
     resources :credit_roles
   end

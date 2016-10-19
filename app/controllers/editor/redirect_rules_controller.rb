@@ -3,10 +3,6 @@ class Editor::RedirectRulesController < Editor::ApplicationController
     @redirect_rules = redirect_rules.page(params[:page]).per(200)
   end
 
-  def show
-    @redirect_rule = redirect_rules.find(params[:id])
-  end
-
   def new
     @redirect_rule = redirect_rules.build
   end
@@ -15,7 +11,7 @@ class Editor::RedirectRulesController < Editor::ApplicationController
     @redirect_rule = redirect_rules.build(redirect_rule_params)
 
     if @redirect_rule.save
-      redirect_to [:editor, @redirect_rule], notice: "リダイレクトルールが作成されました"
+      redirect_to [:editor, :redirect_rules], notice: "「#{@redirect_rule.request_path}」へのリダイレクトルールが作成されました"
     else
       render :new
     end
@@ -29,7 +25,7 @@ class Editor::RedirectRulesController < Editor::ApplicationController
     @redirect_rule = redirect_rules.find(params[:id])
 
     if @redirect_rule.update(redirect_rule_params)
-      redirect_to [:editor, @redirect_rule], notice: "リダイレクトルールが更新されました"
+      redirect_to [:editor, :redirect_rules], notice: "「#{@redirect_rule.request_path}」へのリダイレクトルールが更新されました"
     else
       render :edit
     end
