@@ -34,6 +34,9 @@ class PostIndexer
   private
 
   def extract_content(post)
-    extract_plain_text(post.body)
+    # Use cache to shorten boot time
+    Rails.cache.fetch [:post, :markdown_body, Digest::MD5.hexdigest(post.body)] do
+      extract_plain_text(post.body)
+    end
   end
 end
