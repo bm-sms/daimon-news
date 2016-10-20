@@ -77,4 +77,5 @@ group :production do
   gem "rack-cors"
   gem "rack-timeout"
   gem "rails_12factor"
+  gem "redis-rails"
 end
