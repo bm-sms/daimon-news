@@ -1,8 +1,10 @@
 module MarkdownHelper
   def render_markdown(markdown_text)
-    processor = DaimonMarkdown::Processor.new
-    result = processor.call(markdown_text)
-    result[:output].to_html.html_safe
+    Rails.cache.fetch([:post, :markdown_body, Digest::MD5.hexdigest(markdown_text)]) do
+      processor = DaimonMarkdown::Processor.new
+      result = processor.call(markdown_text)
+      result[:output].to_html.html_safe
+    end
   end
 
   def extract_plain_text(markdown_text)
