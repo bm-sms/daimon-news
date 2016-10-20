@@ -444,6 +444,7 @@ GEM
     select2-rails (4.0.3)
       thor (~> 0.14)
     sexp_processor (4.7.0)
+    simpleidn (0.0.7)
     sitemap_generator (5.2.0)
       builder (~> 3.0)
     slop (3.6.0)
@@ -511,6 +512,7 @@ DEPENDENCIES
   active_link_to
   active_model_serializers
   active_record_query_trace
+  addressable
   airbrake
   ancestry
   bootstrap-sass
@@ -560,6 +562,7 @@ DEPENDENCIES
   sass-rails
   seedbank
   select2-rails
+  simpleidn
   sitemap_generator
   sprockets-es6
   test-unit-rails

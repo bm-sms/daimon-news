@@ -375,6 +375,39 @@ ALTER SEQUENCE posts_id_seq OWNED BY posts.id;
 
 
 --
+-- Name: redirect_rules; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE redirect_rules (
+    id integer NOT NULL,
+    request_path character varying NOT NULL,
+    destination character varying NOT NULL,
+    site_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: redirect_rules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE redirect_rules_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: redirect_rules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE redirect_rules_id_seq OWNED BY redirect_rules.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -591,6 +624,13 @@ ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY redirect_rules ALTER COLUMN id SET DEFAULT nextval('redirect_rules_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY serials ALTER COLUMN id SET DEFAULT nextval('serials_id_seq'::regclass);
 
 
@@ -686,6 +726,14 @@ ALTER TABLE ONLY participants
 
 ALTER TABLE ONLY posts
     ADD CONSTRAINT posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: redirect_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY redirect_rules
+    ADD CONSTRAINT redirect_rules_pkey PRIMARY KEY (id);
 
 
 --
@@ -867,6 +915,20 @@ CREATE INDEX index_posts_on_updated_at ON posts USING btree (updated_at);
 
 
 --
+-- Name: index_redirect_rules_on_request_path_and_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_redirect_rules_on_request_path_and_site_id ON redirect_rules USING btree (request_path, site_id);
+
+
+--
+-- Name: index_redirect_rules_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_redirect_rules_on_site_id ON redirect_rules USING btree (site_id);
+
+
+--
 -- Name: index_serials_on_site_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -908,6 +970,14 @@ ALTER TABLE ONLY credits
 
 ALTER TABLE ONLY posts
     ADD CONSTRAINT fk_rails_0d1e104012 FOREIGN KEY (serial_id) REFERENCES serials(id);
+
+
+--
+-- Name: fk_rails_153f1813ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY redirect_rules
+    ADD CONSTRAINT fk_rails_153f1813ed FOREIGN KEY (site_id) REFERENCES sites(id);
 
 
 --
@@ -1217,4 +1287,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160802025651');
 INSERT INTO schema_migrations (version) VALUES ('20160802044216');
 
 INSERT INTO schema_migrations (version) VALUES ('20160804090315');
+
+INSERT INTO schema_migrations (version) VALUES ('20161003075535');
 

@@ -191,6 +191,34 @@ class EditorTest < ActionDispatch::IntegrationTest
     assert_not(page.has_css?("td", text: "Ruby lang"))
   end
 
+  test "Reidrect Rule" do
+    click_on("リダイレクト")
+
+    click_on("New Redirect Rule")
+    fill_in("リダイレクト元", with: "/1")
+    fill_in("リダイレクト先", with: "/2")
+    click_on("登録する")
+
+    click_link("Edit")
+
+    fill_in("リダイレクト元", with: "/3")
+
+    click_on("更新する")
+
+    within ".alert-success" do
+      assert_equal(page.text, "「/3」へのリダイレクトルールが更新されました")
+    end
+
+    click_link("Destroy")
+
+    assert_equal("/editor/redirect_rules", page.current_path)
+    assert_not(page.has_css?("td", text: "/3"))
+
+    within ".alert-success" do
+      assert_equal(page.text, "「/3」へのリダイレクトルールが削除されました")
+    end
+  end
+
   test "preview post" do
     @post = create(:post, :whatever, :with_credit, site: @site, body: '# title')
     visit("/editor/posts/#{@post.public_id}/preview")

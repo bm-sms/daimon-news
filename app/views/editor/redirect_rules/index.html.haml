@@ -1,0 +1,36 @@
+%h1 リダイレクトルール一覧
+
+%p
+  リダイレクトルールとは daimon-news へのリクエストを指定したページに遷移させる規則です。<br>
+  記事や固定ページなど daimon-news で管理しているページの URL を変更した際に、ユーザを新しいページに誘導するために利用してください。
+
+= link_to "New Redirect Rule", new_editor_redirect_rule_path, class: "btn btn-default"
+
+%table.table
+  %thead
+    %tr
+      %th= RedirectRule.human_attribute_name(:request_path)
+      %th= RedirectRule.human_attribute_name(:destination)
+      %th
+      %th
+      %th
+
+  %tbody
+    - @redirect_rules.each do |redirect_rule|
+      %tr
+        %td
+          = link_to redirect_rule.request_path, target: "_blank" do
+            = redirect_rule.request_path
+            %i.glyphicon.glyphicon-new-window
+        %td
+          = link_to redirect_rule.destination, target: "_blank" do
+            = redirect_rule.destination
+            %i.glyphicon.glyphicon-new-window
+        %td= link_to "Edit", edit_editor_redirect_rule_path(redirect_rule)
+        %td= link_to "Destroy", editor_redirect_rule_path(redirect_rule), method: :delete, data: {confirm: "Are you sure?"}
+
+- if @redirect_rules.total_pages > 1
+  .text-center
+    %nav.pagination
+      = paginate @redirect_rules, views_prefix: "editor"
+      %p.pagination__entries= page_entries_info @redirect_rules

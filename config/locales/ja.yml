@@ -1,4 +1,19 @@
 ja:
+  activerecord:
+    attributes:
+      redirect_rule:
+        request_path: リダイレクト元
+        destination: リダイレクト先
+    errors:
+      models:
+        redirect_rule:
+          attributes:
+            request_path:
+              not_absolute_path: / から始まるパスのみ設定できます
+              has_fragment_string: フラグメント識別子(#)は含めることができません
+              has_query_string: クエリパラメーターは含めることができません
+              not_equal_destination: リダイレクト元とリダイレクト先は同じにできません
+          redirect_loop: リダイレクトループが発生する設定は追加できません
   time:
     formats:
       short: "%Y/%m/%d %H:%M"

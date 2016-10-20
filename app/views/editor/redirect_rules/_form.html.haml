@@ -1,0 +1,6 @@
+= bootstrap_form_for [:editor, @redirect_rule], layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" do |f|
+  = f.text_field :request_path, help: "/ から始まるパスを指定します", placeholder: "/path/to/old_page"
+  = f.text_field :destination, help: "相対パス、またはURLを指定します", placeholder: "/path/to/new_page"
+
+  = f.form_group do
+    = f.submit
