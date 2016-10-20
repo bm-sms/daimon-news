@@ -43,10 +43,11 @@
     }
   },
   "addons": [
+    "airbrake:free-hrku",
     "heroku-postgresql:hobby-dev",
-    "papertrail:choklad",
+    "heroku-redis:hobby-dev",
     "newrelic:wayne",
-    "airbrake:free-hrku"
+    "papertrail:choklad"
   ],
   "buildpacks": [
     {
