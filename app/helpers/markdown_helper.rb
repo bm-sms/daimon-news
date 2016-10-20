@@ -6,7 +6,7 @@ module MarkdownHelper
   end
 
   def extract_plain_text(markdown_text)
-    html = render_markdown(markdown_text.gsub(/#{Page::SEPARATOR}/, ""))
+    html = render_markdown(markdown_text.gsub(/#{Regexp.quote(Page::SEPARATOR)}/, ""))
     Nokogiri::HTML(html).inner_text.gsub(/[[:space:]]+/, " ")
   end
 end
