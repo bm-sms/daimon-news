@@ -58,6 +58,7 @@ group :development do
   gem "bullet"
   gem "launchy"
   gem "pry-rails"
+  gem "pry-doc"
   gem "rails-erd", require: false
   gem "rubocop", require: false
   gem "web-console", "~> 2.0"

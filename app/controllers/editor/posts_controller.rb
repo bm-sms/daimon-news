@@ -2,7 +2,18 @@ class Editor::PostsController < Editor::ApplicationController
   helper_method :current_category
 
   def index
-    @posts = posts.preload(:categories).order_by_recent.page(params[:page]).per(50)
+    conditions = {}
+    @search_query_params = {}
+    if params[:query].present?
+      @search_query_params = search_query_params
+      conditions[:id] = Editor::PostSearcher.search_post_ids(query_params: search_query_params, page: params[:page], site: current_site)
+      conditions[:public_id] = search_query_params[:public_id] if search_query_params[:public_id].present?
+      if search_query_params[:category_id].present?
+        conditions[:categories] = {}
+        conditions[:categories][:id] = search_query_params[:category_id]
+      end
+    end
+    @posts = posts.includes(:categories).where(conditions).order_by_recent.page(params[:page]).per(50)
   end
 
   def show
@@ -89,5 +100,9 @@ class Editor::PostsController < Editor::ApplicationController
 
   def currenr_category
     @post.main_category
+  end
+
+  def search_query_params
+    params.require(:query).permit(:public_id, :title, :category_id)
   end
 end

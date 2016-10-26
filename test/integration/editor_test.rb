@@ -334,6 +334,58 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
   end
 
+  sub_test_case "Post Search" do
+    setup do
+      setup_groonga_database
+      @other_site = create(:site)
+      @category = create(:category, site: @site)
+      switch_domain(@site.fqdn)
+      @indexer = PostIndexer.new
+    end
+
+    teardown do
+      teardown_groonga_database
+    end
+
+    attribute :js, true
+    test "Post" do
+      create_post(site: @site,
+                  public_id: 101,
+                  title: "this post is post1")
+      create_post(site: @site,
+                  public_id: 102,
+                  title: "this post is post2")
+      create_post(site: @site,
+                  public_id: 103,
+                  title: "this post is post3",
+                  categorizations_attributes: [{category: @category, order: 1}])
+
+      click_on("記事")
+      fill_in("Title", with: "post1")
+      click_on("Search")
+
+      within("tbody > tr") do
+        assert(has_content?("post1"))
+      end
+
+      click_on("記事")
+      fill_in("Public ID", with: "102")
+      click_on("Search")
+
+      within("tbody > tr") do
+        assert(has_content?("post2"))
+      end
+
+      click_on("記事")
+      select(@category.name, from: "_query[category_id]")
+      click_on("Search")
+
+      within("tbody > tr") do
+        assert(has_content?("post3"))
+      end
+    end
+  end
+
   sub_test_case "Post: post.id != post.public_id" do
     test "edit and destroy existing post" do
       post = create(:post, :whatever, site: @site, public_id: 100_000, title: "title")
