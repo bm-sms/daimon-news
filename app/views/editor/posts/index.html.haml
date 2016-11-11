@@ -4,9 +4,9 @@
 
 %p
   = bootstrap_form_tag url: editor_posts_path, method: :get, layout: :inline do |f|
-    = f.search_field 'query[public_id]', value: @search_query_params[:public_id], placeholder: 'Public ID', skip_label: true
-    = f.search_field 'query[title]', value: @search_query_params[:title], placeholder: 'Title', skip_label: true
-    = f.collection_select 'query[category_id]', current_site.categories.leaves, :id, :full_name, {selected: @search_query_params[:category_id], prompt: 'Category', skip_label: true}, {class: "form-control select2", "data-select2-allow-clear": true}
+    = f.search_field 'query[public_id]', value: @search_query_params[:public_id], label: 'Public ID'
+    = f.search_field 'query[title]', value: @search_query_params[:title], label: 'Title'
+    = f.collection_select 'query[category_id]', current_site.categories.leaves, :id, :full_name, {selected: @search_query_params[:category_id], prompt: 'Category', label: 'Category'}, {class: "form-control select2", "data-select2-allow-clear": true}
     = f.submit 'Search'
 
 = link_to 'New Post', new_editor_post_url, class: 'btn btn-default'
