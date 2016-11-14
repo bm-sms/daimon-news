@@ -29,6 +29,7 @@ gem "pg"
 gem "puma"
 gem "rails-i18n"
 gem "rambulance"
+gem "ransack"
 gem "redcarpet"
 gem "rouge"
 gem "rroonga"
@@ -57,8 +58,8 @@ group :development do
   gem "active_record_query_trace"
   gem "bullet"
   gem "launchy"
-  gem "pry-rails"
   gem "pry-doc"
+  gem "pry-rails"
   gem "rails-erd", require: false
   gem "rubocop", require: false
   gem "web-console", "~> 2.0"

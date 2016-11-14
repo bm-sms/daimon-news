@@ -377,7 +377,7 @@ class EditorTest < ActionDispatch::IntegrationTest
       end
 
       click_on("記事")
-      select(@category.name, from: "_query[category_id]")
+      select(@category.name, from: "Category")
       click_on("Search")
 
       within("tbody > tr") do
