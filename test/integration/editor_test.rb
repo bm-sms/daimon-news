@@ -336,11 +336,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   sub_test_case "Post Search" do
     setup do
-      setup_groonga_database
-      @other_site = create(:site)
       @category = create(:category, site: @site)
-      switch_domain(@site.fqdn)
-      @indexer = PostIndexer.new
     end
 
     teardown do
@@ -350,38 +346,61 @@ class EditorTest < ActionDispatch::IntegrationTest
     attribute :js, true
     test "Post" do
       create_post(site: @site,
-                  public_id: 101,
-                  title: "this post is post1")
-      create_post(site: @site,
                   public_id: 102,
-                  title: "this post is post2")
+                  title: "this post is first",
+                  published_at: '2016/01/03 10:00:00')
       create_post(site: @site,
                   public_id: 103,
-                  title: "this post is post3",
+                  title: "this post is 2nd",
+                  published_at: '2016/01/02 10:00:00')
+      create_post(site: @site,
+                  public_id: 101,
+                  title: "this post is 3rd",
+                  published_at: '2016/01/01 10:00:00',
                   categorizations_attributes: [{category: @category, order: 1}])
 
+      # search
       click_on("記事")
-      fill_in("Title", with: "post1")
+      fill_in("Title", with: "first")
       click_on("Search")
-
-      within("tbody > tr") do
-        assert(has_content?("post1"))
+      within("tbody") do
+        assert(has_selector?('tr', count: 1))
+        assert(has_content?("first"))
       end
 
       click_on("記事")
-      fill_in("Public ID", with: "102")
+      fill_in("Public ID", with: "103")
       click_on("Search")
-
-      within("tbody > tr") do
-        assert(has_content?("post2"))
+      within("tbody") do
+        assert(has_selector?('tr', count: 1))
+        assert(has_content?("2nd"))
       end
 
       click_on("記事")
       select(@category.name, from: "Category")
       click_on("Search")
+      within("tbody") do
+        assert(has_selector?('tr', count: 1))
+        assert(has_content?("3rd"))
+      end
 
-      within("tbody > tr") do
-        assert(has_content?("post3"))
+      # sort_link
+      click_on("記事")
+      click_link("Public ID")
+      within first("tbody tr") do
+        assert(has_content?("3rd"))
+      end
+
+      click_on("記事")
+      click_link("Title")
+      within first("tbody > tr") do
+        assert(has_content?("2nd"))
+      end
+
+      click_on("記事")
+      click_link("Published at")
+      within first("tbody > tr") do
+        assert(has_content?("3rd"))
       end
     end
   end
