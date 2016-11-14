@@ -94,6 +94,6 @@ class Editor::PostsController < Editor::ApplicationController
   end
 
   def search_query_params
-    params.require(:q).permit(:public_id_eq, :title_cont, :categories_id_eq)
+    params.require(:q).permit(:public_id_eq, :title_cont, :categories_id_eq, :s)
   end
 end
