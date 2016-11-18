@@ -337,14 +337,6 @@ class EditorTest < ActionDispatch::IntegrationTest
   sub_test_case "Post Search" do
     setup do
       @category = create(:category, site: @site)
-    end
-
-    teardown do
-      teardown_groonga_database
-    end
-
-    attribute :js, true
-    test "Post" do
       create_post(site: @site,
                   public_id: 102,
                   title: "this post is first",
@@ -358,8 +350,15 @@ class EditorTest < ActionDispatch::IntegrationTest
                   title: "this post is 3rd",
                   published_at: '2016/01/01 10:00:00',
                   categorizations_attributes: [{category: @category, order: 1}])
+    end
 
-      # search
+    teardown do
+      teardown_groonga_database
+    end
+
+    attribute :js, true
+
+    test "post search test" do
       click_on("記事")
       fill_in("Title", with: "first")
       click_on("Search")
@@ -383,18 +382,13 @@ class EditorTest < ActionDispatch::IntegrationTest
         assert(has_selector?('tr', count: 1))
         assert(has_content?("3rd"))
       end
+    end
 
-      # sort_link
+    test "sort link test" do
       click_on("記事")
       click_link("Public ID")
       within first("tbody tr") do
         assert(has_content?("3rd"))
-      end
-
-      click_on("記事")
-      click_link("Title")
-      within first("tbody > tr") do
-        assert(has_content?("2nd"))
       end
 
       click_on("記事")

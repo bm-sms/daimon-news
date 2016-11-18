@@ -12,7 +12,7 @@
       = f.text_field :title_cont, class: 'form-control'
     .form-group
       = f.label :categories_id_eq, 'Category', class: 'control-label'
-      = f.collection_select :categories_id_eq, current_site.categories.leaves, :id, :full_name, {selected: @search_query_params[:categories_id_eq], prompt: 'Category', label: 'Category'}, {class: 'form-control select2', 'data-select2-allow-clear': true}
+      = f.collection_select :categories_id_eq, current_site.categories.leaves, :id, :full_name, {prompt: 'Category', label: 'Category'}, {class: 'form-control select2', 'data-select2-allow-clear': true}
     .form-group
       = f.submit 'Search', class: 'btn btn-default'
 
@@ -22,7 +22,7 @@
   %thead
     %tr
       %th= sort_link(@search, :public_id, 'Public ID')
-      %th= sort_link(@search, :title, 'Title')
+      %th Title
       %th Categories
       %th= sort_link(@search, :published_at, 'Published at')
       %th Thumbnail
