@@ -50,6 +50,12 @@
                 - current_site.posts.includes(:categories).published.order_by_recent.limit(5).each do |post|
                   = render partial: 'posts/summary_with_content', locals: {post: post}
 
+            - if current_site.pickup_posts.count >= 1
+              %h2.subheading.subheading--aside.subheading--press-articles ピックアップ記事
+              %ul
+                - current_site.pickup_posts.includes(:post).order(:order).each do |pickup_post|
+                  = render partial: 'posts/summary_with_content', locals: {post: pickup_post.post}
+
             - if current_site.serials.exists?
               %h2.subheading.subheading--aside.subheading--press-articles 連載
               %p.to-serials
