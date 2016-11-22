@@ -2,15 +2,29 @@
 
 %p 記事とは、読者に有用な情報を届けるための文章です。markdown記法を使用することができます。
 
+%p
+  = search_form_for @search, url: editor_posts_path, class: 'form-inline' do |f|
+    .form-group
+      = f.label :public_id_eq, 'Public ID', class: 'control-label'
+      = f.text_field :public_id_eq, class: 'form-control'
+    .form-group
+      = f.label :title_cont, 'Title', class: 'control-label'
+      = f.text_field :title_cont, class: 'form-control'
+    .form-group
+      = f.label :categories_id_eq, 'Category', class: 'control-label'
+      = f.collection_select :categories_id_eq, current_site.categories.leaves, :id, :full_name, {prompt: 'Category', label: 'Category'}, {class: 'form-control select2', 'data-select2-allow-clear': true}
+    .form-group
+      = f.submit 'Search', class: 'btn btn-default'
+
 = link_to 'New Post', new_editor_post_url, class: 'btn btn-default'
 
 %table.table.post
   %thead
     %tr
-      %th Public ID
+      %th= sort_link(@search, :public_id, 'Public ID')
       %th Title
       %th Categories
-      %th Published at
+      %th= sort_link(@search, :published_at, 'Published at')
       %th Thumbnail
       %th Published
       %th

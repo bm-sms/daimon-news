@@ -334,6 +334,71 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
   end
 
+  sub_test_case "Post Search" do
+    setup do
+      @category = create(:category, site: @site)
+      create_post(site: @site,
+                  public_id: 102,
+                  title: "this post is first",
+                  published_at: '2016/01/03 10:00:00')
+      create_post(site: @site,
+                  public_id: 103,
+                  title: "this post is 2nd",
+                  published_at: '2016/01/02 10:00:00')
+      create_post(site: @site,
+                  public_id: 101,
+                  title: "this post is 3rd",
+                  published_at: '2016/01/01 10:00:00',
+                  categorizations_attributes: [{category: @category, order: 1}])
+    end
+
+    teardown do
+      teardown_groonga_database
+    end
+
+    attribute :js, true
+
+    test "post search test" do
+      click_on("記事")
+      fill_in("Title", with: "first")
+      click_on("Search")
+      within("tbody") do
+        assert(has_selector?('tr', count: 1))
+        assert(has_content?("first"))
+      end
+
+      click_on("記事")
+      fill_in("Public ID", with: "103")
+      click_on("Search")
+      within("tbody") do
+        assert(has_selector?('tr', count: 1))
+        assert(has_content?("2nd"))
+      end
+
+      click_on("記事")
+      select(@category.name, from: "Category")
+      click_on("Search")
+      within("tbody") do
+        assert(has_selector?('tr', count: 1))
+        assert(has_content?("3rd"))
+      end
+    end
+
+    test "sort link test" do
+      click_on("記事")
+      click_link("Public ID")
+      within first("tbody tr") do
+        assert(has_content?("3rd"))
+      end
+
+      click_on("記事")
+      click_link("Published at")
+      within first("tbody > tr") do
+        assert(has_content?("3rd"))
+      end
+    end
+  end
+
   sub_test_case "Post: post.id != post.public_id" do
     test "edit and destroy existing post" do
       post = create(:post, :whatever, site: @site, public_id: 100_000, title: "title")
