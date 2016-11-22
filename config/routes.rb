@@ -50,6 +50,10 @@ Rails.application.routes.draw do
 
   resources :fixed_pages, param: :slug, path: "/", only: :show
 
+  resource :partial, only: [] do
+    get :pickup_posts
+  end
+
   namespace :api do
     resources :sites, only: %i(), path: "/", param: :fqdn, fqdn: %r{[^/]+} do
       resources :posts, only: %i(index show), param: :public_id
