@@ -13,6 +13,7 @@ class Post < ActiveRecord::Base
   belongs_to :serial
   has_many :categorizations, -> { ordered }, dependent: :destroy
   has_many :categories, through: :categorizations
+  has_many :pickup_posts
 
   validates :public_id, uniqueness: {scope: :site_id}
   validates :body, presence: true

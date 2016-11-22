@@ -26,6 +26,9 @@ Rails.application.routes.draw do
       resource :order, module: :categories, only: %i(update)
     end
     resources :redirect_rules, except: %i(show)
+    resources :pickup_posts, except: %i(show) do
+      resource :order, module: :pickup_posts, only: %i(update)
+    end
     resources :participants
     resources :credit_roles
   end

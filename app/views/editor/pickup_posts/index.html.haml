@@ -1,0 +1,33 @@
+%h1 ピックアップ記事一覧
+
+%p
+  ピックアップ記事とは 編集部としてユーザーに特に見てもらいたい記事を選んで、サイトに表示させる機能です。<br>
+
+= link_to "New Pickup Post", new_editor_pickup_post_path, class: "btn btn-default"
+
+%table.table
+  %thead
+    %tr
+      %th 記事ID
+      %th 記事タイトル
+      %th 並び順
+      %th
+      %th
+      %th
+
+  %tbody
+    - @pickup_posts.each do |pickup_post|
+      %tr
+        %td= pickup_post.post_id
+        %td= pickup_post.post.title
+        %td= pickup_post.order
+        %td= link_to "Edit", edit_editor_pickup_post_path(pickup_post)
+        %td= link_to "Destroy", editor_pickup_post_path(pickup_post), method: :delete, data: {confirm: "Are you sure?"}
+        %td= link_to_if pickup_post.higher_item, '▲', editor_pickup_post_order_url(pickup_post_id: pickup_post, target: pickup_post.higher_item, move_to: "higher"), method: :put
+        %td= link_to_if pickup_post.lower_item, '▼', editor_pickup_post_order_url(pickup_post_id: pickup_post, target: pickup_post.lower_item, move_to: "lower"), method: :put
+
+- if @pickup_posts.total_pages > 1
+  .text-center
+    %nav.pagination
+      = paginate @pickup_posts, views_prefix: "editor"
+      %p.pagination__entries= page_entries_info @pickup_posts
