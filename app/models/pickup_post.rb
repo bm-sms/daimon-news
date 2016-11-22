@@ -2,6 +2,7 @@ class PickupPost < ActiveRecord::Base
   belongs_to :site
   belongs_to :post
 
+  validates :post_id, presence: true, uniqueness: {scope: :site_id}
   validates :order, numericality: {only_integer: true}
 
   scope :ordered, -> { order(:order) }

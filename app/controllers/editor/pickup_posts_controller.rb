@@ -1,14 +1,14 @@
 class Editor::PickupPostsController < Editor::ApplicationController
   def index
-    @pickup_posts = pickup_posts.order(:order).page(params[:page]).per(200)
+    @pickup_posts = pickup_posts.includes(:post).order(:order).page(params[:page]).per(200)
   end
 
   def new
-    @pickup_post = PickupPost.new
+    @pickup_post = pickup_posts.build
   end
 
   def create
-    @pickup_post = PickupPost.new(pickup_post_params)
+    @pickup_post = pickup_posts.build(pickup_post_params)
 
     if @pickup_post.save
       redirect_to [:editor, :pickup_posts], notice: "ピックアップ記事の設定が作成されました"
@@ -41,7 +41,7 @@ class Editor::PickupPostsController < Editor::ApplicationController
   private
 
   def pickup_posts
-    PickupPost.includes(:post).where(posts: {site_id: current_site.id})
+    current_site.pickup_posts
   end
 
   def pickup_post_params
