@@ -1,6 +1,6 @@
 class Editor::PickupPostsController < Editor::ApplicationController
   def index
-    @pickup_posts = pickup_posts.includes(:post).order(:order).page(params[:page]).per(200)
+    @pickup_posts = pickup_posts.includes(:post).ordered.page(params[:page]).per(200)
   end
 
   def new
