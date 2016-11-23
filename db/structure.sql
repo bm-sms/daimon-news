@@ -935,6 +935,13 @@ CREATE INDEX index_pickup_posts_on_site_id ON pickup_posts USING btree (site_id)
 
 
 --
+-- Name: index_pickup_posts_on_site_id_and_order; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pickup_posts_on_site_id_and_order ON pickup_posts USING btree (site_id, "order");
+
+
+--
 -- Name: index_posts_on_published_at_and_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1369,4 +1376,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160804090315');
 INSERT INTO schema_migrations (version) VALUES ('20161003075535');
 
 INSERT INTO schema_migrations (version) VALUES ('20161121030518');
+
+INSERT INTO schema_migrations (version) VALUES ('20161123021351');
 
