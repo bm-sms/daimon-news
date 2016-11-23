@@ -1,5 +1,5 @@
 class PickupPost < ActiveRecord::Base
-  include Order
+  include Orderable
 
   belongs_to :site
   belongs_to :post
@@ -7,6 +7,10 @@ class PickupPost < ActiveRecord::Base
   validates :post_id, presence: true, uniqueness: {scope: :site_id}
 
   before_validation do
-    self.order = (self.class.maximum(:order) || 0) + 1 if !order
+    assign_default_order
+  end
+
+  def siblings
+    self.class.where(site_id: site_id)
   end
 end

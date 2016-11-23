@@ -1,4 +1,4 @@
-module Order
+module Orderable
   extend ActiveSupport::Concern
 
   included do
@@ -20,8 +20,8 @@ module Order
     end
   end
 
-  def siblings
-    self.class.where(site_id: site_id)
+  def assign_default_order
+    self.order = (self.class.maximum(:order) || 0) + 1 unless order
   end
 
   def higher_item

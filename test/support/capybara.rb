@@ -21,6 +21,10 @@ Capybara.add_selector(:row) do
   xpath {|text| "//tr[./td[text() = '#{text}']]" }
 end
 
+Capybara.add_selector(:row_link) do
+  xpath {|text| "//tr[./td/a[text() = '#{text}']]" }
+end
+
 Capybara.add_selector(:form_group) do
   xpath {|label| "//*[@class='form-group' and .//label[text()='#{label}']]" }
 end

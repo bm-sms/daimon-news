@@ -50,7 +50,7 @@ Rails.application.routes.draw do
 
   resources :fixed_pages, param: :slug, path: "/", only: :show
 
-  resource :partial, only: [] do
+  resource :partial, only: %i() do
     get :pickup_posts
   end
 

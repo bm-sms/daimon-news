@@ -10,7 +10,6 @@
     %tr
       %th Public ID
       %th Title
-      %th Order
       %th
       %th
       %th
@@ -19,8 +18,7 @@
     - @pickup_posts.each do |pickup_post|
       %tr
         %td= pickup_post.post_id
-        %td= pickup_post.post.title
-        %td= pickup_post.order
+        %td= link_to pickup_post.post.title, preview_editor_post_url(public_id: pickup_post.post_id), target: '_blank'
         %td= link_to "Edit", edit_editor_pickup_post_path(pickup_post)
         %td= link_to "Destroy", editor_pickup_post_path(pickup_post), method: :delete, data: {confirm: "Are you sure?"}
         %td= link_to_if pickup_post.higher_item, '▲', editor_pickup_post_order_url(pickup_post_id: pickup_post, target: pickup_post.higher_item, move_to: "higher"), method: :put

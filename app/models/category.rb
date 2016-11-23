@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  include Order
+  include Orderable
 
   belongs_to :site
   has_many :categorizations, dependent: :destroy
@@ -20,7 +20,7 @@ class Category < ActiveRecord::Base
   }
 
   before_validation do
-    self.order = (self.class.maximum(:order) || 0) + 1 if !order || ancestry_changed?
+    assign_default_order if !order || ancestry_changed?
   end
 
   def siblings

@@ -32,8 +32,8 @@ class Editor::PickupPostsController < Editor::ApplicationController
   end
 
   def destroy
-    @pickup_post = pickup_posts.find(params[:id])
-    @pickup_post.destroy
+    pickup_post = pickup_posts.find(params[:id])
+    pickup_post.destroy
 
     redirect_to editor_pickup_posts_url, notice: "ピックアップ記事の設定が削除されました"
   end

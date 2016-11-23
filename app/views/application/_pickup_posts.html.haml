@@ -1,4 +1,4 @@
-- if pickup_posts.count >= 1
+- if pickup_posts.exists?
   %h2.subheading.subheading--aside.subheading--press-articles ピックアップ記事
   %ul
     - pickup_posts.includes(:post).ordered.each do |pickup_post|
