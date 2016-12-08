@@ -7,5 +7,6 @@ class CreatePickupPosts < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :pickup_posts, [:site_id, :order]
   end
 end
