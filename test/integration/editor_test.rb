@@ -653,7 +653,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
       assert(page.has_css?("td", text: "Ruby"))
 
-      within(:row_link, "Ruby") do
+      within(:row, "Ruby") do
         click_on("Edit")
       end
 
@@ -663,7 +663,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
       assert(page.has_css?("td", text: "Python"))
 
-      within(:row_link, "Python") do
+      within(:row, "Python") do
         click_on("Destroy")
       end
 
@@ -682,7 +682,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     test "move to higher" do
       click_on("ピックアップ記事")
-      within(:row_link, @pickup_posts[4].post.title) do
+      within(:row, @pickup_posts[4].post.title) do
         click_on("▲")
       end
       names = find_all("tbody tr").map do |tr|
@@ -694,7 +694,7 @@ class EditorTest < ActionDispatch::IntegrationTest
 
     test "move to lower" do
       click_on("ピックアップ記事")
-      within(:row_link, @pickup_posts[1].post.title) do
+      within(:row, @pickup_posts[1].post.title) do
         click_on("▼")
       end
       names = find_all("tbody tr").map do |tr|
