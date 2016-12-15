@@ -1,0 +1,12 @@
+%li.article-summary.article-summary--with-thumbnail.article-summary--with-thumbnail--pickup
+  = link_to post_url(public_id: post.public_id), class: 'article-summary__url' do
+    .article-summary__image.article-summary__image--pickup
+      = image_tag post.thumbnail.url, class: 'article-summary__thumbnail'
+    .article-summary__body.article-summary__body--pickup
+      .article-summary__data.article-summary__data--pickup
+        %time.article-summary__data-item.article-summary__data-item--pickup
+          = l post.published_at.to_date if post.published_at?
+        - post.categories.each do |category|
+          %span.category= category.name
+      %p.article-summary__title.article-summary__title--pickup
+        = post.title

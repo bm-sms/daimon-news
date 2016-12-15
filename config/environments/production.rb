@@ -115,7 +115,6 @@ Rails.application.configure do
     allow do
       origins "*"
       resource "/assets/*", headers: :any, methods: %i(get post options)
-      resource "/partial/*", headers: :any, methods: %i(get post options)
     end
   end
 end
