@@ -342,8 +342,8 @@ ALTER SEQUENCE participants_id_seq OWNED BY participants.id;
 
 CREATE TABLE pickup_posts (
     id integer NOT NULL,
-    site_id integer,
-    post_id integer,
+    site_id integer NOT NULL,
+    post_id integer NOT NULL,
     "order" integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

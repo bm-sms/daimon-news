@@ -674,9 +674,8 @@ class EditorTest < ActionDispatch::IntegrationTest
 
   sub_test_case "PickupPostSort" do
     setup do
-      @pickup_posts = []
-      ["Ruby", "Python", "PHP", "C++", "JavaScript"].each_with_index do |name, index|
-        @pickup_posts << create(:pickup_post, :whatever, order: index + 1, site: @site, post: create(:post, :whatever, title: name))
+      @pickup_posts = ["Ruby", "Python", "PHP", "C++", "JavaScript"].map.with_index(1) do |name, index|
+        create(:pickup_post, :whatever, order: index, site: @site, post: create(:post, :whatever, title: name))
       end
     end
 
