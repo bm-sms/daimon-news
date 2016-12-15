@@ -3,7 +3,6 @@
   %head
     %meta{charset: 'utf-8'}
     %title Daimon Admin
-    = javascript_include_tag 'editor/application'
     = stylesheet_link_tag 'editor/application', media: 'all'
     = csrf_meta_tag
 
@@ -22,3 +21,5 @@
 
       %main
         = yield
+
+    = javascript_include_tag 'editor/application'
