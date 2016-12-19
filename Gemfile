@@ -74,6 +74,7 @@ end
 
 group :production do
   gem "airbrake"
+  gem "heroku-deflater"
   gem "newrelic_rpm"
   gem "rack-contrib", require: "rack/contrib"
   gem "rack-cors"
