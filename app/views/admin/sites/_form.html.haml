@@ -25,6 +25,8 @@
       (#{f.label :base_hue})
       = f.send :generate_help, :base_hue, nil
   = f.form_group do
+    = f.check_box :resize_thumb, help: "Use resize thumb or not."
+  = f.form_group do
     = f.check_box :opened, help: "Publish this site or not."
   = f.file_field :logo_image, help: "Upload logo image."
   - if @site.logo_image.present?
