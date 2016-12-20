@@ -4,3 +4,13 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/bm-sms/daimon-news.svg)](https://gemnasium.com/github.com/bm-sms/daimon-news)
 
 NOTE: The documentation is in progress.
+
+## Requirements
+
+If you use macOS and have not used groonga:
+
+    $ brew install groonga --with-mecab
+    
+Requires postgresql too:
+
+    $ brew install postgresql

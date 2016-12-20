@@ -26,6 +26,9 @@ Rails.application.routes.draw do
       resource :order, module: :categories, only: %i(update)
     end
     resources :redirect_rules, except: %i(show)
+    resources :pickup_posts, except: %i(show) do
+      resource :order, module: :pickup_posts, only: %i(update)
+    end
     resources :participants
     resources :credit_roles
   end
@@ -47,9 +50,14 @@ Rails.application.routes.draw do
 
   resources :fixed_pages, param: :slug, path: "/", only: :show
 
+  resource :partial, only: %i() do
+    get :pickup_posts
+  end
+
   namespace :api do
     resources :sites, only: %i(), path: "/", param: :fqdn, fqdn: %r{[^/]+} do
       resources :posts, only: %i(index show), param: :public_id
+      resources :pickup_posts, only: %i(index)
     end
   end
 end

@@ -7,6 +7,10 @@ module PostDecorator
     short_text_body
   end
 
+  def title_with_public_id
+    "#{public_id}: #{title}"
+  end
+
   def to_og_params
     {
       locale: "ja_JP",
@@ -34,11 +38,6 @@ module PostDecorator
   def display_credits?(current_page)
     return false unless credits.present?
     current_page == 1
-  end
-
-  def published?
-    return false unless published_at
-    published_at <= Time.current
   end
 
   def canonical_url(pages)

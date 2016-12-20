@@ -13,6 +13,7 @@ class Post < ActiveRecord::Base
   belongs_to :serial
   has_many :categorizations, -> { ordered }, dependent: :destroy
   has_many :categories, through: :categorizations
+  has_many :pickup_posts, dependent: :destroy
 
   validates :public_id, uniqueness: {scope: :site_id}
   validates :body, presence: true
@@ -52,6 +53,11 @@ class Post < ActiveRecord::Base
 
   def main_category
     categories.loaded? ? categories.fetch(0) : categories.first!
+  end
+
+  def published?
+    return false unless published_at
+    published_at <= Time.current
   end
 
   private

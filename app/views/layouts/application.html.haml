@@ -43,6 +43,7 @@
           %section.promotion
             %h2.subheading.subheading--aside.subheading--press-articles 記事検索
             = render 'application/search_form'
+            = render 'application/pickup_posts', pickup_posts: current_site.pickup_posts
 
             - unless current_page?(root_path)
               %h2.subheading.subheading--aside.subheading--press-articles 新着記事
