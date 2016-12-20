@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.3
+-- Dumped from database version 9.5.4
 -- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
@@ -337,6 +337,39 @@ ALTER SEQUENCE participants_id_seq OWNED BY participants.id;
 
 
 --
+-- Name: pickup_posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE pickup_posts (
+    id integer NOT NULL,
+    site_id integer NOT NULL,
+    post_id integer NOT NULL,
+    "order" integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: pickup_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE pickup_posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pickup_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE pickup_posts_id_seq OWNED BY pickup_posts.id;
+
+
+--
 -- Name: posts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -617,6 +650,13 @@ ALTER TABLE ONLY participants ALTER COLUMN id SET DEFAULT nextval('participants_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY pickup_posts ALTER COLUMN id SET DEFAULT nextval('pickup_posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
 
 
@@ -718,6 +758,14 @@ ALTER TABLE ONLY memberships
 
 ALTER TABLE ONLY participants
     ADD CONSTRAINT participants_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pickup_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pickup_posts
+    ADD CONSTRAINT pickup_posts_pkey PRIMARY KEY (id);
 
 
 --
@@ -870,6 +918,27 @@ CREATE INDEX index_participants_on_name ON participants USING btree (name);
 --
 
 CREATE INDEX index_participants_on_site_id ON participants USING btree (site_id);
+
+
+--
+-- Name: index_pickup_posts_on_post_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pickup_posts_on_post_id ON pickup_posts USING btree (post_id);
+
+
+--
+-- Name: index_pickup_posts_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pickup_posts_on_site_id ON pickup_posts USING btree (site_id);
+
+
+--
+-- Name: index_pickup_posts_on_site_id_and_order; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pickup_posts_on_site_id_and_order ON pickup_posts USING btree (site_id, "order");
 
 
 --
@@ -1045,6 +1114,14 @@ ALTER TABLE ONLY credits
 
 
 --
+-- Name: fk_rails_b8e98104ef; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pickup_posts
+    ADD CONSTRAINT fk_rails_b8e98104ef FOREIGN KEY (site_id) REFERENCES sites(id);
+
+
+--
 -- Name: fk_rails_c3f4777003; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1074,6 +1151,14 @@ ALTER TABLE ONLY participants
 
 ALTER TABLE ONLY posts
     ADD CONSTRAINT fk_rails_de90ba744d FOREIGN KEY (site_id) REFERENCES sites(id);
+
+
+--
+-- Name: fk_rails_e49900da6c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY pickup_posts
+    ADD CONSTRAINT fk_rails_e49900da6c FOREIGN KEY (post_id) REFERENCES posts(id);
 
 
 --
@@ -1289,4 +1374,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160802044216');
 INSERT INTO schema_migrations (version) VALUES ('20160804090315');
 
 INSERT INTO schema_migrations (version) VALUES ('20161003075535');
+
+INSERT INTO schema_migrations (version) VALUES ('20161121030518');
 
