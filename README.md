@@ -16,9 +16,10 @@ If you use macOS and have not used groonga:
 
     $ brew install groonga --with-mecab
 
-Requires postgresql too:
+Requires postgresql and phantomjs too:
 
     $ brew install postgresql
+    $ brew install phantomjs
 
 ## Setup
 
