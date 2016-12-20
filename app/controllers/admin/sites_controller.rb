@@ -60,6 +60,7 @@ class Admin::SitesController < Admin::ApplicationController
       :footer_url,
       :ad_client,
       :ad_slot,
+      :resize_thumb,
       :opened,
       :logo_image,
       :favicon_image,
