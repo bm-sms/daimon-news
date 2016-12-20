@@ -4,3 +4,11 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/bm-sms/daimon-news.svg)](https://gemnasium.com/github.com/bm-sms/daimon-news)
 
 NOTE: The documentation is in progress.
+
+## Requirements
+
+If you use macOS and have not used groonga:
+
+    $ brew install mecab
+    $ brew install mecab-ipadic
+    $ brew install groonga --with-mecab
