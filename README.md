@@ -9,6 +9,4 @@ NOTE: The documentation is in progress.
 
 If you use macOS and have not used groonga:
 
-    $ brew install mecab
-    $ brew install mecab-ipadic
     $ brew install groonga --with-mecab
