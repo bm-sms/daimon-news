@@ -636,4 +636,71 @@ class EditorTest < ActionDispatch::IntegrationTest
       assert_equal(expected, names)
     end
   end
+
+  sub_test_case "PickupPost" do
+    setup do
+      create(:post, :whatever, site: @site, title: "Ruby")
+      create(:post, :whatever, site: @site, title: "Python")
+    end
+
+    test "create, edit, destory" do
+      click_on("ピックアップ記事")
+      click_on("New Pickup Post")
+
+      select("Ruby", from: "pickup_post_post_id")
+
+      click_on("登録する")
+
+      assert(page.has_css?("td", text: "Ruby"))
+
+      within(:row, "Ruby") do
+        click_on("Edit")
+      end
+
+      select("Python", from: "pickup_post_post_id")
+
+      click_on("更新する")
+
+      assert(page.has_css?("td", text: "Python"))
+
+      within(:row, "Python") do
+        click_on("Destroy")
+      end
+
+      assert_equal("/editor/pickup_posts", page.current_path)
+      assert_not(page.has_css?("td", text: "Python"))
+    end
+  end
+
+  sub_test_case "PickupPostSort" do
+    setup do
+      @pickup_posts = ["Ruby", "Python", "PHP", "C++", "JavaScript"].map.with_index(1) do |name, index|
+        create(:pickup_post, :whatever, order: index, site: @site, post: create(:post, :whatever, title: name))
+      end
+    end
+
+    test "move to higher" do
+      click_on("ピックアップ記事")
+      within(:row, @pickup_posts[4].post.title) do
+        click_on("▲")
+      end
+      names = find_all("tbody tr").map do |tr|
+        tr.all("td")[1].text
+      end
+      expected = @pickup_posts.values_at(0, 1, 2, 4, 3).map {|pickup_post| pickup_post.post.title}
+      assert_equal(expected, names)
+    end
+
+    test "move to lower" do
+      click_on("ピックアップ記事")
+      within(:row, @pickup_posts[1].post.title) do
+        click_on("▼")
+      end
+      names = find_all("tbody tr").map do |tr|
+        tr.all("td")[1].text
+      end
+      expected = @pickup_posts.values_at(0, 2, 1, 3, 4).map {|pickup_post| pickup_post.post.title}
+      assert_equal(expected, names)
+    end
+  end
 end

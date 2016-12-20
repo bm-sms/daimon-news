@@ -67,4 +67,28 @@ class SidebarTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  sub_test_case "pickup_posts" do
+    test "pickup posts section is not displayed if no pickup posts" do
+      create(:pickup_post, :whatever, site: create(:site))
+
+      visit "/"
+
+      within ".wrappable__content.promotions" do
+        assert(page.has_no_selector?("h2", text: "ピックアップ"))
+      end
+    end
+
+    test "pickup posts is displayed if any pickup posts are exist" do
+      create(:pickup_post, :whatever, site: @post.site)
+
+      visit "/"
+
+      within ".wrappable__content.promotions" do
+        assert(page.has_selector?("p", text: @post.title))
+        assert(page.has_selector?("h2", text: "ピックアップ"))
+      end
+    end
+  end
+
 end
