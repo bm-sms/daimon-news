@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/bm-sms/daimon_news-layout.git
+  remote: https://github.com/bm-sms/daimon_news-layout.git
   revision: b2303364234c2a89eb2ad4cbfccb0163c7aaaa10
   specs:
     daimon_news-layout (0.1.0)
@@ -8,7 +8,7 @@ GIT
       neat
 
 GIT
-  remote: git://github.com/mtsmfm/cocoon.git
+  remote: https://github.com/mtsmfm/cocoon.git
   revision: 4a14bb3ae46a465c0385477eacab48385b9ddb59
   branch: fix-on-ready-for-jquery-3
   specs:
