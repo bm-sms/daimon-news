@@ -7,10 +7,26 @@ NOTE: The documentation is in progress.
 
 ## Requirements
 
+* [Ruby](https://www.ruby-lang.org) … 2.3.3
+* [bundler](http://bundler.io/)
+* [Groonga](http://groonga.org/)
+* [PostgreSQL](https://www.postgresql.org/) … ~> 9.5
+
 If you use macOS and have not used groonga:
 
     $ brew install groonga --with-mecab
-    
+
 Requires postgresql too:
 
     $ brew install postgresql
+
+## Setup
+
+Install dependencies and setup database:
+
+    $ bundle install
+    $ bin/rake db:create db:structure:load
+
+How to load dummy data for development:
+
+    $ bin/rake db:seed:development
