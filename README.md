@@ -12,3 +12,4 @@ If you use macOS and have not used groonga:
     $ brew install mecab
     $ brew install mecab-ipadic
     $ brew install groonga --with-mecab
+    $ brew install postgresql
