@@ -5,3 +5,7 @@
     %ul.content-footer__links
       - current_site.links.ordered.each do |link|
         %li.content-footer__link= link_to link.text, link.url, class: 'content-footer__link-label'
+
+= javascript_include_tag 'application'
+= javascript_include_tag current_site.js_url.presence || "themes/default/application"
+= DaimonMarkdown::Plugin::Math.script_tag
