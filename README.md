@@ -10,4 +10,7 @@ NOTE: The documentation is in progress.
 If you use macOS and have not used groonga:
 
     $ brew install groonga --with-mecab
+    
+Requires postgresql too:
+
     $ brew install postgresql
