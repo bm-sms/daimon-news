@@ -6,9 +6,11 @@ class PickupPost < ActiveRecord::Base
 
   validates :post_id, presence: true, uniqueness: {scope: :site_id}
 
+  before_validation :assign_default_order
+
   scope :published, -> { joins(:post).merge(Post.published) }
 
-  before_validation :assign_default_order
+  delegate :published?, :public_id, to: :post
 
   def siblings
     self.class.where(site_id: site_id)
