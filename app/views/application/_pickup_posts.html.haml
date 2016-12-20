@@ -1,5 +1,5 @@
 - if pickup_posts.exists?
   %h2.subheading.subheading--aside.subheading--press-articles.subheading--press-articles--pickup ピックアップ記事
-  %ul
-    - pickup_posts.includes(post: [:categories]).ordered.each do |pickup_post|
+  %ul.pickup-articles
+    - pickup_posts.includes(post: [:categories]).published.ordered.each do |pickup_post|
       = render partial: 'posts/summary_with_content', locals: {post: pickup_post.post}

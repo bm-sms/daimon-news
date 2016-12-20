@@ -637,7 +637,7 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
   end
 
-  sub_test_case "PickupPost" do
+  sub_test_case "Pickup Post" do
     setup do
       create(:post, :whatever, site: @site, title: "Ruby")
       create(:post, :whatever, site: @site, title: "Python")
@@ -672,10 +672,10 @@ class EditorTest < ActionDispatch::IntegrationTest
     end
   end
 
-  sub_test_case "PickupPostSort" do
+  sub_test_case "Sort Pickup Post" do
     setup do
       @pickup_posts = ["Ruby", "Python", "PHP", "C++", "JavaScript"].map.with_index(1) do |name, index|
-        create(:pickup_post, :whatever, order: index, site: @site, post: create(:post, :whatever, title: name))
+        create(:pickup_post, :whatever, order: index, site: @site, post: create(:post, :whatever, title: name, site: @site))
       end
     end
 
