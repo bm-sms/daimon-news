@@ -1,4 +1,4 @@
-- if pickup_posts.exists?
+- if pickup_posts.published.exists?
   %h2.subheading.subheading--aside.subheading--press-articles.subheading--press-articles--pickup ピックアップ記事
   %ul.pickup-articles
     - pickup_posts.includes(post: [:categories]).published.ordered.each do |pickup_post|
