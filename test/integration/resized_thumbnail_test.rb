@@ -13,7 +13,7 @@ class ResizedThumbnailTest < ActionDispatch::IntegrationTest
 
     test "not using resized thumbnail" do
       visit "/"
-      assert_equal(first(".article-summary__thumbnail")["src"], "/uploads/post/thumbnail/1/thumbnail.jpg")
+      assert_not_match(/resized_thumbnail.jpg/, first(".article-summary__thumbnail")["src"])
     end
   end
 
@@ -31,7 +31,7 @@ class ResizedThumbnailTest < ActionDispatch::IntegrationTest
 
     test "using resized thumbnail" do
       visit "/"
-      assert_equal(first(".article-summary__thumbnail")["src"], "/uploads/post/thumbnail/2/resized_thumbnail.jpg")
+      assert_match(/resized_thumbnail.jpg/, first(".article-summary__thumbnail")["src"])
     end
   end
 end
