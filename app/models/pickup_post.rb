@@ -6,9 +6,9 @@ class PickupPost < ActiveRecord::Base
 
   validates :post_id, presence: true, uniqueness: {scope: :site_id}
 
-  before_validation do
-    assign_default_order
-  end
+  scope :published, -> { joins(:post).merge(Post.published) }
+
+  before_validation :assign_default_order
 
   def siblings
     self.class.where(site_id: site_id)
