@@ -7,6 +7,10 @@ module PostDecorator
     short_text_body
   end
 
+  def title_with_public_id
+    "#{public_id}: #{title}"
+  end
+
   def to_og_params
     {
       locale: "ja_JP",

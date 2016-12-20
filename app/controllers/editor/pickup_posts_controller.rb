@@ -5,6 +5,7 @@ class Editor::PickupPostsController < Editor::ApplicationController
 
   def new
     @pickup_post = pickup_posts.build
+    @candidate_posts = candidate_posts
   end
 
   def create
@@ -13,12 +14,15 @@ class Editor::PickupPostsController < Editor::ApplicationController
     if @pickup_post.save
       redirect_to [:editor, :pickup_posts], notice: "ピックアップ記事の設定が作成されました"
     else
+      @candidate_posts = candidate_posts
+
       render :new
     end
   end
 
   def edit
     @pickup_post = pickup_posts.find(params[:id])
+    @candidate_posts = candidate_posts
   end
 
   def update
@@ -27,6 +31,8 @@ class Editor::PickupPostsController < Editor::ApplicationController
     if @pickup_post.update(pickup_post_params)
       redirect_to [:editor, :pickup_posts], notice: "ピックアップ記事の設定が更新されました"
     else
+      @candidate_posts = candidate_posts
+
       render :edit
     end
   end
@@ -49,5 +55,9 @@ class Editor::PickupPostsController < Editor::ApplicationController
       :post_id,
       :order
     )
+  end
+
+  def candidate_posts
+    current_site.posts.order_by_recent.published
   end
 end
