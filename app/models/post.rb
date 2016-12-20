@@ -55,6 +55,11 @@ class Post < ActiveRecord::Base
     categories.loaded? ? categories.fetch(0) : categories.first!
   end
 
+  def published?
+    return false unless published_at
+    published_at <= Time.current
+  end
+
   private
 
   def assign_public_id

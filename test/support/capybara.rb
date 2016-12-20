@@ -18,7 +18,7 @@ end
 ActionDispatch::IntegrationTest.include(DomainHelper)
 
 Capybara.add_selector(:row) do
-  xpath {|text| "//tr[./td[. = '#{text}']]" }
+  xpath {|text| "//tr[./td[normalize-space(.) = '#{text}']]" }
 end
 
 Capybara.add_selector(:form_group) do

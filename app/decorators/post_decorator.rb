@@ -40,11 +40,6 @@ module PostDecorator
     current_page == 1
   end
 
-  def published?
-    return false unless published_at
-    published_at <= Time.current
-  end
-
   def canonical_url(pages)
     return post_url(public_id: public_id, all: true) if current_site.view_all?
 
