@@ -280,6 +280,8 @@ GEM
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
     hashie (3.4.6)
+    heroku-deflater (0.6.2)
+      rack (>= 1.4.5)
     html-pipeline (2.4.2)
       activesupport (>= 2)
       nokogiri (>= 1.4)
@@ -560,6 +562,7 @@ DEPENDENCIES
   font-awesome-sass
   gretel
   haml-rails
+  heroku-deflater
   kaminari
   launchy
   meta-tags
