@@ -64,3 +64,12 @@ ja:
           <i class='glyphicon glyphicon-new-window'></i>
           </a>
           which you can adjust to customize site's theme color.
+  editor:
+    sites:
+      posts:
+        title: タイトル
+        body: 本文
+        credits: クレジット
+        categories: カテゴリ
+        thumbnail: サムネイル画像
+        published_at: 公開日時
