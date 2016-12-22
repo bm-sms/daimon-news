@@ -31,3 +31,17 @@ Install dependencies and setup database:
 How to load dummy data for development:
 
     $ bin/rake db:seed:development
+
+## Usage
+
+### How to apply different JavaScript, CSS, etc for each site
+
+* Open http://localhost:3000/admin
+* Login as admin user:
+    * Email: admin@example.com
+    * Password: adminpass
+* Click `サイト情報`
+* Click `Edit` of the site to which you want to apply JavaScript, CSS etc.
+    * Js url: This is JavaScript URL. Default: embedded, e.g. http://piyopiyo/assets/piyopiyo.js
+    * Css url: This is CSS URL. Default: embedded, e.g. http://piyopiyo/assets/piyopiyo.css
+    * Content header url: This is URL of external content on header, e.g. http://piyopiyo/partials/content_header_buttons
