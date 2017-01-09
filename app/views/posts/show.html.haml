@@ -10,33 +10,34 @@
 - set_meta_tags title: page_title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
 - set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
 
-%article.post
-  %div.post__header
-    %div.title-and-data
+- cache [@post, @pages.current_page], expires_in: 1.minutes do
+  %article.post
+    %div.post__header
+      %div.title-and-data
+        - if @post.serial
+          %p.post__serial--title= link_to "【連載】#{@post.serial.title}", serial_url(@post.serial)
+        %h1.post__title= @post.title
+        %p.post__data
+        %time.post__data-item.post__data-item--published-at
+          = l @post.published_at.to_date if @post.published_at?
+        - if @post.display_credits?(@pages.current_page)
+          = render 'posts/credits', credits: @post.credits.with_ordered
+      %p.thumbnail= image_tag @post.thumbnail_url
+    .post__body
+      = render_markdown(@pages.map(&:body).join)
+
+    - if @pages.total_pages > 1
+      %nav.pagination
+        = paginate @pages, theme: :post
+
+    = render 'application/banner', position: :press_article_bottom
+
+    %aside
+      = render 'application/sns_share', title: @post.title, url: post_url(public_id: @post.public_id), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
+
       - if @post.serial
-        %p.post__serial--title= link_to "【連載】#{@post.serial.title}", serial_url(@post.serial)
-      %h1.post__title= @post.title
-      %p.post__data
-      %time.post__data-item.post__data-item--published-at
-        = l @post.published_at.to_date if @post.published_at?
-      - if @post.display_credits?(@pages.current_page)
-        = render 'posts/credits', credits: @post.credits.with_ordered
-    %p.thumbnail= image_tag @post.thumbnail_url
-  .post__body
-    = render_markdown(@pages.map(&:body).join)
+        %p.post__serial--index= link_to 'この連載の記事一覧へ', serial_url(@post.serial)
 
-  - if @pages.total_pages > 1
-    %nav.pagination
-      = paginate @pages, theme: :post
+      = render 'posts/related_categories', categories: @post.categories[1..-1]
 
-  = render 'application/banner', position: :press_article_bottom
-
-  %aside
-    = render 'application/sns_share', title: @post.title, url: post_url(public_id: @post.public_id), twitter_account: current_site.twitter_account, caption: current_site.sns_share_caption
-
-    - if @post.serial
-      %p.post__serial--index= link_to 'この連載の記事一覧へ', serial_url(@post.serial)
-
-    = render 'posts/related_categories', categories: @post.categories[1..-1]
-
-    = render 'posts/short_collection', posts: @post.related_posts
+      = render 'posts/short_collection', posts: @post.related_posts
