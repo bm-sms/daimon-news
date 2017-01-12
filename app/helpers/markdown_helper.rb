@@ -1,6 +1,10 @@
 module MarkdownHelper
   def render_markdown(markdown_text)
-    processor = DaimonMarkdown::Processor.new
+    context = {}
+    if defined?(request)
+      context[:request] = request
+    end
+    processor = DaimonMarkdown::Processor.new(context)
     result = processor.call(markdown_text)
     result[:output].to_html.html_safe
   end
@@ -10,3 +14,5 @@ module MarkdownHelper
     Nokogiri::HTML(html).inner_text.gsub(/[[:space:]]+/, " ")
   end
 end
+
+require "daimon_markdown/plugins/toc_pages"
