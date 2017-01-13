@@ -26,4 +26,5 @@ class SerialModelTest < ActiveSupport::TestCase
       assert_equal(3, Serial.published.count)
     end
   end
+  
 end
