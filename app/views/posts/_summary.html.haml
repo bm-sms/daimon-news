@@ -1,7 +1,10 @@
 %li.article-summary.article-summary--with-thumbnail
   = link_to post_url(public_id: post.public_id), class: 'article-summary__url' do
     .article-summary__image
-      = image_tag post.thumbnail.url, class: 'article-summary__thumbnail'
+    - if current_site.resize_thumb?
+      = image_tag post.thumbnail.resized.url, class: 'article-summary__thumbnail'
+    - else
+      = image_tag post.thumbnail_url, class: 'article-summary__thumbnail'
     .article-summary__body
       .article-summary__data
         %time.article-summary__data-item

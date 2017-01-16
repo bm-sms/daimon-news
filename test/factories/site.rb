@@ -5,5 +5,9 @@ FactoryGirl.define do
     opened true
     public_participant_page_enabled true
     hierarchical_categories_enabled true
+
+    trait :resize_thumb do
+      resize_thumb true
+    end
   end
 end
