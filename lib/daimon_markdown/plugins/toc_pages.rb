@@ -10,9 +10,11 @@ module DaimonMarkdown
 
         request = context[:request]
 
-        if request.params.key?(:page)
-          node.parent.replace(%Q(<p class="error">Use this plugin in first page only.</p>))
-        end
+        current_page = if request.params.key?(:page)
+                         request.params[:page].to_i
+                       else
+                         1
+                       end
 
         current_site = Site.find_by!(fqdn: request.server_name)
         post = current_site.posts.published.find_by!(public_id: request.params[:public_id])
@@ -70,7 +72,12 @@ module DaimonMarkdown
         unless items.empty?
           toc_html = %Q(#{toc_header}<ul class="#{toc_class}">\n#{items.join("\n")}\n</ul>)
         end
-        node.parent.replace(toc_html)
+
+        if current_page == 1
+          node.parent.replace(toc_html)
+        else
+          node.parent.replace("")
+        end
       end
 
       private
