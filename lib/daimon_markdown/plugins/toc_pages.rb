@@ -32,8 +32,11 @@ module DaimonMarkdown
             page_separated_nodes << comment_element.next_element
           end
         end
+
+        headers_per_page = Hash.new {|h, k| h[k] = [] }
         html.css("h1, h2, h3, h4, h5, h6").each do |header_node|
           page += 1 if page_separated_nodes.include?(header_node)
+          headers_per_page[page] << header_node
           level = header_node.name.tr("h", "").to_i
           next if limit && limit < level
           text = header_node.text
@@ -65,6 +68,11 @@ module DaimonMarkdown
             header_node["id"] = unique_id
           end
           previous_level = level
+        end
+
+        current_header_nodes = doc.css("h1, h2, h3, h4, h5, h6")
+        current_header_nodes.zip(headers_per_page[current_page]) do |target_node, replaced_node|
+          target_node["id"] = replaced_node["id"]
         end
 
         toc_class = context[:toc_class] || "section-nav"
