@@ -14,6 +14,7 @@ class Post < ActiveRecord::Base
   has_many :categorizations, -> { ordered }, dependent: :destroy
   has_many :categories, through: :categorizations
   has_many :pickup_posts, dependent: :destroy
+  has_many :popular_posts, dependent: :destroy
 
   validates :public_id, uniqueness: {scope: :site_id}
   validates :body, presence: true

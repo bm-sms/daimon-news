@@ -18,6 +18,10 @@
   = f.text_field :ad_slot, help: "Google AdSense"
   = f.text_area :head_tag, help: "HTML tags in <head></head>"
   = f.text_area :promotion_tag, help: "Promotion tag to display ADs using DFP."
+  = f.text_field :analytics_viewid, help: "Google Analytics View ID", placeholder: '123456789'
+  = f.text_field :ranking_dimension, help: "Google Analytics Dimension", placeholder: 'ga:pagePath'
+  = f.number_field :ranking_size, help: "Number of display lines of ranking"
+
   = f.form_group label: {text: Site.human_attribute_name(:theme_color)}, help: t('.what_is_hue_html') do
     %span{class: f.send(:has_error?, :base_hue) ? 'has-error' : nil}
       %input#color-selector

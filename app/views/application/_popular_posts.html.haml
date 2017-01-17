@@ -1,0 +1,6 @@
+- cache [current_site, 'popular_posts'], expires_in: 1.minutes do
+  - if popular_posts.published.count >= 1
+    %h2.subheading.subheading--aside.subheading--press-articles.subheading--press-articles--popular 注目記事ランキング
+    %ul.popular-articles
+      - popular_posts.includes(post: [:categories]).published.ordered.each.with_index(1) do |popular_post, index|
+        = render partial: 'posts/summary_ranking', locals: {post: popular_post.post, rank: index}

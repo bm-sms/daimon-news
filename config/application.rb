@@ -50,5 +50,8 @@ module DaimonNews
 
     config.middleware.insert_before Rack::MethodOverride, UnknownErrorHandler
     config.middleware.insert_before Rack::Runtime, "Redirector"
+
+    config.x.google_api_client_email = ENV["GOOGLE_API_CLIENT_EMAIL"]
+    config.x.google_api_private_key  = ENV["GOOGLE_API_PRIVATE_KEY"]
   end
 end
