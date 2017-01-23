@@ -46,6 +46,7 @@ gem "sitemap_generator"
 gem "sprockets-es6"
 gem "uglifier"
 
+
 source "https://rails-assets.org" do
   gem "rails-assets-bootstrap-markdown-editor"
   gem "rails-assets-jquery"
