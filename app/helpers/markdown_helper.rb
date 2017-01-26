@@ -1,9 +1,5 @@
 module MarkdownHelper
-  def render_markdown(markdown_text)
-    context = {}
-    if defined?(request)
-      context[:request] = request
-    end
+  def render_markdown(markdown_text, context = {})
     processor = DaimonMarkdown::Processor.new(context)
     result = processor.call(markdown_text)
     result[:output].to_html.html_safe

@@ -6,19 +6,17 @@ module DaimonMarkdown
       include MarkdownHelper
 
       def call(limit = nil)
-        return unless context.key?(:request)
+        return unless context.key?(:full_text)
 
-        request = context[:request]
-
-        current_page = if request.params.key?(:page)
-                         request.params[:page].to_i
+        full_text = context[:full_text]
+        fullpath = context[:fullpath]
+        current_page = if context.key?(:current_page)
+                         context[:current_page].to_i
                        else
                          1
                        end
 
-        current_site = Site.find_by!(fqdn: request.server_name)
-        post = current_site.posts.published.find_by!(public_id: request.params[:public_id])
-        html = Nokogiri::HTML(render_markdown(post.body))
+        html = Nokogiri::HTML(render_markdown(full_text))
 
         toc_html = ""
         items = []
@@ -62,7 +60,7 @@ module DaimonMarkdown
             if page == 1
               items << list_item(link_to("##{unique_id}", text))
             else
-              items << list_item(link_to("#{request.fullpath}?page=#{page}##{unique_id}", text))
+              items << list_item(link_to("#{fullpath}?page=#{page}##{unique_id}", text))
             end
             header_node["id"] = unique_id
           end

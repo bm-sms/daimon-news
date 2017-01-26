@@ -52,11 +52,9 @@ class TocPagesTest < ActiveSupport::TestCase
       </ul>
       HTML
       expected_header_ids = ["title", "title-2", "title-3"]
-      params = {
-        public_id: post.public_id
-      }
       context = {
-        request: DummyRequest.new(server_name: post.site.fqdn, params: params)
+        full_text: post.body,
+        fullpath: "/#{post.public_id}",
       }
       assert_toc(expected_toc_html, expected_header_ids, markdown, context)
     end
@@ -78,11 +76,9 @@ class TocPagesTest < ActiveSupport::TestCase
       </ul>
       HTML
       expected_header_ids = ["title"]
-      params = {
-        public_id: post.public_id
-      }
       context = {
-        request: DummyRequest.new(server_name: post.site.fqdn, params: params)
+        full_text: post.body,
+        fullpath: "/#{post.public_id}"
       }
       assert_toc(expected_toc_html, expected_header_ids, markdown, context)
     end
@@ -96,12 +92,10 @@ class TocPagesTest < ActiveSupport::TestCase
 
       expected_toc_html = ""
       expected_header_ids = ["title-2"]
-      params = {
-        public_id: post.public_id,
-        page: 2
-      }
       context = {
-        request: DummyRequest.new(server_name: post.site.fqdn, params: params)
+        full_text: post.body,
+        fullpath: "/#{post.public_id}",
+        current_page: 2
       }
       assert_toc(expected_toc_html, expected_header_ids, markdown, context)
     end
@@ -115,12 +109,10 @@ class TocPagesTest < ActiveSupport::TestCase
 
       expected_toc_html = ""
       expected_header_ids = ["title-3"]
-      params = {
-        public_id: post.public_id,
-        page: 3
-      }
       context = {
-        request: DummyRequest.new(server_name: post.site.fqdn, params: params)
+        full_text: post.body,
+        fullpath: "/#{post.public_id}",
+        current_page: 3
       }
       assert_toc(expected_toc_html, expected_header_ids, markdown, context)
     end
@@ -175,20 +167,18 @@ class TocPagesTest < ActiveSupport::TestCase
       <li><a href="/#{post.public_id}?page=2#title-2">title 2</a></li>
       <li><a href="/#{post.public_id}?page=3#title-3">title 3</a></li>
       <ul>
-      <li><a href="/1?page=3#title-3-1">title 3-1</a></li>
-      <li><a href="/1?page=3#title-3-2">title 3-2</a></li>
+      <li><a href="/#{post.public_id}?page=3#title-3-1">title 3-1</a></li>
+      <li><a href="/#{post.public_id}?page=3#title-3-2">title 3-2</a></li>
       </ul>
       </ul>
       </ul>
       HTML
       expected_toc_html = "" if page > 1
-      params = {
-        public_id: post.public_id
-      }
-      params[:page] = page if page > 1
       context = {
-        request: DummyRequest.new(server_name: post.site.fqdn, params: params)
+        full_text: post.body,
+        fullpath: "/#{post.public_id}",
       }
+      context[:current_page] = page if page > 1
       assert_toc(expected_toc_html, expected_header_ids, markdown, context)
     end
   end
