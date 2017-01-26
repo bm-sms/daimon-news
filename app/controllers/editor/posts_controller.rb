@@ -57,6 +57,12 @@ class Editor::PostsController < Editor::ApplicationController
         @post.pages.page(params[:page]).per(1)
       end
 
+    @context = {
+      full_text: @post.body,
+      fullpath: request.fullpath,
+    }
+    @context[:current_page] = params[:page] if params[:page]
+
     render template: "posts/show", layout: "preview"
   end
 
