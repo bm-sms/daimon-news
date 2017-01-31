@@ -2,7 +2,7 @@
 //= require ace-builds/src/theme-tomorrow
 //= require ace-builds/src/mode-markdown
 //= require ace-builds/src/ext-language_tools
-//= require bootstrap-markdown-editor
+//= require bootstrap-markdown-editor-mtsmfm-fork
 //= require marked
 
 $(() => {
