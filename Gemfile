@@ -47,7 +47,7 @@ gem "sprockets-es6"
 gem "uglifier"
 
 source "https://rails-assets.org" do
-  gem "rails-assets-bootstrap-markdown-editor"
+  gem "rails-assets-bootstrap-markdown-editor-mtsmfm-fork" # To use new ace-builds
   gem "rails-assets-jquery"
   gem "rails-assets-jquery-ujs"
   gem "rails-assets-marked"
