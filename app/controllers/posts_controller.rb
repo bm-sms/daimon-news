@@ -10,11 +10,11 @@ class PostsController < ApplicationController
       else
         @post.pages.page(params[:page]).per(1)
       end
-    @context = {
+    @markdown_context = {
       full_text: @post.body,
       fullpath: request.fullpath,
     }
-    @context[:current_page] = params[:page] if params[:page]
+    @markdown_context[:current_page] = params[:page] if params[:page]
     validate_page_params(params[:page], @pages.total_pages)
   end
 

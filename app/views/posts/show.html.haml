@@ -24,7 +24,7 @@
           = render 'posts/credits', credits: @post.credits.with_ordered
       %p.thumbnail= image_tag @post.thumbnail_url
     .post__body
-      = render_markdown(@pages.map(&:body).join, @context)
+      = render_markdown(@pages.map(&:body).join, @markdown_context)
 
     - if @pages.total_pages > 1
       %nav.pagination
