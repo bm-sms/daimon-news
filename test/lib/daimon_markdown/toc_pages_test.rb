@@ -53,7 +53,7 @@ class TocPagesTest < ActiveSupport::TestCase
       HTML
       expected_header_ids = ["title", "title-2", "title-3"]
       context = {
-        full_text: post.body,
+        original_text: post.body,
         fullpath: "/#{post.public_id}",
       }
       assert_toc(expected_toc_html, expected_header_ids, markdown, context)
@@ -77,7 +77,7 @@ class TocPagesTest < ActiveSupport::TestCase
       HTML
       expected_header_ids = ["title"]
       context = {
-        full_text: post.body,
+        original_text: post.body,
         fullpath: "/#{post.public_id}"
       }
       assert_toc(expected_toc_html, expected_header_ids, markdown, context)
@@ -93,7 +93,7 @@ class TocPagesTest < ActiveSupport::TestCase
       expected_toc_html = ""
       expected_header_ids = ["title-2"]
       context = {
-        full_text: post.body,
+        original_text: post.body,
         fullpath: "/#{post.public_id}",
         current_page: 2
       }
@@ -110,7 +110,7 @@ class TocPagesTest < ActiveSupport::TestCase
       expected_toc_html = ""
       expected_header_ids = ["title-3"]
       context = {
-        full_text: post.body,
+        original_text: post.body,
         fullpath: "/#{post.public_id}",
         current_page: 3
       }
@@ -175,7 +175,7 @@ class TocPagesTest < ActiveSupport::TestCase
       HTML
       expected_toc_html = "" if page > 1
       context = {
-        full_text: post.body,
+        original_text: post.body,
         fullpath: "/#{post.public_id}",
       }
       context[:current_page] = page if page > 1

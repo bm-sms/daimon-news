@@ -6,9 +6,9 @@ module DaimonMarkdown
       include MarkdownHelper
 
       def call(limit = nil)
-        return unless context.key?(:full_text)
+        return unless context.key?(:original_text)
 
-        full_text = context[:full_text]
+        original_text = context[:original_text]
         fullpath = context[:fullpath]
         current_page = if context.key?(:current_page)
                          context[:current_page].to_i
@@ -16,7 +16,7 @@ module DaimonMarkdown
                          1
                        end
 
-        html = Nokogiri::HTML(render_markdown(full_text))
+        html = Nokogiri::HTML(render_markdown(original_text))
 
         toc_html = ""
         items = []

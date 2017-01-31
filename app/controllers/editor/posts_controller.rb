@@ -58,7 +58,7 @@ class Editor::PostsController < Editor::ApplicationController
       end
 
     @markdown_context = {
-      full_text: @post.body,
+      original_text: @post.body,
       fullpath: request.fullpath,
     }
     @markdown_context[:current_page] = params[:page] if params[:page]
