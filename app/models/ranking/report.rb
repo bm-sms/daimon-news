@@ -40,7 +40,7 @@ class Ranking::Report
   end
 
   def report_rows
-    pageview_report_of_post[:reports].first[:data][:rows].map do |row|
+    Array.wrap(pageview_report_of_post[:reports].first[:data][:rows]).map do |row|
       public_id = row[:dimensions].first.match(/\d+/).to_s.to_i
       older_value = row[:metrics].first[:values].first.to_f
       newer_value = row[:metrics].second[:values].first.to_f
