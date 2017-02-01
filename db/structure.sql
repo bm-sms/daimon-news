@@ -370,6 +370,39 @@ ALTER SEQUENCE pickup_posts_id_seq OWNED BY pickup_posts.id;
 
 
 --
+-- Name: popular_posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE popular_posts (
+    id integer NOT NULL,
+    site_id integer NOT NULL,
+    rank integer NOT NULL,
+    post_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: popular_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE popular_posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: popular_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE popular_posts_id_seq OWNED BY popular_posts.id;
+
+
+--
 -- Name: posts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -518,7 +551,10 @@ CREATE TABLE sites (
     base_hue integer,
     custom_hue_css character varying,
     public_participant_page_enabled boolean DEFAULT false NOT NULL,
-    hierarchical_categories_enabled boolean DEFAULT false NOT NULL
+    hierarchical_categories_enabled boolean DEFAULT false NOT NULL,
+    analytics_viewid character varying,
+    ranking_dimension character varying,
+    ranking_size integer DEFAULT 5
 );
 
 
@@ -657,6 +693,13 @@ ALTER TABLE ONLY pickup_posts ALTER COLUMN id SET DEFAULT nextval('pickup_posts_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY popular_posts ALTER COLUMN id SET DEFAULT nextval('popular_posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
 
 
@@ -766,6 +809,14 @@ ALTER TABLE ONLY participants
 
 ALTER TABLE ONLY pickup_posts
     ADD CONSTRAINT pickup_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: popular_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY popular_posts
+    ADD CONSTRAINT popular_posts_pkey PRIMARY KEY (id);
 
 
 --
@@ -942,6 +993,27 @@ CREATE INDEX index_pickup_posts_on_site_id_and_order ON pickup_posts USING btree
 
 
 --
+-- Name: index_popular_posts_on_post_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_popular_posts_on_post_id ON popular_posts USING btree (post_id);
+
+
+--
+-- Name: index_popular_posts_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_popular_posts_on_site_id ON popular_posts USING btree (site_id);
+
+
+--
+-- Name: index_popular_posts_on_site_id_and_rank; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_popular_posts_on_site_id_and_rank ON popular_posts USING btree (site_id, rank);
+
+
+--
 -- Name: index_posts_on_published_at_and_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1082,6 +1154,14 @@ ALTER TABLE ONLY memberships
 
 
 --
+-- Name: fk_rails_6d6350e28e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY popular_posts
+    ADD CONSTRAINT fk_rails_6d6350e28e FOREIGN KEY (post_id) REFERENCES posts(id);
+
+
+--
 -- Name: fk_rails_6dc26c2c8d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1111,6 +1191,14 @@ ALTER TABLE ONLY serials
 
 ALTER TABLE ONLY credits
     ADD CONSTRAINT fk_rails_ab9555028f FOREIGN KEY (post_id) REFERENCES posts(id);
+
+
+--
+-- Name: fk_rails_b2e9222973; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY popular_posts
+    ADD CONSTRAINT fk_rails_b2e9222973 FOREIGN KEY (site_id) REFERENCES sites(id);
 
 
 --
@@ -1376,4 +1464,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160804090315');
 INSERT INTO schema_migrations (version) VALUES ('20161003075535');
 
 INSERT INTO schema_migrations (version) VALUES ('20161121030518');
+
+INSERT INTO schema_migrations (version) VALUES ('20170118022543');
+
+INSERT INTO schema_migrations (version) VALUES ('20170118082036');
 
