@@ -44,12 +44,8 @@
             %h2.subheading.subheading--aside.subheading--press-articles 記事検索
             = render 'application/search_form'
             = render 'application/pickup_posts', pickup_posts: current_site.pickup_posts
-
-            - unless current_page?(root_path)
-              %h2.subheading.subheading--aside.subheading--press-articles 新着記事
-              %ul
-                - current_site.posts.includes(:categories).published.order_by_recent.limit(5).each do |post|
-                  = render partial: 'posts/summary_with_content', locals: {post: post}
+            = render 'application/popular_posts', popular_posts: current_site.popular_posts.ordered.limit(current_site.ranking_size)
+            = render 'application/recent_posts', recent_posts: current_site.posts
 
             - if current_site.serials.exists?
               %h2.subheading.subheading--aside.subheading--press-articles 連載

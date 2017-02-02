@@ -18,6 +18,8 @@ Metrics/ParameterLists:
   Max: 7
 Metrics/MethodLength:
   Max: 30
+Metrics/AbcSize:
+  Max: 24
 
 Rails:
   Enabled: true

@@ -1,0 +1,6 @@
+- unless current_page?(root_path)
+  - cache [current_site, 'recent_posts'], expires_in: 1.minutes do
+    %h2.subheading.subheading--aside.subheading--press-articles 新着記事
+    %ul
+      - recent_posts.includes(:categories).published.order_by_recent.limit(5).each do |post|
+        = render partial: 'posts/summary_with_content', locals: {post: post}

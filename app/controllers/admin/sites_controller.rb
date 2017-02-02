@@ -67,7 +67,10 @@ class Admin::SitesController < Admin::ApplicationController
       :head_tag,
       :promotion_tag,
       :category_title_format,
-      :base_hue
+      :base_hue,
+      :analytics_viewid,
+      :ranking_dimension,
+      :ranking_size
     )
   end
 

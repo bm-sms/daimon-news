@@ -52,6 +52,7 @@ Rails.application.routes.draw do
 
   resource :partial, only: %i() do
     get :pickup_posts
+    get :popular_posts
   end
 
   namespace :api do
