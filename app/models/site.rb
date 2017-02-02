@@ -1,7 +1,8 @@
 class Site < ActiveRecord::Base
   include CustomCssSupport
 
-  VALID_FORMAT_KEYS = ["category_name"]
+  VALID_FORMAT_KEYS = ["category_name"].freeze
+  RANKING_SIZE_MAX = 20
 
   has_many :categories, dependent: :destroy
   has_many :serials, dependent: :destroy
@@ -10,6 +11,7 @@ class Site < ActiveRecord::Base
   has_many :links, dependent: :destroy
   has_many :redirect_rules, dependent: :destroy
   has_many :pickup_posts, dependent: :destroy
+  has_many :popular_posts, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :participants, dependent: :destroy
   has_many :credit_roles, dependent: :destroy
@@ -18,6 +20,7 @@ class Site < ActiveRecord::Base
 
   validates :name, presence: true
   validates :fqdn, presence: true, uniqueness: true
+  validates :ranking_size, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: RANKING_SIZE_MAX}
   validate :validate_category_title_format
 
   mount_uploader :logo_image, ImageUploader

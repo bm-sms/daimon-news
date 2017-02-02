@@ -1,0 +1,110 @@
+{
+  "reports": [{
+    "column_header": {
+      "dimensions": ["ga:pagePath"],
+      "metric_header": {
+        "metric_header_entries": [{
+          "type": "INTEGER",
+          "name": "views"
+        }]
+      }
+    },
+    "data": {
+      "row_count": 6194,
+      "maximums": [{
+        "values": ["4761"]
+      }, {
+        "values": ["6305"]
+      }],
+      "minimums": [{
+        "values": ["0"]
+      }, {
+        "values": ["0"]
+      }],
+      "rows": [{
+        "dimensions": ["/1003"],
+        "metrics": [{
+          "values": ["4761"]
+        }, {
+          "values": ["6305"]
+        }]
+      }, {
+        "dimensions": ["/1005"],
+        "metrics": [{
+          "values": ["2569"]
+        }, {
+          "values": ["3791"]
+        }]
+      }, {
+        "dimensions": ["/1002"],
+        "metrics": [{
+          "values": ["2535"]
+        }, {
+          "values": ["532"]
+        }]
+      }, {
+        "dimensions": ["/1001"],
+        "metrics": [{
+          "values": ["2349"]
+        }, {
+          "values": ["2563"]
+        }]
+      }, {
+        "dimensions": ["/1004"],
+        "metrics": [{
+          "values": ["1751"]
+        }, {
+          "values": ["2251"]
+        }]
+      }, {
+        "dimensions": ["/1007"],
+        "metrics": [{
+          "values": ["69"]
+        }, {
+          "values": ["475"]
+        }]
+      }, {
+        "dimensions": ["/1009"],
+        "metrics": [{
+          "values": ["0"]
+        }, {
+          "values": ["1342"]
+        }]
+      }, {
+        "dimensions": ["/1010"],
+        "metrics": [{
+          "values": ["1938"]
+        }, {
+          "values": ["2450"]
+        }]
+      }, {
+        "dimensions": ["/1006"],
+        "metrics": [{
+          "values": ["13"]
+        }, {
+          "values": ["25"]
+        }]
+      }, {
+        "dimensions": ["/1008"],
+        "metrics": [{
+          "values": ["3135"]
+        }, {
+          "values": ["5214"]
+        }]
+      }, {
+        "dimensions": ["/1011"],
+        "metrics": [{
+          "values": ["100"]
+        }, {
+          "values": ["400"]
+        }]
+      }],
+      "totals": [{
+        "values": ["181664"]
+      }, {
+        "values": ["217279"]
+      }]
+    },
+    "next_page_token": "10"
+  }]
+}
