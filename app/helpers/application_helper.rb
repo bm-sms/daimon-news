@@ -24,4 +24,8 @@ module ApplicationHelper
       favicon_link_tag(site.mobile_favicon_image_url, rel: "apple-touch-icon-precomposed", type: "image/png")
     end
   end
+
+  def first_page?
+    !params.key?(:page) || params[:page] == "1"
+  end
 end
