@@ -19,6 +19,7 @@ gem "bootstrap_form"
 gem "bourbon"
 gem "browser"
 gem "carrierwave"
+gem "carrierwave-imageoptimizer"
 gem "cocoon", github: "mtsmfm/cocoon", branch: "fix-on-ready-for-jquery-3" # cocoon doesn't work well with jQuery 3 (https://github.com/nathanvda/cocoon/pull/379)
 gem "daimon_markdown"
 gem "daimon_news-layout", github: "bm-sms/daimon_news-layout"

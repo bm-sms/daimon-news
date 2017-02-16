@@ -108,6 +108,9 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
+    carrierwave-imageoptimizer (1.4.0)
+      carrierwave (>= 0.8, < 2.0)
+      image_optimizer (~> 1.6)
     choice (0.2.0)
     cliver (0.3.2)
     coderay (1.1.1)
@@ -312,6 +315,7 @@ GEM
     httpclient (2.8.3)
     hurley (0.2)
     i18n (0.7.0)
+    image_optimizer (1.7.0)
     inflecto (0.0.2)
     io-like (0.3.0)
     ipaddress (0.8.3)
@@ -590,6 +594,7 @@ DEPENDENCIES
   bullet
   capybara
   carrierwave
+  carrierwave-imageoptimizer
   cocoon!
   daimon_markdown
   daimon_news-layout!
