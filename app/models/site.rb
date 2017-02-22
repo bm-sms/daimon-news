@@ -12,6 +12,7 @@ class Site < ActiveRecord::Base
   has_many :redirect_rules, dependent: :destroy
   has_many :pickup_posts, dependent: :destroy
   has_many :popular_posts, dependent: :destroy
+  has_many :top_fixed_posts, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :participants, dependent: :destroy
   has_many :credit_roles, dependent: :destroy
