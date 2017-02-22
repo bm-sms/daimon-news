@@ -42,7 +42,7 @@ class PopularPostTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "Unpablished article are not displayed" do
+  test "an unpublished artcile is not displayed" do
     within ".popular-articles" do
       assert_not(page.has_css?("li", text: "PHP is unpublished"))
     end

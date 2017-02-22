@@ -1,0 +1,5 @@
+= bootstrap_form_for [:editor, @top_fixed_post], layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10" do |f|
+  = f.collection_select :post_id, @candidate_posts, :id, :title_with_public_id, {prompt: '選択してください'}, {class: 'form-control select2', "data-select2-allow-clear": false}
+
+  = f.form_group do
+    = f.submit

@@ -1,0 +1,33 @@
+%h1 トップ固定記事
+
+%p
+  トップ固定記事とは 編集部としてユーザーに特に見てもらいたい記事を選んで、トップページに固定表示させる機能です。<br>
+
+= link_to "New Top Fixed Post", new_editor_top_fixed_post_path, class: "btn btn-default"
+
+%table.table
+  %thead
+    %tr
+      %th Public ID
+      %th Title
+      %th
+      %th
+      %th
+
+  %tbody
+    - @top_fixed_posts.each do |top_fixed_post|
+      %tr{ class: top_fixed_post.published? ? nil : 'post--unpublished' }
+        %td= top_fixed_post.post.public_id
+        %td
+          = link_to top_fixed_post.post.title, preview_editor_post_url(public_id: top_fixed_post.post.public_id), target: '_blank'
+          = "(非公開記事です)" unless top_fixed_post.published?
+        %td= link_to "Edit", edit_editor_top_fixed_post_path(top_fixed_post)
+        %td= link_to "Destroy", editor_top_fixed_post_path(top_fixed_post), method: :delete, data: {confirm: "Are you sure?"}
+        %td= link_to_if top_fixed_post.higher_item, '▲', editor_top_fixed_post_order_url(top_fixed_post_id: top_fixed_post, target: top_fixed_post.higher_item, move_to: "higher"), method: :put
+        %td= link_to_if top_fixed_post.lower_item, '▼', editor_top_fixed_post_order_url(top_fixed_post_id: top_fixed_post, target: top_fixed_post.lower_item, move_to: "lower"), method: :put
+
+- if @top_fixed_posts.total_pages > 1
+  .text-center
+    %nav.pagination
+      = paginate @top_fixed_posts, views_prefix: "editor"
+      %p.pagination__entries= page_entries_info @top_fixed_posts

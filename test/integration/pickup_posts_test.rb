@@ -9,7 +9,7 @@ class PickupPostTest < ActionDispatch::IntegrationTest
     create(:pickup_post, :whatever, order: 2, site: @site, post: create(:post, :whatever, :unpublished, title: 'Java', site: @site))
   end
 
-  test "show only publised post" do
+  test "show only published post" do
     visit "/"
 
     within ".pickup-articles" do
