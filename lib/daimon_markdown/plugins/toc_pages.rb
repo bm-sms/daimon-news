@@ -24,10 +24,8 @@ module DaimonMarkdown
         html = Nokogiri::HTML(render_markdown(original_text))
 
         toc_html = ""
-        items = []
+        toc_class = context[:toc_class] || "section-nav"
 
-        headers = Hash.new(0)
-        previous_level = 1
         page = 1
         condition = 1.upto(6).map {|n| "./following::h#{n}" }.join("|")
         page_separated_nodes = html.search("//comment()[contains(.,\"nextpage\")]").map do |comment_element|
@@ -35,43 +33,28 @@ module DaimonMarkdown
         end
 
         headers_per_page = Hash.new {|h, k| h[k] = [] }
+        ul_list = Hash.new {|h, k| h[k] = UnorderedList.new }
+        ul_list[1] = UnorderedList.new(html_class: toc_class)
         # rubocop:disable Metrics/BlockLength
         html.css("h1, h2, h3, h4, h5, h6").each do |header_node|
           page += 1 if page_separated_nodes.include?(header_node)
           headers_per_page[page] << header_node
-          level = header_node.name.tr("h", "").to_i
-          next if limit && limit < level
-          text = header_node.text
-          id = text.downcase
-          id.tr!(" ", "-")
-          id.gsub!(/\s/, "")
-
-          unique_id =
-            if headers[id] > 0
-              "#{id}-#{headers[id]}"
-            else
-              id
-            end
-          headers[id] += 1
-          header_content = header_node.children.first
-          # TODO: Arrange indent level
-          if header_content
-            diff = level - previous_level
-            case
-            when diff > 0
-              items.concat(["<ul>"] * diff)
-            when diff < 0
-              items.concat(["</ul>"] * diff.abs)
-            end
-            items <<
-              if page == 1
-                list_item(link_to("##{unique_id}", text))
+          header = Header.new(node: header_node, fullpath: fullpath, page: page)
+          next if limit && limit < header.level
+          next unless header.content?
+          header.unique_id = generate_unique_id(header.text)
+          unless ul_list.key?(header.level)
+            header.level.downto(2) do |n|
+              if ul_list[n - 1].items.empty?
+                li = ListItem.new
+                li << ul_list[n]
+                ul_list[n - 1] << li
               else
-                list_item(link_to("#{fullpath}?page=#{page}##{unique_id}", text))
+                ul_list[n - 1] << ul_list[n] unless ul_list[n - 1].items.include?(ul_list[n])
               end
-            header_node["id"] = unique_id
+            end
           end
-          previous_level = level
+          ul_list[header.level] << ListItem.new(header: header)
         end
 
         current_header_nodes = doc.css("h1, h2, h3, h4, h5, h6")
@@ -79,10 +62,9 @@ module DaimonMarkdown
           target_node["id"] = replaced_node["id"]
         end
 
-        toc_class = context[:toc_class] || "section-nav"
-        toc_header = context[:toc_header] || ""
-        unless items.empty?
-          toc_html = %Q(#{toc_header}<ul class="#{toc_class}">\n#{items.join("\n")}\n</ul>)
+        unless ul_list[1].items.empty?
+          toc_header = context[:toc_header] || ""
+          toc_html = "#{toc_header}#{ul_list[1].to_html}"
         end
 
         if current_page == 1
@@ -94,12 +76,92 @@ module DaimonMarkdown
 
       private
 
-      def link_to(href, text)
-        %Q(<a href="#{href}">#{text}</a>)
+      def generate_unique_id(text)
+        @headers ||= Hash.new(0)
+        id = text.downcase
+        id.tr!(" ", "-")
+        id.gsub!(/\s/, "")
+
+        unique_id =
+          if @headers[id] > 0
+            "#{id}-#{@headers[id]}"
+          else
+            id
+          end
+        @headers[id] += 1
+        unique_id
       end
 
-      def list_item(content)
-        "<li>#{content}</li>"
+      class Header
+        attr_reader :level, :text, :unique_id
+
+        def initialize(node:, fullpath:, page:)
+          @node = node
+          @level = node.name.tr("h", "").to_i
+          @text = node.text
+          @fullpath = fullpath
+          @page = page
+          @unique_id = ""
+        end
+
+        def unique_id=(id)
+          @node["id"] = id
+          @unique_id = id
+        end
+
+        def content?
+          @node.children.first
+        end
+
+        def link
+          if @page == 1
+            %Q(<a href="##{unique_id}">#{text}</a>)
+          else
+            %Q(<a href="#{@fullpath}?page=#{@page}##{unique_id}">#{text}</a>)
+          end
+        end
+      end
+
+      class UnorderedList
+        attr_reader :items
+
+        def initialize(html_class: nil)
+          @html_class = html_class
+          @items = []
+        end
+
+        def <<(item)
+          @items << item
+        end
+
+        def to_html
+          if @html_class
+            %Q(<ul class="#{@html_class}">\n#{@items.map(&:to_html).join("\n")}\n</ul>)
+          else
+            %Q(<ul>\n#{@items.map(&:to_html).join("\n")}\n</ul>)
+          end
+        end
+      end
+
+      class ListItem
+        attr_reader :items
+
+        def initialize(header: nil)
+          @header = header
+          @items = []
+        end
+
+        def <<(item)
+          @items << item
+        end
+
+        def to_html
+          if @items.empty?
+            %Q(<li>#{@header.link}</li>)
+          else
+            %Q(<li>#{@items.map(&:to_html).join("\n")}\n</li>)
+          end
+        end
       end
     end
   end
