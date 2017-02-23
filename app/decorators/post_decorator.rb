@@ -14,7 +14,7 @@ module PostDecorator
   def to_structure_markup
     {
       "@context": "http://schema.org",
-      "@type": "NewsArticle",
+      "@type": "Article",
       "headline": title,
       "image": {
         "@type": "ImageObject",
