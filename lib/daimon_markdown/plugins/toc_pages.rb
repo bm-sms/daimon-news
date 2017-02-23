@@ -14,11 +14,12 @@ module DaimonMarkdown
 
         original_text = context[:original_text]
         fullpath = context[:fullpath]
-        current_page = if context.key?(:current_page)
-                         context[:current_page].to_i
-                       else
-                         1
-                       end
+        current_page =
+          if context.key?(:current_page)
+            context[:current_page].to_i
+          else
+            1
+          end
 
         html = Nokogiri::HTML(render_markdown(original_text))
 
@@ -46,11 +47,12 @@ module DaimonMarkdown
           id.tr!(/ /, "-")
           id.gsub!(/\s/, "")
 
-          if headers[id] > 0
-            unique_id = "#{id}-#{headers[id]}"
-          else
-            unique_id = id
-          end
+          unique_id =
+            if headers[id] > 0
+              "#{id}-#{headers[id]}"
+            else
+              id
+            end
           headers[id] += 1
           header_content = header_node.children.first
           # TODO: Arrange indent level
@@ -62,11 +64,12 @@ module DaimonMarkdown
             when diff < 0
               items.concat(["</ul>"] * diff.abs)
             end
-            if page == 1
-              items << list_item(link_to("##{unique_id}", text))
-            else
-              items << list_item(link_to("#{fullpath}?page=#{page}##{unique_id}", text))
-            end
+            items <<
+              if page == 1
+                list_item(link_to("##{unique_id}", text))
+              else
+                list_item(link_to("#{fullpath}?page=#{page}##{unique_id}", text))
+              end
             header_node["id"] = unique_id
           end
           previous_level = level
