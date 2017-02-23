@@ -1,4 +1,4 @@
-after "development:redirect_rules" do
+after "development:sites" do
   site = Site.find_by!(name: "site1")
 
   site.redirect_rules.create!(

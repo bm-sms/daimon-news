@@ -14,6 +14,8 @@ class Post < ActiveRecord::Base
   has_many :categorizations, -> { ordered }, dependent: :destroy
   has_many :categories, through: :categorizations
   has_many :pickup_posts, dependent: :destroy
+  has_many :popular_posts, dependent: :destroy
+  has_many :top_fixed_posts, dependent: :destroy
 
   validates :public_id, uniqueness: {scope: :site_id}
   validates :body, presence: true
@@ -29,6 +31,7 @@ class Post < ActiveRecord::Base
     category_ids = category.has_children? ? category.subtree_ids : [category.id]
     joins(:categories).where("categories.id" => category_ids).uniq
   }
+  scope :fixed, -> { joins(:top_fixed_posts).order('top_fixed_posts.order') }
 
   accepts_nested_attributes_for :credits, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :categorizations, reject_if: :all_blank, allow_destroy: true

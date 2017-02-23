@@ -19,7 +19,10 @@
 
 %section
   = render 'banner', position: :press_articles_top
-  %ul
+  %ul.press-articles
+    - if first_page?
+      - @top_fixed_posts.each do |post|
+        = render 'posts/summary_with_content', post: post
     - @posts.each do |post|
       = render 'posts/summary_with_content', post: post
     = render 'native_ad', position: :press_articles_bottom

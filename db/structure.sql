@@ -2,11 +2,12 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.6.1
+-- Dumped by pg_dump version 9.6.1
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -370,6 +371,39 @@ ALTER SEQUENCE pickup_posts_id_seq OWNED BY pickup_posts.id;
 
 
 --
+-- Name: popular_posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE popular_posts (
+    id integer NOT NULL,
+    site_id integer NOT NULL,
+    rank integer NOT NULL,
+    post_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: popular_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE popular_posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: popular_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE popular_posts_id_seq OWNED BY popular_posts.id;
+
+
+--
 -- Name: posts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -518,7 +552,10 @@ CREATE TABLE sites (
     base_hue integer,
     custom_hue_css character varying,
     public_participant_page_enabled boolean DEFAULT false NOT NULL,
-    hierarchical_categories_enabled boolean DEFAULT false NOT NULL
+    hierarchical_categories_enabled boolean DEFAULT false NOT NULL,
+    analytics_viewid character varying,
+    ranking_dimension character varying,
+    ranking_size integer DEFAULT 5
 );
 
 
@@ -539,6 +576,39 @@ CREATE SEQUENCE sites_id_seq
 --
 
 ALTER SEQUENCE sites_id_seq OWNED BY sites.id;
+
+
+--
+-- Name: top_fixed_posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE top_fixed_posts (
+    id integer NOT NULL,
+    site_id integer NOT NULL,
+    post_id integer NOT NULL,
+    "order" integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: top_fixed_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE top_fixed_posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: top_fixed_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE top_fixed_posts_id_seq OWNED BY top_fixed_posts.id;
 
 
 --
@@ -584,112 +654,126 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: categorizations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY categorizations ALTER COLUMN id SET DEFAULT nextval('categorizations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: credit_roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY credit_roles ALTER COLUMN id SET DEFAULT nextval('credit_roles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: credits id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY credits ALTER COLUMN id SET DEFAULT nextval('credits_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: fixed_pages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY fixed_pages ALTER COLUMN id SET DEFAULT nextval('fixed_pages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: images id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY images ALTER COLUMN id SET DEFAULT nextval('images_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: links id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY links ALTER COLUMN id SET DEFAULT nextval('links_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: memberships id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY memberships ALTER COLUMN id SET DEFAULT nextval('memberships_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: participants id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY participants ALTER COLUMN id SET DEFAULT nextval('participants_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: pickup_posts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pickup_posts ALTER COLUMN id SET DEFAULT nextval('pickup_posts_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: popular_posts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY popular_posts ALTER COLUMN id SET DEFAULT nextval('popular_posts_id_seq'::regclass);
+
+
+--
+-- Name: posts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts ALTER COLUMN id SET DEFAULT nextval('posts_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: redirect_rules id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY redirect_rules ALTER COLUMN id SET DEFAULT nextval('redirect_rules_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: serials id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY serials ALTER COLUMN id SET DEFAULT nextval('serials_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: sites id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sites ALTER COLUMN id SET DEFAULT nextval('sites_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: top_fixed_posts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY top_fixed_posts ALTER COLUMN id SET DEFAULT nextval('top_fixed_posts_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY categories
@@ -697,7 +781,7 @@ ALTER TABLE ONLY categories
 
 
 --
--- Name: categorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: categorizations categorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY categorizations
@@ -705,7 +789,7 @@ ALTER TABLE ONLY categorizations
 
 
 --
--- Name: credit_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: credit_roles credit_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY credit_roles
@@ -713,7 +797,7 @@ ALTER TABLE ONLY credit_roles
 
 
 --
--- Name: credits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: credits credits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY credits
@@ -721,7 +805,7 @@ ALTER TABLE ONLY credits
 
 
 --
--- Name: fixed_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: fixed_pages fixed_pages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY fixed_pages
@@ -729,7 +813,7 @@ ALTER TABLE ONLY fixed_pages
 
 
 --
--- Name: images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY images
@@ -737,7 +821,7 @@ ALTER TABLE ONLY images
 
 
 --
--- Name: links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: links links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY links
@@ -745,7 +829,7 @@ ALTER TABLE ONLY links
 
 
 --
--- Name: memberships_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: memberships memberships_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY memberships
@@ -753,7 +837,7 @@ ALTER TABLE ONLY memberships
 
 
 --
--- Name: participants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: participants participants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY participants
@@ -761,7 +845,7 @@ ALTER TABLE ONLY participants
 
 
 --
--- Name: pickup_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pickup_posts pickup_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pickup_posts
@@ -769,7 +853,15 @@ ALTER TABLE ONLY pickup_posts
 
 
 --
--- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: popular_posts popular_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY popular_posts
+    ADD CONSTRAINT popular_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: posts posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts
@@ -777,7 +869,7 @@ ALTER TABLE ONLY posts
 
 
 --
--- Name: redirect_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: redirect_rules redirect_rules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY redirect_rules
@@ -785,7 +877,7 @@ ALTER TABLE ONLY redirect_rules
 
 
 --
--- Name: serials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: serials serials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY serials
@@ -793,7 +885,7 @@ ALTER TABLE ONLY serials
 
 
 --
--- Name: sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sites sites_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY sites
@@ -801,7 +893,15 @@ ALTER TABLE ONLY sites
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: top_fixed_posts top_fixed_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY top_fixed_posts
+    ADD CONSTRAINT top_fixed_posts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -942,6 +1042,27 @@ CREATE INDEX index_pickup_posts_on_site_id_and_order ON pickup_posts USING btree
 
 
 --
+-- Name: index_popular_posts_on_post_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_popular_posts_on_post_id ON popular_posts USING btree (post_id);
+
+
+--
+-- Name: index_popular_posts_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_popular_posts_on_site_id ON popular_posts USING btree (site_id);
+
+
+--
+-- Name: index_popular_posts_on_site_id_and_rank; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_popular_posts_on_site_id_and_rank ON popular_posts USING btree (site_id, rank);
+
+
+--
 -- Name: index_posts_on_published_at_and_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1005,6 +1126,27 @@ CREATE INDEX index_serials_on_site_id ON serials USING btree (site_id);
 
 
 --
+-- Name: index_top_fixed_posts_on_post_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_top_fixed_posts_on_post_id ON top_fixed_posts USING btree (post_id);
+
+
+--
+-- Name: index_top_fixed_posts_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_top_fixed_posts_on_site_id ON top_fixed_posts USING btree (site_id);
+
+
+--
+-- Name: index_top_fixed_posts_on_site_id_and_order; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_top_fixed_posts_on_site_id_and_order ON top_fixed_posts USING btree (site_id, "order");
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1026,7 +1168,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: fk_rails_0311c006db; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: credits fk_rails_0311c006db; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY credits
@@ -1034,7 +1176,7 @@ ALTER TABLE ONLY credits
 
 
 --
--- Name: fk_rails_0d1e104012; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: posts fk_rails_0d1e104012; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts
@@ -1042,7 +1184,7 @@ ALTER TABLE ONLY posts
 
 
 --
--- Name: fk_rails_153f1813ed; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: redirect_rules fk_rails_153f1813ed; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY redirect_rules
@@ -1050,7 +1192,15 @@ ALTER TABLE ONLY redirect_rules
 
 
 --
--- Name: fk_rails_400f45177e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: top_fixed_posts fk_rails_249328960e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY top_fixed_posts
+    ADD CONSTRAINT fk_rails_249328960e FOREIGN KEY (post_id) REFERENCES posts(id);
+
+
+--
+-- Name: fixed_pages fk_rails_400f45177e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY fixed_pages
@@ -1058,7 +1208,7 @@ ALTER TABLE ONLY fixed_pages
 
 
 --
--- Name: fk_rails_5a40b79a1d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: categorizations fk_rails_5a40b79a1d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY categorizations
@@ -1066,7 +1216,7 @@ ALTER TABLE ONLY categorizations
 
 
 --
--- Name: fk_rails_5b5330057c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: credit_roles fk_rails_5b5330057c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY credit_roles
@@ -1074,7 +1224,15 @@ ALTER TABLE ONLY credit_roles
 
 
 --
--- Name: fk_rails_6c24d54d2a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: top_fixed_posts fk_rails_6824386153; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY top_fixed_posts
+    ADD CONSTRAINT fk_rails_6824386153 FOREIGN KEY (site_id) REFERENCES sites(id);
+
+
+--
+-- Name: memberships fk_rails_6c24d54d2a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY memberships
@@ -1082,7 +1240,15 @@ ALTER TABLE ONLY memberships
 
 
 --
--- Name: fk_rails_6dc26c2c8d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: popular_posts fk_rails_6d6350e28e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY popular_posts
+    ADD CONSTRAINT fk_rails_6d6350e28e FOREIGN KEY (post_id) REFERENCES posts(id);
+
+
+--
+-- Name: credits fk_rails_6dc26c2c8d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY credits
@@ -1090,7 +1256,7 @@ ALTER TABLE ONLY credits
 
 
 --
--- Name: fk_rails_99326fb65d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: memberships fk_rails_99326fb65d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY memberships
@@ -1098,7 +1264,7 @@ ALTER TABLE ONLY memberships
 
 
 --
--- Name: fk_rails_9f519866d2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: serials fk_rails_9f519866d2; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY serials
@@ -1106,7 +1272,7 @@ ALTER TABLE ONLY serials
 
 
 --
--- Name: fk_rails_ab9555028f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: credits fk_rails_ab9555028f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY credits
@@ -1114,7 +1280,15 @@ ALTER TABLE ONLY credits
 
 
 --
--- Name: fk_rails_b8e98104ef; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: popular_posts fk_rails_b2e9222973; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY popular_posts
+    ADD CONSTRAINT fk_rails_b2e9222973 FOREIGN KEY (site_id) REFERENCES sites(id);
+
+
+--
+-- Name: pickup_posts fk_rails_b8e98104ef; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pickup_posts
@@ -1122,7 +1296,7 @@ ALTER TABLE ONLY pickup_posts
 
 
 --
--- Name: fk_rails_c3f4777003; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: categorizations fk_rails_c3f4777003; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY categorizations
@@ -1130,7 +1304,7 @@ ALTER TABLE ONLY categorizations
 
 
 --
--- Name: fk_rails_c62c2fc171; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: links fk_rails_c62c2fc171; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY links
@@ -1138,7 +1312,7 @@ ALTER TABLE ONLY links
 
 
 --
--- Name: fk_rails_db7f8b9862; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: participants fk_rails_db7f8b9862; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY participants
@@ -1146,7 +1320,7 @@ ALTER TABLE ONLY participants
 
 
 --
--- Name: fk_rails_de90ba744d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: posts fk_rails_de90ba744d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY posts
@@ -1154,7 +1328,7 @@ ALTER TABLE ONLY posts
 
 
 --
--- Name: fk_rails_e49900da6c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: pickup_posts fk_rails_e49900da6c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY pickup_posts
@@ -1162,7 +1336,7 @@ ALTER TABLE ONLY pickup_posts
 
 
 --
--- Name: fk_rails_fc5c9b486e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: images fk_rails_fc5c9b486e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY images
@@ -1376,4 +1550,10 @@ INSERT INTO schema_migrations (version) VALUES ('20160804090315');
 INSERT INTO schema_migrations (version) VALUES ('20161003075535');
 
 INSERT INTO schema_migrations (version) VALUES ('20161121030518');
+
+INSERT INTO schema_migrations (version) VALUES ('20170118022543');
+
+INSERT INTO schema_migrations (version) VALUES ('20170118082036');
+
+INSERT INTO schema_migrations (version) VALUES ('20170210061653');
 
