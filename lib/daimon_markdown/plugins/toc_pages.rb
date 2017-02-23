@@ -43,7 +43,7 @@ module DaimonMarkdown
           next if limit && limit < level
           text = header_node.text
           id = text.downcase
-          id.gsub!(/ /, "-")
+          id.tr!(/ /, "-")
           id.gsub!(/\s/, "")
 
           if headers[id] > 0
