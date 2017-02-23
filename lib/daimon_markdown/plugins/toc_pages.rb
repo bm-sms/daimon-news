@@ -100,7 +100,7 @@ module DaimonMarkdown
       end
 
       def list_item(content)
-        %Q(<li>#{content}</li>)
+        "<li>#{content}</li>"
       end
     end
   end
