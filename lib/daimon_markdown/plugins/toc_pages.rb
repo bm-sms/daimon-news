@@ -31,7 +31,7 @@ module DaimonMarkdown
         page = 1
         condition = 1.upto(6).map {|n| "./following::h#{n}" }.join("|")
         page_separated_nodes = html.search("//comment()[contains(.,\"nextpage\")]").map do |comment_element|
-          comment_element.search(condition).first
+          comment_element.at(condition)
         end
 
         headers_per_page = Hash.new {|h, k| h[k] = [] }
