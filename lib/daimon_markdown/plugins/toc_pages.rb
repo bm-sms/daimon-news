@@ -44,7 +44,7 @@ module DaimonMarkdown
           next if limit && limit < level
           text = header_node.text
           id = text.downcase
-          id.tr!(/ /, "-")
+          id.tr!(" ", "-")
           id.gsub!(/\s/, "")
 
           unique_id =
