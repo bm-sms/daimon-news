@@ -11,6 +11,18 @@ module PostDecorator
     "#{public_id}: #{title}"
   end
 
+  def to_structure_markup
+    {
+      "@context": "http://schema.org",
+      "@type": "NewsArticle",
+      "headline": title,
+      "image": {
+        "@type": "ImageObject",
+        "url": thumbnail_url
+      }
+    }
+  end
+
   def to_og_params
     {
       locale: "ja_JP",
