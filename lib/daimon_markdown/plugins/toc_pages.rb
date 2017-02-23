@@ -29,7 +29,6 @@ module DaimonMarkdown
         headers = Hash.new(0)
         previous_level = 1
         page = 1
-        page_separated_nodes = []
         condition = 1.upto(6).map {|n| "./following::h#{n}" }.join("|")
         page_separated_nodes = html.search("//comment()[contains(.,\"nextpage\")]").map do |comment_element|
           comment_element.search(condition).first
