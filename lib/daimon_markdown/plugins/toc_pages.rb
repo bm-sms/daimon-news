@@ -35,7 +35,6 @@ module DaimonMarkdown
         headers_per_page = Hash.new {|h, k| h[k] = [] }
         ul_list = Hash.new {|h, k| h[k] = UnorderedList.new }
         ul_list[1] = UnorderedList.new(html_class: toc_class)
-        # rubocop:disable Metrics/BlockLength
         html.css("h1, h2, h3, h4, h5, h6").each do |header_node|
           page += 1 if page_separated_nodes.include?(header_node)
           headers_per_page[page] << header_node
@@ -157,7 +156,7 @@ module DaimonMarkdown
 
         def to_html
           if @items.empty?
-            %Q(<li>#{@header.link}</li>)
+            "<li>#{@header.link}</li>"
           else
             %Q(<li>#{@items.map(&:to_html).join("\n")}\n</li>)
           end
