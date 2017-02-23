@@ -5,6 +5,10 @@ module DaimonMarkdown
 
       include MarkdownHelper
 
+      # rubocop:disable Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity
+      # rubocop:disable Metrics/AbcSize
+      # rubocop:disable Metrics/PerceivedComplexity
       def call(limit = nil)
         return unless context.key?(:original_text)
 
@@ -31,6 +35,7 @@ module DaimonMarkdown
         end
 
         headers_per_page = Hash.new {|h, k| h[k] = [] }
+        # rubocop:disable Metrics/BlockLength
         html.css("h1, h2, h3, h4, h5, h6").each do |header_node|
           page += 1 if page_separated_nodes.include?(header_node)
           headers_per_page[page] << header_node
