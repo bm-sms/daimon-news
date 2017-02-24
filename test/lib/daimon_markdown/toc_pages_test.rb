@@ -44,11 +44,13 @@ class TocPagesTest < ActiveSupport::TestCase
 
       expected_toc_html = <<~HTML.chomp
       <ul class="section-nav">
-      <li><a href="#title">title</a></li>
+      <li>
+      <a href="#title">title</a>
       <ul>
       <li><a href="#title-2">title 2</a></li>
       <li><a href="#title-3">title 3</a></li>
       </ul>
+      </li>
       </ul>
       HTML
       expected_header_ids = ["title", "title-2", "title-3"]
@@ -68,11 +70,13 @@ class TocPagesTest < ActiveSupport::TestCase
 
       expected_toc_html = <<~HTML.chomp
       <ul class="section-nav">
-      <li><a href="#title">title</a></li>
+      <li>
+      <a href="#title">title</a>
       <ul>
       <li><a href="/#{post.public_id}?page=2#title-2">title 2</a></li>
       <li><a href="/#{post.public_id}?page=3#title-3">title 3</a></li>
       </ul>
+      </li>
       </ul>
       HTML
       expected_header_ids = ["title"]
@@ -162,15 +166,19 @@ class TocPagesTest < ActiveSupport::TestCase
 
       expected_toc_html = <<~HTML.chomp
       <ul class="section-nav">
-      <li><a href="#title">title</a></li>
+      <li>
+      <a href="#title">title</a>
       <ul>
       <li><a href="/#{post.public_id}?page=2#title-2">title 2</a></li>
-      <li><a href="/#{post.public_id}?page=3#title-3">title 3</a></li>
+      <li>
+      <a href="/#{post.public_id}?page=3#title-3">title 3</a>
       <ul>
       <li><a href="/#{post.public_id}?page=3#title-3-1">title 3-1</a></li>
       <li><a href="/#{post.public_id}?page=3#title-3-2">title 3-2</a></li>
       </ul>
+      </li>
       </ul>
+      </li>
       </ul>
       HTML
       expected_toc_html = "" if page > 1

@@ -35,6 +35,7 @@ module DaimonMarkdown
         headers_per_page = Hash.new {|h, k| h[k] = [] }
         ul_list = Hash.new {|h, k| h[k] = UnorderedList.new }
         ul_list[1] = UnorderedList.new(html_class: toc_class)
+        previous_level = 1
         html.css("h1, h2, h3, h4, h5, h6").each do |header_node|
           page += 1 if page_separated_nodes.include?(header_node)
           headers_per_page[page] << header_node
@@ -42,18 +43,15 @@ module DaimonMarkdown
           next if limit && limit < header.level
           next unless header.content?
           header.unique_id = generate_unique_id(header.text)
-          unless ul_list.key?(header.level)
-            header.level.downto(2) do |n|
-              if ul_list[n - 1].items.empty?
-                li = ListItem.new
-                li << ul_list[n]
-                ul_list[n - 1] << li
-              else
-                ul_list[n - 1] << ul_list[n] unless ul_list[n - 1].items.include?(ul_list[n])
-              end
+          if header.level - previous_level > 0
+            (previous_level + 1).upto(header.level) do |level|
+              ul_list[level - 1] << ul_list[level]
             end
+          else
+            # do nothing
           end
           ul_list[header.level] << ListItem.new(header: header)
+          previous_level = header.level
         end
 
         current_header_nodes = doc.css("h1, h2, h3, h4, h5, h6")
@@ -89,6 +87,12 @@ module DaimonMarkdown
           end
         @headers[id] += 1
         unique_id
+      end
+
+      class EmptyHeader
+        def link
+          ""
+        end
       end
 
       class Header
@@ -130,7 +134,16 @@ module DaimonMarkdown
         end
 
         def <<(item)
-          @items << item
+          case
+          when item.is_a?(UnorderedList) && @items.last.is_a?(ListItem)
+            @items.last << item
+          when item.is_a?(UnorderedList) && @items.last.nil?
+            li = ListItem.new
+            li << item
+            @items << li
+          else
+            @items << item
+          end
         end
 
         def to_html
@@ -145,7 +158,7 @@ module DaimonMarkdown
       class ListItem
         attr_reader :items
 
-        def initialize(header: nil)
+        def initialize(header: EmptyHeader.new)
           @header = header
           @items = []
         end
@@ -158,7 +171,7 @@ module DaimonMarkdown
           if @items.empty?
             "<li>#{@header.link}</li>"
           else
-            %Q(<li>#{@items.map(&:to_html).join("\n")}\n</li>)
+            %Q(<li>#{@header.link}\n#{@items.map(&:to_html).join("\n")}\n</li>)
           end
         end
       end
