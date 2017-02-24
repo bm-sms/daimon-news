@@ -47,8 +47,6 @@ module DaimonMarkdown
             (previous_level + 1).upto(header.level) do |level|
               ul_list[level - 1] << ul_list[level]
             end
-          else
-            # do nothing
           end
           ul_list[header.level] << ListItem.new(header: header)
           previous_level = header.level
