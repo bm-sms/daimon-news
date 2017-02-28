@@ -192,7 +192,7 @@ class TocPagesTest < ActiveSupport::TestCase
 
     test "extra white spaces in page separator" do
       # in this case page separator doesn't work
-      body =<<~BODY
+      body = <<~BODY
       {{toc_pages}}
 
       # Hello
