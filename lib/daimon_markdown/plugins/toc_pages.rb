@@ -53,6 +53,9 @@ module DaimonMarkdown
         end
 
         current_header_nodes = doc.css("h1, h2, h3, h4, h5, h6")
+        if current_header_nodes.size != headers_per_page[current_page].size
+          raise DaimonMarkdown::Plugin::Error, "Number of headers are not matched. Check your markdown source."
+        end
         current_header_nodes.zip(headers_per_page[current_page]) do |target_node, replaced_node|
           target_node["id"] = replaced_node["id"]
         end

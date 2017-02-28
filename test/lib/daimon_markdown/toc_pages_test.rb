@@ -189,6 +189,39 @@ class TocPagesTest < ActiveSupport::TestCase
       context[:current_page] = page if page > 1
       assert_toc(expected_toc_html, expected_header_ids, markdown, context)
     end
+
+    test "extra white spaces in page separator" do
+      # in this case page separator doesn't work
+      body =<<~BODY
+      {{toc_pages}}
+
+      # Hello
+      hi !
+
+      <!--nextpage -->
+
+      ## h2
+
+      a
+
+      ### h3
+
+      b
+      BODY
+      post = create(:post, :whatever, body: body)
+      markdown = post.body.split(/#{Regexp.quote(Page::SEPARATOR)}/)[0]
+      context = {
+        original_text: post.body,
+        fullpath: "/#{post.public_id}",
+      }
+      result = process_markdown(markdown, context)
+      message = result[:output].at("pre").to_s.lines.take(2).join
+      expected_message = <<~MESSAGE
+      <pre>Error occured in DaimonMarkdown::Plugin::TableOfContentsPages
+      {{toc_pages}} (DaimonMarkdown::Plugin::Error: Number of headers are not matched. Check your markdown source.)
+      MESSAGE
+      assert_equal(expected_message, message)
+    end
   end
 
   private
