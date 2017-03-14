@@ -22,7 +22,7 @@ class SiteTest < ActiveSupport::TestCase
       create(:fixed_page, site: @site)
       create(:link,       site: @site)
       create(:membership, site: @site)
-      @site.redirect_rules.create!(request_path: "/foo", destination: "/bar")
+      create(:redirect_rule, :whatever, site: @site)
 
       create(:pickup_post,    :whatever, post: @post, site: @site)
       create(:popular_post,   :whatever, post: @post, site: @site)
@@ -47,6 +47,7 @@ class SiteTest < ActiveSupport::TestCase
       assert_equal(1, PopularPost.count)
       assert_equal(1, TopFixedPost.count)
 
+      @site.reload
       @site.destroy
 
       assert_equal(0, Site.count)
