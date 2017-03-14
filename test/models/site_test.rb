@@ -13,22 +13,59 @@ class SiteTest < ActiveSupport::TestCase
   sub_test_case "relation" do
     setup do
       @site = create(:site)
-      @post = create(:post, :whatever, site: @site)
+      @post = create(:post, :whatever, :with_credit, site: @site)
       Tempfile.open do |file|
         @site.images.create!(image: file)
       end
+      create(:serial, site: @site)
+
+      create(:fixed_page, site: @site)
+      create(:link,       site: @site)
+      create(:membership, site: @site)
+      create(:redirect_rule, :whatever, site: @site)
+
+      create(:pickup_post,    :whatever, post: @post, site: @site)
+      create(:popular_post,   :whatever, post: @post, site: @site)
+      create(:top_fixed_post, :whatever, post: @post, site: @site)
     end
 
     test "destroy site" do
       assert_equal(1, Site.count)
-      assert_equal(1, Category.count)
       assert_equal(1, Post.count)
       assert_equal(1, Image.count)
+      assert_equal(1, Serial.count)
+      assert_equal(1, Category.count)
+      assert_equal(1, CreditRole.count)
+      assert_equal(1, Participant.count)
+
+      assert_equal(1, FixedPage.count)
+      assert_equal(1, Link.count)
+      assert_equal(1, Membership.count)
+      assert_equal(1, RedirectRule.count)
+
+      assert_equal(1, PickupPost.count)
+      assert_equal(1, PopularPost.count)
+      assert_equal(1, TopFixedPost.count)
+
+      @site.reload
       @site.destroy
+
       assert_equal(0, Site.count)
-      assert_equal(0, Category.count)
       assert_equal(0, Post.count)
       assert_equal(0, Image.count)
+      assert_equal(0, Serial.count)
+      assert_equal(0, Category.count)
+      assert_equal(0, CreditRole.count)
+      assert_equal(0, Participant.count)
+
+      assert_equal(0, FixedPage.count)
+      assert_equal(0, Link.count)
+      assert_equal(0, Membership.count)
+      assert_equal(0, RedirectRule.count)
+
+      assert_equal(0, PickupPost.count)
+      assert_equal(0, PopularPost.count)
+      assert_equal(0, TopFixedPost.count)
     end
   end
 
