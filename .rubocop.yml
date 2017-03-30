@@ -14,6 +14,9 @@ Metrics/LineLength:
 Metrics/ClassLength:
   Exclude:
     - "test/**/*.rb"
+Metrics/BlockLength:
+  Exclude:
+    - "test/**/*.rb"
 Metrics/ParameterLists:
   Max: 7
 Metrics/MethodLength:
@@ -64,4 +67,6 @@ Style/BlockDelimiters:
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/EmptyCaseCondition:
+  Enabled: false
+Style/NumericPredicate:
   Enabled: false

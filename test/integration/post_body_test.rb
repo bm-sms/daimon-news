@@ -20,6 +20,33 @@ class PostBodyHeaderTest < ActionDispatch::IntegrationTest
   end
 end
 
+class PostBodyMarkdownTest < ActionDispatch::IntegrationTest
+  setup do
+    @post = create(:post, :whatever, :with_pages_toc1)
+    switch_domain(@post.site.fqdn)
+  end
+
+  test "toc_pages" do
+    visit "/#{@post.public_id}"
+
+    within ".post__body" do
+      toc = page.find("ul.section-nav")
+      assert_equal("#title", toc.first("li a")["href"])
+      a1, a2 = *toc.all("ul li a")
+      assert_equal("/#{@post.public_id}?page=2#title-2", a1["href"])
+      assert_equal("/#{@post.public_id}?page=3#title-3", a2["href"])
+    end
+  end
+
+  test "toc_pages page 2" do
+    visit "/#{@post.public_id}?page=2"
+
+    within ".post__body" do
+      assert { !page.has_css?("ul.section-nav") }
+    end
+  end
+end
+
 class PostBodyNewLineTest < ActionDispatch::IntegrationTest
   setup do
     @post = create(:post, :whatever, body: <<~EOS.encode(crlf_newline: true))

@@ -48,6 +48,76 @@ FactoryGirl.define do
       BODY
     end
 
+    trait :with_single_page_toc do
+      body <<~BODY
+        {{ toc_pages }}
+
+        # title
+
+        body
+
+        ## title 2
+
+        hello
+
+        ## title 3
+
+        world
+      BODY
+    end
+
+    trait :with_pages_toc1 do
+      body <<~BODY
+        {{ toc_pages }}
+
+        # title
+
+        body
+
+        <!--nextpage-->
+
+        {{ toc_pages }}
+
+        ## title 2
+
+        hello
+
+        <!--nextpage-->
+
+        {{ toc_pages }}
+
+        ## title 3
+
+        world
+      BODY
+    end
+
+    trait :with_pages_toc2 do
+      body <<~BODY
+        {{ toc_pages }}
+
+        # title
+
+        body
+
+        <!--nextpage-->
+
+        ## title 2
+
+        hello
+
+        {{ toc_pages }}
+
+        <!--nextpage-->
+
+        ## title 3
+
+        world
+
+        {{ toc_pages }}
+      BODY
+    end
+
     trait :with_credit do
       before :create do |post, _evaluator|
         post.credits << build(:credit, :whatever, site: post.site)
