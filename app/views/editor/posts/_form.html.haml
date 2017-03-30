@@ -13,17 +13,17 @@
   end
 
 = bootstrap_form_for @post, url: url, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10' do |f|
-  = f.text_field :title
-  = f.text_area :body, class: "markdown-editor", data: {upload_path: editor_images_url}
+  = f.text_field :title, label: {text: t("editor.sites.posts.title")}
+  = f.text_area :body, label: {text: t("editor.sites.posts.body")}, class: "markdown-editor", data: {upload_path: editor_images_url}
   - if current_site.credit_enabled?
-    = f.form_group label: {text: :credits}, help: "クレジットとして表示する執筆関係者を選択します" do
+    = f.form_group label: {text: t("editor.sites.posts.credits")}, help: "クレジットとして表示する執筆関係者を選択します" do
       = f.fields_for :credits do |ff|
         = render 'credit_fields', f: ff
 
       .links
         = link_to_add_association 'Add credit', f, :credits, class: 'btn btn-default pull-right'
 
-  = f.form_group label: {text: "Categories"}, help: "カテゴリを追加します" do
+  = f.form_group label: {text: t("editor.sites.posts.categories")}, help: "カテゴリを追加します" do
     = f.fields_for :categorizations do |ff|
       = render 'categorization_fields', f: ff
 
@@ -34,11 +34,11 @@
       = link_to_add_association 'Add category', f, :categorizations, class: 'btn btn-default pull-right'
 
   = f.collection_select :serial_id, current_site.serials, :id, :title, {include_blank: true}, {class: "select2", "data-select2-allow-clear": true}
-  = f.file_field :thumbnail, help: "300px x 300px 程度の正方形の画像を指定します"
+  = f.file_field :thumbnail, label: {text: t("editor.sites.posts.thumbnail")}, help: "300px x 300px 程度の正方形の画像を指定します"
   - if @post.thumbnail.present?
     = f.form_group do
       = image_tag @post.thumbnail_url, height: 80
-  = f.datetime_local_field :published_at, help: "公開時刻を指定します。未来の時刻を指定すると予約投稿できます。空のままにしておくと記事は公開されません。"
+  = f.datetime_local_field :published_at, label: {text: t("editor.sites.posts.published_at")}, help: "公開時刻を指定します。未来の時刻を指定すると予約投稿できます。空のままにしておくと記事は公開されません。"
 
   = f.form_group do
     = f.submit
