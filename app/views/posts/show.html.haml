@@ -9,6 +9,7 @@
 - breadcrumb :post, @post
 - set_meta_tags title: page_title, description: @post.to_meta_description, og: @post.to_og_params, article: @post.to_article_params
 - set_meta_tags og: {url: canonical_url, title: "#{page_title} | #{current_site.name}"}
+= render 'posts/structure_markup', post: @post
 
 - cache [@post, params.slice(:page, :all)], expires_in: 1.minutes do
   %article.post
