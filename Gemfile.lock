@@ -367,7 +367,7 @@ GEM
       sass (>= 3.3)
       thor (~> 0.19)
     newrelic_rpm (3.18.1.330)
-    nokogiri (1.7.0.1)
+    nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     order_as_specified (1.2)
       activerecord (>= 4.0.1)
@@ -627,6 +627,7 @@ DEPENDENCIES
   launchy
   meta-tags
   newrelic_rpm
+  nokogiri (>= 1.7.1)
   order_as_specified
   pg
   poltergeist
@@ -665,6 +666,5 @@ DEPENDENCIES
 
 RUBY VERSION
    ruby 2.3.3p222
-
 BUNDLED WITH
    1.14.3
