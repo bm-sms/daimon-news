@@ -1,6 +1,6 @@
 :ruby
-  canonical_url = @post.canonical_url(@pages)
-  page_title = @post.page_title(@pages)
+  canonical_url = @post.canonical_url
+  page_title = @post.page_title
 
 - if @pages.total_pages > 1
   - content_for(:rel_next_prev_link_tags) { rel_next_prev_link_tags(@pages) }

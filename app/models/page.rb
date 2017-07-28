@@ -3,9 +3,7 @@ class Page
 
   class << self
     def pages_for(text)
-      pages = text.split(SEPARATOR).map {|t| new(t) }
-
-      Kaminari.paginate_array(pages)
+      Kaminari.paginate_array([new(text)])
     end
   end
 
